@@ -183,8 +183,10 @@ class ProfileFormTest(TestCase):
         self.profile.last_name = "Doe"
         self.profile.save()
 
-        self.profile_usernames = list(Profile.objects.all().values_list("username", flat=True))
-        self.profile_emails = list(Profile.objects.all().values_list("email", flat=True))
+        self.profile_usernames = list(Profile.objects.all().exclude(
+            username=self.profile.username).values_list("username", flat=True))
+        self.profile_emails = list(Profile.objects.all().exclude(
+            email=self.profile.email).values_list("email", flat=True))
         self.form = ProfileForm(profile_usernames=self.profile_usernames,
                                 profile_emails=self.profile_emails)
         self.fields = [
@@ -349,8 +351,8 @@ class ProfileFormTest(TestCase):
         for key, value in new_data.items():
             payload[key] = value
         form = ProfileForm(data=payload,
-                           profile_usernames=self.profile_usernames,
-                           profile_emails=self.profile_emails)
+                           profile_usernames=["johndoe123"],
+                           profile_emails=["johndoe@example.com"])
         if name == "All good data (checkup)":
             self.assertTrue(form.is_valid())
         else:

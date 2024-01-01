@@ -737,6 +737,8 @@ class EditAccountTests(TestCase):
         # to partially update instance all fields must be provided.
         # PATCH method not allowed.
         payload = self.payload
+        payload["username"] = self.profile.username
+        payload["email"] = self.profile.email
         self.assertNotEqual(self.profile.first_name, payload["first_name"])
         self.assertNotEqual(self.profile.access_granted_to,
                             payload["access_granted_to"])

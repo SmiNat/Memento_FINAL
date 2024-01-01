@@ -18622,3 +18622,116 @@ ValueError: invalid literal for int() with base 10: "['5']"
 [2024-01-01 14:59:30,623] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Nazwa użytkownika musi się składać min. z 8 znaków.</li></ul></li></ul>
 [2024-01-01 14:59:31,026] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
 [2024-01-01 14:59:31,431] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
+[2024-01-01 15:29:04,052] [level: ERROR]❗[logger: all]: user: 117c75f0-848e-4a4b-bd2f-f30279101cef - enter page: edit-profile - ⚠️ unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Istnieje już profil o podanej nazwie użytkownika w bazie danych. Podaj inną nazwę.</li></ul></li><li>email<ul class="errorlist"><li>Istnieje już profil z tą wartością pola adres email.</li></ul></li></ul>
+[2024-01-01 15:31:11,116] [level: WARNING]❗[logger: django.request]: Not Found: /favicon.ico
+[2024-01-01 15:36:22,545] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Wprowadź poprawny adres email.</li></ul></li></ul>
+[2024-01-01 15:36:23,335] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Wprowadź poprawny adres email.</li></ul></li></ul>
+[2024-01-01 15:36:24,260] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Istnieje już Użytkownik z tą wartością pola adres email.</li></ul></li></ul>
+[2024-01-01 15:36:24,893] [level: ERROR]❗[logger: all]: user: 34ed087d-8b5d-4227-9eec-62b9e1b1cd57 - enter page: edit-account (profile id: 06a8c297-60d1-4861-9117-91f8927727fb) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:24,893] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:36:24,898] [level: ERROR]❗[logger: all]: user: 34ed087d-8b5d-4227-9eec-62b9e1b1cd57 - enter page: edit-account (profile id: 06a8c297-60d1-4861-9117-91f8927727fb) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:24,899] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:36:24,904] [level: ERROR]❗[logger: all]: user: 34ed087d-8b5d-4227-9eec-62b9e1b1cd57 - enter page: edit-account (profile id: 06a8c297-60d1-4861-9117-91f8927727fb) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:24,905] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:36:25,056] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>To pole jest wymagane.</li></ul></li></ul>
+[2024-01-01 15:36:25,734] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasła w obu polach nie są zgodne.</li></ul></li></ul>
+[2024-01-01 15:36:26,430] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasło składa się wyłącznie z cyfr.</li></ul></li></ul>
+[2024-01-01 15:36:26,643] [level: ERROR]❗[logger: all]: user: b6e70413-d0c6-4c65-aa6a-482631506e37 - enter page: delete-access (profile id: f126754a-b761-4eea-92ec-f47368afeeee) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:26,643] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:36:26,646] [level: ERROR]❗[logger: all]: user: b6e70413-d0c6-4c65-aa6a-482631506e37 - enter page: delete-access (profile id: f126754a-b761-4eea-92ec-f47368afeeee) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:26,646] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:36:26,649] [level: ERROR]❗[logger: all]: user: b6e70413-d0c6-4c65-aa6a-482631506e37 - enter page: delete-access (profile id: f126754a-b761-4eea-92ec-f47368afeeee) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:26,649] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:36:26,937] [level: ERROR]❗[logger: all]: user: 07fe4a55-ee25-4a89-a4fd-a292df5b1ddb - enter page: delete-user (id: 07fe4a55-ee25-4a89-a4fd-a292df5b1ddb) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:26,937] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:36:26,940] [level: ERROR]❗[logger: all]: user: 07fe4a55-ee25-4a89-a4fd-a292df5b1ddb - enter page: delete-user (id: 07fe4a55-ee25-4a89-a4fd-a292df5b1ddb) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:26,940] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:36:26,942] [level: ERROR]❗[logger: all]: user: 07fe4a55-ee25-4a89-a4fd-a292df5b1ddb - enter page: delete-user (id: 07fe4a55-ee25-4a89-a4fd-a292df5b1ddb) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:26,942] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:36:27,045] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>To hasło jest zbyt powszechne.</li></ul></li></ul>
+[2024-01-01 15:36:27,734] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>To hasło jest za krótkie. Musi zawierać co najmniej 8 znaków.</li><li>To hasło jest zbyt powszechne.</li></ul></li></ul>
+[2024-01-01 15:36:28,439] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasło jest zbyt podobne do Nazwa użytkownika.</li></ul></li></ul>
+[2024-01-01 15:36:29,097] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Wprowadź poprawną nazwę użytkownika. Wartość może zawierać jedynie litery, cyfry i znaki @/./+/-/_.</li></ul></li></ul>
+[2024-01-01 15:36:29,719] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Nazwa użytkownika musi się składać min. z 8 znaków.</li></ul></li></ul>
+[2024-01-01 15:36:30,389] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
+[2024-01-01 15:36:30,898] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
+[2024-01-01 15:36:36,406] [level: ERROR]❗[logger: all]: user: d088dbb0-bb2a-4622-93ce-2ed8eb2bb82e - enter page: edit-access (profile id: 8bf1f040-640f-4a92-860f-f801fbe3187a) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:36,406] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:36:36,409] [level: ERROR]❗[logger: all]: user: d088dbb0-bb2a-4622-93ce-2ed8eb2bb82e - enter page: edit-access (profile id: 8bf1f040-640f-4a92-860f-f801fbe3187a) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:36,410] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:36:36,412] [level: ERROR]❗[logger: all]: user: d088dbb0-bb2a-4622-93ce-2ed8eb2bb82e - enter page: edit-access (profile id: 8bf1f040-640f-4a92-860f-f801fbe3187a) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:36:36,413] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:47:11,259] [level: ERROR]❗[logger: all]: user: bc66ae70-8142-4131-94e8-a36db9e902a2 - enter page: delete-access (profile id: f234b9c8-999a-461d-bb2c-58f51d905bf6) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:11,260] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:47:11,262] [level: ERROR]❗[logger: all]: user: bc66ae70-8142-4131-94e8-a36db9e902a2 - enter page: delete-access (profile id: f234b9c8-999a-461d-bb2c-58f51d905bf6) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:11,262] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:47:11,265] [level: ERROR]❗[logger: all]: user: bc66ae70-8142-4131-94e8-a36db9e902a2 - enter page: delete-access (profile id: f234b9c8-999a-461d-bb2c-58f51d905bf6) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:11,265] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:47:17,628] [level: ERROR]❗[logger: all]: user: ee509698-e1f4-432d-bd20-f0e43e88033f - enter page: edit-access (profile id: 3fad2998-b1cd-4ad2-bf1e-6261ecbfdbce) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:17,629] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:47:17,631] [level: ERROR]❗[logger: all]: user: ee509698-e1f4-432d-bd20-f0e43e88033f - enter page: edit-access (profile id: 3fad2998-b1cd-4ad2-bf1e-6261ecbfdbce) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:17,631] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:47:17,634] [level: ERROR]❗[logger: all]: user: ee509698-e1f4-432d-bd20-f0e43e88033f - enter page: edit-access (profile id: 3fad2998-b1cd-4ad2-bf1e-6261ecbfdbce) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:17,634] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:47:56,570] [level: ERROR]❗[logger: all]: user: 45d05d46-38b7-4d0c-bc67-85aab5310c23 - enter page: delete-user (id: 45d05d46-38b7-4d0c-bc67-85aab5310c23) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:56,571] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:47:56,573] [level: ERROR]❗[logger: all]: user: 45d05d46-38b7-4d0c-bc67-85aab5310c23 - enter page: delete-user (id: 45d05d46-38b7-4d0c-bc67-85aab5310c23) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:56,573] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:47:56,575] [level: ERROR]❗[logger: all]: user: 45d05d46-38b7-4d0c-bc67-85aab5310c23 - enter page: delete-user (id: 45d05d46-38b7-4d0c-bc67-85aab5310c23) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:47:56,575] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:48:17,725] [level: ERROR]❗[logger: all]: user: 4c9e1e59-d806-415a-9ee3-fbe4901d35a8 - enter page: edit-account (profile id: f28b99f2-37f4-47ac-98ed-865c51ccac7b) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:48:17,726] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:48:17,729] [level: ERROR]❗[logger: all]: user: 4c9e1e59-d806-415a-9ee3-fbe4901d35a8 - enter page: edit-account (profile id: f28b99f2-37f4-47ac-98ed-865c51ccac7b) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:48:17,730] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:48:17,733] [level: ERROR]❗[logger: all]: user: 4c9e1e59-d806-415a-9ee3-fbe4901d35a8 - enter page: edit-account (profile id: f28b99f2-37f4-47ac-98ed-865c51ccac7b) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:48:17,733] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:48:31,407] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Wprowadź poprawny adres email.</li></ul></li></ul>
+[2024-01-01 15:48:31,789] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Wprowadź poprawny adres email.</li></ul></li></ul>
+[2024-01-01 15:48:32,196] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Istnieje już Użytkownik z tą wartością pola adres email.</li></ul></li></ul>
+[2024-01-01 15:48:32,615] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>To pole jest wymagane.</li></ul></li></ul>
+[2024-01-01 15:48:33,133] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasła w obu polach nie są zgodne.</li></ul></li></ul>
+[2024-01-01 15:48:33,659] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasło składa się wyłącznie z cyfr.</li></ul></li></ul>
+[2024-01-01 15:48:34,267] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>To hasło jest zbyt powszechne.</li></ul></li></ul>
+[2024-01-01 15:48:34,774] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>To hasło jest za krótkie. Musi zawierać co najmniej 8 znaków.</li><li>To hasło jest zbyt powszechne.</li></ul></li></ul>
+[2024-01-01 15:48:35,275] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasło jest zbyt podobne do Nazwa użytkownika.</li></ul></li></ul>
+[2024-01-01 15:48:35,748] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Wprowadź poprawną nazwę użytkownika. Wartość może zawierać jedynie litery, cyfry i znaki @/./+/-/_.</li></ul></li></ul>
+[2024-01-01 15:48:36,182] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Nazwa użytkownika musi się składać min. z 8 znaków.</li></ul></li></ul>
+[2024-01-01 15:48:36,649] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
+[2024-01-01 15:48:37,088] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
+[2024-01-01 15:51:45,709] [level: ERROR]❗[logger: all]: user: 36910250-8620-4258-a710-4f02824b6e6f - enter page: delete-access (profile id: f7369185-4382-4c3d-adbb-2260b82ccfad) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:51:45,709] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:51:45,712] [level: ERROR]❗[logger: all]: user: 36910250-8620-4258-a710-4f02824b6e6f - enter page: delete-access (profile id: f7369185-4382-4c3d-adbb-2260b82ccfad) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:51:45,712] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:51:45,714] [level: ERROR]❗[logger: all]: user: 36910250-8620-4258-a710-4f02824b6e6f - enter page: delete-access (profile id: f7369185-4382-4c3d-adbb-2260b82ccfad) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:51:45,714] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-access/
+[2024-01-01 15:51:52,064] [level: ERROR]❗[logger: all]: user: 52cf5406-e36c-4086-ac18-28205d53d927 - enter page: edit-access (profile id: 1768d041-ccfa-43b6-b35b-5fb352e96d1e) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:51:52,065] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:51:52,067] [level: ERROR]❗[logger: all]: user: 52cf5406-e36c-4086-ac18-28205d53d927 - enter page: edit-access (profile id: 1768d041-ccfa-43b6-b35b-5fb352e96d1e) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:51:52,068] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:51:52,070] [level: ERROR]❗[logger: all]: user: 52cf5406-e36c-4086-ac18-28205d53d927 - enter page: edit-access (profile id: 1768d041-ccfa-43b6-b35b-5fb352e96d1e) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:51:52,070] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-access/
+[2024-01-01 15:52:30,942] [level: ERROR]❗[logger: all]: user: d6583267-696b-4dc9-b28e-89b08de98335 - enter page: delete-user (id: d6583267-696b-4dc9-b28e-89b08de98335) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:52:30,943] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:52:30,944] [level: ERROR]❗[logger: all]: user: d6583267-696b-4dc9-b28e-89b08de98335 - enter page: delete-user (id: d6583267-696b-4dc9-b28e-89b08de98335) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:52:30,945] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:52:30,947] [level: ERROR]❗[logger: all]: user: d6583267-696b-4dc9-b28e-89b08de98335 - enter page: delete-user (id: d6583267-696b-4dc9-b28e-89b08de98335) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:52:30,947] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /delete-user/
+[2024-01-01 15:52:51,981] [level: ERROR]❗[logger: all]: user: 3f619ade-359c-47de-9774-0d5cf4a2cd13 - enter page: edit-account (profile id: b8049182-5b0c-4169-8967-f03ffef906bc) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:52:51,981] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:52:51,985] [level: ERROR]❗[logger: all]: user: 3f619ade-359c-47de-9774-0d5cf4a2cd13 - enter page: edit-account (profile id: b8049182-5b0c-4169-8967-f03ffef906bc) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:52:51,985] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:52:51,989] [level: ERROR]❗[logger: all]: user: 3f619ade-359c-47de-9774-0d5cf4a2cd13 - enter page: edit-account (profile id: b8049182-5b0c-4169-8967-f03ffef906bc) - ⚠️ invalid request method (required: POST)
+[2024-01-01 15:52:51,989] [level: WARNING]❗[logger: django.request]: Method Not Allowed: /edit-account/
+[2024-01-01 15:53:05,583] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Wprowadź poprawny adres email.</li></ul></li></ul>
+[2024-01-01 15:53:05,976] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Wprowadź poprawny adres email.</li></ul></li></ul>
+[2024-01-01 15:53:06,365] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>Istnieje już Użytkownik z tą wartością pola adres email.</li></ul></li></ul>
+[2024-01-01 15:53:06,751] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>email<ul class="errorlist"><li>To pole jest wymagane.</li></ul></li></ul>
+[2024-01-01 15:53:07,143] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasła w obu polach nie są zgodne.</li></ul></li></ul>
+[2024-01-01 15:53:07,532] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasło składa się wyłącznie z cyfr.</li></ul></li></ul>
+[2024-01-01 15:53:07,925] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>To hasło jest zbyt powszechne.</li></ul></li></ul>
+[2024-01-01 15:53:08,316] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>To hasło jest za krótkie. Musi zawierać co najmniej 8 znaków.</li><li>To hasło jest zbyt powszechne.</li></ul></li></ul>
+[2024-01-01 15:53:08,710] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>password2<ul class="errorlist"><li>Hasło jest zbyt podobne do Nazwa użytkownika.</li></ul></li></ul>
+[2024-01-01 15:53:09,099] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Wprowadź poprawną nazwę użytkownika. Wartość może zawierać jedynie litery, cyfry i znaki @/./+/-/_.</li></ul></li></ul>
+[2024-01-01 15:53:09,491] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Nazwa użytkownika musi się składać min. z 8 znaków.</li></ul></li></ul>
+[2024-01-01 15:53:09,892] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>
+[2024-01-01 15:53:10,326] [level: ERROR]❗[logger: all]: ⚠️ User Register unsuccessful POST with error: <ul class="errorlist"><li>username<ul class="errorlist"><li>Użytkownik o tej nazwie istnieje już w bazie danych. Wprowadź inną nazwę.</li></ul></li></ul>

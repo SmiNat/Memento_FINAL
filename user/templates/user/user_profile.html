@@ -19,8 +19,8 @@
             <div><h3>Dane adresowe:</h3></div>
             <div class="half_col" style="background-color: #D9F7F7; border-width: 3px;">
                 <p>Miejscowość: <b>{{ profile.city|default_if_none:"---" }}</b>
-                    {% if profile.country.name %}
-                    <b>({{ profile.country.name }})</b>
+                    {% if profile.country %}
+                    <b>({{ profile.country }})</b>
                     {% endif %}</p>
                 <p>Ulica: <b>{{ profile.street|default_if_none:"---" }}</b></p>
                 <p>Numer budynku: <b>{{ profile.building_number|default_if_none:"---" }}</b></p>

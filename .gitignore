@@ -30,6 +30,9 @@ private_info.txt
 */static/uploads/*
 */static/test/*
 */static/logs/*
+**/static/uploads
+**/static/test
+**static/logs
 
 
 # Python

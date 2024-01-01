@@ -146,8 +146,10 @@ def user_profile(request):
 @login_required(login_url="login")
 def edit_account(request):
     profile = request.user.profile
-    profile_usernames = list(Profile.objects.all().values_list("username", flat=True))
-    profile_emails = list(Profile.objects.all().values_list("email", flat=True))
+    profile_usernames = list(Profile.objects.all().exclude(
+        username=profile.username).values_list("username", flat=True))
+    profile_emails = list(Profile.objects.all().exclude(
+        email=profile.email).values_list("email", flat=True))
     form = ProfileForm(instance=profile,
                        profile_usernames=profile_usernames,
                        profile_emails=profile_emails)
