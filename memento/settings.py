@@ -28,8 +28,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "phonenumber_field",
-    # "multiselectfield",
-    # "django_countries",
     "bootstrapform",
     # "captcha",
     "access",
