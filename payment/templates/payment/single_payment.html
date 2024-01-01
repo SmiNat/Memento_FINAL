@@ -1,0 +1,129 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+	<h2>Informacje o płatności</h2>
+	{% comment %}<div class="name">{{ payment.name }}</div>{% endcomment %}
+	<div class="single_table">
+		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
+			<thead>
+				<tr>
+					<td style="color: #FAAC18;">Nazwa:</td>
+					<td style="color: #FAAC18;">{{ payment.name }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for field, value in payment %}
+					{% if field == 'id' or field == 'Użytkownik' or field == 'Data dodania' or field == 'Nazwa' or field == 'Kontrahent' or field == 'Dostęp do danych' %}
+					{% elif value == 'None' or value == '' %}
+					{% else %}
+						<tr>
+							{% if field == 'Miesiące płatności' and value == '1,2,3,4,5,6,7,8,9,10,11,12' %}
+								<td>{{ field }}:</td>
+								<td>Wszystkie miesiące</td>
+							{% elif field == 'Miesiące płatności' and value != '1,2,3,4,5,6,7,8,9,10,11,12' %}
+								<td>{{ field }}:</td>
+								<td>
+									{% for month in payment.payment_months_to_list_of_names %}
+										{% if forloop.last %}
+											{{ month }}
+										{% else %}
+											{{ month }},
+										{% endif %}
+									{% endfor %}
+								</td>
+							{% elif field == 'Dzień płatności' %}
+								<td>{{ field }}:</td>
+								<td>
+									{% if value == 0 or value == '0' %}Ostatni dzień miesiąca
+									{% else %}{{ value }}
+									{% endif %}
+								</td>
+							{% elif field == 'Data aktualizacji' %}
+								<td style="border-top: 1px solid #F9F1CF;">{{ field }}:</td>
+								<td style="border-top: 1px solid #F9F1CF;">{% if value == 'None' %}---{% else %}{{ value }}{% endif %}</td>
+							{% else %}
+								<td>{{ field }}:</td>
+								<td>{% if value == 'None' or value == '' %}---{% else %}{{ value }}{% endif %}</td>
+							{% endif %}
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td style="border-top: 1px solid #F9F1CF;">Kontrahent:</td>
+					{% if payment.counterparty_set.all %}
+						<td style="line-height: 5px; border-top: 1px solid #F9F1CF;">{% for counterparty in payment.counterparty_set.all %}<a href="{% url 'connection:single-counterparty' counterparty.id %}">{{ counterparty.name|linebreaks }}</a>{% endfor %}</td>
+					{% else %}
+						<td style="border-top: 1px solid #F9F1CF;"><a href="{% url 'connection:add-counterparty' %}">Dodaj kontrahenta</a></td>
+					{% endif %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div>
+		<small><a href="{% url 'payment:payments' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+		<a href="{% url 'payment:edit-payment' payment.id %}">[Aktualizuj dane]</a> | <a href="{% url 'payment:delete-payment' payment.id %}">[Usuń płatność]</a></small>
+	</div>
+
+	<br>
+	<div>
+		<small>
+		Przyznany dostęp do danych:
+			{% if payment.access_granted == 'Brak dostępu' %}Brak dostępu.
+			{% elif payment.access_granted == 'Udostępnij dane' %}
+				{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+				{% else %}{{ profile.access_granted_to }}.
+				{% endif %}
+			{% endif %}
+		</small>
+	</div>
+	<div>
+		<small>Data utworzenia płatności: {{ payment.created }}.</small>
+	</div>
+	<br>
+</div>
+
+<div class="content">
+	<h2>Załączniki</h2>
+	{% if not attachments %}
+		<div>
+			<p>Brak załączników.</p>
+			<p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td>Nazwa dokumentu</td>
+						<td>Informacja o pliku</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+						<td style="text-align: center;">Data ostatniej modyfikacji</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Pobierz</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for attachment in attachments %}
+						<tr>
+							<td>{{ attachment.attachment_name }}</td>
+							<td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
+							<td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
+							<td style="text-align: center;">{{ attachment.updated }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a></td>
+							<td style="text-align: center;"><a href="{% url 'connection:delete-attachment' attachment.id %}">Usuń</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<small><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></small>
+		</div>
+	{% endif %}
+
+</div>
+{% endblock %}

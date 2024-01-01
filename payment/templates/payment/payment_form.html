@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+    <div class="form_img"><img src="{% static 'images/vecteezy_double-exposure-of-graph-and-rows-of-coins-for-finance-and_22269272_SMALL.jpg' %}" alt="Foto"/></div>
+    {% if page == 'add-payment' %}
+        <h2>Dodaj płatność</h2>
+        <form method="post" action="{% url 'payment:add-payment' %}">
+    {% else %}
+        <h2>Edytuj płatność</h2>
+        <form method="post" action="{% url 'payment:edit-payment' payment.id %}">
+    {% endif %}
+        {% csrf_token %}
+        <div class="form_field">
+            {% for field in form  %}
+                <div class="one_field">
+                    {% if field.label == 'Dostęp do danych' %}
+                        <hr><br>
+                        <fieldset style="border-color: #13656; border-width: 5px;">
+                            <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                            <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                        </fieldset>
+                    {% elif field.label == 'Miesiące płatności' %}
+                        <div class="label_field">{{ field.label }}:</div>
+                        {% for element in field %}
+                            {% if forloop.counter < 4 %}
+                            {% else %}
+                            {% if forloop.counter0|divisibleby:3 %}
+                                <br>
+                                {% endif %}
+                            {% endif %}
+                            <div class="inline">{{ element }}</div>
+                        {% endfor %}
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    {% else %}
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <br>
+            <div class="one_field">
+                <input type="submit" value="Zapisz"/>
+            </div>
+        </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować płatności? <a href="{% url 'payment:payments' %}"><button class="button">Powrót</button></a></p>
+        </div>
+</div>
+{% endblock content %}

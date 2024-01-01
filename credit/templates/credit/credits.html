@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="content">
+        <div class="grid_display">
+
+            <h2>Podsumowanie kredytów</h2>
+
+            {% if not credits %}
+                <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+                <p><a href="{% url 'credit:add-credit' %}">[Dodaj kredyt]</a></p>
+            {% else %}
+
+                <div class="order_by">
+                    <form action="{% url 'credit:credits' %}">
+                        <div>Sortuj:</div>
+                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                            <option value="-updated">---</option>
+                            <option value="name">Nazwa (od A do Z)</option>
+                            <option value="-name">Nazwa (od Z do A)</option>
+                            <option value="credit_amount">Kwota kredytu (rosnąco)</option>
+                            <option value="-credit_amount">Kwota kredytu (malejąco)</option>
+                            <option value="date_of_agreement">Data zawarcia umowy (od najstarszych)</option>
+                            <option value="-date_of_agreement">Data zawarcia umowy (od najnowszych)</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="basic_table">
+                    <table id="tbl_exporttable_to_xls">
+                        <thead>
+                            <tr>
+                                <td><a href="?sort_data=name" style="color: #232D39; font-weight: 900;">Nazwa kredytu</a></td>
+                                <td><a href="?sort_data=type" style="color: #232D39; font-weight: 900;">Rodzaj kredytu</a></td>
+                                <td><a href="?sort_data=installment_type" style="color: #232D39; font-weight: 900;">Rodzaj raty</a></td>
+                                <td style="border-left: 1px dashed #136568;">Łączna kwota kredytu</td>
+                                <td style="text-align: center;">Oprocentowanie*</td>
+                                <td style="text-align: center;"><a href="?sort_data=type_of_interest" style="color: #232D39; font-weight: 900;">Rodzaj oprocentowania</a></td>
+                                <td style="border-left: 1px dashed #136568; text-align: center;"><a href="?sort_data=date_of_agreement" style="color: #232D39; font-weight: 900;">Data zawarcia umowy</a></td>
+                                <td style="text-align: center;"><a href="?sort_data=credit_period" style="color: #232D39; font-weight: 900;">Okres kredytowania<br/><small>(w miesiącach)</small></a></td>
+                                <td style="border-left: 1px dashed #136568; text-align: center;">Harmonogram**</td>
+                                <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                                <td>Edytuj</td>
+                                <td>Usuń</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for credit in credits %}
+                                <tr>
+                                    <td>{{ credit.name }}</td>
+                                    <td>{{ credit.type }}</td>
+                                    <td>{{ credit.installment_type }}</td>
+                                    <td style="border-left: 1px dashed #F9F1CF;">{{ credit.total_loan_value }}</td>
+                                    {% if credit.fixed_interest_rate > 0 %}
+                                        <td style="text-align:center; font-weight: 900;">{{ credit.fixed_interest_rate }}%
+                                    {% else %}
+                                        <td style="text-align:center; font-weight: 900;">{{ credit.full_rate }}%
+                                    {% endif %}
+                                    {% if credit.collateral_rate > 0 %}
+                                    <small><br/>(+ {{ credit.collateral_rate }}%)</small></td>
+                                    {% endif %}
+                                    <td style="text-align:center;">{{ credit.type_of_interest }}</td>
+                                    <td style="border-left: 1px dashed #F9F1CF; text-align:center;">{{ credit.date_of_agreement }}</td>
+                                    <td style="text-align:center;">{{ credit.credit_period }}</td>
+                                    <td style="text-align:center; border-left: 1px dashed #F9F1CF"><a href="{% url 'credit:credit-repayment-schedule' credit.id %}">Harmonogram</a></td>
+                                    <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'credit:single-credit' credit.id %}">Szczegóły</a></td>
+                                    <td><a href="{% url 'credit:edit-credit' credit.id %}">Edytuj</a></td>
+                                    <td><a href="{% url 'credit:delete-credit' credit.id %}">Usuń</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="footnote">
+                        <p>* W dniu zawarcia umowy, bez oprocentowania pomostowego.</p>
+                        <p>** Uwaga: wygenerowanie harmonogramu może zająć kilka sekund.</p>
+                    </div>
+                </div>
+                <p><a href="{% url 'credit:add-credit' %}">[Dodaj kredyt]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock content%}

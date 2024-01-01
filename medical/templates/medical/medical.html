@@ -1,0 +1,213 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+    <div class="grid_display">
+        {% if page == 'medicines-page' %}
+            <h2>Przyjmowane leki</h2>
+
+            {% if not medcard or medcard.active_permission_medicines == 'Brak dostępu' %}
+            {% elif medcard.active_permission_medicines == 'Udostępnij dane' %}
+            <div class="list">
+                <div class="access_granted">Przyznany dostęp do listy:
+                    {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                    {% else %}{{ profile.access_granted_to }}
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if not medicines %}
+                <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+                <p><a href="{% url 'medical:add-medicine' %}">[Dodaj lek]</a></p>
+            {% else %}
+
+                <div class="order_by">
+                    <form action="{% url 'medical:medicines' %}">
+                        <div>Sortuj:</div>
+                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                            <option value="-updated">---</option>
+                            <option value="drug_name_and_dose">Nazwa leku (od A do Z)</option>
+                            <option value="-drug_name_and_dose">Nazwa leku (od Z do A)</option>
+                            <option value="medication_frequency">Częstotliwość przyjmowania (od A do Z)</option>
+                            <option value="-medication_frequency">Częstotliwość przyjmowania (od Z do A)</option>
+                            <option value="disease">Leczona dolegliwość (od A do Z)</option>
+                            <option value="-disease">Leczona dolegliwość (od Z do A)</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="basic_table">
+                    <table id="tbl_exporttable_to_xls">
+                        <thead>
+                            <tr>
+                                <td>Nazwa leku i dawka</td>
+                                <td style="text-align:center;">Ilość dawek dziennie</td>
+                                <td>Częstotliwość przyjmowania</td>
+                                <td>Leczona dolegliwość</td>
+                                <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                                <td>Aktualizuj</td>
+                                <td>Usuń</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for medicine in medicines %}
+                                <tr>
+                                    <td>{{ medicine.drug_name_and_dose }}</td>
+                                    <td style="text-align:center;">{{ medicine.daily_quantity }}</td>
+                                    <td>{{ medicine.medication_frequency|default_if_none:"---" }}</td>
+                                    <td>{{ medicine.disease|default_if_none:"---" }}</td>
+                                    <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-medicine' medicine.id %}">Szczegóły</a></td>
+                                    <td><a href="{% url 'medical:edit-medicine' medicine.id %}">Aktualizuj</a></td>
+                                    <td><a href="{% url 'medical:delete-medicine' medicine.id %}">Usuń</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <p><a href="{% url 'medical:add-medicine' %}">[Dodaj lek]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+            {% endif %}
+
+
+        {% elif page == 'medical-visits-page' %}
+            <h2>Wizyty lekarskie</h2>
+
+            {% if not medcard or medcard.active_permission_visits == 'Brak dostępu' %}
+            {% elif medcard.active_permission_visits == 'Udostępnij dane' %}
+            <div class="list">
+                <div class="access_granted">Przyznany dostęp do listy:
+                    {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                    {% else %}{{ profile.access_granted_to }}
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if not visits %}
+                <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+                <p><a href="{% url 'medical:add-visit' %}">[Dodaj wizytę]</a></p>
+            {% else %}
+
+                <div class="order_by">
+                    <form action="{% url 'medical:medical-visits' %}">
+                        <div>Sortuj:</div>
+                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                            <option value="-updated">---</option>
+                            <option value="specialization">Specjalizacja (od A do Z)</option>
+                            <option value="-specialization">Specjalizacja (od Z do A)</option>
+                            <option value="doctor">Lekarz (od A do Z)</option>
+                            <option value="-doctor">Lekarz (od Z do A)</option>
+                            <option value="visit_date">Data wizyty (od najnowszych)</option>
+                            <option value="-visit_date">Data wizyty (od najstarszych)</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="basic_table">
+                    <table id="tbl_exporttable_to_xls">
+                        <thead>
+                            <tr>
+                                <td>Specjalizacja</td>
+                                <td>Lekarz</td>
+                                <td>Lokalizacja wizyty</td>
+                                <td style="text-align:center;">Data wizyty</td>
+                                <td style="text-align:center;">Godzina wizyty</td>
+                                <td>Uwagi</td>
+                                <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                                <td>Aktualizuj</td>
+                                <td>Usuń</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for visit in visits %}
+                                <tr>
+                                    <td>{{ visit.specialization }}</td>
+                                    <td>{{ visit.doctor|default_if_none:"---"|title }}</td>
+                                    <td>{{ visit.visit_location|default_if_none:"---" }}</td>
+                                    <td style="text-align:center;">{{ visit.visit_date|default_if_none:"---" }}</td>
+                                    <td style="text-align:center;">{{ visit.visit_time|default_if_none:"---" }}</td>
+                                    <td>{% if visit.notes %}{{ visit.notes }}{% else %}---{% endif %}</td>
+                                    <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-visit' visit.id %}">Szczegóły</a></td>
+                                    <td><a href="{% url 'medical:edit-visit' visit.id %}">Aktualizuj</a></td>
+                                    <td><a href="{% url 'medical:delete-visit' visit.id %}">Usuń</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <p><a href="{% url 'medical:add-visit' %}">[Dodaj wizytę]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+            {% endif %}
+
+        {% elif page == 'test-results' %}
+            <h2>Wyniki badań</h2>
+
+            {% if not medcard or medcard.active_permission_test_results == 'Brak dostępu' %}
+            {% elif medcard.active_permission_test_results == 'Udostępnij dane' %}
+            <div class="list">
+                <div class="access_granted">Przyznany dostęp do listy:
+                {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                {% else %}{{ profile.access_granted_to }}
+                {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if not test_results %}
+                <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+                <p><a href="{% url 'medical:add-test-result' %}">[Dodaj wyniki]</a></p>
+            {% else %}
+
+                <div class="order_by">
+                    <form action="{% url 'medical:test-results' %}">
+                        <div>Sortuj:</div>
+                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                            <option value="-updated">---</option>
+                            <option value="name">Nazwa (od A do Z)</option>
+                            <option value="-name">Nazwa (od Z do A)</option>
+                            <option value="test_result">Wynik (od A do Z)</option>
+                            <option value="-test_result">Wynik (od Z do A)</option>
+                            <option value="test_date">Data badania (od najnowszych)</option>
+                            <option value="-test_date">Data badania (od najstarszych)</option>
+                            <option value="disease">Leczona dolegliwość (od A do Z)</option>
+                            <option value="-disease">Leczona dolegliwość (od Z do A)</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="basic_table">
+                    <table id="tbl_exporttable_to_xls">
+                        <thead>
+                            <tr>
+                                <td>Nazwa</td>
+                                <td>Wynik badania</td>
+                                <td>Data badania</td>
+                                <td style="text-align:center;">Leczona dolegliwość</td>
+                                <td>Uwagi</td>
+                                <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                                <td>Aktualizuj</td>
+                                <td>Usuń</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for test_result in test_results %}
+                                <tr>
+                                    <td>{{ test_result.name }}</td>
+                                    <td>{{ test_result.test_result }}</td>
+                                    <td>{{ test_result.test_date }}</td>
+                                    <td style="text-align:center;">{{ test_result.disease|default_if_none:"---" }}</td>
+                                    <td>{% if test_result.notes %}{{ test_result.notes }}{% else %}---{% endif %}</td>
+                                    <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-test-result' test_result.id %}">Szczegóły</a></td>
+                                    <td><a href="{% url 'medical:edit-test-result' test_result.id %}">Aktualizuj</a></td>
+                                    <td><a href="{% url 'medical:delete-test-result' test_result.id %}">Usuń</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <p><a href="{% url 'medical:add-test-result' %}">[Dodaj wynik]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+            {% endif %}
+
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,114 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+    {% if page == 'delete-credit' %}
+        <h2>Usuń kredyt wraz z wszystkimi dodatkowymi informacjami</h2>
+        <form method="post" action="{% url 'credit:delete-credit' credit.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć kredyt "{{ credit.name }}" wraz z wszystkimi dodatkowymi informacjami?</p>
+                <p><input type="submit" value="Usuń kredyt"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać kredytu?
+                <a href="{% url 'credit:credits' %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-credit-tranche' %}
+        <h2>Usuń transzę</h2>
+        <form method="post" action="{% url 'credit:delete-credit-tranche' credit_tranche.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć transzę ({{ credit_tranche.tranche_amount }} - {{ credit_tranche.tranche_date }})?</p>
+                <p><input type="submit" value="Usuń transzę"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać transzy kredytu?
+                <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-credit-interest-rate' %}
+        <h2>Usuń oprocentowanie kredytu</h2>
+        <form method="post" action="{% url 'credit:delete-credit-interest-rate' interest_rate.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć oprocentowanie kredytu ({{ interest_rate.interest_rate }}% od {{ interest_rate.interest_rate_start_date }})?</p>
+                <p><input type="submit" value="Usuń oprocentowanie"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać oprocentowania kredytu?
+                <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-credit-insurance' %}
+        <h2>Usuń ubezpieczenie</h2>
+        <form method="post" action="{% url 'credit:delete-credit-insurance' credit_insurance.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć ubezpieczenie?</p>
+                <p><input type="submit" value="Usuń ubezpieczenie"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać ubezpieczenia?
+                <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-credit-collateral' %}
+        <h2>Usuń zabezpieczenie</h2>
+        <form method="post" action="{% url 'credit:delete-credit-collateral' credit_collateral.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć zabezpieczenie?</p>
+                <p><input type="submit" value="Usuń zabezpieczenie"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać zabezpieczenia?
+                <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-credit-additional-cost' %}
+        <h2>Usuń koszt</h2>
+        <form method="post" action="{% url 'credit:delete-credit-additional-cost' credit_additional_cost.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć koszt {{ credit_additional_cost.name }}?</p>
+                <p><input type="submit" value="Usuń koszt"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać kosztu kredytu?
+                <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-credit-early-repayment' %}
+        <h2>Usuń nadpłatę</h2>
+        <form method="post" action="{% url 'credit:delete-credit-early-repayment' credit_early_repayment.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć nadpłatę w kwocie {{ credit_early_repayment.repayment_amount }}?</p>
+                <p><input type="submit" value="Usuń nadpłatę"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać nadpłaty kredytu?
+                <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

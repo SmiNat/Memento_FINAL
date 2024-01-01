@@ -1,0 +1,507 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<small>
+		<a href="#Transzowanie">Transzowanie</a> |
+		<a href="#Oprocentowanie">Oprocentowanie</a> |
+		<a href="#Zabezpieczenie">Zabezpieczenie</a> |
+		<a href="#Nadpłata kredytu">Nadpłata kredytu</a> |
+		<a href="#Ubezpieczenie">Ubezpieczenie</a> |
+		<a href="#Dodatkowe koszty">Dodatkowe koszty</a> |
+		<a href="#Załączniki">Załączniki</a>
+	</small>
+</div>
+
+<div class="content">
+	<h2>Informacje o kredycie</h2>
+	{% comment %}<div class="name">{{ credit.name }}</div>{% endcomment %}
+
+	<br>
+	<a href="{% url 'credit:credit-repayment-schedule' credit.id %}">[Harmonogram]</a>
+	<br>
+	<small>(Uwaga: wygenerowanie harmonogramu może zająć kilka sekund.)</small>
+	<br>
+	<div style="margin-bottom: 20px;">
+		<small>
+		Przyznany dostęp do harmonogramu:
+			{% if credit.access_granted_for_schedule == 'Brak dostępu' %}Brak dostępu.
+			{% elif credit.access_granted_for_schedule == 'Udostępnij dane' %}
+				{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+				{% else %}{{ profile.access_granted_to }}.
+				{% endif %}
+			{% endif %}
+		</small>
+	</div>
+	<br>
+	<div class="single_table">
+		<table id="tbl_exporttable_to_xls">
+			<thead>
+				<tr>
+					<td style="color: #FAAC18; border-bottom: 2px solid #F9F1CF;">Nazwa kredytu:</td>
+					<td style="color: #FAAC18; border-bottom: 2px solid #F9F1CF;">{{ credit.name }}</td>
+				</tr>
+			</thead>
+			<tbody>
+			<tr style="font-weight: bold; border-bottom: 2px solid #F9F1CF;">
+				<td>Łączna kwota zaciągniętego kredytu**</td>
+				<td style="color: #FAAC18;">{{ credit.total_loan_value }}</td>
+			</tr>
+			{% for field, value in credit %}
+				{% if field == 'id' or field == 'Użytkownik' or field == 'slug' or field == 'Data dodania' or field == 'Nazwa kredytu' or field == 'Kredytodawca' or field == 'Dostęp do danych' or field == 'Dostęp do harmonogramu' %}
+				{% elif field == 'Dzień płatności raty' %}
+					<tr>
+						<td>{{ field }}:</td>
+						{% if value == 'None' or value == "" or value == None %}
+							<td>---</td>
+						{% elif value == '0' or value == '0.00' or value == '0.0000' %}
+							<td>*ODM</td>
+						{% else %}
+							<td>{{ value|default_if_none:"---" }}</td>
+						{% endif %}
+					</tr>
+				{% elif field == 'Rodzaj raty' or field == 'Rodzaj oprocentowania' or field == 'Data zawarcia umowy' or field == 'Wysokość prowizji (w wybranej walucie)' or field == 'Kredytowane ubezpieczenie na życie' or field == 'Data aktualizacji' %}
+					<td style="border-top: 2px solid #F9F1CF;">{{ field }}:</td>
+					<td style="border-top: 2px solid #F9F1CF;">{% if value == 'None' or value == "" or value == None %}---{% else %}{{ value|default_if_none:'---' }}{% endif %}</td>
+				{% else %}
+					<tr>
+						<td>{{ field }}:</td>
+						{% if value == 'None' or value == "" or value == 'False' or value == '0' or value == '0.00' or value == '0.0000' or value == None %}
+							<td>---</td>
+						{% else %}
+							<td>{{ value|default_if_none:"---"  }}</td>
+						{% endif %}
+					</tr>
+				{% endif %}
+			{% endfor %}
+				<tr>
+					<td style="border-top: 2px solid #F9F1CF;">Kredytodawca:</td>
+					{% if credit.counterparty_set.all %}
+						<td style="border-top: 2px solid #F9F1CF; line-height: 5px;">{% for counterparty in credit.counterparty_set.all %}<a href="{% url 'connection:single-counterparty' counterparty.id %}">{{ counterparty.name|linebreaks }}</a>{% endfor %}</td>
+					{% else %}
+						<td style="border-top: 2px solid #F9F1CF; line-height: 5px;"><a href="{% url 'connection:add-counterparty' %}">Dodaj kontrahenta</a></td>
+					{% endif %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<small>*ODM = Ostatni Dzień Miesiąca.</small><br>
+	<small>**Łączna kwota kredytu = kwota kredytu - wkład własny + kredytowana prowizja + kredytowane ubezpieczenia).</small><br>
+	<div>
+		<small><a href="{{request.META.HTTP_REFERER|escape}}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+		<a href="{% url 'credit:edit-credit' credit.id %}">[Aktualizuj dane]</a> | <a href="{% url 'credit:delete-credit' credit.id %}">[Usuń kredyt]</a></small>
+	</div>
+	<br>
+	<div>
+		<small>
+		Przyznany dostęp do kredytu:
+			{% if credit.access_granted == 'Brak dostępu' %}Brak dostępu.
+			{% elif credit.access_granted == 'Udostępnij dane' %}
+				{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+				{% else %}{{ profile.access_granted_to }}.
+				{% endif %}
+			{% endif %}
+		</small>
+	</div>
+	<div>
+		<small>Data utworzenia kredytu: {{ credit.created }}.</small>
+	</div>
+</div>
+
+<div class="content">
+	<br>
+	<small style="color: #FAAC18;">Uwaga! Parametry kredytu i dodatkowe koszty związane z kredytem można dodawać i zmieniać w trakcie trwania kredytu.</small>
+	<br><br>
+</div>
+
+<div class="content">
+	{% if credit.tranches_in_credit == 'Nie' %}
+		<h2 id="Transzowanie">Transzowanie</h2>
+		<h3>Niedostępne.</h3>
+		<p>Zmień warunki kredytu, by umożliwić wypłatę kredytu w transzach.</p>
+	{% else %}
+		<h2>Transze wypłaty kredytu</h2>
+		{% if not credit_tranche %}
+			<div>
+			<p>Brak transz.</p>
+				<p><a href="{% url 'credit:add-credit-tranche' credit.id %}">[Uzupełnij transze]</a></p>
+			</div>
+		{% else %}
+			<div class="single_table">
+				<table>
+					<thead>
+						<tr>
+							<td>Kwota transzy**</td>
+							<td>Data wypłaty transzy</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
+							<td style="text-align: center;">Wysokość raty kapitałowej*</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+							<td style="text-align: center;">Data aktualizacji</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+							<td style="text-align: center;">Usuń</td>
+						</tr>
+					</thead>
+					<tbody>
+					{% for element in credit_tranche %}
+						<tr>
+							<td>{{ element.tranche_amount }}</td>
+							<td>{{ element.tranche_date }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
+							<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
+							<td style="text-align: center;">{{ element.updated }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-tranche' element.id %}">Aktualizuj</a></td>
+							<td style="text-align: center;"><a href="{% url 'credit:delete-credit-tranche' element.id %}">Usuń</a></td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		<div style="margin-bottom: 20px;">
+			<small>*Wartość raty ustalona przez bank po wypłacie transzy.</small>
+			<br>
+			<small>**Kwota bez uwzględnienia wartości kredytowanego ubezpieczenia czy prowizji.</small>
+			<br>
+			<small>Uwaga! Zmiana danych historycznych spowoduje zmianę (przeliczenie) danych kredytu.</small>
+		</div>
+		<div>
+			<a href="{% url 'credit:add-credit-tranche' credit.id %}">[Dodaj transzę]</a>
+		</div>
+		<br>
+		<div><h3>Łączna wartość wypłaconych transz:</h3></div>
+		<div class="single_table">
+			<table style="max-width: 40%;">
+				<thead>
+					<tr>
+						<td>Kwota: {{ credit_tranches_total }}</td>
+						<td style="text-align: right;">{{ credit_tranches_ratio }}% wartości przyznanego kredytu</td>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<br>
+		{% endif %}
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Oprocentowanie">Oprocentowanie</h2>
+	{% if not credit_interest_rate %}
+		<div>
+			<p>Uzupełnij oprocentowanie.</p>
+			<p><a href="{% url 'credit:add-credit-interest-rate' credit.id %}">[Dodaj oprocentowanie]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td style="text-align: center;">Wysokość oprocentowania</td>
+						<td>Data rozpoczęcia obowiązywania</td>
+						<td>Informacja dodatkowa</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
+						<td style="text-align: center;">Wysokość raty kapitałowej*</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+						<td style="text-align: center;">Data aktualizacji</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in credit_interest_rate %}
+					<tr>
+						<td style="text-align: center;">{{ element.interest_rate }}%</td>
+						<td>{{ element.interest_rate_start_date }}</td>
+						<td>{{ element.note|default_if_none:'---' }}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
+						<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
+						<td style="text-align: center;">{{ element.updated }}</td>
+						<td style="text-align: center;border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-interest-rate' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'credit:delete-credit-interest-rate' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div style="margin-bottom: 20px;">
+		<small>*Wartość raty ustalona przez bank po zmianie oprocentowania (nowa rata obowiązuje od dnia obowiązywania nowego oprocentowania).</small>
+		<br>
+		<small>Uwaga! Zmiana danych historycznych spowoduje zmianę (przeliczenie) danych kredytu.</small>
+	</div>
+	<div>
+		<a href="{% url 'credit:add-credit-interest-rate' credit.id %}">[Dodaj oprocentowanie]</a>
+	</div>
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Zabezpieczenie">Zabezpieczenie</h2>
+	{% if credit.collateral_required == 'Nie' %}
+		<h3>Niedostępne.</h3>
+		<p>Zmień warunki kredytu, by umożliwić ustanowienie zabezpieczenia.</p>
+	{% else %}
+		{% if not credit_collateral %}
+			<div>
+			<p>Brak zabezpieczenia.</p>
+			<p><a href="{% url 'credit:add-credit-collateral' credit.id %}">[Uzupełnij zabezpieczenie]</a></p>
+			</div>
+		{% else %}
+			<div class="single_table">
+				<table>
+					<thead>
+						<tr>
+							<td>Nazwa/opis zabezpieczenia</td>
+							<td>Wartość zabezpieczenia</td>
+							<td>Data rejestracji zabezpieczenia w banku</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
+							<td style="text-align: center;">Wysokość raty kapitałowej*</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+							<td style="text-align: center;">Data aktualizacji</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+							<td style="text-align: center;">Usuń</td>
+						</tr>
+					</thead>
+					<tbody>
+					{% for element in credit_collateral %}
+						<tr>
+							<td>{% if not element.description %}---{% else %}{{ element.description|default_if_none:'---' }}{% endif %}</td>
+							<td>{{ element.collateral_value|default_if_none:'---' }}</td>
+							<td>{{ element.collateral_set_date }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
+							<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
+							<td style="text-align: center;">{{ element.updated }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-collateral' element.id %}">Aktualizuj</a></td>
+							<td style="text-align: center;"><a href="{% url 'credit:delete-credit-collateral' element.id %}">Usuń</a></td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<small>*Wartość raty ustalona przez bank po zaakceptowaniu zabezpieczenia.</small>
+			<br>
+			<small>Uwaga! Zmiana danych historycznych spowoduje zmianę (przeliczenie) danych kredytu.</small>
+		{% endif %}
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Nadpłata kredytu">Nadpłata kredytu</h2>
+	{% if not credit_early_repayment %}
+		<div>
+			<p>Brak wcześniejszych spłat.</p>
+			<p><a href="{% url 'credit:add-credit-early-repayment' credit.id %}">[Uzupełnij nadpłaty]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td>Wartość wcześniejszej spłaty</td>
+						<td>Data nadpłaty</td>
+						<td>Efekt nadpłaty</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
+						<td style="text-align: center;">Wysokość raty kapitałowej*</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+						<td style="text-align: center;">Data aktualizacji</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in credit_early_repayment %}
+					<tr>
+						<td>{{ element.repayment_amount }}</td>
+						<td>{{ element.repayment_date }}</td>
+						<td>{{ element.repayment_action }}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
+						<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
+						<td style="text-align: center;">{{ element.updated }}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-early-repayment' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'credit:delete-credit-early-repayment' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div style="margin-bottom: 20px;">
+			<small>*Wartość raty ustalona przez bank po dokonaniu nadpłaty (zmiana płatności od raty przypadającej po dniu nadpłaty).</small>
+			<br>
+			<small>Uwaga! Zmiana danych historycznych spowoduje zmianę (przeliczenie) danych kredytu.</small>
+		</div>
+		<div>
+			<a href="{% url 'credit:add-credit-early-repayment' credit.id %}">[Dodaj nadpłatę]</a>
+		</div>
+		<br>
+		<div><h3>Łączna wartość nadpłaconego kredytu:</h3></div>
+		<div class="single_table">
+			<table style="max-width: 40%;">
+				<thead>
+					<tr>
+						<td>Kwota: {{ credit_total_repayment }}</td>
+						<td style="text-align: right;">{{ credit_repayment_ratio }}% wartości udzielonego kredytu</td>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<br>
+
+	{% endif %}
+
+</div>
+
+<div class="content">
+	<h2 id="Ubezpieczenie">Ubezpieczenie</h2>
+	{% if not credit_insurance %}
+		<div>
+			<p>Brak kosztów ubezpieczenia.</p>
+			<p><a href="{% url 'credit:add-credit-insurance' credit.id %}">[Dodaj ubezpieczenie]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+<!--					<tr>-->
+<!--						<td colspan="5" style="text-align: center; border-right: 1px dashed #F9F1CF; border-bottom: 1px dashed #F9F1CF;">Ubezpieczenie na życie</td>-->
+<!--						<td colspan="5" style="text-align: center; border-right: 1px dashed #F9F1CF; border-bottom: 1px dashed #F9F1CF;">Ubezpieczenie rzeczy/nieruchomości</td>-->
+<!--						<td colspan="3" style="text-align: center; border-bottom: 1px dashed #F9F1CF;"></td>-->
+<!--					</tr>-->
+					<tr>
+						<td>Rodzaj ubezpieczenia</td>
+						<td>Wysokość składki</td>
+						<td>Częstotliwość płatności</td>
+						<td>Liczba płatności</td>
+						<td>Rozpoczęcie płatności</td>
+						<td style="border-right: 1px dashed #F9F1CF;">Zakończenie płatności</td>
+<!--						<td style="border-right: 1px dashed #F9F1CF;">Dzień płatności</td>-->
+<!--						<td>Wysokość składki</td>-->
+<!--						<td>Częstotliwość płatności</td>-->
+<!--						<td>Liczba płatności</td>-->
+<!--						<td>Rozpoczęcie płatności</td>-->
+<!--						<td>Zakończenie płatności</td>-->
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in credit_insurance %}
+					<tr>
+						<td>{{ element.type|default_if_none:'----' }}</td>
+						<td>{{ element.amount|default_if_none:'----' }}</td>
+						<td>{{ element.frequency|default_if_none:'----' }}</td>
+						<td>{{ element.payment_period|default_if_none:'----' }}</td>
+						<td>{{ element.start_date|default_if_none:'----' }}</td>
+						<td style="border-right: 1px dashed #F9F1CF;">{{ element.end_date|default_if_none:'----' }}</td>
+
+<!--						<td>{{ element.life_insurance_amount|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.life_insurance_frequency|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.life_insurance_payment_period|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.life_insurance_start_date|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td style="border-right: 1px dashed #F9F1CF;">{{ element.life_insurance_end_date|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.property_insurance_amount|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.property_insurance_frequency|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.property_insurance_payment_period|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.property_insurance_start_date|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+<!--						<td>{{ element.property_insurance_end_date|default_if_none:'&#45;&#45;&#45;&#45;' }}</td>-->
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-insurance' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'credit:delete-credit-insurance' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div style="margin-bottom: 20px;">
+		<small>*ODM = Ostatni Dzień Miesiąca.</small>
+		<br>
+		<small>Uwaga! Zmiana danych historycznych spowoduje zmianę (przeliczenie) danych historycznych kredytu.</small>
+	</div>
+	<div>
+		<a href="{% url 'credit:add-credit-insurance' credit.id %}">[Dodaj ubezpieczenie]</a>
+	</div>
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Dodatkowe koszty">Dodatkowe koszty</h2>
+	{% if not credit_additional_cost %}
+		<div>
+			<p>Brak dodatkowych kosztów.</p>
+			<p><a href="{% url 'credit:add-credit-additional-cost' credit.id %}">[Uzupełnij koszty]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td>Nazwa</td>
+						<td>Wysokość kosztu</td>
+						<td>Data płatności</td>
+						<td>Opis</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in credit_additional_cost %}
+					<tr>
+						<td>{{ element.name|default_if_none:'---' }}</td>
+						<td>{{ element.cost_amount|default_if_none:'---' }}</td>
+						<td>{{ element.cost_payment_date|default_if_none:'---' }}</td>
+						<td>{% if not element.description %}---{% else %}{{ element.description|default_if_none:'---' }}{% endif %}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-additional-cost' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'credit:delete-credit-additional-cost' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div>
+		<a href="{% url 'credit:add-credit-additional-cost' credit.id %}">[Dodaj koszt]</a>
+	</div>
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Załączniki">Załączniki</h2>
+	{% if not attachments %}
+		<div>
+			<p>Brak załączników.</p>
+			<p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td>Nazwa dokumentu</td>
+						<td>Informacja o pliku</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+						<td style="text-align: center;">Data ostatniej modyfikacji</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Pobierz</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for attachment in attachments %}
+						<tr>
+							<td>{{ attachment.attachment_name }}</td>
+							<td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
+							<td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
+							<td style="text-align: center;">{{ attachment.updated }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a></td>
+							<td style="text-align: center;"><a href="{% url 'connection:delete-attachment' attachment.id %}">Usuń</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div>
+		<p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}

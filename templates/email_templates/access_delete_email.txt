@@ -1,0 +1,6 @@
+Zmiana dostępu do danych na portalu Memento.
+Dostęp do danych od Użytkownika korzystającego z usług Memento został cofnięty.
+By uzyskać dostęp do informacji skontaktuj się bezpośrednio z Użytkownikiem.
+
+
+Pozdrawiamy, ekipa Memento :)

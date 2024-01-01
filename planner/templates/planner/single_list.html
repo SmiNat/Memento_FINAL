@@ -1,0 +1,261 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+    {% if page == 'single-expense-list' %}
+
+        <h2>Lista planowanych wydatków</h2>
+        {% comment %}
+        <div class="name" id="{{ list_title.name }}">{{ list_title.name }}
+            <br>
+            <small>
+                <a href="{% url 'planner:edit-expense-list' list_title.id %}">[Aktualizuj listę]</a> |
+                <a href="{% url 'planner:delete-expense-list' list_title.id %}">[Usuń listę]</a> |
+                <a href="{% url 'planner:planner' 1 %}">[Powrót]</a>
+            </small>
+        </div>
+        {% endcomment %}
+
+        <div class="list">
+            {% if not expense_items %}
+                <div class="half_col_white"><p>Brak planowanych wydatków.</p></div>
+            {% else %}
+            <div class="list_field">
+                <table id="tbl_exporttable_to_xls">
+                    <thead>
+                        <tr>
+                            <td colspan="2">Elementy listy <strong>"{{ list_title.name }}"</strong>:</td>
+                        </tr>
+                    </thead>
+                    {% for element in expense_items %}
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {% if element.execution_status == 'Zrealizowane' %}
+                                    <i class="fa-solid fa-square-check" style="color: #AA7C1A;"></i>
+                                    {% else %}
+                                    <i class="fa-regular fa-square" style="color: #AA7C1A;"></i>
+                                    {% endif %}
+
+                                    {{ element }}
+                                    {% if element.execution_status == 'Planowane' and element.validity_status == 'Pilne' %}
+                                    [<span style="color: #C00000;">PILNE!</span>]
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="#{{element}}" title="zobacz"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    | <a href="{% url 'planner:edit-expense-item' element.id %}" title="edytuj"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    | <a href="{% url 'planner:delete-expense-item' element.id %}" title="usuń"><i class="fa-solid fa-trash-can"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        </div>
+
+        <div>
+            <small><a href="{% url 'planner:add-expense-item' list_title.id %}">[Dodaj wydatek do listy]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></small>
+        </div>
+        <br>
+        <div>
+            <small>
+            Przyznany dostęp do listy:
+                {% if list_title.access_granted == 'Brak dostępu' %}Brak dostępu.
+                {% elif list_title.access_granted == 'Udostępnij dane' %}
+                    {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                    {% else %}{{ profile.access_granted_to }}.
+                    {% endif %}
+                {% endif %}
+            </small>
+        </div>
+        <div>
+            <small>Data utworzenia listy: {{ list_title.created }}.</small>
+        </div>
+
+        {% if expense_items %}
+            <br><hr><br>
+            <h3>Szczegóły listy wydatków:</h3>
+            <div class="single_table">
+                <table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+                    <thead>
+                        <tr>
+                            <td>Nazwa wydatku</td>
+                            <td>Opis wydatku</td>
+                            <td style="text-align: center;">Szacunkowy koszt</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Status wykonania</td>
+                            <td style="text-align: center">Status wymagania</td>
+                            <td style="text-align: center">Status ważności</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Poniesiony koszt</td>
+                            <td style="text-align: center;">Data poniesienia wydatku</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Data dodania</td>
+                            {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Aktualizuj</td>
+                            <td style="text-align: center;">Usuń</td>
+                            {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for element in expense_items %}
+                        <tr>
+                            <td><div id="{{ element.name }}">{{ element.name }}</div></td>
+                            <td>{% if element.description == 'None' or element.description == "" %}---{% else %}{{ element.description }}{% endif %}</td>
+                            <td style="min-width: 100px; text-align: center;">{{ element.estimated_cost|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status }}</td>
+                            <td style="text-align: center">{{ element.requirement_status }}</td>
+                            <td style="text-align: center">{{ element.validity_status }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.cost_paid|default_if_none:"---" }}</td>
+                            <td style="text-align: center; min-width: 100px;">{{ element.purchase_date|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
+                            {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'planner:edit-expense-item' element.id %}">Aktualizuj</a></td>
+                            <td style="text-align: center;"><a href="{% url 'planner:delete-expense-item' element.id %}">Usuń</a></td>
+                            {% endcomment %}
+                        </tr>
+                    {% endfor %}
+                        <tr style="border-top: 1px solid rgba(251, 245, 183, 1)">
+                            <td style="font-weight: bold;">SUMA KOSZTÓW</td>
+                            <td>---</td>
+                            <td style="min-width: 100px; font-weight: bold; text-align: center;">{{ estimated_costs }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">---</td>
+                            <td style="text-align: center">---</td>
+                            <td style="text-align: center">---</td>
+                            <td style="border-left: 1px dashed #F9F1CF; font-weight: bold; text-align: center;">{{ paid_costs }}</td>
+                            <td style="text-align: center; min-width: 100px;">---</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">---</td>
+                            {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">---</td>
+                            <td style="text-align: center;">---</td>
+                            {% endcomment %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <small><a href="{% url 'planner:add-expense-item' list_title.id %}">[Dodaj wydatek do listy]</a> | <button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
+            </div>
+        {% endif %}
+
+
+    {% elif page == 'single-todo-list' %}
+
+        <h2>Lista planowanych zadań</h2>
+        {% comment %}
+        <div class="name" id="{{ list_title.name }}">{{ list_title.name }}
+            <br>
+            <small>
+                <a href="{% url 'planner:edit-todo-list' list_title.id %}">[Aktualizuj listę]</a> |
+                <a href="{% url 'planner:delete-todo-list' list_title.id %}">[Usuń listę]</a> |
+                <a href="{% url 'planner:planner' 1 %}">[Powrót]</a>
+            </small>
+        </div>
+        {% endcomment %}
+
+        <div class="list">
+            {% if not todo_items %}
+                <div class="half_col_white"><p>Brak planowanych zadań.</p></div>
+            {% else %}
+                <div class="list_field">
+                    <table id="tbl_exporttable_to_xls">
+                        <thead>
+                            <tr>
+                                <td colspan="2">Elementy listy <strong>"{{ list_title.name }}"</strong>:</td>
+                            </tr>
+                        </thead>
+                        {% for element in todo_items %}
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {% if element.execution_status == 'Zrealizowane' %}
+                                        <i class="fa-solid fa-square-check" style="color: #AA7C1A;"></i>
+                                        {% else %}
+                                        <i class="fa-regular fa-square" style="color: #AA7C1A;"></i>
+                                        {% endif %}
+
+                                        {{ element }}
+                                        {% if element.execution_status == 'Planowane' and element.validity_status == 'Pilne' %}
+                                        [<span style="color: #C00000;">PILNE!</span>]
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="#{{ element }}" title="zobacz"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                        | <a href="{% url 'planner:edit-todo-item' element.id %}" title="edytuj"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        | <a href="{% url 'planner:delete-todo-item' element.id %}" title="usuń"><i class="fa-solid fa-trash-can"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            <small><a href="{% url 'planner:add-todo-item' list_title.id %}">[Dodaj zadanie do listy]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></small>
+        </div>
+        <br>
+        <div>
+            <small>
+            Przyznany dostęp do listy:
+                {% if list_title.access_granted == 'Brak dostępu' %}Brak dostępu.
+                {% elif list_title.access_granted == 'Udostępnij dane' %}
+                    {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                    {% else %}{{ profile.access_granted_to }}.
+                    {% endif %}
+                {% endif %}
+            </small>
+        </div>
+        <div>
+            <small>Data utworzenia listy: {{ list_title.created }}.</small>
+        </div>
+
+        {% if todo_items %}
+
+        <br><hr><br>
+        <h3>Szczegóły listy zadań:</h3>
+        <div class="single_table">
+            <table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+                <thead>
+                    <tr>
+                        <td>Nazwa zadania</td>
+                        <td>Opis zadania</td>
+                        <td style="text-align: center">Termin wykonania</td>
+                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Status wykonania</td>
+                        <td style="text-align: center">Status wymagania</td>
+                        <td style="text-align: center">Status ważności</td>
+                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Data dodania</td>
+                        {% comment %}
+                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Aktualizuj</td>
+                        <td style="text-align: center;">Usuń</td>
+                        {% endcomment %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for element in todo_items %}
+                    <tr>
+                        <td><div id="{{ element.name }}">{{ element.name }}</div></td>
+                        <td>{% if element.description == 'None' or element.description == "" %}---{% else %}{{ element.description }}{% endif %}</td>
+                        <td style="min-width: 100px; text-align: center;">{{ element.due_date|default_if_none:"---" }}</td>
+                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status }}</td>
+                        <td style="text-align: center">{{ element.requirement_status }}</td>
+                        <td style="text-align: center">{{ element.validity_status }}</td>
+                        <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
+                        {% comment %}
+                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'planner:edit-todo-item' element.id %}">Aktualizuj</a></td>
+                        <td style="text-align: center;"><a href="{% url 'planner:delete-todo-item' element.id %}">Usuń</a></td>
+                        {% endcomment %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <small><a href="{% url 'planner:add-todo-item' list_title.id %}">[Dodaj zadanie do listy]</a> | <button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
+        </div>
+
+        {% endif %}
+    {% endif %}
+
+</div>
+
+{% endblock content %}

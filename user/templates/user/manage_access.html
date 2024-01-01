@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <div class="form_img"><img src="{% static 'images/vecteezy_data-protection-concept-and-secure-internet-security-access_25075195_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'delete-access' %}
+        <h2>Usuń dostęp dla użytkownika</h2>
+        <form method="post" action="{% url 'delete-access' %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć dostęp do danych dla użytkownika: <br/>
+                    '{{ access }}'?</p>
+                <p><input type="submit" value="Usuń dostęp"/></p>
+            </div>
+        </form>
+
+        {% elif page == 'edit-access' %}
+        <h2>Dodaj dostęp dla użytkownika</h2>
+        <form method="post" action="{% url 'edit-access' %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Wpisz adres email użytkownika, dla którego chcesz udostępnić wybrane dane.</p>
+                <div class="value_field">{{ form.access_granted_to }}</div>
+                <small>Uwaga, ze względów bezpieczeństwa, można wskazać wyłącznie jednego użytkownika.</small>
+                <p><input type="submit" value="Dodaj dostęp"/></p>
+            </div>
+        </form>
+        {% endif %}
+        <div class="text_field">
+            <p>Nie chcesz edytować dostępu do danych? <a href="{% url 'user-profile' %}"><button class="button">Powrót</button></a></p>
+        </div>
+    </div>
+{% endblock content %}

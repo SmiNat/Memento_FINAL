@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="content">
+        <div class="grid_display">
+            <h2>Podsumowanie płatności</h2>
+
+            {% if not payments %}
+                <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+                <p><a href="{% url 'payment:add-payment' %}">[Dodaj płatność]</a></p>
+            {% else %}
+
+                <div class="order_by">
+                    <form action="{% url 'payment:payments' %}">
+                        <div>Sortuj:</div>
+                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                            <option value="-updated">---</option>
+                            <option value="name">Nazwa (od A do Z)</option>
+                            <option value="-name">Nazwa (od Z do A)</option>
+                            <option value="payment_type">Grupa opłat (od A do Z)</option>
+                            <option value="-payment_type">Grupa opłat (od Z do A)</option>
+                            <option value="payment_frequency">Częstotliwość płatności (od A do Z)</option>
+                            <option value="-payment_frequency">Częstotliwość płatności (od Z do A)</option>
+                            <option value="payment_value">Wysokość płatności (rosnąco)</option>
+                            <option value="-payment_value">Wysokość płatności (malejąco)</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="basic_table">
+                    <table id="tbl_exporttable_to_xls">
+                        <thead>
+                            <tr>
+                                <td>Nazwa</td>
+                                <td>Grupa opłat</td>
+                                <td style="border-left: 1px dashed #136568;">Częstotliwość płatności</td>
+                                <td>Miesiące płatności</td>
+                                <td style="text-align: center;">Dzień płatności*</td>
+                                <td style="border-left: 1px dashed #136568; text-align: center;">Wysokość płatności</td>
+                                <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                                <td>Edytuj</td>
+                                <td>Usuń</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pmt in payments %}
+                                <tr>
+                                    <td>{{ pmt.name }}</td>
+                                    <td>{{ pmt.payment_type|default_if_none:"---" }}</td>
+                                    <td style="border-left: 1px dashed #F9F1CF;">{{ pmt.payment_frequency|default_if_none:"---" }}</td>
+                                    {% if pmt.payment_months_to_list|length_is:12 %}
+                                        <td>Wszystkie miesiące</td>
+                                    {% elif pmt.payment_months_to_list|length_is:0 %}
+                                        <td>---</td>
+                                    {% else %}
+                                        <!-- <td>{{ pmt.payment_months }}</td> -->
+                                        <td>
+                                            {% for month in pmt.payment_months_to_list %}
+                                                {% if forloop.last %}
+                                                    {{ month }}
+                                                {% else %}
+                                                    {{ month }},
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                    {% endif %}
+                                    {% if pmt.payment_day == 0 %}
+                                        <td style="text-align:center;">ODM*</td>
+                                    {% else %}
+                                        <td style="text-align:center;">{{ pmt.payment_day|default_if_none:"---" }}</td>
+                                    {% endif %}
+                                    <td style="border-left: 1px dashed #F9F1CF; text-align:center;">{{ pmt.payment_value|default_if_none:"---" }}</td>
+                                    <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'payment:single-payment' pmt.id %}">Szczegóły</a></td>
+                                    <td><a href="{% url 'payment:edit-payment' pmt.id %}">Edytuj</a></td>
+                                    <td><a href="{% url 'payment:delete-payment' pmt.id %}">Usuń</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="footnote">*ODM = Ostatni Dzień Miesiąca</div>
+                </div>
+                <p><a href="{% url 'payment:add-payment' %}">[Dodaj płatność]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock content%}

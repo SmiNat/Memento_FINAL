@@ -1,0 +1,507 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<small>
+		<a href="#Podstawowe wyposażenie">Podstawowe wyposażenie</a> |
+		<a href="#Zaawansowane wyposażenie">Zaawansowane wyposażenie</a> |
+		<a href="#Dodatkowe wyposażenie">Dodatkowe wyposażenie</a> |
+		<a href="#Koszty podróży">Koszty podróży</a> |
+		<a href="#Relacje z podróży">Relacje z podróży</a> |
+		<a href="#Dodatkowe informacje">Dodatkowe informacje</a> |
+		<a href="#Załączniki">Załączniki</a>
+	</small>
+</div>
+
+<div class="content">
+	<h2>Informacje o podróży</h2>
+	{% comment %}<div class="name">{{ trip.name }}</div>{% endcomment %}
+	<div class="single_table">
+		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
+			<thead>
+				<tr>
+					<td style="color: #FAAC18;">Nazwa podróży:</td>
+					<td style="color: #FAAC18;">{{ trip.name }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for field, value in trip %}
+					{% if field == 'id' or field == 'Użytkownik' or field == 'Data dodania' or field == 'Nazwa podróży' or field == 'Dostęp do danych' %}
+					{% elif value == 'None' or value == '' %}
+					{% elif field == 'Rodzaj podróży' %}
+						<tr>
+							<td style="border-top: 1px solid #F9F1CF;">{{ field }}:</td>
+							<td style="border-top: 1px solid #F9F1CF;">
+								{% if trip.type %}
+									{% for element in trip.type_to_list %}
+										{{ element }} <br>
+									{% endfor %}
+								{% else %}---{% endif %}
+							</td>
+						</tr>
+					{% elif field == 'Zakończenie wyjazdu' %}
+						<tr>
+							<td>{{ field }}:</td>
+							{% if value == 'None' or value == "" %}
+								<td>---</td>
+							{% else %}
+								<td>{{ value }}</td>
+							{% endif %}
+						</tr>
+						<tr>
+							<td>Długość wyjazdu (w dniach*):</td>
+							{% if trip.trip_days == None or trip.trip_days == "" %}
+								<td>---</td>
+							{% else %}
+								<td>{{ trip.trip_days }}</td>
+							{% endif %}
+						</tr>
+					{% elif field == 'Data aktualizacji' %}
+						<tr>
+							<td style="border-top: 1px solid #F9F1CF;">{{ field }}:</td>
+							<td style="border-top: 1px solid #F9F1CF;">{{ value }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td>{{ field }}:</td>
+							{% if value == 'None' or value == "" %}
+								<td>---</td>
+							{% else %}
+								<td>{{ value }}</td>
+							{% endif %}
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td style="border-top: 1px solid #F9F1CF;">Kontrahenci:</td>
+					{% if trip.counterparty_set.all %}
+						<td style="line-height: 5px; border-top: 1px solid #F9F1CF;">{% for counterparty in trip.counterparty_set.all %}<a href="{% url 'connection:single-counterparty' counterparty.id %}">{{ counterparty.name|linebreaks }}</a>{% endfor %}</td>
+					{% else %}
+						<td style="border-top: 1px solid #F9F1CF;"><a href="{% url 'connection:add-counterparty' %}">Dodaj kontrahenta</a></td>
+					{% endif %}
+				</tr>
+			</tbody>
+		</table>
+		<small>* Łącznie z dniem wyjazdu / powrotu.</small>
+	</div>
+	<div>
+		<small><a href="{% url 'trip:trips' %}">[Powrót]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>|
+		<a href="{% url 'trip:edit-trip' trip.id %}">[Aktualizuj dane]</a> | <a href="{% url 'trip:delete-trip' trip.id %}">[Usuń podróż]</a></small>
+	</div>
+	<br>
+	<div>
+		<small>
+		Przyznany dostęp do danych:
+			{% if trip.access_granted == 'Brak dostępu' %}Brak dostępu.
+			{% elif trip.access_granted == 'Udostępnij dane' %}
+				{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+				{% else %}{{ profile.access_granted_to }}.
+				{% endif %}
+			{% endif %}
+		</small>
+	</div>
+	<div>
+		<small>Data utworzenia podróży: {{ trip.created }}.</small>
+	</div>
+</div>
+
+<div class="content">
+	<h2 id="Podstawowe wyposażenie">Podstawowe wyposażenie</h2>
+	{% if not trip_basic %}
+		<div>
+			<p>Brak podstawowego wyposażenia.</p>
+			<p><a href="{% url 'trip:add-trip-basic' trip.id %}">[Uzupełnij bagaż]</a></p>
+		</div>
+	{% else %}
+		{% for trip in trip_basic %}
+			<div class="single_table_2">
+				<table id="tbl_exporttable_to_xls_4" style="min-width: 500px;">
+					{% for field, value in trip %}
+					{% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' %}
+					{% elif field == 'Nazwa' %}
+						<thead>
+							<tr>
+								<td style="color: #FAAC18;">{{ field }}:</td>
+								<td style="color: #FAAC18;">{{ value }}</td>
+							</tr>
+						</thead>
+					{% else %}
+						<tbody>
+							<tr>
+								{% if value == 'None' or value == "" %}
+								{% elif field == 'Portfel' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in trip.wallet_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% elif field == 'Klucze' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in trip.keys_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% elif field == 'Kosmetyki' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in trip.cosmetics_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% elif field == 'Elektronika' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in trip.electronics_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% elif field == 'Użyteczne rzeczy' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in trip.useful_stuff_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% elif field == 'Podstawowe leki' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in element.basic_drugs_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% elif field == 'Dodatkowe leki' %}
+									<td>{{ field }}: </td>
+									<td>{% for element in element.additional_drugs_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+								{% else %}
+									<td>{{ field }}: </td>
+									<td>{{ value }}</td>
+								{% endif %}
+							</tr>
+					{% endif %}
+					{% endfor %}
+							<tr>
+								<td style="border-top: 1px solid #F9F1CF;" colspan="2">
+									<a href="{% url 'trip:edit-trip-basic' trip.id %}">[Aktualizuj]</a> |
+									<a href="{% url 'trip:delete-trip-basic' trip.id %}">[Usuń]</a>
+								</td>
+							</tr>
+						</tbody>
+				</table>
+			</div>
+		{% endfor %}
+		<div>
+			<small><a href="{% url 'trip:add-trip-basic' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel4('xlsx')">[Eksportuj tabelę]</button></small>
+		</div>
+	{% endif %}
+
+	<br><br>
+
+	<h2 id="Zaawansowane wyposażenie">Zaawansowane wyposażenie</h2>
+	{% if not trip_advanced %}
+		<div>
+			<p>Brak zaawansowanego wyposażenia.</p>
+			<p><a href="{% url 'trip:add-trip-advanced' trip.id %}">[Uzupełnij bagaż]</a></p>
+		</div>
+	{% else %}
+		{% for trip in trip_advanced %}
+			<div class="single_table_2">
+				<table id="tbl_exporttable_to_xls_5" style="min-width: 500px;">
+					{% for field, value in trip %}
+					{% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' %}
+					{% elif field == 'Nazwa' %}
+						<thead>
+							<tr>
+								<td style="color: #FAAC18;">{{ field }}:</td>
+								<td style="color: #FAAC18;">{{ value }}</td>
+							</tr>
+						</thead>
+					{% else %}
+						<tbody>
+							<tr>
+							{% if value == 'None' or value == "" %}
+							{% elif field == 'Trekking' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.trekking_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Wspinaczka' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.hiking_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Rower' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.cycling_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Camping' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.camping_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Wędkarstwo' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.fishing_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Plażowanie' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.sunbathing_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Wyjazd służbowy' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.business_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% else %}
+								<td>{{ field }}: </td><td>{{ value }}</td>
+							{% endif %}
+							</tr>
+					{% endif %}
+					{% endfor %}
+							<tr>
+								<td style="border-top: 1px solid #F9F1CF;" colspan="2">
+									<a href="{% url 'trip:edit-trip-advanced' trip.id %}">[Aktualizuj]</a> |
+									<a href="{% url 'trip:delete-trip-advanced' trip.id %}">[Usuń]</a>
+								</td>
+							</tr>
+						</tbody>
+				</table>
+			</div>
+		{% endfor %}
+		<div>
+			<small><a href="{% url 'trip:add-trip-advanced' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel5('xlsx')">[Eksportuj tabelę]</button></small>
+		</div>
+	{% endif %}
+
+	<br><br>
+
+	<h2 id="Dodatkowe wyposażenie">Dodatkowe wyposażenie</h2>
+	{% if not trip_personal_checklist %}
+		<div>
+			<p>Brak dodatkowego wyposażenia.</p>
+			<p><a href="{% url 'trip:add-trip-personal-checklist' trip.id %}">[Uzupełnij bagaż]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls_6" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td>Nazwa</td>
+						<td>Lista</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in trip_personal_checklist %}
+					<tr>
+						<td>{{ element.name }}</td>
+						<td>{% for element in element.checklist_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'trip:edit-trip-personal-checklist' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'trip:delete-trip-personal-checklist' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div>
+		<small><a href="{% url 'trip:add-trip-personal-checklist' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel6('xlsx')">[Eksportuj tabelę]</button></small>
+	</div>
+	{% endif %}
+
+</div>
+
+<div class="content">
+	<h2 id="Koszty podróży">Koszty podróży</h2>
+	{% if not trip_costs %}
+		<div>
+			<p>Brak kosztów podróży.</p>
+			<p><a href="{% url 'trip:add-trip-cost' trip.id %}">[Uzupełnij koszty]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td>Nazwa</td>
+						<td>Grupa kosztów</td>
+						<td style="border-left: 1px dashed #F9F1CF; text-align: center;">Wysokość wydatku</td>
+						<td style="text-align: center;">Waluta</td>
+						<td style="text-align: center;">Kurs wymiany waluty</td>
+						<td style="text-align: center;">Koszt w walucie bazowej</td>
+						<td style="border-left: 1px dashed #F9F1CF;">Notatka dot. kosztów</td>
+						<td style="border-left: 1px dashed #F9F1CF; text-align: center;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in trip_costs %}
+					<tr>
+						<td>{{ element.name }}</td>
+						<td>{{ element.cost_group }}</td>
+						<td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.cost_paid|default_if_none:"---" }}</td>
+						<td style="text-align: center;">{{ element.currency }}</td>
+						<td style="text-align: center;">{{ element.exchange_rate }}</td>
+						<td style="text-align: center;">{{ element.calculate_cost_at_exchange_rate }}</td>
+						<td style="border-left: 1px dashed #F9F1CF;">
+							{% if element.cost_note == None or element.cost_note == "" %}
+								---
+							{% else %}
+								{{ element.cost_note }}
+							{% endif %}
+						</td>
+						<td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'trip:edit-trip-cost' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'trip:delete-trip-cost' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div>
+		<small><a href="{% url 'trip:add-trip-cost' trip.id %}">[Dodaj koszt]</a> |<button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
+	</div>
+	{% endif %}
+
+	<br><br>
+
+	<div><h3>Suma kosztów:</h3></div>
+	<div class="single_table">
+		<table id="tbl_exporttable_to_xls_3" style="min-width: 500px;">
+			<thead>
+				<tr>
+					<td style="font-weight: bold;">Razem (w walucie bazowej):</td>
+					<td>#</td>
+					<td style="text-align: right; font-weight: bold;">{{ sum_of_costs }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Koszt na osobę (w walucie bazowej):</td>
+					<td>[{{ trip.participants_number }} os.]</td>
+					<td style="text-align: right;">{% if cost_per_person == 0 %}0 {% else %}{{ cost_per_person }}{% endif %}</td>
+				</tr>
+				<tr>
+					<td>Koszt na dzień (w walucie bazowej):</td>
+					<td>[{{ days }} {% if days == 1 %}dzień {% else %}dni {% endif %}]</td>
+					<td style="text-align: right;">{{ cost_per_day }}</td>
+				</tr>
+				<tr>
+					<td>Koszt na osobę na dzień (w walucie bazowej):</td>
+					<td>[{{ trip.participants_number }} os. | {{ days }} {% if days == 1 %} dzień{% else %} dni{% endif %}]</td>
+					<td style="text-align: right;">{{ cost_per_person_per_day }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<small><button class="export_button" onclick="ExportToExcel3('xlsx')">[Eksportuj tabelę]</button></small>
+	</div>
+</div>
+
+<div class="content">
+	<h2 id="Relacje z podróży">Relacje z podróży</h2>
+	{% if not trip_report %}
+		<div>
+			<p>Brak relacji z podróży.</p>
+			<p><a href="{% url 'trip:add-trip-report' trip.id %}">[Dodaj opis]</a></p>
+		</div>
+	{% else %}
+		<br>
+		{% for element in trip_report %}
+			<div class="single_table_2">
+				<table class="trip_report_table" style="min-width: 500px;">
+					<thead>
+						<tr>
+							<td>Opis za okres:</td>
+							<td>
+								{% if not element.start_date and not element.end_date %}
+								---
+								{% endif %}
+								{{ element.start_date|default_if_none:"" }}
+								{% if element.start_date == None or element.end_date == None %}{% else %} - {% endif %}
+								{{ element.end_date|default_if_none:"" }}
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Linki do relacji:</td>
+							<td>
+								{% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i>{% endif %}
+								{% if element.youtube %}<a href="{{ element.youtube }}" target="_blank"><i class="fa-brands fa-youtube fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-youtube fa-2xl" style="padding-right: 7px;"></i>{% endif %}
+								{% if element.instagram %}<a href="{{ element.instagram }}" target="_blank"><i class="fa-brands fa-square-instagram fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-square-instagram fa-2xl" style="padding-right: 7px;"></i>{% endif %}
+								{% if element.pinterest %}<a href="{{ element.pinterest }}" target="_blank"><i class="fa-brands fa-pinterest fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-pinterest fa-2xl" style="padding-right: 7px;"></i>{% endif %}
+								{% if element.link %}<a href="{{ element.link }}" target="_blank"><i class="fa-solid fa-paperclip fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-solid fa-paperclip fa-2xl" style="padding-right: 7px;"></i>{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>Opis:</td>
+							<td>{% if element.description %} {{ element.description|default_if_none:"---" }} {% else %} Brak opisu.{% endif %}</td>
+						</tr>
+						<tr>
+							<td>Uwagi:</td>
+							<td>{% if element.notes %} {{ element.notes|default_if_none:"---" }} {% else %} Brak uwag.{% endif %}</td>
+						</tr>
+						<tr>
+							<td style="border-top: 1px solid #F9F1CF;" colspan="2">
+								<a href="{% url 'trip:edit-trip-report' element.id %}">[Aktualizuj]</a> |
+								<a href="{% url 'trip:delete-trip-report' element.id %}">[Usuń]</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br>
+		{% endfor %}
+		<div>
+			<small><a href="{% url 'trip:add-trip-report' trip.id %}">[Dodaj kolejny opis]</a></small>
+		</div>
+		<br>
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Dodatkowe informacje">Dodatkowe informacje</h2>
+	{% if not trip_additional %}
+		<div>
+			<p>Brak dodatkowych informacji.</p>
+			<p><a href="{% url 'trip:add-trip-additional' trip.id %}">[Uzupełnij informacje]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls_7" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td>Nazwa</td>
+						<td>Opis</td>
+						<td>Uwagi</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in trip_additional %}
+					<tr>
+						<td>{{ element.name }}</td>
+						<td>{{ element.info|default_if_none:"---" }}</td>
+						<td>{%  if element.notes == 'None' or element.notes == '' %}---{% else %}{{ element.notes }}{% endif %}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'trip:edit-trip-additional' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'trip:delete-trip-additional' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div>
+		<small><a href="{% url 'trip:add-trip-additional' trip.id %}">[Dodaj informacje]</a> |<button class="export_button" onclick="ExportToExcel7('xlsx')">[Eksportuj tabelę]</button></small>
+	</div>
+	{% endif %}
+</div>
+
+<div class="content">
+	<h2 id="Załączniki">Załączniki</h2>
+	{% if not attachments %}
+		<div>
+			<p>Brak załączników.</p>
+			<p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td>Nazwa dokumentu</td>
+						<td>Informacja o pliku</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+						<td style="text-align: center;">Data ostatniej modyfikacji</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Pobierz</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for attachment in attachments %}
+						<tr>
+							<td>{{ attachment.attachment_name }}</td>
+							<td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
+							<td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
+							<td style="text-align: center;">{{ attachment.updated }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a></td>
+							<td style="text-align: center;"><a href="{% url 'connection:delete-attachment' attachment.id %}">Usuń</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	<div>
+		<small><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></small>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

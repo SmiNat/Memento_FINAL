@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+    {% if page == 'delete-renovation' %}
+        <h2>Usuń remont wraz z kosztami remontu</h2>
+        <form method="post" action="{% url 'renovation:delete-renovation' renovation.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć remont "{{ renovation.name }}" wraz z dodatkowymi kosztami remontu?</p>
+                <p><input type="submit" value="Usuń remont"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać remontu?
+                <a href="{% url 'renovation:renovations' %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-renovation-cost' %}
+        <h2>Usuń koszt remontu</h2>
+        <form method="post" action="{% url 'renovation:delete-renovation-cost' cost.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć koszt "{{ cost.name }}"?</p>
+                <p><input type="submit" value="Usuń koszt remontu"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać kosztu?
+                <a href="{% url 'renovation:renovations' %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

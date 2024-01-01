@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+
+    <div class="text_front">
+        <h2>Witaj na stronie do zarządzania swoimi płatnościami, planami oraz obowiązkami!</h2>
+        <div>
+            W jednym miejscu możesz mieć teraz to, co najważniejsze.
+            Zbierz swoje cykliczne wydatki mieszkaniowe, kredytowe, abonamentowe, ubezpieczeniowe i inne.
+            Zaplanuj wyjazdy, zakupy, studia, remonty.
+            Pamiętaj o codziennych sprawach, jak przyjmowane leki, zaplanowane wizyty.
+            Bądź z nami na bieżąco!
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <br>
+
+    {% if request.user.is_authenticated is False %}
+
+        <div class="half_box">
+            <a href="{% url 'register' %}">
+                <div class="half_col_white">
+                    <p>Jesteś nowym użytkownikiem?</p>
+                    <p>Stwórz konto i korzystaj z usług Memento.</p>
+                    <i class="fa-solid fa-address-card" style="font-size: 350%; padding-top: 10px; padding-bottom: 15px;"></i><br> - Zarejestruj się -
+                </div>
+            </a>
+        </div>
+        <div class="half_box">
+            <a href="{% url 'login' %}">
+                <div class="half_col_white">
+                    <p>Korzystasz już z naszego plannera?</p>
+                    <p>Zaloguj się i korzystaj z usług Memento. </p>
+                    <i class="fa-solid fa-arrow-right-to-bracket" style="font-size: 350%; padding-top: 10px; padding-bottom: 15px;"></i><br>- Zaloguj się -
+                </div>
+            </a>
+        </div>
+        <div style="clear:both"></div>
+    {% endif %}
+
+    <br>
+    <div class="text_front_2">
+        <h2>Co oferujemy:</h2>
+        <ul>
+            <li>Możliwość gromadzenia informacji o cyklicznych płatnościach w jednym miejscu</li>
+            <li>Planowanie wyjazdów wraz z rozliczeniem kosztów podróży</li>
+            <li>Planowanie prac remontowych czy wykończeniowych dla domu</li>
+            <li>Monitorowanie spłaty kredytu przy aktywnym aktualizowaniu danych</li>
+            <li>Prowadzenie list zadań do wykonania lub list wydatków do poniesienia w przyszłości</li>
+            <li>Zarządzanie kartą medyczną dla lepszego zarządzania zdrowiem</li>
+            <li>Gromadzenie danych o kontrahentach, przechowywanie plików</li>
+            <li>Współdzielenie danych z osobą zaufaną</li>
+            - a to wszystko{% comment %} opakowane w kalendarz{% endcomment %}, dla łatwiejszego zarządzania czasem i obowiązkami.
+        </ul>
+    </div>
+    <div class="text_front">
+        <p>Z nami łatwiej zaplanujesz ślub, rozliczysz się z podróży ze swoimi towarzyszami, zrobisz listę niezbędnych rzeczy do zabrania na wyjazd wakacyjny, będziesz kontrolował swoje bieżące wydatki i planował nowe przedsięwzięcia.</p>
+        <p>Zapisuj to, co pilne, ważne lub warte zapamiętania. Zarządzaj zawartością Memento tak, jak tego potrzebujesz. A gdy wyjedziesz na urlop, spakujesz z nami bagaż i przekażesz dostęp do płatności osobie zaufanej, by ona przejęła Twoje obowiązki domowe.</p>
+    </div>
+
+</div>
+{% endblock content %}

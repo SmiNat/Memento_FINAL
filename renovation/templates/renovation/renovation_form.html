@@ -1,0 +1,102 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    {% if page == 'add-renovation' or page == 'edit-renovation' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_blueprints-plans-and-paperwork-guide-construction-industry_24574124_SMALL.jpg' %}" alt="Foto"/></div>
+
+        {% if page == 'add-renovation' %}
+            <h2>Dodaj remont</h2>
+            <form method="post" action="{% url 'renovation:add-renovation' %}">
+        {% else %}
+            <h2>Edytuj remont</h2>
+            <form method="post" action="{% url 'renovation:edit-renovation' renovation.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        {% if field.label == 'Dostęp do danych' %}
+                            <hr><br>
+                            <fieldset style="border-color: #13656; border-width: 5px;">
+                                <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </fieldset>
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować remontu? <a href="{% url 'renovation:renovations' %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-renovation-cost' or page == 'edit-renovation-cost' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_saving-for-the-dream-home-piggy-bank-with-blurred-house-in_24067098_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'add-renovation-cost'%}
+            <h2>Dodaj koszty remontu</h2><div class="name">{{ renovation }}</div>
+            <form method="post" action="{% url 'renovation:add-renovation-cost' renovation.id %}">
+        {% else %}
+            <h2>Uzupełnij koszty remontu</h2><div class="name">{{ renovation }}</div>
+            <form method="post" action="{% url 'renovation:edit-renovation-cost' cost.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form_cost %}
+                    <div class="one_field">
+                        {% if field.label == 'Dostęp do danych' %}
+                            <hr><br>
+                            <fieldset style="border-color: #13656; border-width: 5px;">
+                                <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                                <small>Uwaga! Udzielenie dostępu oznacza dostęp do pełnej informacji o remoncie (wraz z jego kosztami).</small>
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </fieldset>
+                        {% elif field.label == 'Remont' %}
+                            <div class="label_field">{{ field.label }}: {{ renovation }}</div>
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować kosztów remontu? <a href="{% url 'renovation:single-renovation' renovation_id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    {% if page == 'delete-attachment' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Usuń załącznik</h2>
+        <form method="post" action="{% url 'connection:delete-attachment' attachment.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć załącznik "{{ attachment.attachment_name }}"?</p>
+                <p><input type="submit" value="Usuń załącznik"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać załącznika?
+                <a href="{% url 'connection:attachments' %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

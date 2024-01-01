@@ -1,0 +1,109 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+    <div class="grid_display">
+        <h2>Karta medyczna</h2>
+        {% if not medcard %}
+            <div class="half_col_white">
+                <p>Brak wypełnionej karty medycznej.</p>
+            </div>
+            <p><a href="{% url 'medical:add-medcard' %}">[Dodaj kartę]</a></p>
+        {% else %}
+            {% comment list_of_accesses %}
+            <div class="list">
+                <div class="access_granted">
+                    <h3>Przyznany dostęp do danych medycznych:</h3>
+                    <table>
+                        <tbody>
+                            {% for field, value in medcard %}
+                                {% if field == 'Dostęp do karty medycznej' %}
+                                    <tr>
+                                        <td style="border-top: 3px solid #232D39;">{{ field }}:</td>
+                                        <td style="border-top: 3px solid #232D39; font-weight: bold;">
+                                            {% if value == 'Brak dostępu' %}
+                                                {{ value }}
+                                            {% elif profile.access_granted_to == 'None' or profile.access_granted_to == '' or profile.access_granted_to == None %}
+                                                <a href="{% url 'edit-account' %}">Uzupełnij email osoby z dostępem do danych</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                                            {% else %}
+                                                {{ profile.access_granted_to }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% elif field == 'Dostęp do danych o lekach' or field == 'Dostęp do wizyt lekarskich' or field == 'Dostęp do wyników badań' %}
+                                    <tr>
+                                        <td>{{ field }}:</td>
+                                        <td style="font-weight: bold;">
+                                            {% if value == 'Brak dostępu' %}
+                                                {{ value }}
+                                            {% elif profile.access_granted_to == 'None' or profile.access_granted_to == '' or profile.access_granted_to == None %}
+                                                <a href="{% url 'edit-account' %}">Uzupełnij email osoby z dostępem do danych</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                                            {% else %}
+                                                {{ profile.access_granted_to }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endcomment %}
+
+            <div class="white_table">
+                <table id="tbl_exporttable_to_xls" >
+                    <tbody>
+                        {% for field, value in medcard %}
+                            {% if field == 'id' or field == 'Użytkownik' or field == 'Nazwa' or field == 'Data dodania' or field == 'slug' %}
+                            {% elif 'Dostęp do' in field %}
+                            {% elif field == 'Data aktualizacji' %}
+                                <tr>
+                                    <td style="border-top: 3px solid #232D39;">{{ field }}:</td>
+                                    <td style="border-top: 3px solid #232D39;">{{ value }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>
+                                        {% if field == 'Waga' %}Waga (kg):
+                                        {% elif field == 'Wzrost' %}Wzrost (cm):
+                                        {% elif field == 'Wiek' %}Wiek (lata):
+                                        {% else %}{{ field }}:{% endif %}
+                                    </td>
+                                    {% if value == 'None' or value == "" %}
+                                        <td>---</td>
+                                    {% else %}
+                                        <td style="font-weight: bold;">{{ value }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="small">
+                <small>
+                    <a href="{% url 'medical:edit-medcard' medcard.id %}">[Aktualizuj kartę]</a> |
+                    <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+                    <a href="{% url 'medical:delete-medcard' medcard.id %}">[Usuń kartę]</a></small>
+            </div>
+            <br>
+            <div style="margin-top: 20px;">
+                <small>
+                Przyznany dostęp do karty medycznej:
+                    {% if not medcard or medcard.access_granted == 'Brak dostępu' %}Brak dostępu.
+                    {% elif medcard.access_granted == 'Udostępnij dane' %}
+                        {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                        {% else %}{{ profile.access_granted_to }}.
+                        {% endif %}
+                    {% endif %}
+                </small>
+            </div>
+            <div>
+                <small>Data utworzenia informacji o leku: {{ medcard.created }}.</small>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

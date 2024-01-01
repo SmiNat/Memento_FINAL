@@ -1,0 +1,1 @@
+THOUSAND_SEPARATOR = "\xa0" # non-breaking space separator

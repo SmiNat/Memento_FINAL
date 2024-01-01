@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <div class="form_img">
+            <img src="{% static 'images/vecteezy_password-privacy-authentication-and-authentication-access_15397835_358_SMALL.jpg' %}"
+                 alt="Foto" />
+        </div>
+        <h2>Zaktualizuj swoje dane</h2>
+        <form method="post"
+              action="{% url 'edit-account' %}"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form_field">
+                <br>
+                <fieldset>
+                    <legend>Dane osobowe</legend>
+                    {% for field in form %}
+                       {% if field.label == 'Nazwa użytkownika' or field.label == 'Adres email' or field.label == 'Imię' or field.label == 'Nazwisko' or field.label == 'Numer telefonu' %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </fieldset>
+                <fieldset>
+                    <legend>Dane adresowe</legend>
+                    {% for field in form %}
+                       {% if field.label == 'Miasto' or field.label == 'Ulica' or field.label == 'Numer budynku' or field.label == 'Numer mieszkania' or field.label == 'Kod pocztowy' or field.label == 'Kraj zamieszkania' %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </fieldset>
+                {% for field in form %}
+                    <div class="one_field">
+                        {% if field.label == 'Adres email osoby z dostępem do danych' %}
+                            <hr><br>
+                            <fieldset style="border-color: #13656; border-width: 5px;">
+                                <legend>Uaktywnij dostęp do wybranych danych dla wskazanego użytkownika</legend>
+                                <br>
+                                <strong style="text-align: justify; display: inline-block;">
+                                    Uwaga! Udzielenie dostępu oznacza, że osoba korzystająca z podanego poniżej adresu email
+                                    uzyska informacje o adresie mailowym podanym w rejestracji Użytkownika oraz
+                                    uzyska dostęp do wskazanych danych zgromadzonych przez Użytkownika. <br>
+                                    Serwis Memento nie odpowiada za wykorzystanie danych przez osobę trzecią oraz
+                                    za zachowanie udostępnionych danych w poufności.
+                                    Na Użytkowniku spoczywa obowiązek zapewnienia bezpieczeństwa danych udzielonych osobie trzeciej. <br><br>
+                                    Dostęp może zostać w każdym momencie wycofany poprzez usunięcie poniższego adresu mailowego.
+                                </strong>
+                                <br><br>
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small style="text-align: justify;">Dostęp wyłącznie do podglądu danych wskazanych w pozwoleniach w poszczególnych formularzach.</small>
+                                <br>
+                                <small style="text-align: justify;">Aby uzyskać dostęp do danych, osoba będąca właścicielem podanego adresu email
+                                    musi posiadać aktywne konto w serwisie Memento.</small>
+                            </fieldset>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <br>
+                <div class="one_field">
+                    <input type="submit" value="Aktualizuj" />
+                </div>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>
+                Chcesz usunąć profil? <a href="{% url 'delete-user' %}">
+                <button class="button">Usuń konto!</button>
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

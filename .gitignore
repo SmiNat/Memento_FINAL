@@ -1,0 +1,43 @@
+
+# Environments
+.env
+.venv/*
+env/*
+venv/*
+ENV/*
+env.bak
+venv.bak
+.vscode/*
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+
+# Logs, databases, uploads and private files
+*.log
+*.sql
+*.sqlite*
+*/*.sqlite3
+db_fixtures.json
+private_info.txt
+*/static/uploads/*
+*/static/test/*
+*/static/logs/*
+
+
+# Python
+.Python
+*.pyc
+*/__pycache__/*
+
+# Migrations
+*/migrations/*
+
+

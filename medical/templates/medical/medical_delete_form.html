@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+    {% if page == 'delete-medcard' %}
+        <h2>Usuń kartę medyczną</h2>
+        <form method="post" action="{% url 'medical:delete-medcard' medcard.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć kartę medyczną?</p>
+                <p><input type="submit" value="Usuń kartę medyczną"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać karty medycznej?
+                <a href="{% url 'medical:medcard' %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-medicine' %}
+        <h2>Usuń informacje o leku</h2>
+        <form method="post" action="{% url 'medical:delete-medicine' medicine.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć lek "{{ medicine.drug_name_and_dose }}"?</p>
+                <p><input type="submit" value="Usuń lek"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać leku?
+                <a href="{% url 'medical:single-medicine' medicine.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-visit' %}
+        <h2>Usuń informacje o wizycie lekarskiej</h2>
+        <form method="post" action="{% url 'medical:delete-visit' visit.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć wizytę "{{ visit }}"?</p>
+                <p><input type="submit" value="Usuń wizytę"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać wizyty?
+                <a href="{% url 'medical:single-visit' visit.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-test-result' %}
+        <h2>Usuń informacje o wynikach badań</h2>
+        <form method="post" action="{% url 'medical:delete-test-result' test_result.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć wyniki badań "{{ test_result }}"?</p>
+                <p><input type="submit" value="Usuń wyniki"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać wyników badań?
+                <a href="{% url 'medical:single-test-result' test_result.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

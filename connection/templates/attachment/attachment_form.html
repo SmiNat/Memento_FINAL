@@ -1,0 +1,79 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+    <div class="form_img"><img src="{% static 'images/vecteezy_antique-textbooks-stack-on-old-desk-in-rustic-library_24927986_SMALL.jpg' %}" alt="Foto"/></div>
+    <h2>Dodaj załącznik</h2>
+    <form method="post" action="{% url 'connection:add-attachment' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form_field" style="min-height: 920px;"><br>
+            <fieldset>
+                <legend>Przypisz załącznik (opcjonalnie)</legend>
+                {% for field in form %}
+                    {% if field.label == 'Wybierz płatność' or field.label == 'Wybierz kontrahenta' or field.label == 'Wybierz remont' or field.label == 'Wybierz kredyt' or field.label == 'Wybierz podróż' or field.label == 'Wybierz badania' or field.label == 'Wybierz wizytę' %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+        </div>
+        <div style="margin-left: 30px;"></div>
+        <div class="form_field" style="min-height: 920px;">
+            {% for field in form %}
+                {% if field.label == 'Wybierz płatność' or field.label == 'Wybierz kontrahenta' or field.label == 'Wybierz remont' or field.label == 'Wybierz kredyt' or field.label == 'Wybierz podróż' or field.label == 'Wybierz badania' or field.label == 'Wybierz wizytę' %}
+                {% elif field.label == 'Dostęp do danych' %}
+                    <hr><br>
+                    <fieldset style="border-color: #13656; border-width: 5px;">
+                        <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                        <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                    </fieldset>
+
+                {% elif field.label == 'Załącz dokument' %}
+                    <div class="one_field">
+                        <div class="attachment">
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="attachment_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <div class="one_field">
+                <input type="submit" value="Zapisz"/>
+            </div>
+        </div>
+    </form>
+    <div class="text_field">
+        <p>Nie chcesz modyfikować załączników? <a href="{% url 'connection:attachments' %}"><button class="button">Powrót</button></a></p>
+    </div>
+
+</div>
+{% endblock content %}

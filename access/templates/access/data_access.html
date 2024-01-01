@@ -1,0 +1,594 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content">
+
+    <div id="tabs_nav">
+
+        <h2>Udostępnione dane</h2>
+        <div class="half_box">
+            <div class="half_col_1">
+                {% if page_name == 'access-to-payments' or page_name == 'all-shared-data' %}
+
+                    <div><h3 style="margin-bottom: 10px;">Kredyty:</h3>
+                        {% if page_object_credits %}
+                            {% for credit in page_object_credits %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ credit }}">{{ credit }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o kredytach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Płatności:</h3>
+                        {% if page_object_payments %}
+                            {% for payment in page_object_payments %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ payment }}">{{ payment }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o płatnościach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Kontrahenci:</h3>
+                        {% if page_object_counterparties %}
+                            {% for counterparty in page_object_counterparties %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ counterparty }}">{{ counterparty }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o kontrahentach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Załączniki:</h3>
+                        {% if page_object_attachments %}
+                            {% for attachment in page_object_attachments %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ attachment }}">{{ attachment }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych załączników.</small>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if page_name == 'access-to-planner' or page_name == 'all-shared-data' %}
+                    <div><h3 style="margin-bottom: 10px;">Podróże:</h3>
+                        {% if page_object_trips %}
+                            {% for trip in page_object_trips %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ trip }}">{{ trip }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o podróżach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Remonty:</h3>
+                        {% if page_object_renovations %}
+                            {% for renovation in page_object_renovations %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ renovation }}">{{ renovation }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o remontach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Planowane wydatki:</h3>
+                        {% if page_object_expense_lists %}
+                            {% for expense in page_object_expense_lists %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ expense }}">{{ expense }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o planowanych wydatkach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Planowane zadania:</h3>
+                        {% if page_object_todo_lists %}
+                            {% for todo in page_object_todo_lists %}
+                                <p><i class="fa-solid fa-check"></i> <a href="#access-{{ todo }}">{{ todo }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o planowanych zadaniach.</small>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if page_name == 'access-to-medical' or page_name == 'all-shared-data' %}
+                    <div><h3 style="margin-bottom: 10px;">Karta medyczna:</h3>
+                        {% if medcard %}
+                            <p><i class="fa-solid fa-check"></i> <a href="#access-{{ medcard }}">{{ medcard }}</a></p>
+                        {% else %}
+                            <small>Brak udostępnionej karty medycznej.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Leki:</h3>
+                        {% if page_object_medicines %}
+                            {% for medicine in page_object_medicines %}
+                        <p><i class="fa-solid fa-check"></i> <a href="#access-{{ medicine }}">{{ medicine }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o lekach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Wizyty:</h3>
+                        {% if page_object_med_visits %}
+                            {% for visit in page_object_med_visits %}
+                        <p><i class="fa-solid fa-check"></i> <a href="#access-{{ visit }}">{{ visit }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o wizytach.</small>
+                        {% endif %}
+                    </div>
+
+                    <div><h3 style="margin-bottom: 10px;">Badania:</h3>
+                        {% if page_object_med_results %}
+                            {% for result in page_object_med_results %}
+                        <p><i class="fa-solid fa-check"></i> <a href="#access-{{ result }}">{{ result }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <small>Brak udostępnionych danych o wynikach badań.</small>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            </div><!-- END half_col_1 -->
+        </div><!-- END half_box -->
+
+    </div><!-- END tabs-nav -->
+
+
+    <div class="half_box">
+
+        <div id="tabs_content">
+            {% if page_name == 'access-to-payments' or page_name == 'all-shared-data' %}
+                {% if page_object_credits %}
+                    <div class="half_col_2">
+                        <h2>Kredyty</h2>
+                        {% for credit in page_object_credits %}
+                        <div id="access-{{ credit }}" class="tab_content">
+                            <div class="name">"{{ credit }}"</div>
+                            <div class="single_table_2"><table>
+                                {% for field, value in credit %}
+                                    {% if field == 'id' or field == 'Użytkownik' or field == 'slug' or field == 'Kontrahent' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych'%}
+                                    {% elif value == 'None' or value == '' %}
+                                    {% elif field == 'Dostęp do harmonogramu' %}
+                                        {% if value == 'Udostępnij dane' %}
+                                            <tbody><tr><td>{{ field }}:</td><td><a href="{% url 'credit:access-to-credit-schedule' credit.slug %}">Zobacz</a></td></tr></tbody>
+                                        {% endif %}
+                                    {% else %}
+                                    <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                    {% endif %}
+                                {% endfor %}
+                            </table></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_payments %}
+                    <div class="half_col_2">
+                        <h2>Płatności</h2>
+                        {% for payment in page_object_payments %}
+                        <div id="access-{{ payment }}" class="tab_content">
+                            <div class="name">"{{ payment }}"</div>
+                            <div class="single_table_2"><table>
+                                {% for field, value in payment %}
+                                    {% if field == 'id' or field == 'Użytkownik' or field == 'Kontrahent' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych'%}
+                                    {% elif value == 'None' or value == '' %}
+                                    {% elif field == 'Miesiące płatności' and value == '1,2,3,4,5,6,7,8,9,10,11,12' %}
+                                        <tbody><tr><td>{{ field }}:</td><td>Wszystkie miesiące</td></tr></tbody>
+                                    {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                    {% endif %}
+                                {% endfor %}
+                            </table></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_counterparties %}
+                    <div class="half_col_2">
+                        <h2>Kontrahenci</h2>
+                        {% for counterparty in page_object_counterparties %}
+                        <div id="access-{{ counterparty }}" class="tab_content">
+                            <div class="name">"{{ counterparty }}"</div>
+                            <div class="single_table_2"><table>
+                                {% for field, value in counterparty %}
+                                    {% if field == 'id' or field == 'Użytkownik' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                    {% elif value == 'None' or value == '' %}
+                                    {% else %}
+                                    <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                    {% endif %}
+                                {% endfor %}
+                            </table></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_attachments %}
+                    <div class="half_col_2">
+                        <h2>Załączniki</h2>
+                        {% for attachment in page_object_attachments %}
+                        <div id="access-{{ attachment }}" class="tab_content">
+                            <div class="name">"{{ attachment }}"</div>
+                            <div class="single_table_2"><table>
+                                {% for field, value in attachment %}
+                                    {% if field == 'Nazwa dokumentu' or field == 'Informacja o dokumencie' %}
+                                        {% if value == 'None' or value == '' %}
+                                        {% else %}
+                                            <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% elif field == 'Załącz dokument' %}
+                                    <tbody><tr><td>Pobierz:</td><td><a href="{% static attachment.attachment_file_path %}" Download>{{ value }}</a></td></tr></tbody>
+                                    {% endif %}
+                                {% endfor %}
+                            </table></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if page_name == 'access-to-planner' or page_name == 'all-shared-data' %}
+                {% if page_object_trips %}
+                    <div class="half_col_2">
+                        <h2>Podróże</h2>
+                        {% for trip in page_object_trips %}
+                        <div id="access-{{ trip }}" class="tab_content">
+                            <div class="name">"{{ trip }}"</div>
+                            <div class="single_table_2"><table>
+                                {% for field, value in trip %}
+                                    {% if field == 'id' or field == 'Użytkownik' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                    {% elif value == 'None' or value == '' %}
+                                    {% else %}
+                                    <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                    {% endif %}
+                                {% endfor %}
+                            </table></div>
+                            {% if trip.tripbasicchecklist_set.all %}
+                            <h4 style="text-align: center;">Podstawowe wyposażenie:</h4>
+                                {% for basic_checklist in trip.tripbasicchecklist_set.all %}
+                                <div class="single_table_2">
+                                    <table>
+                                        {% for field, value in basic_checklist %}
+                                            {% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                            {% elif value == 'None' or value == '' %}
+                                            {% elif field == 'Portfel' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.basic_stuff_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Klucze' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.personal_keys_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Kosmetyki' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.cosmetics_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Elektronika' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.electronics_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Użyteczne rzeczy' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.useful_stuff_to_list }}</td>
+                                                </tr></tbody>
+                                            {% else %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td><td>{{ value }}</td>
+                                                </tr></tbody>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if trip.tripadvancedchecklist_set.all %}
+                            <h4 style="text-align: center;">Zaawansowane wyposażenie:</h4>
+                                {% for basic_checklist in trip.tripadvancedchecklist_set.all %}
+                                <div class="single_table_2">
+                                    <table>
+                                        {% for field, value in basic_checklist %}
+                                            {% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                            {% elif value == 'None' or value == '' %}
+                                            {% elif field == 'Trekking' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.trekking_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Wspinaczka' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.hiking_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Rower' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.cycling_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Camping' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.camping_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Wędkarstwo' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.fishing_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Plażowanie' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.sunbathing_to_list }}</td>
+                                                </tr></tbody>
+                                            {% elif field == 'Wyjazd służbowy' %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ basic_checklist.business_to_list }}</td>
+                                                </tr></tbody>
+                                            {% else %}
+                                                <tbody><tr>
+                                                    <td>{{ field }}:</td>
+                                                    <td>{{ value }}</td>
+                                                </tr></tbody>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if trip.tripaditionalchecklist_set.all %}
+                            <h4 style="text-align: center;">Dodatkowe wyposażenie:</h4>
+                                {% for basic_checklist in trip.tripaditionalchecklist_set.all %}
+                                <div class="single_table_2">
+                                    <table>
+                                        {% for field, value in basic_checklist %}
+                                            {% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                            {% elif value == 'None' or value == '' %}
+                                            {% else %}
+                                            <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if trip.tripcost_set.all %}
+                            <h4 style="text-align: center;">Koszty podróży:</h4>
+                                {% for basic_checklist in trip.tripcost_set.all %}
+                                <div class="single_table_2">
+                                    <table>
+                                        {% for field, value in basic_checklist %}
+                                            {% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                            {% elif value == 'None' or value == '' %}
+                                            {% else %}
+                                            <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if trip.tripreport_set.all %}
+                            <h4 style="text-align: center;">Relacje podróży:</h4>
+                                {% for basic_checklist in trip.tripreport_set.all %}
+                                <div class="single_table_2">
+                                    <table>
+                                        {% for field, value in basic_checklist %}
+                                            {% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                            {% elif value == 'None' or value == '' %}
+                                            {% elif 'link' in field or 'Link' in field %}
+                                            <tbody><tr>
+                                                <td>{{ field }}:</td>
+                                                <td><a href="{{ value }}" target="_blank">{{ value }}</a></td>
+                                            </tr></tbody>
+
+                                            {% else %}
+                                            <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_renovations %}
+                    <div class="half_col_2">
+                        <h2>Remonty</h2>
+                        {% for renovation in page_object_renovations %}
+                        <div id="access-{{ renovation }}" class="tab_content">
+                            <div class="name">"{{ renovation }}"</div>
+                            <div class="single_table_2"><table>
+                                {% for field, value in renovation %}
+                                    {% if field == 'id' or field == 'Użytkownik' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                    {% elif value == 'None' or value == '' %}
+                                    {% else %}
+                                    <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                    {% endif %}
+                                {% endfor %}
+                            </table></div>
+                            {% if renovation.renovationcost_set.all %}
+                                <h4 style="text-align: center;">Koszty remontu:</h4>
+                                {% for renovation_cost in renovation.renovationcost_set.all %}
+                                <div class="single_table_2"><table>
+                                    {% for field, value in renovation_cost %}
+                                        {% if field == 'id' or field == 'Użytkownik' or field == 'Remont' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' %}
+                                        {% elif value == 'None' or value == '' %}
+                                        {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table></div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_expense_lists %}
+                    <div class="half_col_2">
+                        <h2>Listy wydatków</h2>
+                        {% for list_expense in page_object_expense_lists %}
+                        <div id="access-{{ list_expense }}" class="tab_content">
+                            {% if not list_expense.expenseitem_set.all %}
+                            {% else %}
+                            <div class="name">"{{ list_expense }}"</div>
+                                <h4 style="text-align: center;">Szczegóły listy:</h4>
+                                {% for list_item in list_expense.expenseitem_set.all %}
+                                <div class="single_table_2"><table>
+                                    {% for field, value in list_item %}
+                                        {% if field == 'id' or field == 'Użytkownik' or field == 'Remont' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' or field == 'Tytuł listy' %}
+                                        {% elif value == 'None' or value == '' %}
+                                        {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table></div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_todo_lists %}
+                    <div class="half_col_2">
+                        <h2>Listy zadań</h2>
+                        {% for list_todo in page_object_todo_lists %}
+                        <div id="access-{{ list_todo }}" class="tab_content">
+                            {% if not list_todo.todoitem_set.all %}
+                            {% else %}
+                            <div class="name">"{{ list_todo }}"</div>
+                                <h4 style="text-align: center;">Szczegóły listy:</h4>
+                                {% for list_item in list_todo.todoitem_set.all %}
+                                <div class="single_table_2"><table>
+                                    {% for field, value in list_item %}
+                                        {% if field == 'id' or field == 'Użytkownik' or field == 'Remont' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' or field == 'Tytuł listy' %}
+                                        {% elif value == 'None' or value == '' %}
+                                        {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table></div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if page_name == 'access-to-medical' or page_name == 'all-shared-data' %}
+                {% if medcard %}
+                    <div id="access-{{ medcard }}" class="tab_content"><div class="half_col_2" style="border-color: white;">
+                        <h2>Karta medyczna</h2>
+                        <div class="single_table_2"><table>
+                            {% for field, value in medcard %}
+                                {% if field == 'id' or field == 'Użytkownik' or field == 'slug' or field == 'Data dodania' or field == 'Data aktualizacji' %}
+                                {% elif 'Dostęp do' in field %}
+                                {% elif value == 'None' or value == '' %}
+                                {% else %}
+                                <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                {% endif %}
+                            {% endfor %}
+                        </table></div>
+                    </div></div>
+                {% endif %}
+
+                {% if page_object_medicines %}
+                    <div class="half_col_2" style="border-color: white;">
+                        <h2>Leki</h2>
+                        {% for medicine in page_object_medicines %}
+                        <div id="access-{{ medicine }}" class="tab_content">
+                            <div class="name">"{{ medicine }}"</div>
+                            {% if medicine %}
+                                <h4 style="text-align: center;">Szczegóły listy:</h4>
+                                <div class="single_table_2"><table>
+                                    {% for field, value in medicine %}
+                                        {% if field == 'id' or field == 'Użytkownik' or field == 'Remont' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' or field == 'Tytuł listy' %}
+                                        {% elif value == 'None' or value == '' %}
+                                        {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table></div>
+                            {% else %}
+                                <h4 style="text-align: center;">Brak elementów do wyświetlenia.</h4>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_med_visits %}
+                    <div class="half_col_2" style="border-color: white;">
+                        <h2>Wizyty lekarskie</h2>
+                        {% for visit in page_object_med_visits %}
+                        <div id="access-{{ visit }}" class="tab_content">
+                            <div class="name">"{{ visit }}"</div>
+                            {% if visit %}
+                                <h4 style="text-align: center;">Szczegóły wizyt:</h4>
+                                <div class="single_table_2"><table>
+                                    {% for field, value in visit %}
+                                        {% if field == 'id' or field == 'Użytkownik' or field == 'Remont' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' or field == 'Tytuł listy' %}
+                                        {% elif value == 'None' or value == '' %}
+                                        {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table></div>
+                            {% else %}
+                                <h4 style="text-align: center;">Brak elementów do wyświetlenia.</h4>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if page_object_med_results %}
+                    <div class="half_col_2" style="border-color: white;">
+                        <h2>Wyniki badań</h2>
+                        {% for result in page_object_med_results %}
+                        <div id="access-{{ result }}" class="tab_content">
+                            <div class="name">"{{ result }}"</div>
+                            {% if result %}
+                                <h4 style="text-align: center;">Szczegóły badań:</h4>
+                                <div class="single_table_2"><table>
+                                    {% for field, value in result %}
+                                        {% if field == 'id' or field == 'Użytkownik' or field == 'Remont' or field == 'Data dodania' or field == 'Data aktualizacji' or field == 'Dostęp do danych' or field == 'Tytuł listy' %}
+                                        {% elif value == 'None' or value == '' %}
+                                        {% else %}
+                                        <tbody><tr><td>{{ field }}:</td><td>{{ value }}</td></tr></tbody>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table></div>
+                            {% else %}
+                                <h4 style="text-align: center;">Brak elementów do wyświetlenia.</h4>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        </div><!-- END #tabs-content -->
+
+    </div><!-- END half_box -->
+</div><!-- END content -->
+{% endblock content %}

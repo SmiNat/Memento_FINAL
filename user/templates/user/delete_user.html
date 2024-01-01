@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-showing-hologram-analyzing-sales-data-and_7047090_734_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Usuń konto</h2>
+        <form method="post" action="{% url 'delete-user' %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć konto użytkownika wraz z wszystkimi dodatkowymi informacjami? <input type="submit" value="Usuń konto"/></p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać konta? <a href="{% url 'user-profile' %}"><button class="button">Powrót</button></a></p>
+        </div>
+    </div>
+{% endblock content %}

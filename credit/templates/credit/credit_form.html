@@ -1,0 +1,410 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+    <div class="form_img"><img src="{% static 'images/vecteezy_hand-holding-credit-card-paying-for-shopping-generated-by-ai_24575448_SMALL.jpg' %}" alt="Foto"/></div>
+    {% if page == 'add-credit' or page == 'edit-credit' %}
+        {% if page == 'add-credit' %}
+            <h2>Dodaj kredyt</h2>
+            <form method="post" action="{% url 'credit:add-credit' %}">
+        {% else %}
+            <h2>Edytuj kredyt</h2>
+            <form method="post" action="{% url 'credit:edit-credit' credit.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    <fieldset>
+                        <legend>Podstawowe dane</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Nazwa kredytu' or field.label == 'Numer umowy kredytu' or field.label == 'Rodzaj kredytu' or field.label == 'Waluta' or field.label == 'Wartość kredytu' or field.label == 'Wkład własny' or field.label == 'Wartość rynkowa nabywanej rzeczy/nieruchomości' or field.label == 'Okres kredytowania (w miesiącach)' or field.label == 'Okres karencji (w miesiącach)' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Raty</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Rodzaj raty' or field.label == 'Częstotliwość płatności raty' or field.label == 'Wysokość raty całkowitej (dla rat równych)' or field.label == 'Wysokość raty kapitałowej (dla rat malejących)' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                    <fieldset>
+                        <legend>Odsetki</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Rodzaj oprocentowania' or field.label == 'Wysokość oprocentowania stałego (w %)' or field.label == 'Wysokość oprocentowania zmiennego (w %)' or field.label == 'Marża banku w oprocentowaniu zmiennym (w %)' or field.label == 'Rodzaj benchmarku' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Daty</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Data zawarcia umowy' or field.label == 'Data uruchomienia kredytu' or field.label == 'Data rozpoczęcia spłaty kredytu' or field.label == 'Dzień płatności raty' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Prowizja i transze</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Wysokość prowizji (w wybranej walucie)' or field.label == 'Kredytowanie prowizji' or field.label == 'Transzowanie wypłat' or field.label == 'Liczba transz' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Ubezpieczenie i zabezpieczenie</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Kredytowane ubezpieczenie na życie' or field.label == 'Kredytowane ubezpieczenie rzeczy/nieruchomości' or field.label == 'Wymagane zabezpieczenie kredytu' or field.label == 'Oprocentowanie dodatkowe (pomostowe)' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Uwagi dotyczące kredytu</legend>
+                        <div class="one_field">
+                            <div class="value_field">{{ form.notes }}</div>
+                            {% if form.notes.help_text %}<div class="help_text_field">{{ form.notes.help_text }}</div>{% endif %}
+                            {% for error in form.notes.errors %}
+                                <small style="color: red">{{ error }}</small>
+                                <br>
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                    <hr><br>
+                    <fieldset style="border-color: #13656; border-width: 5px;">
+                        <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                        {% for field in form %}
+                            {% if field.label == 'Dostęp do danych' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            {% elif field.label == 'Dostęp do harmonogramu' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                    <br>
+                                {% endfor %}
+                                <br><small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+
+        {% if page == 'add-credit' %}
+            <div class="text_field">
+                <p>Nie chcesz dodawać kredytu? <a href="{% url 'credit:credits' %}"><button class="button">Powrót</button></a></p>
+            </div>
+        {% else %}
+            <div class="text_field">
+                <p>Nie chcesz modyfikować kredytu? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+            </div>
+        {% endif %}
+
+
+    {% elif page == 'add-credit-tranche' or page == 'edit-credit-tranche' %}
+        {% if page == 'add-credit-tranche' %}
+            <h2>Dodaj transzę kredytu</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:add-credit-tranche' credit.id %}">
+        {% else %}
+            <h2>Edytuj transzę kredytu</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:edit-credit-tranche' credit_tranche.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować transzy kredytu? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-credit-interest-rate' or page == 'edit-credit-interest-rate' %}
+        {% if page == 'add-credit-interest-rate' %}
+            <h2>Dodaj oprocentowanie</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:add-credit-interest-rate' credit.id %}">
+        {% else %}
+            <h2>Edytuj oprocentowanie</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:edit-credit-interest-rate' credit_interest_rate.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        {% if field.label == 'Kredyt' %}
+                        {% else %}
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            <br>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować oprocentowania kredytu? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-credit-insurance' or page == 'edit-credit-insurance' %}
+        {% if page == 'add-credit-insurance' %}
+            <h2>Dodaj ubezpieczenie</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:add-credit-insurance' credit.id %}">
+        {% else %}
+            <h2>Edytuj ubezpieczenie</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:edit-credit-insurance' credit_insurance.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    <br>
+                    {% for field in form %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+<!--                    <fieldset>-->
+<!--                        <legend>Ubezpieczenie na życie</legend>-->
+<!--                        {% for field in form %}-->
+<!--                            {% if field.label == 'Ubezpieczenie na życie - Wysokość składki' or field.label == 'Ubezpieczenie na życie - Częstotliwość płatności' or field.label == 'Ubezpieczenie na życie - Rozpoczęcie płatności' or field.label == 'Ubezpieczenie na życie - Zakończenie płatności' or field.label == 'Ubezpieczenie na życie - Liczba okresów płatności' %}-->
+<!--                                <div class="one_field">-->
+<!--                                    <div class="label_field">{{ field.label|cut:"Ubezpieczenie na życie - " }}:</div>-->
+<!--                                    <div class="value_field">{{ field }}</div>-->
+<!--                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}-->
+<!--                                    {% for error in field.errors %}-->
+<!--                                        <small style="color: red">{{ error }}</small>-->
+<!--                                        <br>-->
+<!--                                    {% endfor %}-->
+<!--                                </div>-->
+<!--                            {% endif %}-->
+<!--                        {% endfor %}-->
+<!--                    </fieldset>-->
+<!--                    <br>-->
+<!--                    <fieldset>-->
+<!--                        <legend>Ubezpieczenie rzeczy/nieruchomości</legend>-->
+<!--                        {% for field in form %}-->
+<!--                            {% if field.label == 'Ubezpieczenie rzeczy/nieruchomości - Wysokość składki' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Częstotliwość płatności' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Rozpoczęcie płatności' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Zakończenie płatności' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Liczba okresów płatności' %}-->
+<!--                                <div class="one_field">-->
+<!--                                    <div class="label_field">{{ field.label|cut:"Ubezpieczenie rzeczy/nieruchomości - " }}:</div>-->
+<!--                                    <div class="value_field">{{ field }}</div>-->
+<!--                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}-->
+<!--                                    {% for error in field.errors %}-->
+<!--                                        <small style="color: red">{{ error }}</small>-->
+<!--                                        <br>-->
+<!--                                    {% endfor %}-->
+<!--                                </div>-->
+<!--                            {% endif %}-->
+<!--                        {% endfor %}-->
+<!--                    </fieldset>-->
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować ubezpieczenia? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-credit-collateral' or page == 'edit-credit-collateral' %}
+        {% if page == 'add-credit-collateral' %}
+            <h2>Dodaj zabezpieczenie</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:add-credit-collateral' credit.id %}">
+        {% else %}
+            <h2>Edytuj zabezpieczenie</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:edit-credit-collateral' credit_collateral.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować zabezpieczenia? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-credit-additional-cost' or page == 'edit-credit-additional-cost' %}
+        {% if page == 'add-credit-additional-cost' %}
+            <h2>Dodaj koszt kredytu</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:add-credit-additional-cost' credit.id %}">
+        {% else %}
+            <h2>Edytuj koszt kredytu</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:edit-credit-additional-cost' credit_additional_cost.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować koszty kredytu? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-credit-early-repayment' or page == 'edit-credit-early-repayment' %}
+        {% if page == 'add-credit-early-repayment' %}
+            <h2>Dodaj nadpłatę kredytu</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:add-credit-early-repayment' credit.id %}">
+        {% else %}
+            <h2>Edytuj nadpłatę kredytu</h2>
+            <div class="name">{{ credit }}</div>
+            <form method="post" action="{% url 'credit:edit-credit-early-repayment' credit_early_repayment.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować nadpłaty kredytu? <a href="{% url 'credit:single-credit' credit.id %}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

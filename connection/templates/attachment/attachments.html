@@ -1,0 +1,129 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="grid_display">
+        <h2>Załączniki</h2>
+
+        {% if not attachments %}
+            <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+            <p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+        {% else %}
+            <div class="basic_table">
+                <table id="tbl_exporttable_to_xls">
+                    <thead>
+                        <tr>
+                            <td colspan="4" style="text-align: center; border-right: 1px dashed #136568; border-bottom: 1px dashed #136568;">Informacje o załączniku</td>
+                            <td colspan="2" style="text-align: center; border-right: 1px dashed #136568; border-bottom: 1px dashed #136568;">Operacje na załączniku</td>
+                            <td rowspan=2 style="text-align: center; border-bottom: 1px dashed #136568;">Udzielony dostęp do danych</td>
+                            {% comment %}<td colspan="7" style="text-align: center; border-left: 1px dashed #136568; border-bottom: 1px dashed #136568;">Powiązane informacje</td>{% endcomment %}
+                        </tr>
+                        <tr>
+                            <td>Nazwa pliku</td>
+                            <td>Informacja o pliku</td>
+                            <td style="text-align: center;">Data dodania</td>
+                            <td style="text-align: center; border-right: 1px dashed #136568;">Data ostatniej modyfikacji</td>
+
+                            <td>Pobierz</td>
+                            <td style="border-right: 1px dashed #136568;">Usuń</td>
+
+                            {% comment %}
+                            <td style="border-left: 1px dashed #136568;">Płatność</td>
+                            <td>Kontrahent</td>
+                            <td>Remont</td>
+                            <td>Kredyt</td>
+                            <td>Podróż</td>
+                            <td>Badania</td>
+                            <td>Wizyty</td>
+                            {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attachment in attachments %}
+                            <tr>
+                                <td style="border-left: 1px dashed #F9F1CF;">{{ attachment.attachment_name }}</td>
+                                <td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
+                                <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
+                                <td style="text-align: center;">{{ attachment.updated }}</td>
+
+                                <td style="border-left: 1px dashed #F9F1CF;">
+                                    {% comment %}<a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a>{% endcomment %}
+                                    {% comment %}<a href="{{ attachment.attachment_path.url }}" Download>Pobierz</a>{% endcomment %}
+                                    <a href="{% url 'connection:download-attachment' attachment.user.profile.slug attachment.id %}" >Pobierz</a>
+                                </td>
+                                <td style="border-right: 1px dashed #F9F1CF;"><a href="{% url 'connection:delete-attachment' attachment.id %}">Usuń</a></td>
+
+                                <td class="row_access" style="text-align: center;">
+                                    {% if attachment.access_granted == 'Brak dostępu' %}
+                                        {{ attachment.access_granted }}
+                                    {% elif profile.access_granted_to == 'None' or profile.access_granted_to == '' or profile.access_granted_to == None %}
+                                        <a href="{% url 'edit-account' %}">Uzupełnij email</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                                    {% else %}
+                                        {{ profile.access_granted_to }}
+                                    {% endif %}
+                                </td>
+
+                                {% comment %}
+                                <td style="border-left: 1px dashed #F9F1CF;">
+                                    {% if attachment.payments.all.count == 0 %}---{% else %}
+                                        {% for payment in attachment.payments.all %}
+                                            <a href="{% url 'payment:single-payment' payment.id %}">{{ payment|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if attachment.counterparties.all.count == 0 %}---{% else %}
+                                        {% for cp in attachment.counterparties.all %}
+                                            <a href="{% url 'connection:single-counterparty' cp.id %}">{{ cp|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if attachment.renovations.all.count == 0 %}---{% else %}
+                                        {% for renovation in attachment.renovations.all %}
+                                            <a href="{% url 'renovation:single-renovation' renovation.id %}">{{ renovation|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if attachment.credits.all.count == 0 %}---{% else %}
+                                        {% for credit in attachment.credits.all %}
+                                            <a href="{% url 'credit:single-credit' credit.id %}">{{ credit|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if attachment.trips.all.count == 0 %}---{% else %}
+                                        {% for trip in attachment.trips.all %}
+                                            <a href="{% url 'trip:single-trip' trip.id %}">{{ trip|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if attachment.health_results.all.count == 0 %}---{% else %}
+                                        {% for result in attachment.health_results.all %}
+                                            <a href="{% url 'medical:single-test-result' result.id %}">{{ result|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if attachment.medical_visits.all.count == 0 %}---{% else %}
+                                        {% for visit in attachment.medical_visits.all %}
+                                            <a href="{% url 'medical:single-visit' visit.id %}">{{ visit|title }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                {% endcomment %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock content%}

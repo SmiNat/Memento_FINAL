@@ -1,0 +1,68 @@
+{% load static %}
+<header>
+    <div class="head">
+        <div class="head_logo">
+            <a href="{% url 'index' %}"><img id="logo" src="{% static 'images/vecteezy_quill-feather-pen-logo-vector-design-writer-icon-flat-style_11515311_SMALL.jpg'%}" alt="LOGO"></a>
+        </div>
+        <div class="head_txt">
+            <strong>Memento</strong>
+            <p>Wszystko, o czym powinieneś pamiętać!</p>
+        </div>
+        <div class="head_icons">
+            {% if user.is_authenticated %}
+                <p>Witaj, {{ user.username }}!</p>
+                <a href="{% url 'user-profile' %}"><i class="fa-solid fa-gear"></i>Twoje konto</a><br>
+                <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Wyloguj się</a>
+            {% else %}
+                <p>Niezalogowany użytkownik</p>
+                <a href="{% url 'login' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i>Zaloguj się</a><br>
+                <a href="{% url 'register' %}"><i class="fa-solid fa-address-card"></i>Zarejestruj się</a>
+            {% endif %}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <nav>
+        <ol class="navbar">
+            <li><a href="{% url 'nav-payments' %}">Płatności cykliczne</a>
+                <ul>
+                    <li><a href="{% url 'credit:credits' %}">Kredyty</a></li>
+                    <li><a href="{% url 'payment:payments' %}">Płatności</a></li>
+                    <li><a href="{% url 'connection:counterparties' %}">Kontrahenci</a></li>
+                    <li><a href="{% url 'connection:attachments' %}">Załączniki</a></li>
+                </ul>
+            </li>
+            {% comment %}<li><a href="#">Planowane wydatki</a>
+                <ul>
+                    <li><a href="{% url 'planner:planner' 1 %}">Planer</a></li>
+                </ul>
+            </li>{% endcomment %}
+            <li><a href="{% url 'nav-planner' %}">Planer</a>
+                <ul>
+                    <li><a href="{% url 'renovation:renovations' %}">Remont mieszkania</a></li>
+                    <li><a href="{% url 'trip:trips' %}">Wyjazd wakacyjny</a></li>
+                    <li><a href="{% url 'planner:expense-lists' %}">Listy wydatków</a></li>
+                    <li><a href="{% url 'planner:todo-lists' %}">Listy zadań</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'nav-medical' %}">Medycyna</a>
+                <ul>
+                    <li><a href="{% url 'medical:medcard' %}">Karta medyczna</a></li>
+                    <li><a href="{% url 'medical:medicines' %}">Przyjmowane leki</a></li>
+                    <li><a href="{% url 'medical:medical-visits' %}">Wizyty lekarskie</a></li>
+                    <li><a href="{% url 'medical:test-results' %}">Wyniki badań</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Inne</a>
+                <ul>
+                    <li><a href="{% url 'access:access' %}">Udostępnione dane</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Memento</a>
+                <ul>
+                    <li><a href="{% url 'contact' %}">Kontakt</a></li>
+                    <li><a href="{% url 'terms-conditions' %}">Regulamin i RODO</a></li>
+                </ul>
+            </li>
+        </ol>
+    </nav>
+</header>

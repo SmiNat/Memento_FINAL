@@ -1,0 +1,256 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+    {% if page == 'add-medcard' or page == 'edit-medcard' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_close-up-of-a-stethoscope-and-digital-tablet-with-virtual_22874499_3_SMALL.jpg' %}" alt="Foto"/></div>
+
+        {% if page == 'add-medcard' %}
+            <h2>Uzupełnij kartę medyczną</h2>
+            <form method="post" action="{% url 'medical:add-medcard' %}">
+        {% else %}
+            <h2>Aktualizuj kartę medyczną</h2>
+            <form method="post" action="{% url 'medical:edit-medcard' medcard.id %}">
+        {% endif %}
+
+                {% csrf_token %}
+                <div class="form_field">
+                    <fieldset>
+                        <legend><div class="label_field">Podstawowe informacje:</div></legend>
+                        {% for field in form %}
+                            {% if field.label == 'Wiek' or field.label == 'Waga' or field.label == 'Wzrost' or field.label == 'Grupa krwi' %}
+                                <div class="one_field">
+                                    <div class="label_field">{{ field.label }}:</div>
+                                    <div class="value_field">{{ field }}</div>
+                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                    {% for error in field.errors %}
+                                        <small style="color: red">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend><div class="label_field">Informacje medyczne:</div></legend>
+                        {% for field in form %}
+                            {% if field.label == 'Alergie' or field.label == 'Choroby' or field.label == 'Stałe leki' or field.label == 'Leki dodatkowe' %}
+                                <div class="one_field">
+                                    <div class="label_field">{{ field.label }}:</div>
+                                    <div class="value_field">{{ field }}</div>
+                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                    {% for error in field.errors %}
+                                        <small style="color: red">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend><div class="label_field">Pozostałe informacje:</div></legend>
+                        {% for field in form %}
+                            {% if field.label == 'Lekarz prowadzący' or field.label == 'Pozostali lekarze' or field.label == 'Osoba do kontaktu' or field.label == 'Uwagi' %}
+                                <div class="one_field">
+                                    <div class="label_field">{{ field.label }}:</div>
+                                    <div class="value_field">{{ field }}</div>
+                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                    {% for error in field.errors %}
+                                        <small style="color: red">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <br><hr><br>
+                    <fieldset style="border-color: #13656; border-width: 5px;">
+                        <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                        <small>
+                            Uwaga! Udzielenie dostępu oznacza podgląd danych medycznych (dane wrażliwe).<br>
+                            Udostępniaj dane rozważnie i na własną odpowiedzialność.
+                        </small>
+                        {% for field in form %}
+                            {% if field.label == 'Dostęp do karty medycznej' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% elif field.label == 'Dostęp do danych o lekach' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <small>Uwaga! Udostępniasz wszystkie informacje o lekach zapisanych w bazie danych.</small>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% elif field.label == 'Dostęp do wyników badań' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <small>Uwaga! Udostępniasz wszystkie informacje o wynikach badań zapisanych w bazie danych.</small>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% elif field.label == 'Dostęp do wizyt lekarskich' %}
+                            <div class="one_field">
+                                <div class="label_field">{{ field.label }}:</div>
+                                <small>Uwaga! Udostępniasz wszystkie informacje o wizytach lekarskich zapisanych w bazie danych.</small>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <br><small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-medcard' %}
+                <p>Nie chcesz uzupełniać karty medycznej? <a href="{% url 'medical:medcard' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować karty medycznej? <a href="{% url 'medical:medcard' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-medicine' or page == 'edit-medicine' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_vitamin-capsules-cod-liver-oil-omega-3-gel-capsules_26769827_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'add-medicine'%}
+            <h2>Dodaj lek</h2>
+            <form method="post" action="{% url 'medical:add-medicine' %}">
+        {% else %}
+            <h2>Aktualizuj lek</h2>
+            <form method="post" action="{% url 'medical:edit-medicine' medicine.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                        <div class="one_field">
+                            <div class="label_field">{{ field.label }}:</div>
+                            {% if field.label == 'Godziny przyjmowania leków' %}
+                                {% for element in field %}
+                                    {% if forloop.counter < 7 %}
+                                    {% else %}
+                                    {% if forloop.counter0|divisibleby:6 %}
+                                        <br>
+                                        {% endif %}
+                                    {% endif %}
+                                    <div class="inline">{{ element }}</div>
+                                {% endfor %}
+                            {% else %}
+
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+
+                            {% endif %}
+
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-medicine' %}
+                <p>Nie chcesz dodawać leku? <a href="{% url 'medical:medicines' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować leku? <a href="{% url 'medical:single-medicine' medicine.id %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-visit-page' or page == 'edit-visit-page' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_stethoscope-on-medical-chart-with-pen_29607463_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'add-visit-page'%}
+            <h2>Dodaj wizytę</h2>
+            <form method="post" action="{% url 'medical:add-visit' %}">
+        {% else %}
+            <h2>Aktualizuj wizytę</h2>
+            <form method="post" action="{% url 'medical:edit-visit' visit.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                        <div class="one_field">
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-visit-page' %}
+                <p>Nie chcesz dodawać wizyty? <a href="{% url 'medical:medical-visits' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować wizyty? <a href="{% url 'medical:single-visit' visit.id %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+
+    {% elif page == 'add-test-result' or page == 'edit-test-result' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_doctors-work-with-medical-treatment-icons-on-virtual-screen_11091579_599_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'add-test-result'%}
+            <h2>Dodaj wyniki badań</h2>
+            <form method="post" action="{% url 'medical:add-test-result' %}">
+        {% else %}
+            <h2>Aktualizuj wizytę</h2>
+            <form method="post" action="{% url 'medical:edit-test-result' test_result.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                        <div class="one_field">
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-test-result' %}
+                <p>Nie chcesz dodawać wyników? <a href="{% url 'medical:test-results' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować wyników? <a href="{% url 'medical:single-test-result' test_result.id %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% endif %}
+
+</div>
+{% endblock content %}

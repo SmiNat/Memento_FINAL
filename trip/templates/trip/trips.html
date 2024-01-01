@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+	<div class="grid_display">
+		<h2>Podsumowanie wyjazdu</h2>
+        {% if not trips %}
+            <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+            <p><a href="{% url 'trip:add-trip' %}">[Dodaj podróż]</a></p>
+        {% else %}
+
+            <div class="order_by">
+                <form action="{% url 'trip:trips' %}">
+                    <div>Sortuj:</div>
+                    <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                        <option value="-updated">---</option>
+                        <option value="name">Nazwa (od A do Z)</option>
+                        <option value="-name">Nazwa (od Z do A)</option>
+                        <option value="destination">Miejsce podróży (od A do Z)</option>
+                        <option value="-destination">Miejsce podróży (od Z do A)</option>
+                        <option value="start_date">Rozpoczęcie podróży (od najstarszych)</option>
+                        <option value="-start_date">Rozpoczęcie podróży (od najnowszych)</option>
+                        <option value="estimated_cost">Szacunkowy koszt (rosnąco)</option>
+                        <option value="-estimated_cost">Szacunkowy koszt (malejąco)</option>
+                    </select>
+<!--                    <input type="submit" value="Wybierz">-->
+                </form>
+            </div>
+
+            <div class="basic_table">
+                <table id="tbl_exporttable_to_xls">
+                    <thead>
+                        <tr>
+                            <td>Nazwa podróży</td>
+                            <td>Rodzaj podróży</td>
+                            <td>Miejsce podróży</td>
+                            <td style="border-left: 1px dashed #136568; text-align:center;">Rozpoczęcie wyjazdu</td>
+                            <td style="text-align:center;">Zakończenie wyjazdu</td>
+                            <td style="border-left: 1px dashed #136568; text-align:center;">Szacunkowy koszt</td>
+                            <td style="text-align:center;">Poniesione koszty</td>
+                            <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                            <td>Edytuj</td>
+                            <td>Usuń</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trip in trips %}
+                        <tr>
+                            <td>{{ trip.name }}</td>
+                            <td>
+                                {% if trip.type %}
+                                {% for element in trip.type_to_list %}{{ element }}<br>{% endfor %}
+                                {% else %}---{% endif %}
+                            </td>
+                            <td>{{ trip.destination|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align:center;">{{ trip.start_date|default_if_none:"---" }}</td>
+                            <td style="text-align:center;">{{ trip.end_date|default_if_none:"---" }}</td>
+                            <td style="text-align:center; border-left: 1px dashed #F9F1CF">{{ trip.estimated_cost|default_if_none:"---" }}</td>
+                            <td style="text-align:center;">{{ trip.get_all_costs_pln|default_if_none:"---" }}</td>
+                            <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'trip:single-trip' trip.id %}">Szczegóły</a></td>
+                            <td><a href="{% url 'trip:edit-trip' trip.id %}">Edytuj</a></td>
+                            <td><a href="{% url 'trip:delete-trip' trip.id %}">Usuń</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p><a href="{% url 'trip:add-trip' %}">[Dodaj podróż]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content%}

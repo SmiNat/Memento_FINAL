@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <div class="form_img"><img src="{% static 'images/vecteezy_human-hand-holding-a-key-icon-digital-security-unlock-or_12815000_303_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Ustal nowe hasło</h2>
+        <p>(Krok 3 z 4)</p>
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="form_field">
+                <div class="one_field">
+                    <p>Zresetowanie hasła wymaga podania nowego hasła.</p>
+                    <strong>Pamiętaj: im dłuższe i bardziej skomplikowane hasło, tym trudniej go złamać!</strong>
+                    <ul>
+                        <li>Hasło nie może być podobne do danych persolanych (nazwy użytkownika)</li>
+                        <li>Hasło musi składać się co najmniej z 8 znaków</li>
+                        <li>Hasło nie może być podobne do często używanych haseł</li>
+                        <li>Hasło nie może być wyłącznie numeryczne</li>
+                    </ul>
+                    {% for field in form %}
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="form__field">{{ field }}</div>
+                        {% if field.errors %}
+                        <!-- ręczna zmiana języka wyświetlania błędów (przed zmianą języka w settings)-->
+                        <!--https://github.com/django/django/blob/main/django/contrib/auth/password_validation.py-->
+                            {% comment %} {% if 'This password is too short. It must contain at least 8 characters.' in field.errors|striptags %}
+                                <div class="error_field">Zbyt krótkie hasło. Hasło musi zawierać co najmniej 8 znaków.</div>
+                            {% endif %}
+                            {% if 'This password is too common.' in field.errors|striptags %}
+                                <div class="error_field">Zbyt popularne hasło.</div>
+                            {% endif %}
+                            {% if 'This password is entirely numeric.' in field.errors|striptags %}
+                                <div class="error_field">Hasło wyłącznie numeryczne nie jest dopuszczalne.</div>
+                            {% endif %}
+                            {% if 'The password is too similar to the username.' in field.errors|striptags %}
+                                <div class="error_field">Hasło zbyt podobne do nazwy użytkownika.</div>
+                            {% endif %}
+                            {% if 'The two password fields didn’t match.' in field.errors|striptags %}
+                                <div class="error_field">Hasła nie są zgodne.</div>
+                            {% endif %} {% endcomment %}
+                            {% for error in field.errors %}
+                                <div class="error_field">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="one_field">
+                    <input type="submit" value="Zresetuj hasło"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

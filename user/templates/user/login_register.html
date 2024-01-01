@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        {% if page == 'register' %}
+            <div class="form_img"><img src="{% static 'images/vecteezy_businessmen-use-smartphones-to-connect-data-through_11696959_494_SMALL.jpg' %}" alt="Foto"/></div>
+            <h2>Zarejestruj się</h2>
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                        <div class="one_field">
+                            {% if field.label == 'Zaakceptuj regulamin strony i politykę ochrony danych osobowych' %}
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}
+                                    <div style="font-size: 10px; text-align: center;">Akceptuję regulamin strony i politykę ochrony danych osobowych<a href="{% url 'terms-conditions' %}"> (link)</a></div>
+                                </div>
+                            {% else %}
+                                {% if field.label == 'Password' or field.label == 'Hasło' %}
+                                    <div class="label_field">Hasło:</div>
+                                    <div style="color: #C00000; font-size: 10px;">Zalecamy utworzenie silnego hasła, zbudowanego z min. 16 znaków,
+                                           <br>w tym małych i dużych liter, cyfr i znaków specjalnych.
+                                           <br>Wybrane hasło będzie chronić dostęp do wszystkich Twoich danych.</div><br>
+                                {% elif field.label == "Password confirmation" or field.label == '' %}
+                                    <div class="label_field">Powtórz hasło:</div>
+                                {% else %}
+                                    <div class="label_field">{{ field.label }}:</div>
+                                {% endif %}
+                                <div class="value_field">{{ field }}</div>
+                            {% endif %}
+                            {% if field.help_text %}
+                            <div class="help_text_field">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zarejestruj użytkownika"/>
+                    </div>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Masz już konto? <a href="{% url 'login' %}"><button class="button">Zaloguj się!</button></a></p>
+            </div>
+        {% else %}
+            <div class="form_img"><img src="{% static 'images/vecteezy_business-people-login-security-with-fingerprint-technology_10195343_419_SMALL.jpg' %}" alt="Foto"/></div>
+            <h2>Zaloguj się</h2>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <div class="one_field">
+                        <div class="label_field">Użytkownik:</div>
+                        <input class="text_field" type="text" name="username" placeholder="Nazwa użytkownika" autofocus/>
+                    </div>
+                    <div class="one_field">
+                        <div class="label_field">Hasło:</div>
+                        <input class="text_field" type="password" name="password" placeholder="Podaj hasło"/>
+                    </div>
+                    <div class="one_field">
+                        <input type="submit" value="Zaloguj się"/>
+                    </div>
+                    <div class="one_field">
+                        <small>Zapomniałeś hasła? <a href="{% url 'reset_password' %}">Zresetuj hasło...</a></small>
+                    </div>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie masz konta? <a href="{% url 'register' %}"><button class="button">Zarejestruj się!</button></a></p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

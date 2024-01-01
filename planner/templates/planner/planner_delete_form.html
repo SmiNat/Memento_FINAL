@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+    {% if page == 'delete-expense-list' %}
+        <h2>Usuń listę wydatków wraz z wszystkimi dodatkowymi informacjami</h2>
+        <form method="post" action="{% url 'planner:delete-expense-list' list_title.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć listę wydatków "{{ list_title.name }}" wraz z wszystkimi dodatkowymi informacjami?</p>
+                <p><input type="submit" value="Usuń listę wydatków"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać listy wydatków?
+                <a href="{% url 'planner:single-expense-list' list_title.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-expense-item' %}
+        <h2>Usuń element listy wydatków</h2>
+        <form method="post" action="{% url 'planner:delete-expense-item' expense_item.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć element listy wydatków "{{ expense_item.name }}"?</p>
+                <p><input type="submit" value="Usuń element listy wydatków"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać elementu listy wydatków?
+                <a href="{% url 'planner:single-expense-list' expense_list_id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-todo-list' %}
+        <h2>Usuń listę zadań wraz z wszystkimi dodatkowymi informacjami</h2>
+        <form method="post" action="{% url 'planner:delete-todo-list' list_title.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć listę zadań "{{ list_title.name }}" wraz z wszystkimi dodatkowymi informacjami?</p>
+                <p><input type="submit" value="Usuń listę zadań"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać listy zadań?
+                <a href="{% url 'planner:single-todo-list' list_title.id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% elif page == 'delete-todo-item' %}
+        <h2>Usuń element listy zadań</h2>
+        <form method="post" action="{% url 'planner:delete-todo-item' todo_item.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć element listy zadań "{{ todo_item.name }}"?</p>
+                <p><input type="submit" value="Usuń element listy zadań"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać elementu listy zadań?
+                <a href="{% url 'planner:single-todo-list' todo_list_id %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

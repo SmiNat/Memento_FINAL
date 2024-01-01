@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    {% if page == 'delete-payment' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Usuń płatność</h2>
+        <form method="post" action="{% url 'payment:delete-payment' payment.id %}">
+            {% csrf_token %}
+            <div class="form_field">
+                <p>Czy chcesz usunąć płatność "{{ payment.name }}"?</p>
+                <p><input type="submit" value="Usuń płatność"/> </p>
+            </div>
+        </form>
+        <div class="text_field">
+            <p>Nie chcesz usuwać płatności?
+                <a href="{% url 'payment:payments' %}"><button class="button">Powrót</button></a>
+            </p>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

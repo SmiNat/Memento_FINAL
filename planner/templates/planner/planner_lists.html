@@ -1,0 +1,187 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+    {% if page_name == 'todo-lists' %}
+    <div class="half_box">
+        <div><h3>Listy zadań</h3></div>
+        {% if not full_todo_list %}
+            <div class="half_col_white">
+                <p>Brak list zadań.</p>
+            </div>
+        {% else %}
+
+             <div class="search_queryset">
+                <form method="GET" action="">
+                    <p>Szukaj według nazwy:</p>
+                    <input type="search" name="q" placeholder="Wpisz nazwę lub jej fragment" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz nazwę lub jej fragment'">
+                    <button type="submit">Szukaj</button>
+                </form>
+            </div>
+
+            {% if search_query %}
+                <div class="search_query">
+                    <form method="GET" action="">
+                        <p>Szukana fraza: <strong style="color: #FFDA8B;">{{ search_query }}</strong>, znalezionych list: <strong style="color: #FFDA8B;">{{ todo_list|length }}</strong></p>
+                        <button name="reset" type="submit">Wyzeruj</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            {% if not todo_list %}
+                <div class="half_col_white">Brak wyników wyszukiwania.</div>
+            {% else %}
+                <div class="half_col_white">
+                    <table>
+                        {% for element in page_obj %}
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left;"> <i class="fa-solid fa-check"></i> <a href="{% url 'planner:single-todo-list' element.id %}">{{ element.name }}</a> </td>
+                                    <td style="text-lign: right;">
+                                        <a href="{% url 'planner:single-todo-list' element.id %}" title="zobacz"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                        | <a href="{% url 'planner:edit-todo-list' element.id %}" title="edytuj"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        | <a href="{% url 'planner:delete-todo-list' element.id %}" title="usuń"><i class="fa-solid fa-trash-can"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                {% if paginator.num_pages > 1 %}
+                    <div class="pagination_small">
+                        {% block pagination_todo %}
+                            {% if page_obj.has_previous %}
+                                <a href="/todo-lists/?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    Poprzednia strona
+                                </a> |
+                            {% endif %}
+                            Bieżąca strona: <b>{{ page_obj.number }}</b>
+                            {% if page_obj.has_next %}
+                                | <a href="/todo-lists/?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    Kolejna strona
+                                </a>
+                            {% endif %}
+                            <br>
+                        {% endblock pagination_todo %}
+                    </div>
+                    {% block pagination_todo_list %}
+                        {% for page_no in page_obj.paginator.page_range %}
+                            {% if page_no == page_obj.number %}
+                                {{ page_no }}
+                            {% else %}
+                                <a href="/todo-lists/?page={{ page_no }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                                    class="{% if page_no == page_obj.number %}current{% endif %}">
+                                    {{ page_no }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    {% endblock pagination_todo_list %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <p><a href="{% url 'planner:add-todo-list' %}">[Dodaj listę zadań]</a></p>
+    </div>
+
+    {% elif page_name == 'expense-lists' %}
+    <div class="half_box">
+        <div><h3>Listy wydatków</h3></div>
+        {% if not full_expense_list %}
+            <div class="half_col_white">
+                <p style="text-align: center;">Brak list wydatków.</p>
+            </div>
+        {% else %}
+
+            <div class="search_queryset">
+                <form method="GET" action="">
+                    <p>Szukaj według nazwy:</p>
+                    <input type="search" name="q" placeholder="Wpisz nazwę lub jej fragment" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz nazwę lub jej fragment'">
+                    <button type="submit">Szukaj</button>
+                </form>
+            </div>
+
+            {% if search_query %}
+                <div class="search_query">
+                    <form method="GET" action="">
+                        <p>Szukana fraza: <strong style="color: #FFDA8B;">{{ search_query }}</strong>, znalezionych list: <strong style="color: #FFDA8B;">{{ expense_list|length }}</strong></p>
+                        <button name="reset" type="submit">Wyzeruj</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            {% if not expense_list %}
+                <div class="half_col_white">Brak wyników wyszukiwania.</div>
+            {% else %}
+                <div class="half_col_white">
+                    <table>
+                    {% for element in page_obj %}
+                        <tbody>
+                            <tr>
+                                <td style="text-align: left;"> <i class="fa-solid fa-check"> </i> <a href="{% url 'planner:single-expense-list' element.id %}">{{ element.name }}</a> </td>
+                                <td style="text-lign: right;">
+                                    <a href="{% url 'planner:single-expense-list' element.id %}" title="zobacz"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    | <a href="{% url 'planner:edit-expense-list' element.id %}" title="edytuj"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    | <a href="{% url 'planner:delete-expense-list' element.id %}" title="usuń"><i class="fa-solid fa-trash-can"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                    </table>
+                </div>
+
+                {% if paginator.num_pages > 1 %}
+                    <div class="pagination_small">
+                        {% block pagination_expense %}
+                            {% if page_obj.has_previous %}
+                                <a href="/expense-lists/?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    Poprzednia strona
+                                </a> |
+                            {% endif %}
+                            Bieżąca strona: <b>{{ page_obj.number }}</b>
+                            {% if page_obj.has_next %}
+                                | <a href="/expense-lists/?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    Kolejna strona
+                                </a>
+                            {% endif %}
+                            <br>
+                        {% endblock pagination_expense %}
+                    </div>
+                    {% block pagination_expense_list %}
+                        {% for page_no in page_obj.paginator.page_range %}
+                            {% if page_no == page_obj.number %}
+                                {{ page_no }}
+                            {% else %}
+                                <a href="/expense-lists/?page={{ page_no }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                                    class="{% if page_no == page_obj.number %}current{% endif %}">
+                                    {{ page_no }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    {% endblock pagination_expense_list %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+<!--        <div class="pagination">-->
+<!--            <span class="step-links">-->
+<!--                {% if page_obj.has_previous %}-->
+<!--                    <a href="/expense-lists/?page=1">&laquo; first</a>-->
+<!--                    <a href="/expense-lists/?page={{ page_obj.previous_page_number }}">previous</a>-->
+<!--                {% endif %}-->
+
+<!--                <span class="current">-->
+<!--                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.-->
+<!--                </span>-->
+
+<!--                {% if page_obj.has_next %}-->
+<!--                    <a href="/expense-lists/?page={{ page_obj.next_page_number }}">next</a>-->
+<!--                    <a href="/expense-lists/?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>-->
+<!--                {% endif %}-->
+<!--            </span>-->
+<!--        </div>-->
+
+        <p><a href="{% url 'planner:add-expense-list' %}">[Dodaj listę wydatków]</a></p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

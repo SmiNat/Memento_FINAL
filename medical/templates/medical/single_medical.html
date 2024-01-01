@@ -1,0 +1,245 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	{% if page == 'single-medicine' %}
+		<h2>Informacje o leku</h2>
+		{% comment %}<div class="name">{{ medicine.drug_name_and_dose }}</div>{% endcomment %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td style="color: #FAAC18;">Nazwa leku i dawka:</td>
+						<td style="color: #FAAC18;">{{ medicine.drug_name_and_dose }}</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for field, value in medicine %}
+						{% if field == 'id' or field == 'Użytkownik' or field == 'Nazwa leku i dawka' or field == 'Data dodania' %}
+						{% elif value == 'None' or value == '' %}
+						{% else %}
+							<tr>
+								{% if field == 'Data aktualizacji' %}
+								{% elif field == 'Dni przyjmowania leków' %}
+									<td>{{ field }}:</td>
+									<td>
+										{% if medicine.medication_days %}
+											{% for element in medicine.medication_days_to_list %}
+												{% if forloop.last %}
+													{{ element }}
+												{% else %}
+													{{ element }},&#160
+												{% endif %}
+											{% endfor %}
+										{% else %}---{% endif %}
+									</td>
+								{% elif field == 'Godziny przyjmowania leków' %}
+									<td>{{ field }}:</td>
+									<td>
+										{% if medicine.medication_hours %}
+											{% for element in medicine.medication_hours_to_list %}
+												{% if forloop.last %}
+													{{ element }}
+												{% else %}
+													{{ element }},&#160
+												{% endif %}
+											{% endfor %}
+										{% else %}---{% endif %}
+									</td>
+								{% else %}
+									<td>{{ field }}:</td>
+									{% if value == 'None' or value == "" %}
+										<td>---</td>
+									{% else %}
+										<td>{{ value }}</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endif %}
+					{% endfor %}
+					<tr>
+						<td style="border-top: 1px solid #F9F1CF;">Data aktualizacji:</td>
+						<td style="border-top: 1px solid #F9F1CF;">{{ medicine.updated }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<small><a href="{% url 'medical:medicines' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+			<a href="{% url 'medical:edit-medicine' medicine.id %}">[Aktualizuj dane]</a> | <a href="{% url 'medical:delete-medicine' medicine.id %}">[Usuń lek]</a></small>
+		</div>
+		<br>
+		<div>
+			<small>
+			Przyznany dostęp do danych:
+				{% if not medcard or medcard.access_granted_medicines == 'Brak dostępu' %}Brak dostępu.
+				{% elif medcard.access_granted_medicines == 'Udostępnij dane' %}
+					{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+					{% else %}{{ profile.access_granted_to }}.
+					{% endif %}
+				{% endif %}
+			</small>
+		</div>
+		<div>
+			<small>Data utworzenia informacji o leku: {{ medicine.created }}.</small>
+		</div>
+
+	{% elif page == 'single-visit' %}
+		<h2>Informacje o wizycie lekarskiej</h2>
+		{% comment %}<div class="name">{{ visit }}</div>{% endcomment %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td style="color: #FAAC18;">Specjalizacja:</td>
+						<td style="color: #FAAC18;">{{ visit.specialization }}</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for field, value in visit %}
+						{% if field == 'id' or field == 'Użytkownik' or field == 'Specjalizacja' or field == 'Data dodania' %}
+						{% elif value == 'None' or value == '' %}
+						{% else %}
+							<tr>
+								{% if field == 'Data aktualizacji' %}
+								{% else %}
+									<td>{{ field }}:</td>
+									{% if value == 'None' or value == "" %}
+										<td>---</td>
+									{% else %}
+										<td>{{ value }}</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endif %}
+					{% endfor %}
+					<tr>
+						<td style="border-top: 1px solid #F9F1CF;">Data aktualizacji:</td>
+						<td style="border-top: 1px solid #F9F1CF;">{{ visit.updated }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<small><a href="{% url 'medical:medical-visits' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+			<a href="{% url 'medical:edit-visit' visit.id %}">[Aktualizuj dane]</a> | <a href="{% url 'medical:delete-visit' visit.id %}">[Usuń wizytę]</a></small>
+		</div>
+		<br>
+		<div>
+			<small>
+			Przyznany dostęp do danych:
+				{% if not medcard or medcard.access_granted_visits == 'Brak dostępu' %}Brak dostępu.
+				{% elif medcard.access_granted_visits == 'Udostępnij dane' %}
+					{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+					{% else %}{{ profile.access_granted_to }}.
+					{% endif %}
+				{% endif %}
+			</small>
+		</div>
+		<div>
+			<small>Data utworzenia informacji o wizycie: {{ visit.created }}.</small>
+		</div>
+
+	{% elif page == 'single-test-result' %}
+		<h2>Wyniki badań</h2>
+		{% comment %}<div class="name">{{ test_result }}</div>{% endcomment %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td style="color: #FAAC18;">Nazwa badania:</td>
+						<td style="color: #FAAC18;">{{ test_result.name }}</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for field, value in test_result %}
+						{% if field == 'id' or field == 'Użytkownik' or field == 'Nazwa' or field == 'Data dodania' %}
+						{% elif value == 'None' or value == '' %}
+						{% else %}
+							<tr>
+								{% if field == 'Data aktualizacji' %}
+								{% else %}
+									<td>{{ field }}:</td>
+									{% if value == 'None' or value == "" %}
+										<td>---</td>
+									{% else %}
+										<td>{{ value }}</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endif %}
+					{% endfor %}
+					<tr>
+						<td style="border-top: 1px solid #F9F1CF;">Data aktualizacji:</td>
+						<td style="border-top: 1px solid #F9F1CF;">{{ test_result.updated }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<small><a href="{% url 'medical:test-results' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+			<a href="{% url 'medical:edit-test-result' test_result.id %}">[Aktualizuj dane]</a> | <a href="{% url 'medical:delete-test-result' test_result.id %}">[Usuń wynik]</a></small>
+		</div>
+		<br>
+		<div>
+			<small>
+			Przyznany dostęp do danych:
+				{% if not medcard or medcard.access_granted_test_results == 'Brak dostępu' %}Brak dostępu.
+				{% elif medcard.access_granted_test_results == 'Udostępnij dane' %}
+					{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+					{% else %}{{ profile.access_granted_to }}.
+					{% endif %}
+				{% endif %}
+			</small>
+		</div>
+		<div>
+			<small>Data utworzenia informacji o wynikach badań: {{ test_result.created }}.</small>
+		</div>
+
+	{% endif %}
+</div>
+
+{% if page == 'single-visit' or page == 'single-test-result' %}
+	<div class="content">
+		<h2>Załączniki</h2>
+		{% if not attachments %}
+			<div>
+			<p>Brak załączników.</p>
+			<p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+			</div>
+		{% else %}
+			<div class="single_table">
+				<table>
+					<thead>
+						<tr>
+							<td>Nazwa dokumentu</td>
+							<td>Informacja o pliku</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+							<td style="text-align: center;">Data ostatniej modyfikacji</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Pobierz</td>
+							<td style="text-align: center;">Usuń</td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for attachment in attachments %}
+							<tr>
+								<td>{{ attachment.attachment_name }}</td>
+								<td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
+								<td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
+								<td style="text-align: center;">{{ attachment.updated }}</td>
+								<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a></td>
+								<td style="text-align: center;"><a href="{% url 'connection:delete-attachment' attachment.id %}">Usuń</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<small><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></small>
+			</div>
+		{% endif %}
+	</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<h2>Informacje o remoncie</h2>
+	{% comment %}<div class="name">{{ renovation.name }}</div>{% endcomment %}
+	<div class="single_table">
+		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
+			<thead>
+				<tr>
+					<td style="color: #FAAC18;">Nazwa:</td>
+					<td style="color: #FAAC18;">{{ renovation.name }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for field, value in renovation %}
+					{% if field == 'id' or field == 'Użytkownik' or field == 'Data dodania' or field == 'Nazwa' or field == 'Dostęp do danych' %}
+					{% else %}
+						<tr>
+							{% if field == 'Data aktualizacji' %}
+							{% else %}
+								<td>{{ field }}:</td>
+								{% if value == 'None' or value == "" %}
+									<td>---</td>
+								{% else %}
+									<td>{{ value }}</td>
+								{% endif %}
+							{% endif %}
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td>Czas trwania (w dniach):</td>
+					<td>{{ renovation.get_renovation_time_in_days|default_if_none:"---" }}</td>
+				</tr>
+				<tr>
+					<td style="border-top: 1px solid #F9F1CF;">Data aktualizacji:</td>
+					<td style="border-top: 1px solid #F9F1CF;">{{ renovation.updated }}</td>
+				</tr>
+				<tr>
+					<td style="border-top: 1px solid #F9F1CF;">Kontrahenci:</td>
+					{% if renovation.counterparty_set.all %}
+						<td style="line-height: 5px; border-top: 1px solid #F9F1CF;">{% for counterparty in renovation.counterparty_set.all %}<a href="{% url 'connection:single-counterparty' counterparty.id %}">{{ counterparty.name|linebreaks }}</a>{% endfor %}</td>
+					{% else %}
+						<td style="border-top: 1px solid #F9F1CF;"><a href="{% url 'connection:add-counterparty' %}">Dodaj kontrahenta</a></td>
+					{% endif %}
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div style="clear:both"></div>
+	<div>
+		<small><a href="{% url 'renovation:renovations' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+		<a href="{% url 'renovation:edit-renovation' renovation.id %}">[Aktualizuj dane]</a> | <a href="{% url 'renovation:delete-renovation' renovation.id %}">[Usuń remont]</a></small>
+	</div>
+	<br>
+	<div>
+		<small>
+		Przyznany dostęp do danych:
+			{% if renovation.access_granted == 'Brak dostępu' %}Brak dostępu.
+			{% elif renovation.access_granted == 'Udostępnij dane' %}
+				{% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+				{% else %}{{ profile.access_granted_to }}.
+				{% endif %}
+			{% endif %}
+		</small>
+	</div>
+	<div>
+		<small>Data utworzenia remontu: {{ renovation.created }}.</small>
+	</div>
+</div>
+
+<div class="content">
+	<h2>Koszty remontu</h2>
+	{% if not renovation_costs %}
+		<div>
+			<p>Brak kosztów remontu.</p>
+			<p><a href="{% url 'renovation:add-renovation-cost' renovation.id %}">[Uzupełnij koszty]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td>Nazwa</td>
+						<td>Opis</td>
+						<td>Informacje o zamówieniu</td>
+						<td style="border-left: 1px dashed #F9F1CF; text-align: center;">Cena jednostkowa</td>
+						<td style="text-align: center;">Ilość</td>
+						<td style="text-align: center;">Wartość zakupu</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+				{% for element in renovation_costs %}
+					<tr>
+						<td>{{ element.name }}</td>
+						<td>{% if element.description %} {{ element.description }} {% else %} --- {% endif %}</td>
+						<td>{% if element.order %} {{ element.order }} {% else %} --- {% endif %}</td>
+						<td style="border-left: 1px dashed #F9F1CF;text-align: center;">{{ element.unit_price }}</td>
+						<td style="text-align: center;">{{ element.units }}</td>
+						<td style="text-align: center;">{% widthratio element.unit_price 1 element.units %}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'renovation:edit-renovation-cost' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'renovation:delete-renovation-cost' element.id %}">Usuń</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<small><a href="{% url 'renovation:add-renovation-cost' renovation.id %}">[Dodaj koszt]</a> | <button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
+		</div>
+		<br>
+		<div><h3>Suma kosztów:</h3></div>
+		<div class="single_table">
+			<table style="max-width: 40%; min-width: 500px;">
+				<tbody>
+					<tr>
+						<td style="text-align: center; font-weight: bold;">{{ sum_of_costs }} PLN</td>
+						</tr>
+					{% if renovation.estimated_cost > 0 %}
+					<tr>
+						<td style="text-align: center; font-weight: bold;">{{ costs_to_budget }}% budżetu [{{ renovation.estimated_cost }}]</td>
+					</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+		<br>
+	{% endif %}
+</div>
+
+
+<div class="content">
+	<h2>Załączniki</h2>
+	{% if not attachments %}
+		<div>
+			<p>Brak załączników.</p>
+			<p><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></p>
+		</div>
+	{% else %}
+		<div class="single_table">
+			<table>
+				<thead>
+					<tr>
+						<td>Nazwa dokumentu</td>
+						<td>Informacja o pliku</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
+						<td style="text-align: center;">Data ostatniej modyfikacji</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Pobierz</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for attachment in attachments %}
+						<tr>
+							<td>{{ attachment.attachment_name }}</td>
+							<td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
+							<td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
+							<td style="text-align: center;">{{ attachment.updated }}</td>
+							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a></td>
+							<td style="text-align: center;"><a href="{% url 'connection:delete-attachment' attachment.id %}">Usuń</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<small><a href="{% url 'connection:add-attachment' %}">[Dodaj załącznik]</a></small>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

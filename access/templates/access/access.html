@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+<!--    <div class="grid_display">-->
+    <div class="grid_display">
+        <h2>Dostęp do danych użytkowników</h2>
+        {% if not access_granted %}
+            <div class="half_col_white">
+                <p>Brak udostępnionych danych od użytkowników.</p>
+            </div>
+    </div>
+        {% else %}
+    </div>
+    <div class="half_box">
+            {% for element in access_granted %}
+                <div class="half_col_white" style="margin: 10px 10px;">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td colspan="3">Od: <a href="{% url 'access:data-access' element.slug 1 %}">{{ element.email }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <div style="clear: both;"></div>
+
+            <div class="icon_boxes">
+                <a href="{% url 'access:data-access-payments' element.slug 1 %}">
+                    <div class="square_box">
+                        <div class="icon_box"><i class="fa-solid fa-money-check-dollar"></i></div>
+                        <div class="tile">Płatności cykliczne</div>
+                    </div>
+                </a>
+                <a href="{% url 'access:data-access-planner' element.slug 1 %}">
+                    <div class="square_box">
+                        <div class="icon_box"><i class="fa-solid fa-list-check"></i></div>
+                        <div class="tile">Planer</div>
+                    </div>
+                </a>
+                <a href="{% url 'access:data-access-medical' element.slug 1 %}">
+                    <div class="square_box">
+                        <div class="icon_box"><i class="fa-solid fa-briefcase-medical"></i></div>
+                        <div class="tile">Medycyna</div>
+                    </div>
+                </a>
+                <div style="clear: both"></div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            {% endfor %}
+            <h4><strong>Zachowaj poufność przeglądanych danych.</strong></h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

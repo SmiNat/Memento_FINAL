@@ -1,0 +1,244 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+    {% if page == 'add-expense-list' or page == 'edit-expense-list' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_photo-realistic-of-calculator-money-and-paper-with-graphic_28050245_SMALL.jpg' %}" alt="Foto"/></div>
+
+        {% if page == 'add-expense-list' %}
+            <h2>Dodaj listę wydatków</h2>
+            <form method="post" action="{% url 'planner:add-expense-list' %}">
+        {% else %}
+            <h2>Aktualizuj listę wydatków</h2>
+            <form method="post" action="{% url 'planner:edit-expense-list' list_title.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        {% if field.label == 'Dostęp do danych' %}
+                            <hr><br>
+                            <fieldset style="border-color: #13656; border-width: 5px;">
+                                <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                                <small>Uwaga! Udzielenie dostępu oznacza podgląd nazwy listy oraz jej zawartości.</small>
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </fieldset>
+                        {% elif field.label == 'Nazwa' %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            {% if page == 'add-expense-list' %}
+                                <input class="text_field" type="text" name="name" autofocus/>
+                            {% else %}
+                                <div class="value_field">{{ field }}</div>
+                            {% endif %}
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-expense-list' %}
+                <p>Nie chcesz dodawać listy wydatków? <a href="{% url 'planner:planner' 1 %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować listy wydatków? <a href="{% url 'planner:planner' 1 %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-expense-item' or page == 'edit-expense-item' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_photo-realistic-of-calculator-money-and-paper-with-graphic_28113557_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij listę wydatków</h2>
+        <div class="name">{{ list_title }}</div>
+        {% if page == 'add-expense-item'%}
+            <form method="post" action="{% url 'planner:add-expense-item' list_title.id %}">
+        {% else %}
+            <form method="post" action="{% url 'planner:edit-expense-item' expense_item.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    <fieldset>
+                        <legend>Planowany wydatek:</legend>
+                        {% for field in form %}
+                        <div class="one_field">
+                            {% if field.label == 'Tytuł listy' %}
+                                <div class="value_field">{{ field }}</div>
+                            {% elif field.label == 'Poniesiony koszt' or field.label == 'Data poniesienia wydatku' or field.label == 'Status wykonania' or field.label == 'Status ważności' or field.label == 'Status wymagania' %}
+                            {% else %}
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                            {% endif %}
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Status:</legend>
+                        {% for field in form %}
+                        {% if field.label == 'Status wykonania' or field.label == 'Status ważności' or field.label == 'Status wymagania' %}
+                        <br>
+                        <table>
+                            <tr>
+                                <td style="min-width: 200px;"><div>{{ field.label }}:</div></td>
+                                <td><div class="value_field" style="min-width: 250px;">{{ field }}</div></td>
+                            </tr>
+                        </table>
+                        {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Wykonany wydatek:</legend>
+                        <div class="label_field">Poniesiony koszt:</div>
+                        <div class="value_field">{{ form.cost_paid }}</div>
+                        <div class="label_field">Data poniesienia wydatku:</div>
+                        <div class="value_field">{{ form.purchase_date }}</div>
+                    </fieldset>
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować wydatku? <a href="{{ request.META.HTTP_REFERER }}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% elif page == 'add-todo-list' or page == 'edit-todo-list' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_modern-office-desk-with-computer-documents-and-coffee-cup_24929755_SMALL.jpg' %}" alt="Foto"/></div>
+
+        {% if page == 'add-todo-list' %}
+            <h2>Dodaj listę zadań</h2>
+            <form method="post" action="{% url 'planner:add-todo-list' %}">
+        {% else %}
+            <h2>Aktualizuj listę zadań</h2>
+            <form method="post" action="{% url 'planner:edit-todo-list' list_title.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        {% if field.label == 'Dostęp do danych' %}
+                            <hr><br>
+                            <fieldset style="border-color: #13656; border-width: 5px;">
+                                <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                                <small>Uwaga! Udzielenie dostępu oznacza podgląd nazwy listy oraz jej zawartości.</small>
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </fieldset>
+                        {% elif field.label == 'Nazwa' %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            {% if page == 'add-todo-list' %}
+                                <input class="text_field" type="text" name="name" autofocus/>
+                            {% else %}
+                                <div class="value_field">{{ field }}</div>
+                            {% endif %}
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-todo-list' %}
+                <p>Nie chcesz dodawać listy zadań? <a href="{% url 'planner:planner' 1 %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować listy zadań? <a href="{% url 'planner:planner' 1 %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-todo-item' or page == 'edit-todo-item' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_ai-generated-a-gourmet-mexican-meal-with-grilled-meat-fresh_35027250_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij listę zadań</h2>
+        <div class="name">{{ list_title }}</div>
+        {% if page == 'add-todo-item'%}
+            <form method="post" action="{% url 'planner:add-todo-item' list_title.id %}">
+        {% else %}
+            <form method="post" action="{% url 'planner:edit-todo-item' todo_item.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    {% if field.label == 'Tytuł listy' %}
+                        <div class="value_field">{{ field }}</div>
+                    {% elif field.label == 'Status wykonania' or field.label == 'Status ważności' or field.label == 'Status wymagania' %}
+                    {% else %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <br>
+                    <fieldset>
+                        <legend>Status:</legend>
+                        {% for field in form %}
+                        {% if field.label == 'Status wykonania' or field.label == 'Status ważności' or field.label == 'Status wymagania' %}
+                        <br>
+                        <table>
+                            <tr>
+                                <td style="min-width: 200px;"><div>{{ field.label }}:</div></td>
+                                <td><div class="value_field" style="min-width: 250px;">{{ field }}</div></td>
+                            </tr>
+                        </table>
+                        {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            <p>Nie chcesz modyfikować zadań? <a href="{{ request.META.HTTP_REFERER }}"><button class="button">Powrót</button></a></p>
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}

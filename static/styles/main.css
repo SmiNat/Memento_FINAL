@@ -1,0 +1,1410 @@
+/*
+color gold-dark: #AA7C1A (170, 124, 26)
+color gold-light: #FAAC18 (250, 172, 24)
+color gray: #E6E6E6 (230, 230, 230)         #E6E7E9 (230, 231, 233)
+color dark: #232D39 (35, 45, 57)
+---------
+color blue-middle-dark: #121E28
+color blue-dark: #136568 (19, 101, 104)
+color blue-middle: #21A1A6 (33, 161, 166)
+color blue-light: #3FDDE6 (63, 221, 230)
+color yellow-dark: #F2B94A (242, 185, 74)
+color yellow-mid: #FFDA8B (255, 218, 139)
+color yellow-light: #F9F1CF (249, 241, 207)
+color gray-dark: #545458 (84, 84, 88)
+color gray-mid: #96989E (150, 152, 158)
+color gray-light: #BEC0C4 (190, 192, 196)
+------------
+2:
+color green-dark: #19484C
+color yellow-intensive: #FFC03D
+color gray-middle: #8B8D93
+color blue-darkest: #111220
+*/
+
+html
+{
+    scroll-behavior: smooth;
+    scroll-padding-top: 180px;
+    height: 100%;
+}
+body
+{
+    margin: 0px;
+    color: white;
+    background: url("../images/dandelion-3212293.jpg") top no-repeat, url("../images/black.jpg") bottom repeat;
+    background-size: 2500px, auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    height: 97%;
+}
+.grid_display
+{
+    display:grid;
+    align-items: center;
+    justify-content: center;
+}
+a:visited,
+a:link
+{
+    color: #AA7C1A;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover
+{
+    color: #3FDDE6;
+    font-weight: bold;
+}
+
+.export_button,
+.export_button:hover,
+.export_button:focus,
+.export_button:active
+{
+    color: #AA7C1A;
+    font-family: 'Merriweather', serif;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 100%; /*16px;*/
+    letter-spacing: 1px;
+    background: none;
+    border: 0px solid #AA7C1A;
+}
+.export_button:hover
+{
+    color: #3FDDE6;
+    cursor: pointer;
+}
+
+h2 {text-align: center;}
+small
+{
+    font-size: 70%;
+}
+
+/*-------------------
+MAIN.HTML
+-------------------*/
+
+#container
+{
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    /*position: relative; /*!!*/
+    min-width: 900px;
+}
+.content
+{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    justify-content: center;
+    /*display: flex;  */
+    margin-top: 30px;
+    /*width: 80%;
+    border: 2px solid #3FDDE6;
+    border-radius: 3px; */
+    padding: 20px 30px;
+    background-color: rgba(35, 45, 57, 0.8);/*#232D39;*/
+    text-align: center;
+}
+.content2
+{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    justify-content: center;    /**/
+    /* display: flex;              */
+    margin-top: 30px;
+    width: 80%;
+    border: 2px solid #3FDDE6;
+    border-radius: 3px;
+    padding: 20px;
+    background-color: #19484C;
+    text-align: center;
+}
+.text p
+{
+    text-align: justify;
+    padding: 18px;
+}
+.text > ol > li
+{
+    padding: 10px 10px;
+    text-align: justify;
+    line-height: 25px;;
+}
+.text > ol > ul > li
+{
+    list-style-type: disc;
+    text-align: justify;
+}
+
+.text_front,
+.text_front_2
+{
+    display: inline-block;
+    align-items: center;
+    max-width: 80%;
+    margin-bottom: 30px;
+}
+
+.text_front_2 > ul
+{
+    margin-bottom: 10px;
+    text-align: left;
+}
+.text_front_2 > ul > li
+{
+    padding: 0px 20px;
+    margin-left: 40px;
+    text-align: left;
+    line-height: 30px;
+}
+.text_front_2 > ul > li:last-of-type
+{
+    padding-bottom: 20px;
+}
+
+footer
+{
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    text-align: center;
+    font-size: 60%;
+    font-weight: 200;
+    width: 70%;
+    height: 10px;
+    border-top: 2px solid #AA7C1A;
+    line-height: 20px;
+}
+footer a:hover {color:rgba(249, 241, 207, 1)}
+#message
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 80%;
+    border: 2px solid white;
+    border-radius: 3px;
+    background-color:white;
+    text-align: center;
+    font-size: 130%;
+    font-weight: bold;
+}
+.messages
+{
+    padding: 0px;
+}
+.messages > ul
+{
+    padding-left: 0px;
+}
+.messages > li
+{
+    list-style-type: none;
+    margin-left: 0px;
+    color: #3FDDE6;
+}
+.alert_error
+{
+    color: red;
+    border: 3px solid red;
+    border-radius: 3px;
+
+}
+.alert_success
+{
+    color: #AA7C1A;
+    border: 3px solid #AA7C1A;
+    border-radius: 3px;
+}
+.alert_info
+{
+    color: #232D39;
+    border: 3px solid #232D39;
+    border-radius: 3px;
+}
+
+/*-------------------
+NAVBAR.HTML
+-------------------*/
+
+.head
+{
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100px;
+    background-color: rgba(255,255,255);
+    border: 3px solid #AA7C1A;
+    border-radius: 5px;
+}
+.head_logo
+{
+    float: left;
+    width: 18%;
+}
+.head_logo img
+{
+    max-height: 90px;
+    width: auto;
+    padding: 5px 10% 0px 15%;
+}
+.head_txt
+{
+    float: left;
+    width: 54%;
+    color: #AA7C1A;
+    font-size: 180%;
+    padding: 25px 5% 25px 5% ;
+    text-align: center;
+}
+.head_txt p
+{
+    margin: 5px 0px 0px 0px;
+
+    font-size: 80%;
+}
+.head_icons
+{
+    float: right;
+    width: 15%;
+    height: 100%;
+    text-align: right;
+    color: #232D39;
+    padding-right: 3%;
+    font-size: 70%;
+    font-weight: 900;
+    line-height: 25px;
+}
+.head_icons p
+{
+    margin-bottom: 10px !important;
+}
+.head_icons i
+{
+    font-size: 20px;
+    padding-right: 10px;
+}
+.head_icons a:hover,
+.head_icons a:visited
+{
+    color:#232D39;
+}
+nav
+{
+    height: 62px;
+    padding: 10px 0px 10px 0px;
+    background:linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    border: 3px solid #AA7C1A;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 25px;
+    color: #232D39;
+
+    overflow: visible;
+
+}
+ol.navbar
+{
+    display: inline-block;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 4px;
+    position: relative; /*absolute*/
+    min-height: 30px;
+    margin-top: 5px;
+}
+ol.navbar a
+{
+    display: block;
+    text-decoration: none;
+    color: #232D39;
+    font-weight: 900;
+    padding-bottom: 5px;
+}
+ol.navbar > li
+{
+    float: left;
+    border: 2px solid #232D39;
+    border-radius: 4px;
+    min-width: 200px;
+    min-height: 30px;
+    padding: 5px 10px 0px 10px;
+    background-color: white;
+    color: #AA7C1A;
+    margin: 5px 20px;
+}
+ol.navbar > li:link
+{
+    color: #232D39;
+}
+ol.navbar > li:hover
+{
+    background-color: #232D39;
+}
+ol > li:hover > a
+{
+    color: #F9F1CF;
+}
+ol.navbar > li > ul
+{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    height: 40px;
+    display: none;
+}
+ol.navbar > li:hover > ul /*chcemy, by menu miało rozwijane podmenu, więc kodujemy opcję rozwijania gdy najedziemy myszką na element menu*/
+{
+    display: block;
+}
+ol.navbar > li > ul > li
+{
+    background-color: white;
+    position: relative; /*pozycja relatywna - w odniesieniu do elementu rodzica (wszystko, co w kodzie html jest wyżej (wcześniej) określa zależność, co jest później (poniżej) staje się drugoplanowe, więc jeśli mamy jakiś tekst w kodzie html, który jest poniżej na stronie, to będzie on "przykryty" elementem relatywnym*/
+    z-index: 100; /*by mieć pewność, że nasze rozwijane menu zasłoni wszystko pod spodem (poniżej na stronie)- tekst, obrazki itp.*/
+    border-top: 1px dashed #AA7C1A;
+    text-align: left;
+    padding: 7px 10px 3px 10px;
+    line-height: 25px;
+}
+ol.navbar > li > ul > li:last-child
+{
+    border-bottom: 1px dashed #AA7C1A;
+}
+ol.navbar > li > ul > li:first-child
+{
+    border-top: none;
+    border-bottom: none;
+}
+ol.navbar > li > ul > li a:hover
+{
+    color: #AA7C1A;
+}
+
+
+/*-------------------
+INDEX.HTML
+-------------------*/
+.box
+{
+    /*display: flex !important;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+.index_box
+{
+    display: inline-block;
+    width: 30%;
+    max-width: 522px;
+    min-height: 200px;
+    margin: 15px;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid white;
+}
+.index_box:hover
+{
+    background-color: #E6E6E6;
+    color: #232D39;
+}
+.index_box p
+{
+    min-height: 60px;
+    text-align: center !important;
+}
+.index_box img
+{
+    width: 300px !important;
+    height: 200px !important;
+    margin-bottom: 10px;
+    border: 1px solid #FAAC18;
+}
+.index_box i
+{
+    font-size: 350%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+.index_box a:hover
+{
+    color: #136568;
+}
+
+/*-------------------
+TABLES
+-------------------*/
+.footnote
+{
+    text-align: left;
+    font-size: 60%;
+}
+.footnote > p
+{
+    margin: 0px;
+    line-height: 15px;
+}
+.basic_table
+{
+    width: 100%;
+    letter-spacing: 0;
+    margin-bottom: 15px;
+    color: white;
+    line-height: 25px;
+    /*https://stackoverflow.com/questions/4237110/how-can-i-make-a-css-table-fit-the-screen-width*/
+    overflow: scroll;
+    /*max-width:99rv;*/
+    margin-left: auto;
+    margin-right: auto;
+    /*box-shadow: 0 0 0 2px #BEC0C4;*/
+}
+.basic_table table
+{
+    text-align: left;
+    border-collapse: collapse;
+    border: 1px solid #BEC0C4;
+    /*border: 3px ridge #FFFFFF; #FFDA8B; /*#BEC0C4;*/ /*#F9F1CF;*/ /*#232D39;*/ /*rgba(251, 245, 183, 1);*/
+}
+.basic_table > table > tbody > tr > td,
+.basic_table > table > thead > tr > td
+{
+    padding: 5px 20px;
+}
+
+.basic_table > table > thead
+{
+    border-bottom: 2px ridge #232D39;/*rgba(251, 245, 183, 1);*/
+    line-height: 20px;
+    padding-bottom: 20px !important;
+    color:#232D39;
+    font-weight: 900;
+    background-color: white;/*#FBF5B7;*/
+    font-size: 80%;
+}
+.basic_table > table > tbody
+{
+    font-size: 75%;
+    line-height: 20px;
+    background-color: #121E28; /* #232D39 */
+}
+.basic_table > table > tbody > tr
+{
+    border-top: 1px dotted #F9F1CF;
+}
+
+.single_table,
+.single_table_2
+{
+    letter-spacing: 0;
+    line-height: 25px;
+    /*https://stackoverflow.com/questions/4237110/how-can-i-make-a-css-table-fit-the-screen-width*/
+    overflow: scroll;
+    max-width: 99vw; /*95vw;*/
+}
+.single_table table,
+.single_table_2 table
+{
+    background-color: #343E49; /*#121E28;*/
+    border-collapse: collapse;
+    border: thin solid #F9F1CF;
+    text-align: left;
+    max-width: 90%;
+    max-width: 1400px;
+    min-width: 600px;
+    font-size: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.single_table > table > thead,
+.single_table_2 > table > thead
+{
+    border-bottom: 1px solid rgba(251, 245, 183, 1);
+    line-height: 25px;
+    padding-bottom: 20px !important;
+    font-weight: bold;
+    color: #F9F1CF;
+}
+.single_table > table > tbody > tr,
+.single_table_2 > table > tbody > tr
+{
+    border-top: 1px dotted #F9F1CF;
+}
+.single_table > table > tbody > tr > td,
+.single_table > table > thead > tr > td,
+.single_table_2 > table > tbody > tr > td,
+.single_table_2 > table > thead > tr > td
+{
+    padding: 5px 20px;
+}
+.single_table_2 > table > tbody > tr > td
+{min-width: 120px;}
+/*
+.single_table_2 > table > tbody > tr > td
+{
+    min-width: 50%;
+}
+*/
+.to_html_table
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    letter-spacing: 0;
+    margin-bottom: 5px;
+    margin-top: 25px;
+    padding-top: 15px;
+    color: white;
+    line-height: 25px;
+}
+.to_html_table table
+{
+    border-collapse: collapse;
+    text-align: center;
+    border: 2px solid rgba(251, 245, 183, 1);
+}
+.to_html_table > table > tbody > tr > td,
+.to_html_table > table > thead > tr > td
+{
+    padding: 5px 20px;
+}
+.to_html_table > table > thead
+{
+    border-bottom: 2px solid rgba(251, 245, 183, 1);
+    line-height: 25px;
+    padding-bottom: 20px !important;
+    color:#232D39;
+    background-color:#FBF5B7;
+    font-size: 75%;
+}
+.to_html_table > table > tbody
+{
+    font-size: 75%;
+    line-height: 12px;
+    background-color: #121E28;/*#232D39;*/
+}
+.to_html_table > table > tbody > tr
+{
+    border-top: 1px dotted #F9F1CF;
+}
+.white_table
+{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #AA7C1A;
+    border-radius: 3px;
+    letter-spacing: 0;
+    color: #232D39;
+    line-height: 25px;
+    /*https://stackoverflow.com/questions/4237110/how-can-i-make-a-css-table-fit-the-screen-width*/
+    overflow: scroll;
+    max-width: 95vw;
+
+}
+.white_table > table
+{
+    margin: 35px 25px;
+    display: inline-block;
+    text-align: left;
+}
+.white_table > table > tbody > tr
+{
+    border-top: 6px dotted red;
+}
+.white_table > table > tbody > tr > td
+{
+    padding: 0px 50px;
+}
+.white_table > table > tbody > tr > td > a:link
+{
+    color: #AA7C1A;;
+}
+.white_table > table > tbody > tr > td > a:hover
+{
+    color: #232D39;
+}
+
+.trip_report_table
+{
+    background-color: red;
+}
+.trip_report_table > tbody > tr > td,
+.trip_report_table > thead > tr > td
+{
+    min-width: 100px;
+}
+
+.trip_report_table > tbody > tr > td > p
+{
+    margin-bottom: 10px;
+}
+.trip_report_table > tbody > tr > td > p > i,
+.trip_report_table > tbody > tr > td > p > a > i
+{
+    padding-right: 5px
+}
+.trip_report_table > tbody > tr > td > p > i
+{
+    color: #96989e;
+}
+.trip_report_table > tbody > tr > td > p > a > i
+{
+    color: #FFC03D;
+}
+.trip_report_table > tbody > tr > td > p > a:hover > i
+{
+    color: #3FDDE6;
+}
+
+/*-------------------
+PAGES
+-------------------*/
+.order_by
+{
+    padding-bottom: 30px;
+}
+.order_by > form > select,
+.search_queryset > form > input
+{
+    height: 30px;
+    margin-left: 10px;
+    min-width: 200px;
+    border: 2px solid #FFFFFF;
+    border-radius: 3px;
+}
+.order_by > form > select
+{
+    cursor: pointer;
+}
+.order_by > form > input,
+.search_queryset > form > button,
+.search_query > form > button
+{
+    font-weight: bold;
+    color: white;
+    cursor:pointer;
+    height: 30px;
+    padding: 0px 10px;
+    margin-left: 10px;
+    background: linear-gradient(to right, #BF953F, #AA771C, #BF953F);
+    border-radius: 3px;
+}
+.order_by > form > input:hover,
+.search_queryset > form > button:hover,
+.search_query > form > button:hover
+{
+    background-image: radial-gradient(circle, rgba(33, 161, 166, 1) 0%, rgba(19, 101, 104, 1) 100%);
+    border: 2px solid #FFFFFF;
+}
+
+.icon_boxes
+{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+}
+.square_box
+{
+    float: left;
+    width: 170px;
+    height: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    -webkit-box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
+    border: 1px solid #AA7C1A;
+    border-radius: 5px;
+}
+.square_box:hover
+{
+    -webkit-box-shadow: 0px 1px 20px -4px rgba(170, 124, 26, 1);
+    -moz-box-shadow: 0px 1px 20px -4px rgba(170, 124, 26, 1);
+    box-shadow: 0px 1px 20px -4px rgba(170, 124, 26, 1);
+    border: 1px solid #AA7C1A;
+    border-radius: 5px;
+    color: white;
+}
+.square_box:hover > .icon
+{
+    color: white;
+}
+.icon_box
+{
+    display: inline-block;
+    font-size: 40px;
+    color: #AA7C1A;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.tile
+{
+    width: 100%;
+    text-align: center;
+    font-size: 75%;
+    margin: 0px
+}
+
+.square_box_2
+{
+    float: left;
+    width: 170px;
+    height: 130px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    -webkit-box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
+    border: 1px solid #3FDDE6;
+    border-radius: 5px;
+}
+.square_box_2:hover
+{
+    -webkit-box-shadow: 0px 1px 18px -4px rgba(63, 221, 230, 1);
+    -moz-box-shadow: 0px 1px 18px -4px rgba(63, 221, 230, 1);
+    box-shadow: 0px 1px 18px -4px rgba(63, 221, 230, 1);
+    border: 1px solid #AA7C1A;
+    border-radius: 5px;
+    color: white;
+}
+.square_box_2:hover > .icon
+{
+    color: white;
+}
+.icon_box_2
+{
+    display: inline-block;
+    font-size: 40px;
+    color: #3FDDE6;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.tile_2
+{
+    width: 100%;
+    text-align: center;
+    font-size: 75%;
+    margin: 0px
+}
+
+.line
+{
+    display: inherit;
+    border: 2px solid rgba(251, 245, 183, 1);
+    /* min-width: 100%; */
+    margin-bottom: 30px;
+    /* line-height: 40px; */
+}
+.attachment_icons
+{
+    display: inline-block;
+    /* background-color: white; */
+    padding: 20px 20px;
+    font-size: 90%;
+    max-width: 100%;
+}
+.name
+{
+    color: #FAAC18;
+    font-size: 120%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.small_name
+{
+    color: #F9F1CF; /*#3FDDE6;*/
+    font-size: 100%;
+    margin-bottom: 15px;
+}
+.single_page
+{
+    border: 1px solid #AA7C1A;
+    border-radius: 3px;
+    background-color: rgba(18, 30, 40, 0.8);
+    margin: 15px;
+    padding: 15px 0px 15px 0px;
+}
+.single_checkbox
+{
+    accent-color: #FAAC18;
+}
+.checklist,
+.costs
+{
+    float: left !important;
+    border: 1px solid #AA7C1A;
+    background-color: #121E28;
+    margin: 15px;
+    padding: 0px 35px 15px 35px;
+    width: 57%;
+    margin-left: 2%;
+}
+.trip,
+.sum_of_costs
+{
+    float: left !important;
+    border: 1px solid #AA7C1A;
+    background-color: #121E28;
+    margin: 15px;
+    padding: 0px 35px 15px 35px;
+    width: 30%;
+}
+
+/*-------------------
+USER_PROFILE.HTML  // HALF DIVS
+-------------------*/
+
+.half_box,
+#tabs_nav
+{
+    display: inline-block;
+    vertical-align: top;
+}
+#tabs_content
+{
+    width: 100%;
+    /*max-width: 1000px;*/
+}
+#tabs_content > .half_col_2
+{
+    padding: 0px 30px 00px 30px;
+}
+#tabs_content > .half_col_2 > .tab_content > .single_table_2,
+#tabs_content > .tab_content > .half_col_2 > .single_table_2
+{
+    padding-bottom: 25px;
+}
+.half_box > a:link > .half_col_white > i
+{
+    color: #AA7C1A;
+}
+.half_box > a:hover > .half_col_white > i
+{
+    color: #136568;
+}
+.half_col
+{
+    background-color: #FBF5B7;
+    color: #232D39;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 3px;
+    text-align: left;
+    margin: 15px;
+    min-width: 350px;
+}
+.half_col_1
+{
+    background-color: white;
+    color: #232D39;
+    padding: 10px;
+    border: 2px solid #AA7C1A;
+    border-radius: 3px;
+    text-align: left;
+    margin: 15px;
+    font-size: 80%;
+    min-width: 250px;
+    max-width: 350px;
+}
+.half_col_2
+{
+    background-color: rgba(18, 30, 40, 0.8);
+    color: white;
+    padding: 10px;
+    border: 2px solid #AA7C1A;
+    border-radius: 3px;
+    text-align: left;
+    margin: 15px;
+    margin-bottom: 30px;
+    /*width: 100%;*/
+    /*max-width: 850px;*/
+}
+.half_col_white
+{
+    background-color: white;
+    color: #232D39;
+    padding: 10px 20px;
+    border: 2px solid #AA7C1A;
+    border-radius: 3px;
+    text-align: center;
+    margin: 15px;
+    min-width: 350px;
+    max-width: 600px;
+    font-weight: bold;
+}
+.half_col_white ul > li
+{
+    text-align: left;
+    line-height: 25px;
+}
+.half_col_white ul > li > a:link
+{
+    color: #AA7C1A;
+}
+.half_col_white ul > li > a:hover
+{
+    color: #121E28;
+}
+.half_col_white > table
+{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.half_col_white > table > tbody > tr > td
+{
+    line-height: 30px;
+}
+.half_col_white > table > tbody > tr > td:last-child
+{
+    text-align: center;
+    padding-left: 40px;
+    min-width: 100px;
+}
+.half_col_white > table > tbody > tr > td > ul
+{
+    margin: 10px;
+}
+.half_col_white > p
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+
+/*-------------------
+LOGIN / REGISTER.HTML, FORMS
+-------------------*/
+form,
+.form
+{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.form_img
+{
+    display:flex;
+    max-width: 400px;
+    height: auto;
+    margin: auto;
+}
+.form_img img
+{
+    min-width: 100%;
+    height: auto;
+    max-height: 250px;
+    margin-bottom: 25px;
+    border: 3px solid #F9F1CF;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(251, 245, 183, 1);
+    -moz-box-shadow: 0px 0px 14px 2px rgba(251, 245, 183, 1);
+    box-shadow: 0px 0px 14px 2px rgba(251, 245, 183, 1);
+}
+.form_field
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #F9F1CF;
+    color: #232D39;
+    font-weight: bold;
+    border: 3px solid #AA7C1A;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    padding: 0px 30px;
+    padding-bottom: 20px;
+    text-align: justify;
+    width: 600px;
+    accent-color: #136568 !important;
+    overflow: scroll;
+}
+.form_field > fieldset
+{
+    margin: 20px 0px;
+}
+.form_field > fieldset:last-of-type
+{
+    margin: 0px;
+}
+.form_field > p
+{
+    margin-top: 40px;
+    padding-right: 20px;
+    text-align: justify;
+}
+.form_field > p a:link
+{
+    color: white;
+}
+.form_field > p a:link:hover
+{
+    color: #136568;
+}
+.form_field > fieldset,
+.one_field > fieldset
+{
+    max-width: 97.5%; /*92,5%*/
+    border-color: #96989E;
+    border-width: thin;
+    border-radius: 2px;
+    text-align: left;
+}
+.one_field
+{
+    margin-top: 20px;
+}
+.one_field strong {color:#21A1A6}
+.one_field > ul > li {font-size: 10px;}
+.text_field,
+.value_field > input
+{
+    min-width: 95%;
+    line-height: 35px;
+    padding-left: 5px;
+}
+.value_field > select
+{
+    border: 1px solid #96989E;
+    background-color: white;
+    border-radius: 2px;
+    color: black;
+    padding: 10px;
+    margin-right: 5px;
+}
+.label_field
+{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.error_field
+{
+    color:red;
+    font-size: 60%;
+    padding-top: 5px;
+}
+.help_text_field
+{
+    color:#136568;
+    font-size: 60%;
+    padding-top: 5px;
+}
+
+.input_field
+{
+    background-color:white;
+    border: 1px solid #232D39;
+    border-radius: 3px;
+    width: 50%;
+    padding: 10px 5px;
+    text-align: justify;
+}
+.input_field:focus,
+input:focus
+{
+    outline: none !important;
+    border: 2px solid #E6E6E6;
+    box-shadow: 0 0 10px #232D39;
+}
+input[type=submit],
+.button
+{
+    font-weight: bold;
+    padding: 5px;
+    border: 2px solid #545458;
+    border-radius: 3px;
+    background-color: #21A1A6;
+    background-image: radial-gradient(circle, rgba(33, 161, 166, 1) 0%, rgba(19, 101, 104, 1) 100%);
+    color:white !important;
+    padding: 10px 20px;
+    cursor:pointer;
+}
+.multiple_select_field
+{
+    min-width: 50%;
+    max-height: 42px;
+    scrollbar-color: #136568 #BEC0C4;
+}
+.select_field
+{
+    min-width: 50%;
+    max-height: 43px;
+}
+.inline .checkbox_select_multiple .checkbox
+{
+    display: block;
+    float: left;
+    width: 25%;
+}
+
+table > tr > td > .select_field
+{
+    min-width: 50%;
+}
+.textarea_field
+{
+    min-width: 95%;
+}
+.inline
+{
+    display: inline-block !important;
+    margin-bottom: 5px;
+}
+
+.attachment
+{
+    border: 1px solid #8B8D93;
+    border-radius: 2px;
+    background-color: white;
+    width: 93.5%;
+    padding: 0px 10px 10px 10px;
+}
+.attachment_field > input
+{
+    text-align: left;
+    margin: 10px 0px;
+    line-height: 35px;
+    padding-left: 5px;
+}
+
+.attach_field
+{
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#country
+{
+    width: 96.5%;
+    min-height: 40px;
+}
+#id_credit_type,
+#id_installment_type,
+#id_installment_frequency,
+#id_type_of_interest,
+#id_payment_day,
+#id_type,
+#id_currency
+{
+    min-width: 50%; /*43%;*/
+}
+
+
+/*-------------------
+LISTS: EXPENSES AND TO-DO
+-------------------*/
+
+.row_access {color: #FFDA8B;}
+.row_access > a:link {color: #FFDA8B;}
+.row_access > a:hover {color: #AA7C1A;}
+
+.access_box > .name,
+.access_box > h3,
+.access_box > h4
+{
+    text-align: center;
+}
+.list
+{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.list > p
+{
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+.list_field
+{
+    background-color: white;
+    color: #232D39;
+    font-weight: bold;
+    border: 3px solid #AA7C1A;
+    border-radius: 3px;
+    padding: 10px 30px;
+    text-align: justify;
+    min-width: 30%;
+    line-height: 30px;
+}
+.list_field > p
+{
+    margin: 5px 0px;
+}
+.list_field > p > a:link
+{
+    color: #121E28;
+}
+.list_field > p > a:hover
+{
+    color: #AA7C1A;
+}
+.list_field > table
+{
+    width: 100%;
+}
+.list_field > table > tbody > tr > td:first-child
+{
+    text-align: left;
+}
+.list_field > table > tbody > tr > td:last-child
+{
+    text-align: center;
+    padding-left: 40px;
+    min-width: 100px;
+}
+.list_field > table > tbody > tr
+{
+    border-bottom: 9px dotted #232D39;
+    border-top: 1px dotted #A2D3D6;
+}
+.list_name
+{
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+    border: 2px solid #AA7C1A;
+    border-bottom: 1px solid #AA7C1A;
+    min-width: 30%;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+.list_items
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #121E28;
+    color: white;
+    border: 2px solid #AA7C1A;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    padding: 20px 30px;
+    text-align: justify;
+    width: 40%;
+    font-size: 85%;
+    letter-spacing: 0px;
+}
+.list_items > p > span
+{
+    color: #A2D3D6;
+}
+.todo
+{
+    margin-bottom: 30px;
+    border: 1px solid green;
+}
+.access_granted
+{
+    background-color: #7F5E13;
+    color: white;
+    border: 2px double white;
+    border-radius: 3px;
+    padding: 10px 40px;
+    font-weight: normal;
+    letter-spacing: 0;
+    text-align: center;
+    font-size: 80%;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    min-width: 400px;
+}
+.access_granted > table
+{
+    min-width: 100%;
+}
+}
+.access_granted > table > tbody > tr > td
+{
+    color: white;
+    padding: 5px 10px;
+}
+.access_granted > table > tbody > tr > td:first-child
+{
+    text-align: left;
+    padding-left: 20px;
+}
+.access_granted > table > tbody > tr > td > a:link,
+.access_granted > a:link
+{
+    color: white;
+}
+.access_granted > table > tbody > tr > td > a:hover,
+.access_granted > a:hover
+{
+    color: rgba(18, 30, 40);
+}
+.pagination
+{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.pagination_small
+{
+    font-size: 70%;
+}
+
+/*-------------------
+DJANGO-FORMS.PY - LOGIN / REGISTER HTML
+-------------------*/
+#box
+{
+    min-height: 30px;
+}
+#box:focus
+{
+    outline: none !important;
+    border: 2px solid #E6E6E6;
+    box-shadow: 0 0 10px #232D39;
+}
+.countryfield
+{
+    width: 30px;
+}
+#recaptcha{}
+
+
+
+/*-------------------
+JAVASCRIPT
+-------------------*/
+.sticky
+{
+    clear: both;
+    /*max-width: 1200px;*/
+    width: 100%;
+    position: fixed;
+    left: auto;
+    right: auto;
+    top: 0;
+    z-index: 100;
+}
+
+.scrollup
+{
+    display: none;
+    font-size: 44px;
+    position: fixed;
+    right: 3%;
+    bottom: 15px;
+    z-index: 1; /* on top */
+
+}

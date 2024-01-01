@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Memento</title>
+        <meta name="description" content="Twoje narzędzie do  planowania i zarządzania wydatkami, podróżami, zdrowiem. Zarządzaj swoimi płatnościami, miej wszystko pod kontrolą.">
+        <meta name="keywords" content="opłaty, rachunki, płatności, wydatki, kredyty, planowanie, listy zadań, listy wydatków, karta medyczna">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="{% static 'styles/main.css' %}" type="text/css" media="screen"/>
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="image/x-icon" />
+        <!-- Fonts -->
+        <script src="https://kit.fontawesome.com/dd9360b2da.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+        {% comment %}<script src="https://www.google.com/recaptcha/api.js" async defer></script>{% endcomment %}
+
+        <!-- JavaScript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+        <!-- For download table to excel -->
+        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+        <script>
+
+            jQuery(function($)
+            {
+                $.scrollTo(0);
+                $('.scrollup').click(function() {$.scrollTo($('body'),500);});
+            }
+            );
+
+            $(window).scroll(function()
+            {
+                if($(this).scrollTop()>250) $('.scrollup').fadeIn();
+                else $('.scrollup').fadeOut();
+
+            }
+            );
+
+        </script>
+
+    </head>
+
+    <script type="text/javascript">
+        $(function() {
+            var sort = GetURLParameter("sort_data");
+            if (sort) {
+                $("#sort_main_table").val(sort);
+            }
+        });
+
+        function GetURLParameter(sParam)
+        {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++)
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam)
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+    </script>
+
+    <body>
+        <a href="#" class="scrollup"><i class="fa-solid fa-circle-up"></i></a>
+
+        <div id="container">
+            {% include 'navbar.html' %}
+
+            {% if messages %}
+                <div id="message">
+                    {% for message in messages %}
+                    <div class="alert_{{ message.tags }}">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}
+            {% endblock content %}
+
+        </div>
+            <br><br>
+            <footer>
+                Pomysł, projekt i wykonanie strony: Natalia Śmieja &copy; XXI<br>
+                <a href="{% url 'credentials' %}" id="credentials">>> Podziękowania | Credentials <<</a>
+            </footer>
+
+{% comment %}<!--    <script src="jQuery/jquery-3.6.4.min.js"></script>-->{% endcomment %}
+
+        <script>
+
+            $(document).ready(function() {
+            var NavY = $('nav').offset().top;
+
+            var stickyNav = function(){
+            var ScrollY = $(window).scrollTop();
+
+            if (ScrollY > NavY) {
+                $('nav').addClass('sticky');
+            } else {
+                $('nav').removeClass('sticky');
+            }
+            };
+
+            stickyNav();
+
+            $(window).scroll(function() {
+                stickyNav();
+            });
+            });
+
+        </script>
+
+<!--    <table to xlsx>-->
+        <script>
+        function ExportToExcel(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+    	</script>
+
+        <script>
+        function ExportToExcel2(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls_2');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+        </script>
+        <script>
+        function ExportToExcel3(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls_3');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+        </script>
+        <script>
+        function ExportToExcel4(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls_4');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+        </script>
+        <script>
+        function ExportToExcel5(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls_5');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+        </script>
+        <script>
+        function ExportToExcel6(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls_6');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+        </script>
+        <script>
+        function ExportToExcel7(type, fn, dl) {
+            var elt = document.getElementById('tbl_exporttable_to_xls_7');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Table.' + (type || 'xlsx')));
+        }
+        </script>
+
+    </body>
+</html>

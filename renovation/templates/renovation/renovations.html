@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="content">
+	<div class="grid_display">
+		<h2>Podsumowanie remontów</h2>
+        {% if not renovations %}
+            <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+            <p><a href="{% url 'renovation:add-renovation' %}">[Dodaj remont]</a></p>
+        {% else %}
+
+            <div class="order_by">
+                <form action="{% url 'renovation:renovations' %}">
+                    <div>Sortuj:</div>
+                    <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                        <option value="-updated">---</option>
+                        <option value="name">Nazwa (od A do Z)</option>
+                        <option value="-name">Nazwa (od Z do A)</option>
+                        <option value="start_date">Rozpoczęcie remontu (od najstarszych)</option>
+                        <option value="-start_date">Rozpoczęcie remontu (od najnowszych)</option>
+                        <option value="estimated_cost">Szacunkowy koszt (rosnąco)</option>
+                        <option value="-estimated_cost">Szacunkowy koszt (malejąco)</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="basic_table">
+                <table id="tbl_exporttable_to_xls">
+                    <thead>
+                        <tr>
+                            <td>Nazwa</td>
+    <!--                        <td>Opis</td>-->
+                            <td style="border-left: 1px dashed #136568; text-align:center;">Szacunkowy koszt remontu</td>
+                            <td style="text-align:center;">Poniesione koszty remontu</td>
+                            <td style="border-left: 1px dashed #136568; text-align:center;">Rozpoczęcie remontu</td>
+                            <td style="text-align:center;">Zakończenie remontu</td>
+                            <td style="text-align:center;">Czas trwania remontu</td>
+                            <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                            <td>Edytuj</td>
+                            <td>Usuń</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for renovation in renovations %}
+                        <tr>
+                            <td>{{ renovation.name }}</td>
+    <!--                        <td>{{ renovation.description|default_if_none:"-&#45;&#45;" }}</td>-->
+                            <td style="text-align:center; border-left: 1px dashed #F9F1CF">{{ renovation.estimated_cost|default_if_none:"---" }}</td>
+                            <td style="text-align:center;">{{ renovation.get_all_costs|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align:center;">{{ renovation.start_date|default_if_none:"---" }}</td>
+                            <td style="text-align:center;">{{ renovation.end_date|default_if_none:"---" }}</td>
+                            <td style="text-align:center;">{{ renovation.get_renovation_time_in_days|default_if_none:"---" }} {% if renovation.get_renovation_time_in_days == 1 %} dzień {% elif renovation.get_renovation_time_in_days > 1 %} dni {% else %} {% endif %}</td>
+                            <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'renovation:single-renovation' renovation.id %}">Szczegóły</a></td>
+                            <td><a href="{% url 'renovation:edit-renovation' renovation.id %}">Edytuj</a></td>
+                            <td><a href="{% url 'renovation:delete-renovation' renovation.id %}">Usuń</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p><a href="{% url 'renovation:add-renovation' %}">[Dodaj remont]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content%}

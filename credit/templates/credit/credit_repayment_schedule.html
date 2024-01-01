@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content">
+    <div>
+            <small>
+                Wszelkie poniższe informacje dotyczące kredytu są poglądowe i szacunkowe.
+                Poprawność danych zależy od jakości informacji wprowadzonych przez Użytkownika oraz poprawności działania formuł.<br>
+                Dane te nie mogą być podstawą do podejmowania decyzji.
+                Algorytm kalkulacji harmonogramu kredytu nie przewiduje wszystkich możliwych opcji zaciągnięcia i spłaty kredytu.
+            </small>
+	    </div>
+</div>
+
+<div class="content">
+    <div class="grid_display">
+
+        <h2>Harmonogram spłaty kredytu</h2>
+        <div class="name">{{ credit_schedule.credit }}</div>
+        <h3>Podsumowanie:</h3>
+        <div class="single_table_2">
+            <table style="background-color: #121E28; min-width: 450px;">
+                <tr style="border-top: none;"><td>Wartość bazowa kredytu: </td><td>{{ credit_schedule.credit.credit_amount }}</td></tr>
+                <tr style="border-top: none;"><td style="min-width: 60%;">Waluta: </td><td>{{ credit_schedule.credit.currency }}</td></tr>
+                <tr style="border-top: none;"><td style="min-width: 60%;">Data rozpoczęcia płatności rat: </td><td>{{ credit_schedule.credit.start_of_payment }}</td></tr>
+                <tr style="border-top: none;"><td style="min-width: 60%;">Częstotliwość rat: </td><td>{{ credit_schedule.credit.installment_frequency }}</td></tr>
+                <tr style="border-top: none;"><td style="min-width: 60%;">Rodzaj rat: </td><td>{{ credit_schedule.credit.installment_type }}</td></tr>
+                <tr style="border-top: none; border-bottom: 1px solid #F9F1CF;"><td style="min-width: 60%;">Oprocentowanie: </td><td>{{ credit_schedule.credit.type_of_interest }}</td></tr>
+                <tr style="border-top: none;"><td style="min-width: 60%;">Wypłacone transze: </td><td>{{ tranches }}</td></tr>
+                {% for key, value in credit_schedule.sum_for_table_columns.items %}
+                    <tr style="border-top: none;">
+                        <td style="min-width: 60%;">{{ key }}:</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        {% if page != 'access_granted' %}
+            <div><small><a href="{% url 'credit:single-credit' credit_schedule.credit.id %}">[Powrót do właściwości kredytu]</a></small></div>
+        {% endif %}
+
+    </div><!-- END grid_display -->
+
+    <br><hr><br>
+    <h3>Harmonogram:</h3>
+    <small>Jeśli dane w tabeli nie są poprawne, zweryfikuj informacje dotyczące kredytu.</small><br><br>
+    <small>
+        Uwaga! Harmonogram zakłada ciągłość spłat rat kredytu.
+        Jeśli wartość salda osiągnie zero, kolejne transze nie będą uwzględniane.<br>
+        Jeśli płatności kredytu zakładają wyzerowanie salda i ponowne zaciągnięcie kredytu (lub kolejnej transzy przy zerowym saldzie), rozpisz kredyt na 2 odrębne.
+    </small><br><br>
+    <small>
+        Jeśli w trakcie trwania kredytu zostanie wydłużona data ostatecznej spłaty kredytu, <br>
+        należy zmienić liczbę miesięcy płatności rat i/lub okres karencji lub daty związane z kredytem (warunki inicjalne).
+    </small>
+    <div class="to_html_table" style="text-align: center;">
+            {% autoescape off %}
+                {{ credit_schedule.to_html }}
+            {% endautoescape %}
+    </div>
+    <small>*n/a lub nan - Brak danych lub informacja niedostępna.</small>
+    <div></div>
+
+    {% if page != 'access_granted' %}
+        <small>
+            <a href="{% url 'credit:edit-credit' credit_schedule.credit.id %}">[Aktualizuj kredyt]</a> |
+            <a href="{% static credit_schedule.to_excel %}" Download>[Eksportuj tabelę]</a>
+        </small>
+        <div></div><br>
+        <div>
+            <small>
+            Przyznany dostęp do harmonogramu:
+                {% if credit_schedule.credit.access_granted_for_schedule == 'Brak dostępu' %}Brak dostępu.
+                {% elif credit_schedule.credit.access_granted_for_schedule == 'Udostępnij dane' %}
+                    {% if profile.access_granted_to == None %}<a href="{% url 'edit-account' %}">uzupełnij email osoby z dostępem do danych.</a> <i class="fa-solid fa-pen-to-square" style="color: rgba(18, 30, 40);"></i>
+                    {% else %}{{ profile.access_granted_to }}.
+                    {% endif %}
+                {% endif %}
+            </small>
+        </div>
+    {% endif %}
+
+
+</div>
+{% endblock content %}

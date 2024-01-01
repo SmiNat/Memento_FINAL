@@ -1,0 +1,116 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <main>
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-show-solution-concept-and-leadership_21134112_637_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'delete-trip' %}
+            <h2>Usuń podróż wraz z wszystkimi dodatkowymi informacjami</h2>
+            <form method="post" action="{% url 'trip:delete-trip' trip.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć podróż "{{ trip.name }}" wraz z wszystkimi dodatkowymi informacjami?</p>
+                    <p><input type="submit" value="Usuń podróż"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać podróży?
+                    <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% elif page == 'delete-trip-report' %}
+            <h2>Usuń opis podróży</h2>
+            <form method="post" action="{% url 'trip:delete-trip-report' trip_report.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć opis podróży?</p>
+                    <p><input type="submit" value="Usuń podróż"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać opisu podróży?
+                    <a href="{% url 'trip:single-trip' trip_id %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% elif page == 'delete-trip-basic' %}
+            <h2>Usuń podstawowe wyposażenie</h2>
+            <form method="post" action="{% url 'trip:delete-trip-basic' trip_basic.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć podstawowe wyposażenie podróży "{{ trip_basic.name }}"?</p>
+                    <p><input type="submit" value="Usuń wyposażenie"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać wyposażenia?
+                    <a href="{% url 'trip:single-trip' trip_id %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% elif page == 'delete-trip-advanced' %}
+            <h2>Usuń zaawansowane wyposażenie</h2>
+            <form method="post" action="{% url 'trip:delete-trip-advanced' trip_advanced.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć zaawansowane wyposażenie podróży "{{ trip_advanced.name }}"?</p>
+                    <p><input type="submit" value="Usuń wyposażenie"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać wyposażenia?
+                    <a href="{% url 'trip:single-trip' trip_id %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% elif page == 'delete-trip-personal-checklist' %}
+            <h2>Usuń dodatkowe wyposażenie</h2>
+            <form method="post" action="{% url 'trip:delete-trip-personal-checklist' trip_checklist.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć dodatkowe wyposażenie "{{ trip_checklist.name }}"?</p>
+                    <p><input type="submit" value="Usuń wyposażenie"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać wyposażenia?
+                    <a href="{% url 'trip:single-trip' trip_id %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% elif page == 'delete-trip-additional' %}
+            <h2>Usuń dodatkowe informacje</h2>
+            <form method="post" action="{% url 'trip:delete-trip-additional' trip_additional.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć dodatkowe informacje "{{ trip_additional.name }}"?</p>
+                    <p><input type="submit" value="Usuń informacje"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać informacji?
+                    <a href="{% url 'trip:single-trip' trip_id %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% elif page == 'delete-trip-cost' %}
+            <h2>Usuń koszt podróży</h2>
+            <form method="post" action="{% url 'trip:delete-trip-cost' trip_cost.id %}">
+                {% csrf_token %}
+                <div class="form_field">
+                    <p>Czy chcesz usunąć koszt "{{ trip_cost.name }}"?</p>
+                    <p><input type="submit" value="Usuń koszt podróży"/> </p>
+                </div>
+            </form>
+            <div class="text_field">
+                <p>Nie chcesz usuwać kosztu?
+                    <a href="{% url 'trip:single-trip' trip_id %}"><button class="button">Powrót</button></a>
+                </p>
+            </div>
+
+        {% endif %}
+    </main>
+</div>
+{% endblock content %}

@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content">
+    <div style="display: block;">
+        <h2>Informacje o użytkowniku</h2>
+        <div class="half_box">
+            <div><h3>Dane osobowe:</h3></div>
+            <div class="half_col" style="background-color: #D9F7F7; border-width: 3px;">
+                <p>Nazwa użytkownika: <b>{{ profile.username }}</b></p>
+                <p>Imię: <b>{{ profile.first_name|default_if_none:"---" }}</b></p>
+                <p>Nazwisko: <b>{{ profile.last_name|default_if_none:"---" }}</b></p>
+                <p>Email: <b>{{ profile.email }}</b></p>
+                <p>Telefon: <b>{{ profile.phone_number|default_if_none:"---" }}</b></p>
+            </div>
+        </div>
+        <div class="half_box">
+            <div><h3>Dane adresowe:</h3></div>
+            <div class="half_col" style="background-color: #D9F7F7; border-width: 3px;">
+                <p>Miejscowość: <b>{{ profile.city|default_if_none:"---" }}</b>
+                    {% if profile.country.name %}
+                    <b>({{ profile.country.name }})</b>
+                    {% endif %}</p>
+                <p>Ulica: <b>{{ profile.street|default_if_none:"---" }}</b></p>
+                <p>Numer budynku: <b>{{ profile.building_number|default_if_none:"---" }}</b></p>
+                <p>Numer mieszkania: <b>{{ profile.apartment_number|default_if_none:"---" }}</b></p>
+                <p>Kod pocztowy: <b>{{ profile.post_code|default_if_none:"---" }}</b></p>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div>
+            <h3>
+                <a href="{% url 'edit-account' %}">[Aktualizuj dane]</a> | <a href="{% url 'delete-user' %}">[Usuń konto]</a>
+            </h3>
+        </div>
+        <div><h3>Data utworzenia konta: {{ profile.created }}.</h3></div>
+    </div>
+</div>
+<div class="content">
+    <h2>Współdzielone informacje</h2>
+    <div class="half_box">
+        <div><h3>Dostęp dla użytkownika:</h3></div>
+        {% if profile.access_granted_to == None or profile.access_granted_to == "" or profile.access_granted_to == "Brak przyznanego dostępu." %}
+        <div class="half_col_white">{{ profile.access_granted_to|default_if_none:"Brak przyznanego dostępu." }}</div>
+        <div>
+            <h3>
+                <a href="{% url 'edit-access' %}">[Dodaj dostęp]</a>
+            </h3>
+        </div>
+        {% else %}
+        <div class="half_col_white">{{ profile.access_granted_to }}</div>
+        <div>
+            <h3>
+                <a href="{% url 'edit-access' %}">[Edytuj]</a> | <a href="{% url 'delete-access' %}">[Usuń]</a>
+            </h3>
+        </div>
+        {% endif %}
+        <br>
+        <div><h3>Dostęp od użytkownika:</h3></div>
+        <div class="half_col_white">
+            {% if access_granted_from|length == 0 %}
+                Brak otrzymanego dostępu.
+            {% elif access_granted_from|length == 1 %}
+                {% for element in access_granted_from %}
+                    {{ element }}<br>
+                {% endfor %}
+            {% elif access_granted_from|length > 1 %}
+                <ul>
+                {% for element in access_granted_from %}
+                    <li>{{ element }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                Brak otrzymanego dostępu.
+            {% endif %}
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock content %}

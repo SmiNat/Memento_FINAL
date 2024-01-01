@@ -1,0 +1,95 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="content">
+
+        <div class="half_box">
+            <div class="icon_boxes">
+            {% if page == 'nav-payments' %}
+                <a href="{% url 'credit:credits' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-house-chimney"></i></div>
+                        <div class="tile_2">Kredyty</div>
+                    </div>
+                </a>
+                <a href="{% url 'payment:payments' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-money-bill-1-wave"></i></div>
+                        <div class="tile_2">Płatności</div>
+                    </div>
+                </a>
+                <a href="{% url 'connection:counterparties' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-handshake"></i></div>
+                        <div class="tile_2">Kontrahenci</div>
+                    </div>
+                </a>
+                <a href="{% url 'connection:attachments' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-regular fa-folder-open"></i></div>
+                        <div class="tile_2">Załączniki</div>
+                    </div>
+                </a>
+                <div style="clear: both"></div>
+
+            {% elif page == 'nav-planner' %}
+                <a href="{% url 'renovation:renovations' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-trowel"></i></div>
+                        <div class="tile_2">Remont mieszkania</div>
+                    </div>
+                </a>
+                <a href="{% url 'trip:trips' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-mountain-sun"></i></div>
+                        <div class="tile_2">Wyjazd wakacyjny</div>
+                    </div>
+                </a>
+                <a href="{% url 'planner:expense-lists' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-receipt"></i></div>
+                        <div class="tile_2">Listy wydatków</div>
+                    </div>
+                </a>
+                <a href="{% url 'planner:todo-lists' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-list-ul"></i></div>
+                        <div class="tile_2">Listy zadań</div>
+                    </div>
+                </a>
+                <div style="clear: both"></div>
+
+            {% elif page == 'nav-medical' %}
+                <a href="{% url 'medical:medcard' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-laptop-medical"></i></div>
+                        <div class="tile_2">Karta medyczna</div>
+                    </div>
+                </a>
+                <a href="{% url 'medical:medicines' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-capsules"></i></div>
+                        <div class="tile_2">Przyjmowane leki</div>
+                    </div>
+                </a>
+                <a href="{% url 'medical:medical-visits' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-user-doctor"></i></div>
+                        <div class="tile_2">Wizyty lekarskie</div>
+                    </div>
+                </a>
+                <a href="{% url 'medical:test-results' %}">
+                    <div class="square_box_2">
+                        <div class="icon_box_2"><i class="fa-solid fa-microscope"></i></div>
+                        <div class="tile_2">Wyniki badań</div>
+                    </div>
+                </a>
+                <div style="clear: both"></div>
+
+            {% else %}
+
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

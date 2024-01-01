@@ -1,0 +1,357 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+
+    {% if page == 'add-trip' or page == 'edit-trip' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-in-airport-terminal_29563757_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'add-trip' %}
+            <h2>Dodaj podróż</h2>
+            <form method="post" action="{% url 'trip:add-trip' %}">
+        {% else %}
+            <h2>Edytuj podróż</h2>
+            <form method="post" action="{% url 'trip:edit-trip' trip.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form %}
+                    <div class="one_field">
+                        {% if field.label == 'Dostęp do danych' %}
+                            <hr><br>
+                            <fieldset style="border-color: #13656; border-width: 5px;">
+                                <legend>Podgląd danych dla wskazanego użytkownika</legend>
+                                <small>Uwaga! Udzielenie dostępu oznacza dostęp do pełnej informacji o podróży (wraz z wszystkimi dodatkami).</small>
+                                <div class="label_field">{{ field.label }}:</div>
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small>By udzielić dostęp należy w danych osobowych wskazać adres mailowy użytkownika.</small>
+                            </fieldset>
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip' %}
+                <p>Nie chcesz dodawać podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować podróży? <a href="{% url 'trip:single-trip' trip.id %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-trip-report' or page == 'edit-trip-report' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_a-man-and-virtual-icon-modern-cyberspace-network-technology_21134130_890_SMALL.jpg' %}" alt="Foto"/></div>
+        {% if page == 'add-trip-report' %}
+            <h2>Dodaj opis podróży</h2>
+            <div class="name">{{ trip }}</div>
+            <form method="post" action="{% url 'trip:add-trip-report' trip.id %}">
+        {% else %}
+            <h2>Edytuj opis podróży</h2>
+            <div class="name">{{ trip }}</div>
+            <form method="post" action="{% url 'trip:edit-trip-report' trip_report.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+
+                    <fieldset>
+                        <legend>Podstawowe informacje</legend>
+                        {% for field in form_report %}
+                            {% if 'link' in field.label or 'Link' in field.label %}
+                            {% else %}
+                                <div class="one_field">
+                                    <div class="label_field">{{ field.label }}:</div>
+                                    <div class="value_field">{{ field }}</div>
+                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                    {% for error in field.errors %}
+                                        <small style="color: red">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Relacje foto/video z podróży</legend>
+                        {% for field in form_report %}
+                            {% if 'link' in field.label or 'Link' in field.label %}
+                                <div class="one_field">
+                                    <div class="label_field">{{ field.label }}:</div>
+                                    <div class="value_field">{{ field }}</div>
+                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                    {% for error in field.errors %}
+                                        <small style="color: red">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip-report' %}
+                <p>Nie chcesz dodawać opisu podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować opisu podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-trip-basic' or page == 'edit-trip-basic' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_man-showing-check-mark-icon-concepts-of-code-of-conduct_16020952_182_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij podstawowe wyposażenie w podróży</h2>
+        <div class="name">{{ trip }}</div>
+        {% if page == 'add-trip-basic'%}
+            <form method="post" action="{% url 'trip:add-trip-basic' trip.id %}">
+        {% else %}
+            <form method="post" action="{% url 'trip:edit-trip-basic' trip_basic.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form_basic %}
+                    <div class="one_field">
+                        {% if field.label == 'Portfel' or field.label == 'Klucze' or field.label == 'Kosmetyki' or field.label == 'Elektronika' or field.label == 'Użyteczne rzeczy' %}
+                            <fieldset>
+                                <legend><div class="label_field">{{ field.label }}:</div></legend>
+                                {% for element in field %}
+                                    {% if forloop.counter < 4 %}
+                                    {% else %}
+                                    {% if forloop.counter0|divisibleby:3 %}
+                                        <br>
+                                        {% endif %}
+                                    {% endif %}
+                                    <div class="inline">{{ element }}</div>
+                                {% endfor %}
+                                {% if field.help_text %}<br><div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <br><small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                            </fieldset>
+                        {% elif field.label == 'Podstawowe leki' or field.label == 'Dodatkowe leki' %}
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div class="one_field">
+                        <fieldset>
+                            <legend><div class="label_field">Leki:</div></legend>
+                            <small style="color: #136568; margin-bottom: 75px;">Wpisz nazwy leków oddzielając je przecinkiem lub średnikiem.</small>
+                            {% for field in form_basic %}
+                                {% if field.label == 'Podstawowe leki' or field.label == 'Dodatkowe leki' %}
+                                    <div class="label_field">{{ field.label }}:</div>
+                                    {% for element in field %}
+                                        {% if forloop.counter < 4 %}
+                                        {% else %}
+                                        {% if forloop.counter0|divisibleby:3 %}
+                                            <br>
+                                            {% endif %}
+                                        {% endif %}
+                                        <div class="value_field">{{ element }}</div>
+                                    {% endfor %}
+                                    {% if field.help_text %}<br><div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                    {% for error in field.errors %}
+                                        <br><small style="color: red">{{ error }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip-basic' %}
+                <p>Nie chcesz dodawać wyposażenia podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować wyposażenia podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-trip-advanced' or page == 'edit-trip-advanced' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_inspector-makes-mark-on-the-survey-topic-checklist-with_23144517_101_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij listę szczegółową podróży</h2>
+        <div class="name">{{ trip }}</div>
+        {% if page == 'add-trip-advanced'%}
+            <form method="post" action="{% url 'trip:add-trip-advanced' trip.id %}">
+        {% else %}
+            <form method="post" action="{% url 'trip:edit-trip-advanced' trip_advanced.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form_advanced %}
+                    <div class="one_field">
+                        {% if field.label == 'Trekking' or field.label == 'Wspinaczka' or field.label == 'Rower' or field.label == 'Camping' or field.label == 'Wędkarstwo' or field.label == 'Plażowanie' or field.label == 'Wyjazd służbowy' %}
+                            <fieldset>
+                                <legend><div class="label_field">{{ field.label }}:</div></legend>
+                                {% for element in field %}
+                                    {% if forloop.counter < 4 %}
+                                    {% else %}
+                                    {% if forloop.counter0|divisibleby:3 %}
+                                        <br>
+                                        {% endif %}
+                                    {% endif %}
+                                    <div class="inline">{{ element }}</div>
+                                {% endfor %}
+                                {% if field.help_text %}<br><div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <br><small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                            </fieldset>
+                        {% else %}
+                            <div class="label_field">{{ field.label }}:</div>
+                            <div class="value_field">{{ field }}</div>
+                            {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip-advanced' %}
+                <p>Nie chcesz dodawać wyposażenia podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować wyposażenia podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-trip-personal-checklist' or page == 'edit-trip-personal-checklist' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-showing-business-goal-setting-concept-target_25075092_409_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij dodatkowe elementy podróży</h2>
+        <div class="name">{{ trip }}</div>
+        {% if page == 'add-trip-personal-checklist'%}
+            <form method="post" action="{% url 'trip:add-trip-personal-checklist' trip.id %}">
+        {% else %}
+            <form method="post" action="{% url 'trip:edit-trip-personal-checklist' trip_checklist.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form_checklist %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <br><small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip-personal-checklist' %}
+                <p>Nie chcesz dodawać wyposażenia podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować wyposażenia podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% elif page == 'add-trip-additional' or page == 'edit-trip-additional' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_businessman-checking-the-steps-through-document-with-a-list_22213251_788_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij dodatkowe informacje o podróży</h2>
+        <div class="name">{{ trip }}</div>
+        {% if page == 'add-trip-additional'%}
+            <form method="post" action="{% url 'trip:add-trip-additional' trip.id %}">
+        {% else %}
+            <form method="post" action="{% url 'trip:edit-trip-additional' trip_additional.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form_additional %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <br><small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip-additional' %}
+                <p>Nie chcesz dodawać informacji o podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować informacji o podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+
+    {% elif page == 'add-trip-cost' or page == 'edit-trip-cost' %}
+        <div class="form_img"><img src="{% static 'images/vecteezy_a-magnifying-glass-is-placed-on-a-pile-of-coins-and-a-piggy_10146437_899_SMALL.jpg' %}" alt="Foto"/></div>
+        <h2>Uzupełnij koszty podróży</h2>
+        <div class="name">{{ trip }}</div>
+        {% if page == 'add-trip-cost'%}
+            <form method="post" action="{% url 'trip:add-trip-cost' trip.id %}">
+        {% else %}
+            <form method="post" action="{% url 'trip:edit-trip-cost' trip_cost.id %}">
+        {% endif %}
+            {% csrf_token %}
+                <div class="form_field">
+                    {% for field in form_cost %}
+                    <div class="one_field">
+                        <div class="label_field">{{ field.label }}:</div>
+                        <div class="value_field">{{ field }}</div>
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}
+                            <small style="color: red">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="one_field">
+                        <input type="submit" value="Zapisz"/>
+                    </div>
+                </div>
+            </form>
+        <div class="text_field">
+            {% if page == 'add-trip-cost' %}
+                <p>Nie chcesz dodawać koszty podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% else %}
+                <p>Nie chcesz modyfikować kosztu podróży? <a href="{% url 'trip:trips' %}"><button class="button">Powrót</button></a></p>
+            {% endif %}
+        </div>
+
+    {% endif %}
+</div>
+{% endblock content %}
