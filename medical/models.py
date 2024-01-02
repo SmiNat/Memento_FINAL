@@ -2,10 +2,11 @@ from __future__ import annotations
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .enums import MedicationDays, MedicationFrequency
+from .enums import MedicationFrequency
 from access.enums import Access
 from user.handlers import create_slug
 
@@ -96,6 +97,24 @@ class MedCard(models.Model):
         """For looping over verbose name and field's value"""
         for field in self._meta.fields:
             yield (field.verbose_name, field.value_to_string(self))
+
+    def clean(self):
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do karty medycznej' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione "
+                                    "innymi znakami." % self.access_granted))
+        if not self.access_granted_medicines in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych o lekach' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione "
+                                    "innymi znakami." % self.access_granted_medicines))
+        if not self.access_granted_visits in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do wizyt lekarskich' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione "
+                                    "innymi znakami." % self.access_granted_visits))
+        if not self.access_granted_test_results in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do wyników badań' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione "
+                                    "innymi znakami." % self.access_granted_test_results))
 
     def save(self, *args, **kwargs):
         slugs = MedCard.objects.all().exclude(id=self.id).values_list(
@@ -222,7 +241,10 @@ class Medicine(models.Model):
             self.medication_days = []
         elif self.medication_days:
             self.medication_days = self.medication_days.split(",")
-
+        if not self.medication_frequency in MedicationFrequency.values:
+            raise ValidationError(_("Błędna wartość pola 'Częstotliwość przyjmowania leków' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione "
+                                    "innymi znakami." % self.medication_frequency))
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)

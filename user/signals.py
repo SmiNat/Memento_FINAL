@@ -54,7 +54,7 @@ def send_email(instance, recipient, text_content, html_content, subject):
         email_message.attach_alternative(html_content_to_mail, "text/html")
         email_message.send(fail_silently=False)
     except Exception as e:
-        logger.error("🛑 There was an error sending an email: ", e)
+        logger.error("🛑 There was an error while sending an email: ", e)
         error = {
             "message": ",".join(map(str, e.args)) if len(e.args) > 0 else "Unknown Error"
         }
@@ -176,11 +176,11 @@ def delete_user(sender, instance, **kwargs):
         os.path.exists(path) is False
     except Exception:
         logger.error(
-            "🛑 Folder with files still exists after deleting user: %s",
-            user.username,
+            "🛑 Folder with files still exists after deleting user: %s (id: %s)"
+            % (user.username, user.id),
         )
         error = {
             "message": f"Folder with files still exists after deleting user: "
-                       f"{user.username}",
+                       f"{user.username} (id: {user.id})",
         }
         raise Exception(error)

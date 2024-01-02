@@ -60,6 +60,9 @@ urlpatterns = [
     path("access-to-credit-schedule/<slug:slug>/", views.access_to_credit_schedule,
          name="access-to-credit-schedule"),
 
+    path("download-credit/<str:pk>/",
+         views.download_credit, name="download-credit"),
+
 ]
 
 if settings.DEBUG:  # !!! zmienić na produkcji na serwer docelowy!!! # usunąć na produkcji!

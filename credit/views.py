@@ -16,7 +16,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -1302,6 +1302,28 @@ def access_to_credit_schedule(request, slug):
 
     return render(request, "credit/credit_repayment_schedule.html", context)
 
+@login_required(login_url="login")
+def download_credit(request, pk):
+    credit = get_object_or_404(Credit, id=pk)
+
+    if credit.user != request.user:
+        logger.critical(
+            "user: %s - enter page: credit-repayment-schedule - "
+            "🛑 SAFETY BREACH - attempt to access credit repayment schedule of "
+            "another user (id: %s)!" % (request.user.id, credit.user.id))
+        messages.error(
+            request, _("Nie masz uprawnień do tych danych."))
+        logout(request)
+        return redirect("login")
+
+    credit_path = CreditSchedule(request, credit.id).to_excel()
+    if os.path.exists(credit_path):
+        with open(credit_path, "rb") as file:
+            response = HttpResponse(file.read(), content_type="application/force-download")
+            response["Content-Disposition"] = "inline; filename=credit.xlsx"
+            return response
+    raise Http404
+
 
 class CreditSchedule():
     def __init__(self, request, pk):
@@ -1453,7 +1475,7 @@ class CreditSchedule():
     def to_excel(self):
         """Save dataframe as excel file on user's local path."""
         user = self.credit.user
-        filename = str(self.credit).replace(" ", "_") + ".xlsx"
+        filename = "credit.xlsx"
         file_path = f"{user.id}_credit/{filename}"
         directory = os.path.join(settings.MEDIA_ROOT, f"{user.id}_credit")
         if os.path.exists(directory):
@@ -2207,7 +2229,7 @@ class CreditSchedule():
             os.mkdir(os.path.join(settings.MEDIA_ROOT, file_directory))
         if os.path.exists(os.path.join(settings.MEDIA_ROOT, file_directory, "credit_temp2.txt")):
             os.remove(os.path.join(settings.MEDIA_ROOT, file_directory, "credit_temp2.txt"))
-            open(os.path.join(settings.MEDIA_ROOT, file_directory, "credit_temp2.txt"), "x").close()
+        open(os.path.join(settings.MEDIA_ROOT, file_directory, "credit_temp2.txt"), "x").close()
 
         with open(os.path.join(settings.MEDIA_ROOT, file_directory, "credit_temp.txt"), "w+") as file:
             file.write(str(initial_balance)+"\n"+"\n")
@@ -2564,13 +2586,19 @@ class CreditSchedule():
         return interest_installment
 
     def early_repayment_modified_schedule(self):
-        """Returns dictionary of dates and early repayments during credit lifetime modified with modification the value of unpaid credit."""
+        """Returns dictionary of dates and early repayments during credit lifetime modified
+        with modification the value of unpaid credit."""
         full_cash_flows = self.credit_balance_calculation()
+        if not full_cash_flows:
+            raise ValidationError(
+                _("Błąd danych. Brak wygenerowanej listy słowników zbudowanych z dat "
+                  "i przepływów kredytu (credit_balance_calculation). Sprawdź czy dane "
+                  "są poprawne i czy model zawiera prawidłowe odniesienia w polach wyboru "
+                  "(polskie znaki są wymagane)."))
 
         early_repayment = {}
         for element in full_cash_flows:
             early_repayment[element["date"]] = element["early repayment"]
-
         return early_repayment
 
     def insurance_payments_schedule(self):

@@ -2,6 +2,7 @@ from __future__ import annotations
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.utils import IntegrityError
@@ -156,6 +157,10 @@ class Trip(models.Model):
             self.type = []
         elif self.type:
             self.type = self.type.split(",")
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
 
     def save(self, *args, **kwargs):
         choices, fields = self.all_choices()
@@ -887,6 +892,12 @@ class TripCost(models.Model):
             return "N/A"
         cost_per_person_per_day = cost_per_day / number_of_people
         return round(cost_per_person_per_day, 2)
+
+    def clean(self):
+        if not self.cost_group in CostGroup.values:
+            raise ValidationError(_("Błędna wartość pola 'Grupa kosztów' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.cost_group))
 
     def save(self, *args, **kwargs):
         if not self.name:

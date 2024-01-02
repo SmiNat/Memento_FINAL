@@ -3,6 +3,7 @@ import decimal
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
@@ -16,7 +17,7 @@ from user.handlers import create_slug
 
 class Credit(models.Model):
 
-    PAYMENT_DAY = ((0, _("Ostatni dzień miesiąca")),) + tuple(
+    PAYMENT_DAY = ((0, _("Ostatni")),) + tuple(
         (x, str(x)) for x in range(1, 32)
     )
 
@@ -261,6 +262,28 @@ class Credit(models.Model):
         """Floating interest rate with bank margin."""
         return decimal.Decimal(self.floating_interest_rate) + decimal.Decimal(self.bank_margin)
 
+    def clean(self):
+        if not self.installment_type in InstallmentType.values:
+            raise ValidationError(_("Błędna wartość pola 'Rodzaj raty' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.installment_type))
+        if not self.installment_frequency in Frequency.values:
+            raise ValidationError(_("Błędna wartość pola 'Częstotliwość płatności raty' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.installment_frequency))
+        if not self.type_of_interest in TypeOfInterest.values:
+            raise ValidationError(_("Błędna wartość pola 'Rodzaj oprocentowania' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.type_of_interest))
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
+        if not self.access_granted_for_schedule in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do harmonogramu' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted_for_schedule))
+
     def save(self, *args, **kwargs):
         slugs = Credit.objects.all().exclude(id=self.id).values_list(
             "slug", flat=True)
@@ -445,6 +468,16 @@ class CreditInsurance(models.Model):
         for field in self._meta.fields:
             yield (field.verbose_name, field.value_to_string(self))
 
+    def clean(self):
+        if not self.type in InsuranceType.values:
+            raise ValidationError(_("Błędna wartość pola 'Rodzaj ubezpieczenia' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.type))
+        if not self.frequency in Frequency.values:
+            raise ValidationError(_("Błędna wartość pola 'Częstotliwość płatności' (%s). "
+                                    "Sprawdź czy polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.frequency))
+
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
@@ -618,6 +651,12 @@ class CreditEarlyRepayment(models.Model):
             amount = query.repayment_amount
             total_repayment += amount
         return total_repayment
+
+    def clean(self):
+        if not self.repayment_action in RepaymentAction.values:
+            raise ValidationError(_("Błędna wartość pola 'Efekt nadpłaty' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.repayment_action))
 
     def save(self, *args, **kwargs):
         self.full_clean()

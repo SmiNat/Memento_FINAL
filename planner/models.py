@@ -3,6 +3,7 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
@@ -70,6 +71,12 @@ class ExpenseList(models.Model):
                 name="unique_expense_list_title"
                 )
             ]
+
+    def clean(self):
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -140,6 +147,20 @@ class ExpenseItem(models.Model):
         for field in self._meta.fields:
             yield (field.verbose_name, field.value_to_string(self))
 
+    def clean(self):
+        if not self.execution_status in ExecutionStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status wykonania' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.execution_status))
+        if not self.requirement_status in RequirementStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status wymagania' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.requirement_status))
+        if not self.validity_status in ValidityStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status ważności' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.validity_status))
+
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
@@ -185,6 +206,12 @@ class ToDoList(models.Model):
                 name="unique_todo_list_title"
                 )
         ]
+
+    def clean(self):
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -244,6 +271,20 @@ class ToDoItem(models.Model):
 
     class Meta:
         ordering = ["due_date"]
+
+    def clean(self):
+        if not self.execution_status in ExecutionStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status wykonania' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.execution_status))
+        if not self.requirement_status in RequirementStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status wymagania' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.requirement_status))
+        if not self.validity_status in ValidityStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status ważności' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.validity_status))
 
     def save(self, *args, **kwargs):
         self.full_clean()

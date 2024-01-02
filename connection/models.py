@@ -4,6 +4,7 @@ import shutil
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +13,7 @@ from access.enums import Access
 from credit.models import Credit
 from medical.models import HealthTestResult, MedicalVisit
 from payment.models import Payment
-from renovation.models import Renovation, RenovationCost
+from renovation.models import Renovation
 from trip.models import Trip
 from user.handlers import create_slug
 
@@ -139,6 +140,12 @@ class Counterparty(models.Model):
         """Return queryset of attachments assign to the counterparty."""
         queryset = self.attachment_set.all().values_list("counterparties__id", flat=True)
         return queryset
+
+    def clean(self):
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -279,6 +286,12 @@ class Attachment(models.Model):
             os.unlink(path)
         else:
             shutil.rmtree(path)
+
+    def clean(self):
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
 
     def save(self, *args, **kwargs):
         slugs = Attachment.objects.all().exclude(

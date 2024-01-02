@@ -2,6 +2,7 @@ from __future__ import annotations
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -14,7 +15,7 @@ from .enums import (PaymentMethod, PaymentType, PaymentStatus, PaymentFrequency,
 
 class Payment(models.Model):
 
-    PAYMENT_DAY = ((0, _("Ostatni dzień miesiąca")),) + tuple(
+    PAYMENT_DAY = ((0, _("Ostatni")),) + tuple(
         (x, str(x)) for x in range(1, 32)
     )
 
@@ -124,6 +125,28 @@ class Payment(models.Model):
             month = PaymentMonth.choices[int(month_number)-1][1]
             months_by_names.append(month)
         return months_by_names
+
+    def clean(self):
+        if not self.access_granted in Access.values:
+            raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.access_granted))
+        if not self.payment_type in PaymentType.values:
+            raise ValidationError(_("Błędna wartość pola 'Grupa opłat' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.payment_type))
+        if not self.payment_method in PaymentMethod.values:
+            raise ValidationError(_("Błędna wartość pola 'Sposób płatności' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.payment_method))
+        if not self.payment_status in PaymentStatus.values:
+            raise ValidationError(_("Błędna wartość pola 'Status płatności' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.payment_status))
+        if not self.payment_frequency in PaymentFrequency.values:
+            raise ValidationError(_("Błędna wartość pola 'Częstotliwość płatności' (%s). Sprawdź czy "
+                                    "polskie znaki nie zostały zastąpione innymi znakami."
+                                    % self.payment_frequency))
 
     def save(self, *args, **kwargs):
         return super().save(*args, **kwargs)

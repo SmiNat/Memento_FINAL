@@ -67,7 +67,8 @@
     {% if page != 'access_granted' %}
         <small>
             <a href="{% url 'credit:edit-credit' credit_schedule.credit.id %}">[Aktualizuj kredyt]</a> |
-            <a href="{% static credit_schedule.to_excel %}" Download>[Eksportuj tabelę]</a>
+            <!-- <a href="{% static credit_schedule.to_excel %}" Download>[Eksportuj tabelę]</a> -->
+            <a href="{% url 'credit:download-credit' credit.id %}" >[Pobierz]</a>
         </small>
         <div></div><br>
         <div>
