@@ -93,6 +93,17 @@ class RenovationModelTests(TestCase):
             else:
                 self.assertEqual(value, str(renovation_values[number]))
 
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.renovation.access_granted = "Brak dostępu"
+        self.renovation.save()
+        self.assertEqual(self.renovation.access_granted, "Brak dostępu")
+        # test incorrect access_granted
+        self.renovation.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.renovation.save()
+
     @parameterized.expand(
         [
             ("both dates are set",

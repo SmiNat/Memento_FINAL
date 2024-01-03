@@ -203,7 +203,7 @@ class SunbathingChecklist(models.TextChoices):
 class BusinessChecklist(models.TextChoices):
     PAPERS = _("Dokumenty"), _("Dokumenty")
     BADGE = _("Karty dostępu"), _("Karty dostępu")
-    SUIT = _("Ubiór służbowy / wieczorowy)"), _("Ubiór służbowy / wieczorowy)")
+    SUIT = _("Ubiór służbowy / wieczorowy"), _("Ubiór służbowy / wieczorowy")
 
 
 class CostGroup(models.TextChoices):

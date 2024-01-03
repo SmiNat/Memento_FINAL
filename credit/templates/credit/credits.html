@@ -10,7 +10,7 @@
                 <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
                 <p><a href="{% url 'credit:add-credit' %}">[Dodaj kredyt]</a></p>
             {% else %}
-
+                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji i możliwości.</h5>
                 <div class="order_by">
                     <form action="{% url 'credit:credits' %}">
                         <div>Sortuj:</div>

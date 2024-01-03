@@ -55,18 +55,17 @@ class TripModelTests(TestCase):
 
     def test_trip_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip.id, uuid.UUID))
+        self.assertEqual(self.trip.id, uuid.UUID(str(self.trip.id)))
 
     def test_unique_constraint_for_trip_name(self):
         """Test if user can only have trips with unique names."""
         Trip.objects.create(user=self.user, name="Some trip")
         self.assertEqual(Trip.objects.count(), 2)
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             Trip.objects.create(user=self.user, name="Some trip")
 
-    def test_integrity_error_for_empty_trip_name(self):
+    def test_error_for_empty_trip_name(self):
         """Test if model without required fields cannot be saved in database."""
         with transaction.atomic():
             with self.assertRaises(IntegrityError):
@@ -124,15 +123,15 @@ class TripModelTests(TestCase):
         """Test that get_all_costs_pln method returns correct sum of all costs in PLN."""
         cost1 = TripCost.objects.create(
             user=self.user, trip=self.trip, name="cost1",
-            cost_group=["Bilety"], cost_paid=100
+            cost_group="Bilety", cost_paid=100
         )
         cost2 = TripCost.objects.create(
             user=self.user, trip=self.trip, name="cost2",
-            cost_group=["Bilety"], cost_paid=200
+            cost_group="Bilety", cost_paid=200
         )
         cost3 = TripCost.objects.create(
             user=self.user, trip=self.trip, name="cost3",
-            cost_group=["Bilety"], cost_paid=300, currency="USD", exchange_rate=3.5000
+            cost_group="Bilety", cost_paid=300, currency="USD", exchange_rate=3.5000
         )
         trip = Trip.objects.get(user=self.user)
         sum_of_costs = (cost1.cost_paid * cost1.exchange_rate
@@ -146,24 +145,24 @@ class TripModelTests(TestCase):
         trip = Trip.objects.get(user=self.user)
         self.assertEqual(trip.get_all_costs_pln(), None)
 
-    def test_all_choices(self):
-        """Test if all_choices method returns TextChoices class names
-        and chosen values."""
-        trip = self.trip
-        self.assertEqual(len(trip.all_choices()[0]), 1)
-        self.assertEqual(trip.type, trip.all_choices()[1][0])
+    def test_string_to_list_method(self):
+        """Test if type_to_list method converts string to a list based on comma separator."""
+        new_trip = Trip.objects.create(
+            user=self.user, name="new trip",
+            type="Wyjazd służbowy,Wyjazd pod namiot")
+        self.assertEqual(new_trip.type, "Wyjazd służbowy,Wyjazd pod namiot")
+        self.assertEqual(new_trip.type_to_list(), ["Wyjazd służbowy", "Wyjazd pod namiot"])
 
     def test_validate_choices(self):
-        """Test if save method validates choices before saving instance in database."""
-        trip = self.trip
-        # test correct trip type save method
-        trip.type = ["Wyjazd nad morze"]
-        trip.save()
-        self.assertEqual(trip.type, ["Wyjazd nad morze"])
-        # test incorrect trip type save method
-        trip.type = ["Inny typ podróży"]
+        """Test if clean method validates choices before saving instance in database."""
+         # test correct access_granted
+        self.trip.access_granted = "Brak dostępu"
+        self.trip.save()
+        self.assertEqual(self.trip.access_granted, "Brak dostępu")
+        # test incorrect access_granted
+        self.trip.access_granted = "Inny"
         with self.assertRaises(ValidationError):
-            trip.save()
+            self.trip.save()
 
 
 class TripReportModelTests(TestCase):
@@ -200,9 +199,8 @@ class TripReportModelTests(TestCase):
 
     def test_trip_report_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip_report
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip_report.id, uuid.UUID))
+        self.assertEqual(self.trip_report.id, uuid.UUID(str(self.trip_report.id)))
 
 
 class TripBasicModelTests(TestCase):
@@ -238,9 +236,8 @@ class TripBasicModelTests(TestCase):
 
     def test_trip_basic_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip_basic
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip_basic.id, uuid.UUID))
+        self.assertEqual(self.trip_basic.id, uuid.UUID(str(self.trip_basic.id)))
 
     def test_iter_method(self):
         """Test if __iter__ returns correct verbose name and field value."""
@@ -248,7 +245,6 @@ class TripBasicModelTests(TestCase):
         all_fields = list(self.field_names.values())
         all_values = list(self.trip_basic.__dict__.values())
         for field, value in self.trip_basic:
-            # print("🖥️", field, value)
             self.assertEqual(field, all_fields[number])
             number += 1
             if isinstance(all_values[number], uuid.UUID):
@@ -281,7 +277,7 @@ class TripBasicModelTests(TestCase):
             user=self.user, trip=self.trip, name="Some trip"
         )
         self.assertEqual(TripBasicChecklist.objects.count(), 2)
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             TripBasicChecklist.objects.create(
                 user=self.user, trip=self.trip, name="Some trip"
             )
@@ -296,25 +292,6 @@ class TripBasicModelTests(TestCase):
         else:
             self.assertEqual(str(self.trip_basic), f"{self.trip} - (basic)")
 
-    def test_all_choices(self):
-        """Test if all_choices method returns TextChoices class names
-        and chosen values."""
-        trip = self.trip_basic
-        self.assertEqual(len(trip.all_choices()[0]), 5)
-        self.assertEqual(trip.wallet, trip.all_choices()[1][0])
-
-    def test_validate_choices(self):
-        """Test if save method validates choices before saving instance in database."""
-        trip = self.trip_basic
-        # test correct trip type save method
-        trip.wallet = [_("Karty kredytowe"), _("Ubezpieczenie")]
-        trip.save()
-        self.assertEqual(trip.wallet, [_("Karty kredytowe"), _("Ubezpieczenie")])
-        # test incorrect trip type save method
-        trip.wallet = [_("Inny element wyposażenia")]
-        with self.assertRaises(ValidationError):
-            trip.save()
-
     def test_string_to_list_method(self):
         """Test if basic_drugs_to_list method and additional_drugs_to_list
         converts string to a list  based on comma or semicolon separator."""
@@ -322,6 +299,27 @@ class TripBasicModelTests(TestCase):
         self.assertEqual(trip.basic_drugs_to_list(), ["cynk", "wit. B i żelazo"])
         self.assertEqual(
             trip.additional_drugs_to_list(), ["Wit. C", "magnez", "espumisan"])
+
+    def test_string_choices_to_list_method(self):
+        """Test if all fields that are CharFields but has forms as a MultipleChoiceField
+        are converted from string to list."""
+        record = TripBasicChecklist.objects.create(
+            user=self.user, trip=self.trip,
+            wallet="Paszport,Bilety,Winiety",
+            keys="Mieszkanie/dom,Bagażnik",
+            cosmetics="Płyn do płukania",
+            useful_stuff="Apteczka,Parasol"
+            )
+        self.assertEqual(record.wallet, "Paszport,Bilety,Winiety")
+        self.assertEqual(record.wallet_to_list(), ["Paszport", "Bilety", "Winiety"])
+        self.assertEqual(record.keys, "Mieszkanie/dom,Bagażnik")
+        self.assertEqual(record.keys_to_list(), ["Mieszkanie/dom", "Bagażnik"])
+        self.assertEqual(record.cosmetics, "Płyn do płukania")
+        self.assertEqual(record.cosmetics_to_list(), ["Płyn do płukania"])
+        self.assertEqual(record.electronics, None)
+        self.assertEqual(record.electronics_to_list(), [])
+        self.assertEqual(record.useful_stuff, "Apteczka,Parasol")
+        self.assertEqual(record.useful_stuff_to_list(), ["Apteczka", "Parasol"])
 
 
 class TripAdvancedModelTests(TestCase):
@@ -357,9 +355,8 @@ class TripAdvancedModelTests(TestCase):
 
     def test_trip_advanced_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip_advanced
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip_advanced.id, uuid.UUID))
+        self.assertEqual(self.trip_advanced.id, uuid.UUID(str(self.trip_advanced.id)))
 
     def test_iter_method(self):
         """Test if __iter__ returns correct verbose name and field value."""
@@ -395,7 +392,7 @@ class TripAdvancedModelTests(TestCase):
             user=self.user, trip=self.trip, name="Some trip"
         )
         self.assertEqual(TripAdvancedChecklist.objects.count(), 2)
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             TripAdvancedChecklist.objects.create(
                 user=self.user, trip=self.trip, name="Some trip"
             )
@@ -410,24 +407,31 @@ class TripAdvancedModelTests(TestCase):
         else:
             self.assertEqual(str(self.trip_advanced), f"{self.trip} - (basic)")
 
-    def test_all_choices(self):
-        """Test if all_choices method returns TextChoices class names
-        and chosen values."""
-        trip = self.trip_advanced
-        self.assertEqual(len(trip.all_choices()[0]), 7)
-        self.assertEqual(trip.trekking, trip.all_choices()[1][0])
-
-    def test_validate_choices(self):
-        """Test if save method validates choices before saving instance in database."""
-        trip = self.trip_advanced
-        # test correct trip type save method
-        trip.trekking = ["Raki/raczki", "Apteczka"]
-        trip.save()
-        self.assertEqual(trip.trekking, ["Raki/raczki", "Apteczka"])
-        # test incorrect trip type save method
-        trip.trekking = ["Inny element wyposażenia"]
-        with self.assertRaises(ValidationError):
-            trip.save()
+    def test_string_choices_to_list_method(self):
+        """Test if all fields that are CharFields but has forms as a MultipleChoiceField
+        are converted from string to list."""
+        record = TripAdvancedChecklist.objects.create(
+            user=self.user, trip=self.trip,
+            trekking="Mapy,Czołówka",
+            hiking="Magnezja,Czekan,Kask",
+            cycling="Rower,Pompka",
+            fishing="Podbierak,Waga,Nóż",
+            business="Dokumenty"
+            )
+        self.assertEqual(record.trekking, "Mapy,Czołówka")
+        self.assertEqual(record.trekking_to_list(), ["Mapy", "Czołówka"])
+        self.assertEqual(record.hiking, "Magnezja,Czekan,Kask")
+        self.assertEqual(record.hiking_to_list(), ["Magnezja", "Czekan", "Kask"])
+        self.assertEqual(record.cycling, "Rower,Pompka")
+        self.assertEqual(record.cycling_to_list(), ["Rower", "Pompka"])
+        self.assertEqual(record.camping, None)
+        self.assertEqual(record.camping_to_list(), [])
+        self.assertEqual(record.fishing, "Podbierak,Waga,Nóż")
+        self.assertEqual(record.fishing_to_list(), ["Podbierak", "Waga", "Nóż"])
+        self.assertEqual(record.sunbathing, None)
+        self.assertEqual(record.sunbathing_to_list(), [])
+        self.assertEqual(record.business, "Dokumenty")
+        self.assertEqual(record.business_to_list(), ["Dokumenty"])
 
 
 class TripPersonalChecklistModelTests(TestCase):
@@ -460,9 +464,8 @@ class TripPersonalChecklistModelTests(TestCase):
 
     def test_trip_checklist_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip_checklist
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip_checklist.id, uuid.UUID))
+        self.assertEqual(self.trip_checklist.id, uuid.UUID(str(self.trip_checklist.id)))
 
     def test_iter_method(self):
         """Test if __iter__ returns correct verbose name and field value."""
@@ -494,7 +497,7 @@ class TripPersonalChecklistModelTests(TestCase):
             user=self.user, trip=self.trip, name="Some trip"
         )
         self.assertEqual(TripPersonalChecklist.objects.count(), 2)
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             TripPersonalChecklist.objects.create(
                 user=self.user, trip=self.trip, name="Some trip"
             )
@@ -509,7 +512,7 @@ class TripPersonalChecklistModelTests(TestCase):
     def test_integrity_error_for_empty_checklist_name(self):
         """Test if model without required fields cannot be saved in database."""
         with transaction.atomic():
-            with self.assertRaises(IntegrityError):
+            with self.assertRaises(ValidationError):
                 TripPersonalChecklist.objects.create(
                   user=self.user, trip=self.trip, checklist="sth"
                 )
@@ -554,9 +557,9 @@ class TripAdditionalInfoModelTests(TestCase):
 
     def test_trip_additional_info_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip_additional_info
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip_additional_info.id, uuid.UUID))
+        self.assertEqual(self.trip_additional_info.id,
+                         uuid.UUID(str(self.trip_additional_info.id)))
 
     def test_iter_method(self):
         """Test if __iter__ returns correct verbose name and field value."""
@@ -588,7 +591,7 @@ class TripAdditionalInfoModelTests(TestCase):
             user=self.user, trip=self.trip, name="Add info"
         )
         self.assertEqual(TripAdditionalInfo.objects.count(), 2)
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             TripAdditionalInfo.objects.create(
                 user=self.user, trip=self.trip, name="Add info"
             )
@@ -603,7 +606,7 @@ class TripAdditionalInfoModelTests(TestCase):
     def test_integrity_error_for_empty_name(self):
         """Test if model without required fields cannot be saved in database."""
         with transaction.atomic():
-            with self.assertRaises(IntegrityError):
+            with self.assertRaises(ValidationError):
                 TripAdditionalInfo.objects.create(
                   user=self.user, trip=self.trip,
                 )
@@ -642,9 +645,8 @@ class TripCostModelTests(TestCase):
 
     def test_trip_cost_id_is_uuid(self):
         """Test if id is represented as uuid."""
-        trip = self.trip_cost
-        uuid_value = trip.id
-        self.assertTrue(isinstance(uuid.UUID(uuid_value), uuid.UUID))
+        self.assertTrue(isinstance(self.trip_cost.id, uuid.UUID))
+        self.assertEqual(self.trip_cost.id, uuid.UUID(str(self.trip_cost.id)))
 
     def test_object_name_has_correct_string_representation(self):
         """Test if __str__ method returns correct string."""
@@ -681,28 +683,28 @@ class TripCostModelTests(TestCase):
         """Test if model without required fields cannot be saved in database."""
         # No cost name
         with transaction.atomic():
-            with self.assertRaises(IntegrityError):
+            with self.assertRaises(ValidationError):
                 TripCost.objects.create(
                     user=self.user, trip=self.trip,
                     cost_group=["Leki"], cost_paid=10, exchange_rate=1
                 )
         # No cost group
         with transaction.atomic():
-            with self.assertRaises(IntegrityError):
+            with self.assertRaises(ValidationError):
                 TripCost.objects.create(
                     user=self.user, trip=self.trip, cost_group=None,
                     name="A name", cost_paid=10, exchange_rate=1
                 )
         # No cost paid
         with transaction.atomic():
-            with self.assertRaises(IntegrityError):
+            with self.assertRaises(ValidationError):
                 TripCost.objects.create(
                     user=self.user, trip=self.trip,
                     name="A name", cost_group=["Leki"], exchange_rate=1
                 )
         # No exchange rate
         with transaction.atomic():
-            with self.assertRaises(IntegrityError):
+            with self.assertRaises(ValidationError):
                 TripCost.objects.create(
                     user=self.user, trip=self.trip,
                     name="A name", cost_group=["Leki"],
@@ -867,3 +869,14 @@ class TripCostModelTests(TestCase):
             ),
             round(costs / days / participants, 2)
         )
+
+def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct cost_group
+        self.trip_cost.cost_group = "Paliwo"
+        self.trip_cost.save()
+        self.assertEqual(self.trip_cost.cost_group, "Kwartalnie")
+        # test incorrect cost_group
+        self.trip_cost.cost_group = "Inny"
+        with self.assertRaises(ValidationError):
+            self.trip_cost.save()

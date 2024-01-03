@@ -58,22 +58,6 @@ class BasicUrlsTests(TestCase):
             self.assertEqual(response_page.status_code, 200)
             self.assertEqual(str(response_page.context["user"]), "johndoe123")
 
-    def test_view_url_accessible_by_name_for_unauthenticated_user(self):
-        """Test if view url is accessible by its name
-        and returns redirect (302) for unauthenticated user."""
-        for page in self.pages:
-            response_page = self.client.get(reverse(page["page"], args=page["args"]))
-            self.assertEqual(response_page.status_code, 302)
-
-    def test_view_url_accessible_by_name_for_authenticated_user(self):
-        """Test if view url is accessible by its name
-         and returns desired page (200) for authenticated user."""
-        self.client.force_login(self.user)
-        for page in self.pages:
-            response_page = self.client.get(reverse(page["page"], args=page["args"]))
-            self.assertEqual(response_page.status_code, 200)
-            self.assertEqual(str(response_page.context["user"]), "johndoe123")
-
     def test_view_uses_correct_template(self):
         """Test if response returns correct page template."""
 
@@ -97,9 +81,7 @@ class PaymentsTests(TestCase):
             user=self.user,
             name="setup payment",
             payment_type=_("Czynsz"),
-            payment_status=_("Brak informacji"),
-            payment_frequency=_("Rocznie"),
-            payment_months=["5"],
+            payment_months="5",     # as a payload for PaymentForm
             payment_day=11,
             access_granted=_("Brak dostępu")
         )
@@ -109,7 +91,7 @@ class PaymentsTests(TestCase):
             payment_type=_("Media"),
             payment_status=_("Brak informacji"),
             payment_frequency=_("Rocznie"),
-            payment_months=["2"],
+            payment_months="2",
             payment_day=22,
             access_granted=_("Brak dostępu")
         )
@@ -308,11 +290,6 @@ class PaymentsTests(TestCase):
         # Page content for self.user
         self.client.force_login(self.user)
         response_get = self.client.get(reverse("payment:single-payment", args=[self.payment.id]))
-        # print("📂 *******", response_get.context)
-        # print("📂 *******", dir(response_get))
-        # print("📂 *******", response_get.wsgi_request)
-        # print("📂 *******", response_get.request["PATH_INFO"])
-        # print("📂 *******", response_get.request["PATH_INFO"].split("/")[-2])
         payment_id = response_get.request["PATH_INFO"].split("/")[-2]
         self.assertQuerySetEqual(self.payment, Payment.objects.get(id=payment_id))
         self.assertIn(self.payment.name, response_get.content.decode())

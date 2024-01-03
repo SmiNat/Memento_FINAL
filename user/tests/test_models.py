@@ -95,8 +95,8 @@ class UserModelTests(TestCase):
 
     def test_new_user_without_unique_username_raises_error(self):
         """Test that creating a user with username that already exists
-        in database raises a IntegrityError."""
-        with self.assertRaises(IntegrityError):
+        in database raises a ValidationError."""
+        with self.assertRaises(ValidationError):
             User.objects.create_user(
                 username="johndoe123",
                 email="test@example.com",
@@ -105,8 +105,8 @@ class UserModelTests(TestCase):
 
     def test_new_user_without_unique_email_raises_error(self):
         """Test that creating a user with email that already exists in database
-        raises a IntegrityError."""
-        with self.assertRaises(IntegrityError):
+        raises a ValidationError."""
+        with self.assertRaises(ValidationError):
             User.objects.create_user(
                 username="testuser123",
                 email="jd@example.com",

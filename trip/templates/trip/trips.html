@@ -3,11 +3,12 @@
 {% block content %}
 <div class="content">
 	<div class="grid_display">
-		<h2>Podsumowanie wyjazdu</h2>
+		<h2>Podsumowanie wyjazdów</h2>
         {% if not trips %}
             <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
             <p><a href="{% url 'trip:add-trip' %}">[Dodaj podróż]</a></p>
         {% else %}
+            <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji i możliwości.</h5>
 
             <div class="order_by">
                 <form action="{% url 'trip:trips' %}">
@@ -23,7 +24,6 @@
                         <option value="estimated_cost">Szacunkowy koszt (rosnąco)</option>
                         <option value="-estimated_cost">Szacunkowy koszt (malejąco)</option>
                     </select>
-<!--                    <input type="submit" value="Wybierz">-->
                 </form>
             </div>
 

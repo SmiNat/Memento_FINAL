@@ -45,7 +45,7 @@ class Trip(models.Model):
     type = models.CharField(
         _("Rodzaj podróży"),
         # choices=TripChoices.choices,
-        max_length=100,
+        max_length=255,
         null=True, blank=True
     )
     destination = models.CharField(
@@ -113,10 +113,7 @@ class Trip(models.Model):
         """Return trip types as a list."""
         if not self.type:
             return []
-        no_brackets = self.type.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.type.split(",")
 
     def trip_days(self) -> int | None:
         """
@@ -147,26 +144,16 @@ class Trip(models.Model):
         else:
             return None
 
-    def all_choices(self) -> tuple[list, list]:
-        CLASSES_WITH_CHOICES = [TripChoices]
-        MODEL_FIELDS_WITH_CHOICES = [self.type]
-        return CLASSES_WITH_CHOICES, MODEL_FIELDS_WITH_CHOICES
-
     def clean(self):
-        if not self.type:
-            self.type = []
-        elif self.type:
-            self.type = self.type.split(",")
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))
 
     def save(self, *args, **kwargs):
-        choices, fields = self.all_choices()
-        ValidateChoices(choices, fields).validate
         if not self.name:
             raise IntegrityError("Field 'name' is required.")
+        self.full_clean()
         super().save(*args, **kwargs)
 
 ###############################################################################
@@ -216,6 +203,7 @@ class TripReport(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def save(self, *args, **kwargs):
+        self.full_clean()
         super().save(*args, **kwargs)
 
 ###############################################################################
@@ -293,49 +281,34 @@ class TripBasicChecklist(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def wallet_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.wallet:
             return []
-        no_brackets = self.wallet.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.wallet.split(",")
 
     def keys_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.keys:
             return []
-        no_brackets = self.keys.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.keys.split(",")
 
     def cosmetics_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.cosmetics:
             return []
-        no_brackets = self.cosmetics.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.cosmetics.split(",")
 
     def electronics_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.electronics:
             return []
-        no_brackets = self.electronics.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.electronics.split(",")
 
     def useful_stuff_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.useful_stuff:
             return []
-        no_brackets = self.useful_stuff.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.useful_stuff.split(",")
 
     def basic_drugs_to_list(self) -> list:
         """Transfers string into list based on comma or semicolon separator.
@@ -351,49 +324,8 @@ class TripBasicChecklist(models.Model):
             return []
         return str(self.additional_drugs).replace(";", ",").split(", ")
 
-    def all_choices(self) -> tuple[list, list]:
-        CLASSES_WITH_CHOICES = [
-            BasicChecklist,
-            KeysChecklist,
-            CosmeticsChecklist,
-            ElectronicsChecklist,
-            UsefulStaffChecklist,
-        ]
-        MODEL_FIELDS_WITH_CHOICES = [
-            self.wallet,
-            self.keys,
-            self.cosmetics,
-            self.electronics,
-            self.useful_stuff,
-        ]
-        return CLASSES_WITH_CHOICES, MODEL_FIELDS_WITH_CHOICES
-
-    def clean(self):
-        if not self.wallet:
-            self.wallet = []
-        elif self.wallet:
-            self.wallet = self.wallet.split(",")
-        if not  self.keys:
-                self.keys = []
-        elif  self.keys:
-                self.keys =  self.keys.split(",")
-        if not self.cosmetics:
-            self.cosmetics = []
-        elif self.cosmetics:
-            self.cosmetics = self.cosmetics.split(",")
-        if not self.electronics:
-            self.electronics = []
-        elif self.electronics:
-            self.electronics = self.electronics.split(",")
-        if not self.useful_stuff:
-            self.useful_stuff = []
-        elif self.useful_stuff:
-            self.useful_stuff = self.useful_stuff.split(",")
-
-
     def save(self, *args, **kwargs):
-        choices, fields = self.all_choices()
-        ValidateChoices(choices, fields).validate
+        self.full_clean()
         super().save(*args, **kwargs)
 
 
@@ -477,119 +409,46 @@ class TripAdvancedChecklist(models.Model):
         """Return field values as a list."""
         if not self.trekking:
             return []
-        no_brackets = self.trekking.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.trekking.split(",")
 
     def hiking_to_list(self):
         """Return field values as a list."""
         if not self.hiking:
             return []
-        no_brackets = self.hiking.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.hiking.split(",")
 
     def cycling_to_list(self):
         """Return field values as a list."""
         if not self.cycling:
             return []
-        no_brackets = self.cycling.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.cycling.split(",")
 
     def camping_to_list(self):
         """Return field values as a list."""
         if not self.camping:
             return []
-        no_brackets = self.camping.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.camping.split(",")
 
     def fishing_to_list(self):
         """Return field values as a list."""
         if not self.fishing:
             return []
-        no_brackets = self.fishing.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.fishing.split(",")
 
     def sunbathing_to_list(self):
         """Return field values as a list."""
         if not self.sunbathing:
             return []
-        no_brackets = self.sunbathing.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.sunbathing.split(",")
 
     def business_to_list(self):
         """Return field values as a list."""
         if not self.business:
             return []
-        no_brackets = self.business.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
-
-    def all_choices(self) -> tuple[list, list]:
-        CLASSES_WITH_CHOICES = [
-            TrekkingChecklist,
-            HikingChecklist,
-            CyclingChecklist,
-            CampingChecklist,
-            FishingChecklist,
-            SunbathingChecklist,
-            BusinessChecklist,
-        ]
-        MODEL_FIELDS_WITH_CHOICES = [
-            self.trekking,
-            self.hiking,
-            self.cycling,
-            self.camping,
-            self.fishing,
-            self.sunbathing,
-            self.business,
-        ]
-        return CLASSES_WITH_CHOICES, MODEL_FIELDS_WITH_CHOICES
-
-    def clean(self):
-        if not self.trekking:
-            self.trekking = []
-        elif self.trekking:
-            self.trekking = self.trekking.split(",")
-        if not self.hiking:
-                self.hiking = []
-        elif self.hiking:
-                self.hiking =  self.hiking.split(",")
-        if not self.cycling:
-            self.cycling = []
-        elif self.cycling:
-            self.cycling = self.cycling.split(",")
-        if not self.camping:
-            self.camping = []
-        elif self.camping:
-            self.camping = self.camping.split(",")
-        if not self.fishing:
-            self.fishing = []
-        elif self.fishing:
-            self.fishing = self.fishing.split(",")
-        if not self.sunbathing:
-            self.sunbathing = []
-        elif self.sunbathing:
-            self.sunbathing = self.sunbathing.split(",")
-        if not self.business:
-            self.business = []
-        elif self.business:
-            self.business = self.business.split(",")
+        return self.business.split(",")
 
     def save(self, *args, **kwargs):
-        choices, fields = self.all_choices()
-        ValidateChoices(choices, fields).validate
+        self.full_clean()
         super().save(*args, **kwargs)
 
 ###############################################################################
@@ -640,11 +499,10 @@ class TripPersonalChecklist(models.Model):
         In case of empty string or string equal to 'None', returns empty list."""
         if self.checklist is None or self.checklist == "None":
             return []
-        return str(self.checklist).replace(";", ",").split(", ")
+        return str(self.checklist).replace("; ", ",").replace(";", ",").replace(", ", ",").split(",")
 
     def save(self, *args, **kwargs):
-        if not self.name:
-            raise IntegrityError("Field 'name' is required.")
+        self.full_clean()
         super().save(*args, **kwargs)
 
 
@@ -696,8 +554,7 @@ class TripAdditionalInfo(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def save(self, *args, **kwargs):
-        if not self.name:
-            raise IntegrityError("Field 'name' is required.")
+        self.full_clean()
         super().save(*args, **kwargs)
 
 ###############################################################################
@@ -723,17 +580,16 @@ class TripCost(models.Model):
         _("Grupa kosztów"), max_length=100, choices=CostGroup.choices,
         help_text=_("Pole wymagane.")
     )
-    cost_paid = models.DecimalField(
-        _("Wysokość wydatku"), max_digits=10,
-        decimal_places=2, help_text=_("Pole wymagane.")
+    cost_paid = models.FloatField(
+        _("Wysokość wydatku"), max_length=10,
+        help_text=_("Pole wymagane.")
     )
     currency = models.CharField(
         _("Waluta"), max_length=20, default="PLN",
         null=True, blank=True,
     )
-    exchange_rate = models.DecimalField(
-        _("Kurs wymiany waluty"), max_digits=8,
-        decimal_places=4, default=1.0000,
+    exchange_rate = models.FloatField(
+        _("Kurs wymiany waluty"), max_length=8, default=1.0000,
         validators=[MinValueValidator(0,
                                       message="Wartość nie może być liczbą ujemną.")],
         help_text=_("Pole wymagane.")
@@ -894,12 +750,11 @@ class TripCost(models.Model):
         return round(cost_per_person_per_day, 2)
 
     def clean(self):
-        if not self.cost_group in CostGroup.values:
+        if self.cost_group not in CostGroup.values:
             raise ValidationError(_("Błędna wartość pola 'Grupa kosztów' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.cost_group))
 
     def save(self, *args, **kwargs):
-        if not self.name:
-            raise IntegrityError("Field 'name' is required.")
+        self.full_clean()
         super().save(*args, **kwargs)

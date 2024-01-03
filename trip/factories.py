@@ -5,11 +5,6 @@ from factory import Faker, SubFactory
 
 from access.enums import Access
 from user.factories import UserFactory
-from .enums import (TripChoices, BasicChecklist, KeysChecklist,
-                    CosmeticsChecklist, ElectronicsChecklist,
-                    UsefulStaffChecklist, TrekkingChecklist, HikingChecklist,
-                    CyclingChecklist, CampingChecklist, FishingChecklist,
-                    SunbathingChecklist, BusinessChecklist, CostGroup)
 from .models import (Trip, TripReport, TripBasicChecklist,
                      TripAdvancedChecklist, TripAdditionalInfo,
                      TripPersonalChecklist, TripCost)
@@ -62,11 +57,11 @@ class TripBasicFactory(DjangoModelFactory):
     user = SubFactory(UserFactory)
     trip = SubFactory(TripFactory)
     name = "Basic trip"
-    wallet = ["Paszport"]
-    keys = ["Samochód", "Bagażnik"]
-    cosmetics = ["Szczotka do zębów", "Pasta do zębów"]
-    electronics = ["Słuchawki", "Podkładka pod laptop"]
-    useful_stuff = ["Parasol"]
+    wallet = "Paszport"
+    keys = "Samochód,Bagażnik"
+    cosmetics = "Szczotka do zębów,Pasta do zębów"
+    electronics = "Słuchawki,Podkładka pod laptop"
+    useful_stuff = "Parasol"
     basic_drugs = "cynk; wit. B i żelazo"
     additional_drugs = "Wit. C, magnez, espumisan"
     created = datetime.datetime(2020, 11, 1, 4, 1, 1, 1)
@@ -81,13 +76,13 @@ class TripAdvancedFactory(DjangoModelFactory):
     user = SubFactory(UserFactory)
     trip = SubFactory(TripFactory)
     name = "Advanced trip"
-    trekking = ["Mapy", "Czołówka"]
-    hiking = ["Czekan", "Worek na magnezję"]
-    cycling = ["Kask"]
-    camping = ["Gaz", "Spork", "Kubek"]
-    fishing = []
-    sunbathing = ["Klapki"]
-    business = ["Dokumenty", "Karty dostępu"]
+    trekking = "Mapy,Czołówka"
+    hiking = "Czekan,Worek na magnezję"
+    cycling = "Kask"
+    camping = "Gaz,Spork,Kubek"
+    fishing = ""
+    sunbathing = "Klapki"
+    business = "Dokumenty,Karty dostępu"
     created = datetime.datetime(2020, 11, 1, 4, 1, 1, 1)
     updated = datetime.datetime(2020, 11, 1, 4, 1, 1, 1)
 

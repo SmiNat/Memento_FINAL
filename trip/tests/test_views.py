@@ -1351,7 +1351,7 @@ class TripReportViewTest(TestCase):
             reverse("trip:delete-trip-report", args=[str(self.trip_report.id)]))
         self.assertEqual(response_get.context["page"], "delete-trip-report")
         self.assertQuerysetEqual(response_get.context["trip_report"], self.trip_report)
-        self.assertEqual(str(response_get.context["trip_id"]), self.trip.id)
+        self.assertEqual(str(response_get.context["trip_id"]), str(self.trip.id))
 
     def test_delete_trip_report_and_redirect(self):
         """Deleting trip report is successful (status code 200) and redirect
@@ -1457,11 +1457,11 @@ class TripBasicChecklistViewTest(TestCase):
             user=self.test_user, trip=self.test_trip, name="test basic name")
         self.payload = {
             "name": "New basic equipment",
-            "wallet": self.trip_basic.wallet,
-            "keys": self.trip_basic.keys,
-            "cosmetics": self.trip_basic.cosmetics,
-            "electronics": self.trip_basic.electronics,
-            "useful_stuff": self.trip_basic.useful_stuff,
+            "wallet": "Paszport",
+            "keys": ["Samochód", "Bagażnik"],
+            "cosmetics": ["Szczotka do zębów", "Dezodorant"],
+            "electronics": ["Ładowarka", "Baterie", "Kable"],
+            "useful_stuff": [],
             "basic_drugs": "Wit. C, wit. D",
             "additional_drugs": "coldrex, gripex",
         }
@@ -1694,8 +1694,8 @@ class TripBasicChecklistViewTest(TestCase):
         # PATCH
         payload = {
             "name": "New sth",
-            "wallet": self.trip_basic.wallet,
-            "keys": self.trip_basic.keys,
+            "wallet": self.payload["wallet"],
+            "keys": self.payload["keys"],
         }
         response_patch = self.client.patch(
             reverse("trip:edit-trip-basic", args=[str(self.trip_basic.id)]),
@@ -1737,11 +1737,11 @@ class TripBasicChecklistViewTest(TestCase):
 
         payload = {
             "name": "SECURITY BREACH",
-            "wallet": self.trip_basic.wallet,
-            "keys": self.trip_basic.keys,
-            "cosmetics": self.trip_basic.cosmetics,
-            "electronics": self.trip_basic.electronics,
-            "useful_stuff": self.trip_basic.useful_stuff,
+            "wallet": "Paszport",
+            "keys": ["Samochód", "Bagażnik"],
+            "cosmetics": ["Szczotka do zębów", "Dezodorant"],
+            "electronics": ["Ładowarka", "Baterie", "Kable"],
+            "useful_stuff": [],
             "basic_drugs": "Wit. C, wit. D",
             "additional_drugs": "SECURITY BREACH",
         }
@@ -1805,7 +1805,7 @@ class TripBasicChecklistViewTest(TestCase):
             reverse("trip:delete-trip-basic", args=[str(self.trip_basic.id)]))
         self.assertEqual(response_get.context["page"], "delete-trip-basic")
         self.assertQuerysetEqual(response_get.context["trip_basic"], self.trip_basic)
-        self.assertEqual(str(response_get.context["trip_id"]), self.trip.id)
+        self.assertEqual(str(response_get.context["trip_id"]), str(self.trip.id))
 
     def test_delete_trip_basic_checklist_and_redirect(self):
         """Deleting trip basic checklist is successful (status code 200) and redirect
@@ -1914,12 +1914,12 @@ class TripAdvancedChecklistViewTest(TestCase):
         self.payload = {
             "name": "New advanced equipment",
             "trekking": ["Scyzoryk", "Pokrowiec na plecak"],
-            "hiking": self.trip_advanced.hiking,
-            "cycling": self.trip_advanced.cycling,
-            "camping": self.trip_advanced.camping,
-            "fishing": self.trip_advanced.fishing,
-            "sunbathing": self.trip_advanced.sunbathing,
-            "business": self.trip_advanced.business,
+            "hiking": ["Liny", "Uprząż", "Śruby", "Haki"],
+            "cycling": "Okulary/google",
+            "camping": ["Karimata", "Materac"],
+            "fishing": [],
+            "sunbathing": ["Nakrycie głowy"],
+            "business": ["Dokumenty"],
         }
 
     def test_all_setup_instances_created(self):
@@ -2000,7 +2000,7 @@ class TripAdvancedChecklistViewTest(TestCase):
                           response_post.content.decode())
         self.assertEqual(TripAdvancedChecklist.objects.count(), 3)
         self.assertTrue(TripAdvancedChecklist.objects.filter(
-            user=self.user, trekking=self.payload["trekking"]).exists())
+            user=self.user, trekking=",".join(self.payload["trekking"])).exists())
 
     def test_add_trip_advanced_checklist_successful_with_correct_user(self):
         """Test if creating a trip advanced checklist successfully has correct user."""
@@ -2010,7 +2010,7 @@ class TripAdvancedChecklistViewTest(TestCase):
             self.payload, follow=True)
 
         checklist = TripAdvancedChecklist.objects.get(
-            trekking=self.payload["trekking"])
+            trekking=",".join(self.payload["trekking"]))
         self.assertEqual(checklist.user, self.user)
 
     def test_add_trip_advanced_checklist_successful_with_correct_trip(self):
@@ -2022,7 +2022,7 @@ class TripAdvancedChecklistViewTest(TestCase):
             self.payload, follow=True)
 
         checklist = TripAdvancedChecklist.objects.get(
-            trekking=self.payload["trekking"])
+            trekking=",".join(self.payload["trekking"]))
         self.assertQuerysetEqual(checklist.trip, self.trip)
         self.assertNotEqual(checklist.trip, self.test_trip)
 
@@ -2137,7 +2137,7 @@ class TripAdvancedChecklistViewTest(TestCase):
         self.trip_advanced.refresh_from_db()
         self.assertEqual(TripAdvancedChecklist.objects.count(), 2)
         self.assertEqual(self.trip_advanced.name, self.payload["name"])
-        self.assertEqual(self.trip_advanced.trekking, str(self.payload["trekking"]))
+        self.assertEqual(self.trip_advanced.trekking, ",".join(self.payload["trekking"]))
 
     def test_edit_trip_advanced_checklist_405_with_not_allowed_method(self):
         """Test if response has status code 405 if method is not allowed.
@@ -2150,8 +2150,8 @@ class TripAdvancedChecklistViewTest(TestCase):
         # PATCH
         payload = {
             "name": "New sth",
-            "trekking": self.trip_advanced.trekking,
-            "cycling": self.trip_advanced.cycling,
+            "trekking": ["Scyzoryk", "Pokrowiec na plecak"],
+            "cycling": "Okulary/google",
         }
         response_patch = self.client.patch(
             reverse("trip:edit-trip-advanced", args=[str(self.trip_advanced.id)]),
@@ -2195,12 +2195,12 @@ class TripAdvancedChecklistViewTest(TestCase):
             "name": "SECURITY BREACH",
             "trekking": [TrekkingChecklist.THERMOS, TrekkingChecklist.SNOWSHOES,
                          TrekkingChecklist.TREKKING_POLES],
-            "hiking": self.trip_advanced.hiking,
-            "cycling": self.trip_advanced.cycling,
-            "camping": self.trip_advanced.camping,
-            "fishing": self.trip_advanced.fishing,
-            "sunbathing": self.trip_advanced.sunbathing,
-            "business": self.trip_advanced.business,
+            "hiking": self.payload["hiking"],
+            "cycling": self.payload["cycling"],
+            "camping": self.payload["camping"],
+            "fishing": self.payload["fishing"],
+            "sunbathing": self.payload["sunbathing"],
+            "business": self.payload["business"],
         }
 
         # Attempt to change data that belonged to test_user by user
@@ -2263,7 +2263,7 @@ class TripAdvancedChecklistViewTest(TestCase):
         self.assertEqual(response_get.context["page"], "delete-trip-advanced")
         self.assertQuerysetEqual(response_get.context["trip_advanced"],
                                  self.trip_advanced)
-        self.assertEqual(str(response_get.context["trip_id"]), self.trip.id)
+        self.assertEqual(str(response_get.context["trip_id"]), str(self.trip.id))
 
     def test_delete_trip_advanced_checklist_and_redirect(self):
         """Deleting trip advanced checklist is successful (status code 200) and redirect
@@ -2721,7 +2721,7 @@ class TripPersonalChecklistViewTest(TestCase):
         self.assertEqual(response_get.context["page"], "delete-trip-personal-checklist")
         self.assertQuerysetEqual(response_get.context["trip_checklist"],
                                  self.trip_personal)
-        self.assertEqual(str(response_get.context["trip_id"]), self.trip.id)
+        self.assertEqual(str(response_get.context["trip_id"]), str(self.trip.id))
 
     def test_delete_trip_personal_checklist_successful_and_redirect(self):
         """Deleting trip personal checklist is successful (status code 200) and redirect
@@ -3180,7 +3180,7 @@ class TripAdditionalInfoViewTest(TestCase):
         self.assertEqual(response_get.context["page"], "delete-trip-additional")
         self.assertQuerysetEqual(response_get.context["trip_additional"],
                                  self.trip_additional)
-        self.assertEqual(str(response_get.context["trip_id"]), self.trip.id)
+        self.assertEqual(str(response_get.context["trip_id"]), str(self.trip.id))
 
     def test_delete_trip_additional_info_successful_and_redirect(self):
         """Deleting trip additional info is successful (status code 200) and redirect
@@ -3616,7 +3616,7 @@ class TripCostViewTest(TestCase):
             reverse("trip:delete-trip-cost", args=[str(self.trip_cost.id)]))
         self.assertEqual(response_get.context["page"], "delete-trip-cost")
         self.assertQuerysetEqual(response_get.context["trip_cost"], self.trip_cost)
-        self.assertEqual(str(response_get.context["trip_id"]), self.trip.id)
+        self.assertEqual(str(response_get.context["trip_id"]), str(self.trip.id))
 
     def test_delete_trip_cost_successful_and_redirect(self):
         """Deleting trip cost is successful (status code 200) and redirect

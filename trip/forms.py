@@ -61,14 +61,9 @@ class TripForm(forms.ModelForm):
         super(TripForm, self).__init__(*args, **kwargs)
 
     def clean_type(self):
-        return ",".join(self.cleaned_data["type"])
-
-    # def clean_type(self):
-    #     print("*********** FORM", self.cleaned_data['type'])
-    #     print("*********** FORM", list(self.cleaned_data['type']))
-    #     print("*********** FORM", type(list(self.cleaned_data['type'])))
-    #     print("*********** FORM", type(self.cleaned_data['type']))
-    #     return self.cleaned_data['type']
+        trip_type = self.cleaned_data.get("type", None)
+        if trip_type:
+            return ",".join(trip_type)
 
     def clean_name(self):
         clean_name = self.cleaned_data.get("name", None)
@@ -249,19 +244,29 @@ class TripBasicChecklistForm(forms.ModelForm):
         return name
 
     def clean_wallet(self):
-        return ",".join(self.cleaned_data["wallet"])
+        wallet = self.cleaned_data.get("wallet", None)
+        if wallet:
+            return ",".join(wallet)
 
     def clean_keys(self):
-        return ",".join(self.cleaned_data["keys"])
+        keys = self.cleaned_data.get("keys", None)
+        if keys:
+            return ",".join(keys)
 
     def clean_cosmetics(self):
-        return ",".join(self.cleaned_data["cosmetics"])
+        cosmetics = self.cleaned_data.get("cosmetics", None)
+        if cosmetics:
+            return ",".join(cosmetics)
 
     def clean_electronics(self):
-        return ",".join(self.cleaned_data["electronics"])
+        electronics = self.cleaned_data.get("electronics", None)
+        if electronics:
+            return ",".join(electronics)
 
     def clean_useful_stuff(self):
-        return ",".join(self.cleaned_data["useful_stuff"])
+        useful_stuff = self.cleaned_data.get("useful_stuff", None)
+        if useful_stuff:
+            return ",".join(useful_stuff)
 
 ###############################################################################
 
@@ -342,25 +347,39 @@ class TripAdvancedChecklistForm(forms.ModelForm):
         return name
 
     def clean_trekking(self):
-        return ",".join(self.cleaned_data["trekking"])
+        trekking = self.cleaned_data.get("trekking", None)
+        if trekking:
+            return ",".join(trekking)
 
     def clean_hiking(self):
-        return ",".join(self.cleaned_data["hiking"])
+        hiking = self.cleaned_data.get("hiking", None)
+        if hiking:
+            return ",".join(hiking)
 
     def clean_cycling(self):
-        return ",".join(self.cleaned_data["cycling"])
+        cycling = self.cleaned_data.get("cycling", None)
+        if cycling:
+            return ",".join(cycling)
 
     def clean_business(self):
-        return ",".join(self.cleaned_data["business"])
+        business = self.cleaned_data.get("business", None)
+        if business:
+            return ",".join(business)
 
     def clean_camping(self):
-        return ",".join(self.cleaned_data["camping"])
+        camping = self.cleaned_data.get("camping", None)
+        if camping:
+            return ",".join(camping)
 
     def clean_fishing(self):
-        return ",".join(self.cleaned_data["fishing"])
+        fishing = self.cleaned_data.get("fishing", None)
+        if fishing:
+            return ",".join(fishing)
 
     def clean_sunbathing(self):
-        return ",".join(self.cleaned_data["sunbathing"])
+        sunbathing = self.cleaned_data.get("sunbathing", None)
+        if sunbathing:
+            return ",".join(sunbathing)
 
 ###############################################################################
 

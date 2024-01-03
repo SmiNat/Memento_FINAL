@@ -113,24 +113,6 @@ class BasicUrlsTests(TestCase):
             self.assertEqual(response_page.status_code, 200)
             self.assertEqual(str(response_page.context["user"]), "johndoe123")
 
-    def test_view_url_accessible_by_name_for_unauthenticated_user(self):
-        """Test if view url is accessible by its name
-        and returns redirect (302) for unauthenticated user."""
-        for page in self.pages:
-            response_page = self.client.get(
-                reverse(page["page"], args=page["args"]))
-            self.assertEqual(response_page.status_code, 302)
-
-    def test_view_url_accessible_by_name_for_authenticated_user(self):
-        """Test if view url is accessible by its name
-         and returns desired page (200) for authenticated user."""
-        self.client.force_login(self.user)
-        for page in self.pages:
-            response_page = self.client.get(
-                reverse(page["page"], args=page["args"]))
-            self.assertEqual(response_page.status_code, 200)
-            self.assertEqual(str(response_page.context["user"]), "johndoe123")
-
     def test_view_uses_correct_template(self):
         """Test if response returns correct page template."""
 
@@ -995,7 +977,7 @@ class MedicineTests(TestCase):
              "Wystąpił błąd podczas zapisu formularza. Sprawdź poprawność danych."),
             ("Incorrect daily_quantity field - negative value is not allowed",
              {"drug_name_and_dose": "new drug name", "daily_quantity": -2},
-             "Upewnij się, że ta wartość jest większa lub równa 0."),
+             "Wartość nie może być liczbą ujemną."),
         ]
     )
     def test_add_medicine_unsuccessful_with_incorrect_data(

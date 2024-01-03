@@ -115,6 +115,42 @@ class MedCardTests(TestCase):
             elif all_values[number]:
                 self.assertEqual(value, str(all_values[number]))
 
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.medcard.access_granted = "Brak dostępu"
+        self.medcard.save()
+        self.assertEqual(self.medcard.access_granted, "Brak dostępu")
+        # test correct access_granted_medicines
+        self.medcard.access_granted_medicines = "Brak dostępu"
+        self.medcard.save()
+        self.assertEqual(self.medcard.access_granted_medicines, "Brak dostępu")
+        # test correct access_granted_visits
+        self.medcard.access_granted_visits = "Brak dostępu"
+        self.medcard.save()
+        self.assertEqual(self.medcard.access_granted_visits, "Brak dostępu")
+        # test correct access_granted_test_results
+        self.medcard.access_granted_test_results = "Brak dostępu"
+        self.medcard.save()
+        self.assertEqual(self.medcard.access_granted_test_results, "Brak dostępu")
+
+        # test incorrect access_granted
+        self.medcard.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.medcard.save()
+        # test incorrect access_granted_medicines
+        self.medcard.access_granted_medicines = ["Brak"]
+        with self.assertRaises(ValidationError):
+            self.medcard.save()
+        # test incorrect access_granted_visits
+        self.medcard.access_granted_visits = "Brak"
+        with self.assertRaises(ValidationError):
+            self.medcard.save()
+        # test incorrect access_granted_test_results
+        self.medcard.access_granted_test_results = "Brak"
+        with self.assertRaises(ValidationError):
+            self.medcard.save()
+
     @parameterized.expand(
         [
             ("Real user instance", {"username": MedCardFactory.user},),
@@ -212,7 +248,7 @@ class MedicineTests(TestCase):
         )
         self.assertEqual(Medicine.objects.count(), 3)
 
-    def test_integrity_error_for_empty_required_field(self):
+    def test_validation_error_for_empty_required_field(self):
         """Test if model without required fields cannot be saved in database."""
         # Empty daily_quantity field
         with self.assertRaises(ValidationError):
@@ -255,31 +291,22 @@ class MedicineTests(TestCase):
             else:
                 self.assertEqual(value, str(all_values[number]))
 
-    # def test_string_to_list_method(self):
-    #     """Test if medication_days_to_list method and medication_hours_to_list
-    #     converts string to a list  based on comma separator."""
-    #     days = self.medicine.medication_days
-    #     hours = self.medicine.medication_hours
-    #     self.assertEqual(
-    #         self.medicine.medication_days_to_list(), str(days).split(",")
-    #     )
-    #     self.assertEqual(
-    #         self.medicine.medication_hours_to_list(), str(hours).split(",")
-    #     )
-
-    def test_list_to_string_method(self):
-        """Test if medication_days_to_string method and medication_hours_to_string
-        converts string to a list  based on comma separator."""
-        days = self.medicine.medication_days
-        hours = self.medicine.medication_hours
-        self.assertEqual(
-            self.medicine.medication_days_to_string(),
-            " ".join(days).replace(" ", ", ")
-        )
-        self.assertEqual(
-            self.medicine.medication_hours_to_string(),
-            " ".join(hours).replace(" ", ", ")
-        )
+    def test_string_to_list_method(self):
+        """Test if medication_days_to_list method and medication_hours_to_list
+        converts string to a list based on comma separator."""
+        record = Medicine.objects.create(
+            user=self.user,
+            drug_name_and_dose="Lek 100",
+            daily_quantity=4,
+            medication_days="Poniedziałek,Środa,Piątek",
+            medication_hours="10:30,13:30,17:30,22:00"
+            )
+        self.assertEqual(record.medication_days, "Poniedziałek,Środa,Piątek")
+        self.assertEqual(record.medication_days_to_list(),
+                         ["Poniedziałek", "Środa", "Piątek"])
+        self.assertEqual(record.medication_hours, "10:30,13:30,17:30,22:00")
+        self.assertEqual(record.medication_hours_to_list(),
+                         ["10:30", "13:30", "17:30", "22:00"])
 
     def test_validate_choices(self):
         """Test if save method validates choices before saving instance in database."""
@@ -291,7 +318,7 @@ class MedicineTests(TestCase):
         # test correct medication_days
         self.medicine.medication_days = "Poniedziałek,Piątek"
         self.medicine.save()
-        self.assertEqual(self.medicine.medication_days, ["Poniedziałek", "Piątek"])
+        self.assertEqual(self.medicine.medication_days, "Poniedziałek,Piątek")
 
         # test incorrect medication_frequency
         self.medicine.medication_frequency = "Inny dzień"
@@ -299,6 +326,9 @@ class MedicineTests(TestCase):
             self.medicine.save()
         # test incorrect medication_days
         self.medicine.medication_days = ["Inny dzień"]
+        with self.assertRaises(ValidationError):
+            self.medicine.save()
+        self.medicine.medication_days = "Poniedziałek,Piontek"
         with self.assertRaises(ValidationError):
             self.medicine.save()
 

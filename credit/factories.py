@@ -25,11 +25,11 @@ class CreditFactory(DjangoModelFactory):
     market_value = 60000
     credit_period = 60
     grace_period = 0
-    installment_type = InstallmentType.DECREASING_INSTALLMENTS
-    installment_frequency = Frequency.MONTHLY
+    installment_type = "Raty malejące"
+    installment_frequency = "Miesięczne"
     total_installment = 0
     capital_installment = 1000
-    type_of_interest = TypeOfInterest.FIXED
+    type_of_interest = "Stałe"
     fixed_interest_rate = 6
     floating_interest_rate = 0
     bank_margin = 0

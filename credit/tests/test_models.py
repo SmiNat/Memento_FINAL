@@ -308,6 +308,50 @@ class CreditModelTests(TestCase):
         result = floating_rate + bank_margin
         self.assertEqual(self.credit.full_rate(), result)
 
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.credit.access_granted = "Brak dostępu"
+        self.credit.save()
+        self.assertEqual(self.credit.access_granted, "Brak dostępu")
+        # test correct access_granted_for_schedule
+        self.credit.access_granted_for_schedule = "Brak dostępu"
+        self.credit.save()
+        self.assertEqual(self.credit.access_granted_for_schedule, "Brak dostępu")
+        # test correct installment_type
+        self.credit.installment_type = "Raty równe"
+        self.credit.save()
+        self.assertEqual(self.credit.installment_type, "Raty równe")
+        # test correct installment_frequency
+        self.credit.installment_frequency = "Miesięczne"
+        self.credit.save()
+        self.assertEqual(self.credit.installment_frequency, "Miesięczne")
+        # test correct type_of_interest
+        self.credit.access_granttype_of_interested = "Stałe"
+        self.credit.save()
+        self.assertEqual(self.credit.type_of_interest, "Stałe")
+
+        # test incorrect access_granted
+        self.credit.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit.save()
+        # test incorrect access_granted_for_schedule
+        self.credit.access_granted_for_schedule = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit.save()
+        # test incorrect installment_type
+        self.credit.installment_type = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit.save()
+        # test incorrect installment_frequency
+        self.credit.installment_frequency = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit.save()
+        # test incorrect type_of_interest
+        self.credit.type_of_interest = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit.save()
+
 
 class CreditTrancheModelTests(TestCase):
     """Test model CreditTranche."""
@@ -583,6 +627,26 @@ class CreditInsuranceModelTests(TestCase):
             else:
                 self.assertEqual(value, str(insurance_values[number]))
 
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct type
+        self.credit_insurance.type = "Ubezpieczenie na życie"
+        self.credit_insurance.save()
+        self.assertEqual(self.credit_insurance.type, "Ubezpieczenie na życie")
+        # test correct frequency
+        self.credit_insurance.frequency = "Półroczne"
+        self.credit_insurance.save()
+        self.assertEqual(self.credit_insurance.frequency, "Półroczne")
+
+        # test incorrect type
+        self.credit_insurance.type = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit_insurance.save()
+        # test incorrect frequency
+        self.credit_insurance.frequency = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit_insurance.save()
+
 
 class CreditCollateralModelTests(TestCase):
     """Test model CreditCollateral."""
@@ -819,3 +883,14 @@ class CreditEarlyRepaymentModelTests(TestCase):
         queryset = CreditEarlyRepayment.objects.filter(credit=self.credit)
         result = self.credit_repayment.repayment_amount + second_repayment.repayment_amount
         self.assertEqual(self.credit_repayment.total_repayment(queryset), result)
+
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct repayment_action
+        self.credit_repayment.repayment_action = "Skrócenie kredytowania"
+        self.credit_repayment.save()
+        self.assertEqual(self.credit_repayment.repayment_action, "Skrócenie kredytowania")
+        # test incorrect repayment_action
+        self.credit_repayment.repayment_action = "Brak"
+        with self.assertRaises(ValidationError):
+            self.credit_repayment.save()

@@ -134,7 +134,6 @@ def edit_payment(request, pk):
                 request,
                 _("Wystąpił błąd podczas zapisu formularza. Sprawdź poprawność danych.")
             )
-            print("***************", form.errors)
     elif request.method not in ["POST", "GET"]:
         logger.error(
             "user: %s - enter page: edit-payment (id: %s) - "

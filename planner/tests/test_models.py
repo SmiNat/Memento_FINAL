@@ -138,6 +138,18 @@ class ExpenseListModelTests(TestCase):
         self.assertEqual(expense_list.get_all_paid_costs(), None)
 
 
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.expense_list.access_granted = "Brak dostępu"
+        self.expense_list.save()
+        self.assertEqual(self.expense_list.access_granted, "Brak dostępu")
+        # test incorrect access_granted
+        self.expense_list.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.expense_list.save()
+
+
 class ExpenseItemModelTests(TestCase):
     """Test model ExpenseItem."""
 
@@ -184,7 +196,6 @@ class ExpenseItemModelTests(TestCase):
         item_fields = list(self.field_names.values())
         item_values = list(expense_item.__dict__.values())
         for field, value in expense_item:
-            # print("🖥️", field, value)
             self.assertEqual(field, item_fields[number])
             number += 1
             if isinstance(item_values[number], uuid.UUID):
@@ -208,6 +219,26 @@ class ExpenseItemModelTests(TestCase):
                 ExpenseItem.objects.create(
                   user=self.user, expense_list=self.expense_list,
                 )
+
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct execution_status
+        self.expense_item.execution_status = "Planowane"
+        self.expense_item.save()
+        self.assertEqual(self.expense_item.execution_status, "Planowane")
+        # test correct requirement_status
+        self.expense_item.requirement_status = "Opcjonalne"
+        self.expense_item.save()
+        self.assertEqual(self.expense_item.requirement_status, "Opcjonalne")
+
+        # test incorrect execution_status
+        self.expense_item.execution_status = "Inny"
+        with self.assertRaises(ValidationError):
+            self.expense_item.save()
+        # test incorrect requirement_status
+        self.expense_item.requirement_status = ["Inny"]
+        with self.assertRaises(ValidationError):
+            self.expense_item.save()
 
 
 class ToDoListModelTests(TestCase):
@@ -273,6 +304,17 @@ class ToDoListModelTests(TestCase):
                 self.assertEqual(value, str(todo_list_values[number]))
             else:
                 self.assertEqual(value, str(todo_list_values[number]))
+
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.todo_list.access_granted = "Brak dostępu"
+        self.todo_list.save()
+        self.assertEqual(self.todo_list.access_granted, "Brak dostępu")
+        # test incorrect access_granted
+        self.todo_list.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.todo_list.save()
 
 
 class ToDoItemModelTests(TestCase):
@@ -342,3 +384,23 @@ class ToDoItemModelTests(TestCase):
                 ToDoItem.objects.create(
                   user=self.user, todo_list=self.todo_list,
                 )
+
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct execution_status
+        self.todo_item.execution_status = "Planowane"
+        self.todo_item.save()
+        self.assertEqual(self.todo_item.execution_status, "Planowane")
+        # test correct requirement_status
+        self.todo_item.requirement_status = "Opcjonalne"
+        self.todo_item.save()
+        self.assertEqual(self.todo_item.requirement_status, "Opcjonalne")
+
+        # test incorrect execution_status
+        self.todo_item.execution_status = "Inny"
+        with self.assertRaises(ValidationError):
+            self.todo_item.save()
+        # test incorrect requirement_status
+        self.todo_item.requirement_status = ["Inny"]
+        with self.assertRaises(ValidationError):
+            self.todo_item.save()

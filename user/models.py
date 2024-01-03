@@ -102,7 +102,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         ).__call__(self.username)
         UnicodeUsernameValidator().__call__(self.username)
         EmailValidator().__call__(self.email)
-        super().save(*args, **kwargs)
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
 
 class Profile(models.Model):
@@ -222,6 +223,6 @@ class Profile(models.Model):
             self.slug = create_slug(self.user)
         while self.slug in slugs:
             self.slug = create_slug(self.user)
-        self.full_clean()
         self.__original_access_granted_to = self.access_granted_to
+        self.full_clean()
         return super().save(*args, **kwargs)

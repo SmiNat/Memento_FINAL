@@ -9,6 +9,7 @@
                 <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
                 <p><a href="{% url 'payment:add-payment' %}">[Dodaj płatność]</a></p>
             {% else %}
+                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji.</h5>
 
                 <div class="order_by">
                     <form action="{% url 'payment:payments' %}">

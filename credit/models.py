@@ -263,23 +263,23 @@ class Credit(models.Model):
         return decimal.Decimal(self.floating_interest_rate) + decimal.Decimal(self.bank_margin)
 
     def clean(self):
-        if not self.installment_type in InstallmentType.values:
+        if self.installment_type not in InstallmentType.values:
             raise ValidationError(_("Błędna wartość pola 'Rodzaj raty' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.installment_type))
-        if not self.installment_frequency in Frequency.values:
+        if self.installment_frequency not in Frequency.values:
             raise ValidationError(_("Błędna wartość pola 'Częstotliwość płatności raty' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.installment_frequency))
-        if not self.type_of_interest in TypeOfInterest.values:
+        if self.type_of_interest not in TypeOfInterest.values:
             raise ValidationError(_("Błędna wartość pola 'Rodzaj oprocentowania' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.type_of_interest))
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))
-        if not self.access_granted_for_schedule in Access.values:
+        if self.access_granted_for_schedule not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do harmonogramu' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted_for_schedule))
@@ -469,11 +469,11 @@ class CreditInsurance(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def clean(self):
-        if not self.type in InsuranceType.values:
+        if self.type and self.type not in InsuranceType.values:
             raise ValidationError(_("Błędna wartość pola 'Rodzaj ubezpieczenia' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.type))
-        if not self.frequency in Frequency.values:
+        if self.frequency and self.frequency not in Frequency.values:
             raise ValidationError(_("Błędna wartość pola 'Częstotliwość płatności' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.frequency))
@@ -653,7 +653,7 @@ class CreditEarlyRepayment(models.Model):
         return total_repayment
 
     def clean(self):
-        if not self.repayment_action in RepaymentAction.values:
+        if self.repayment_action not in RepaymentAction.values:
             raise ValidationError(_("Błędna wartość pola 'Efekt nadpłaty' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.repayment_action))

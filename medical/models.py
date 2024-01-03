@@ -3,10 +3,11 @@ import uuid
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .enums import MedicationFrequency
+from .enums import MedicationFrequency, MedicationDays
 from access.enums import Access
 from user.handlers import create_slug
 
@@ -99,19 +100,19 @@ class MedCard(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def clean(self):
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do karty medycznej' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione "
                                     "innymi znakami." % self.access_granted))
-        if not self.access_granted_medicines in Access.values:
+        if self.access_granted_medicines not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych o lekach' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione "
                                     "innymi znakami." % self.access_granted_medicines))
-        if not self.access_granted_visits in Access.values:
+        if self.access_granted_visits not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do wizyt lekarskich' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione "
                                     "innymi znakami." % self.access_granted_visits))
-        if not self.access_granted_test_results in Access.values:
+        if self.access_granted_test_results not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do wyników badań' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione "
                                     "innymi znakami." % self.access_granted_test_results))
@@ -147,8 +148,11 @@ class Medicine(models.Model):
         _("Nazwa leku i dawka"), max_length=255,
         help_text=_("Pole wymagane.")
     )
-    daily_quantity = models.PositiveSmallIntegerField(
-        _("Ilość dawek dziennie"), help_text=_("Pole wymagane.")
+    daily_quantity = models.DecimalField(
+        _("Ilość dawek dziennie"), max_digits=4, decimal_places=1,
+        validators=[MinValueValidator(
+            0, message=_("Wartość nie może być liczbą ujemną."))],
+        help_text=_("Pole wymagane."),
     )
     medication_days = models.CharField(
         _("Dni przyjmowania leków"),
@@ -207,45 +211,43 @@ class Medicine(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def medication_days_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.medication_days:
             return []
-        no_brackets = self.medication_days.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("\"", "").replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
-
-    # def medication_days_to_list(self):
-    #     return str(self.medication_days).split(",")
-
-    def medication_days_to_string(self):
-        return " ".join(self.medication_days).replace(" ", ", ")
-
-    # def medication_hours_to_list(self):
-    #     return str(self.medication_hours).split(",")
+        return self.medication_days.split(",")
 
     def medication_hours_to_list(self):
-        """Return field values as a list."""
+        """Return field value as a list."""
         if not self.medication_hours:
             return []
-        no_brackets = self.medication_hours.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("\"", "").replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.medication_hours.split(",")
 
-    def medication_hours_to_string(self):
-        return " ".join(self.medication_hours).replace(" ", ", ")
+    # No need to use clean method for medication_days field due to clean_medication_days method in forms.py
+    # def clean(self):
+    #     """Converts data from MultipleChoiceField in forms to plain string with comma
+    #     separated values for CharField in model."""
+    #     if self.medication_days == [] or self.medication_days =="[]":
+    #         self.medication_days = None
+    #     elif self.medication_days:
+    #         no_brackets = self.medication_days.replace("[", "").replace("]", "")
+    #         no_quotation = no_brackets.replace("\"", "").replace("'", "")
+    #         no_free_spaces = no_quotation.replace(" ", "")
+    #         self.medication_days = no_free_spaces
 
-    def clean(self):
-        if not self.medication_days:
-            self.medication_days = []
-        elif self.medication_days:
-            self.medication_days = self.medication_days.split(",")
-        if not self.medication_frequency in MedicationFrequency.values:
+    def save(self, *args, **kwargs):
+        """In case save method will drop polish letters (eg. during dumping and loading
+        database as json file) - model will verify if selected chioices are the same as
+        those available for specific field."""
+        if self.medication_frequency and self.medication_frequency not in MedicationFrequency.values:
             raise ValidationError(_("Błędna wartość pola 'Częstotliwość przyjmowania leków' (%s). "
                                     "Sprawdź czy polskie znaki nie zostały zastąpione "
                                     "innymi znakami." % self.medication_frequency))
-    def save(self, *args, **kwargs):
+        if self.medication_days:
+            if not all(element in MedicationDays.values for element in self.medication_days_to_list()):
+                raise ValidationError(
+                    _("Błędna wartość pola 'Dni przyjmowania leków' (%s). "
+                      "Sprawdź czy polskie znaki nie zostały zastąpione innymi znakami."
+                      % self.medication_days))
         self.full_clean()
         return super().save(*args, **kwargs)
 

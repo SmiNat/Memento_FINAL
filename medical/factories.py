@@ -45,7 +45,7 @@ class MedicineFactory(DjangoModelFactory):
     medication_days = "Poniedziałek,Środa,Czwartek,Sobota"
     medication_frequency = MedicationFrequency.EVERY_DAY
     exact_frequency = Faker("text", max_nb_chars=10)
-    medication_hours = ["8:00", "20:00"]
+    medication_hours = "8:00,20:00"
     start_date = datetime.date(2020, 1, 1)
     end_date = datetime.date(2021, 1, 1)
     disease = "Asthma"

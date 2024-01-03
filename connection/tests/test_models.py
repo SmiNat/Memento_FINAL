@@ -197,6 +197,17 @@ class CounterpartyTests(TestCase):
         self.assertEqual(len(self.test_counterparty.attachments()),
                          test_attachments)
 
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.counterparty.access_granted = "Brak dostępu"
+        self.counterparty.save()
+        self.assertEqual(self.counterparty.access_granted, "Brak dostępu")
+        # test incorrect access_granted
+        self.counterparty.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.counterparty.save()
+
 
 class AttachmentTests(TestCase):
     """Test model Attachment."""
@@ -485,3 +496,14 @@ class AttachmentTests(TestCase):
         self.assertEqual(Attachment.objects.count(), 2)
 
         # shutil.rmtree(path)
+
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct access_granted
+        self.attachment.access_granted = "Brak dostępu"
+        self.attachment.save()
+        self.assertEqual(self.attachment.access_granted, "Brak dostępu")
+        # test incorrect access_granted
+        self.attachment.access_granted = "Brak"
+        with self.assertRaises(ValidationError):
+            self.attachment.save()

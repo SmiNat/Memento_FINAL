@@ -247,21 +247,17 @@ class MedicineFormTests(TestCase):
     def test_medicine_form_error_messages(self):
         """Test if fields have correct error messages."""
         for field in self.fields:
-            if field == "drug_name_and_dose":
-                self.assertEqual(self.form.fields[field].error_messages, {
-                    "required": "To pole jest wymagane.",
-                })
-            elif field == "daily_quantity":
-                self.assertEqual(self.form.fields[field].error_messages, {
-                    "required": "To pole jest wymagane.",
-                    "invalid": "Wpisz liczbę całkowitą."
-                })
-            elif field == "medication_days" or field == "medication_hours":
+            if field == "medication_days" or field == "medication_hours":
                 self.assertEqual(self.form.fields[field].error_messages, {
                     "required": "To pole jest wymagane.",
                     "invalid_choice": "Wybierz poprawną wartość. %(value)s "
                                       "nie jest żadną z dostępnych opcji.",
                     "invalid_list": "Podaj listę wartości."
+                })
+            elif field == "daily_quantity":
+                self.assertEqual(self.form.fields[field].error_messages, {
+                    "required": "To pole jest wymagane.",
+                    "invalid": "Wpisz liczbę."
                 })
             elif field == "start_date" or field == "end_date":
                 self.assertEqual(self.form.fields[field].error_messages, {
@@ -285,7 +281,7 @@ class MedicineFormTests(TestCase):
             "drug_name_and_dose",
             "exact_frequency",
             "disease",
-            "notes"
+            "notes",
         ]
         selectfields = [
             "medication_days",
@@ -308,11 +304,37 @@ class MedicineFormTests(TestCase):
         for field in datefields:
             self.assertEqual(self.form.fields[
                    field].widget.__class__.__name__, "DateInput")
-        self.assertEqual(self.form.fields["daily_quantity"].widget.__class__.__name__,
-                         "NumberInput")
         self.assertEqual(self.form.fields[
                              "medication_frequency"].widget.__class__.__name__,
                          "Select")
+        self.assertEqual(self.form.fields[
+                             "daily_quantity"].widget.__class__.__name__, "NumberInput")
+
+    def test_medicine_clean_medication_days_method(self):
+        """Test that value of medication_days field is cleaned of all unwanted characters
+        and plain values separated with comma as returned in one string."""
+        payload = {
+            "drug_name_and_dose": "New drug, 200",
+            "medication_days": ["Poniedziałek", "Środa", "Sobota"],
+            "daily_quantity": 2,
+        }
+        expected_result = "Poniedziałek,Środa,Sobota"
+        form = MedicineForm(data=payload, drug_names=["Some name"])
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["medication_days"], expected_result)
+
+    def test_medicine_clean_medication_hours_method(self):
+        """Test that value of medication_hours field is cleaned of all unwanted characters
+        and plain values separated with comma as returned in one string."""
+        payload = {
+            "drug_name_and_dose": "New drug, 200",
+            "medication_hours": ["8:30", "10:30", "12:00"],
+            "daily_quantity": 2,
+        }
+        expected_result = "8:30,10:30,12:00"
+        form = MedicineForm(data=payload, drug_names=["Some name"])
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["medication_hours"], expected_result)
 
     def test_medicine_clean_method_not_unique_drug_name_validation(self):
         """Test if clean method validates if drug_name_and_dose field is always
@@ -391,7 +413,7 @@ class MedicineFormTests(TestCase):
         [
             ("Negative number of units", "daily_quantity",
              {"drug_name_and_dose": "Some med", "daily_quantity": -11},
-             "Upewnij się, że ta wartość jest większa lub równa 0."),
+             "Wartość nie może być liczbą ujemną."),
             ("Missing required field: daily_quantity", "daily_quantity",
              {"drug_name_and_dose": "Some med", "daily_quantity": None},
              "To pole jest wymagane."),

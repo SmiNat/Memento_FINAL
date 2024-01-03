@@ -20,7 +20,7 @@ class PaymentFactory(DjangoModelFactory):
     payment_frequency = "Rocznie"
     payment_months = "2,4"
     payment_day = 15
-    payment_value = round(1111.11, 2)
+    payment_value = 1111.11
     notes = "Some payment notes"
     start_of_agreement = datetime.date(2020, 1, 1)
     end_of_agreement = datetime.date(2021, 1, 1)

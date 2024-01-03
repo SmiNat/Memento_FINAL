@@ -73,7 +73,7 @@ class ExpenseList(models.Model):
             ]
 
     def clean(self):
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))
@@ -148,15 +148,15 @@ class ExpenseItem(models.Model):
             yield (field.verbose_name, field.value_to_string(self))
 
     def clean(self):
-        if not self.execution_status in ExecutionStatus.values:
+        if self.execution_status and self.execution_status not in ExecutionStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status wykonania' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.execution_status))
-        if not self.requirement_status in RequirementStatus.values:
+        if self.requirement_status and self.requirement_status not in RequirementStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status wymagania' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.requirement_status))
-        if not self.validity_status in ValidityStatus.values:
+        if self.validity_status and self.validity_status not in ValidityStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status ważności' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.validity_status))
@@ -208,7 +208,7 @@ class ToDoList(models.Model):
         ]
 
     def clean(self):
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))
@@ -273,15 +273,15 @@ class ToDoItem(models.Model):
         ordering = ["due_date"]
 
     def clean(self):
-        if not self.execution_status in ExecutionStatus.values:
+        if self.execution_status and self.execution_status not in ExecutionStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status wykonania' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.execution_status))
-        if not self.requirement_status in RequirementStatus.values:
+        if self.requirement_status and self.requirement_status not in RequirementStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status wymagania' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.requirement_status))
-        if not self.validity_status in ValidityStatus.values:
+        if self.validity_status and self.validity_status not in ValidityStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status ważności' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.validity_status))

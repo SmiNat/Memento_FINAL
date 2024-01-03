@@ -172,6 +172,19 @@ class PaymentFormTests(TestCase):
         self.assertIn("Istnieje już płatność o podanej nazwie w bazie danych. "
                       "Podaj inną nazwę.", form.errors["name"])
 
+    def test_payment_clean_payment_months_method(self):
+        """Test that value of payment_months field is cleaned of all unwanted characters
+        and plain values separated with comma as returned in one string."""
+        payload = {
+            "name": "New pmt",
+            "payment_months": ['1', '3', '5'],  # or [1, 3, 5] as integers
+            "access_granted": "Brak dostępu",
+        }
+        expected_result = "1,3,5"
+        form = PaymentForm(data=payload, payment_names=["Some payment"])
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["payment_months"], expected_result)
+
     def test_payment_clean_method_start_of_agreement_validation(self):
         """
         Test if clean method validates start_of_agreement data type correctly.

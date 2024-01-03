@@ -51,7 +51,9 @@ class PaymentForm(forms.ModelForm):
                 )
 
     def clean_payment_months(self):
-        return ','.join(self.cleaned_data['payment_months'])
+        payment_months = self.cleaned_data.get("payment_months", None)
+        if payment_months:
+            return ",".join(payment_months)
 
     def clean_name(self):
         name = self.cleaned_data["name"]

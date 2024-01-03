@@ -92,10 +92,15 @@ class MedicineForm(forms.ModelForm):
         super(MedicineForm, self).__init__(*args, **kwargs)
 
     def clean_medication_days(self):
-        return ",".join(self.cleaned_data["medication_days"])
+        medication_days = self.cleaned_data.get("medication_days", None)
+        if medication_days:
+            return ",".join(medication_days)
+        # return ",".join(self.cleaned_data["medication_days"])
 
     def clean_medication_hours(self):
-        return ",".join(self.cleaned_data["medication_hours"])
+        medication_hours = self.cleaned_data.get("medication_hours", None)
+        if medication_hours:
+            return ",".join(medication_hours)
 
     def clean_start_date(self):
         start_date = self.cleaned_data.get("start_date", None)

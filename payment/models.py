@@ -64,8 +64,8 @@ class Payment(models.Model):
     payment_day = models.PositiveSmallIntegerField(
         _("Dzień płatności"), choices=PAYMENT_DAY, blank=True, null=True,
     )
-    payment_value = models.DecimalField(
-        _("Wysokość płatności"), max_digits=10, decimal_places=2,
+    payment_value = models.FloatField(
+        _("Wysokość płatności"), max_length=12,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message="Wartość nie może być liczbą ujemną.")
@@ -112,10 +112,7 @@ class Payment(models.Model):
     def payment_months_to_list(self):
         if not self.payment_months:
             return []
-        no_brackets = self.payment_months.replace("[", "").replace("]", "")
-        no_quotation = no_brackets.replace("'", "")
-        plain_list = no_quotation.split(",")
-        return plain_list
+        return self.payment_months.split(",")
 
     def payment_months_to_list_of_names(self):
         if not self.payment_months_to_list():
@@ -127,26 +124,27 @@ class Payment(models.Model):
         return months_by_names
 
     def clean(self):
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))
-        if not self.payment_type in PaymentType.values:
+        if self.payment_type and self.payment_type not in PaymentType.values:
             raise ValidationError(_("Błędna wartość pola 'Grupa opłat' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.payment_type))
-        if not self.payment_method in PaymentMethod.values:
+        if self.payment_method and self.payment_method not in PaymentMethod.values:
             raise ValidationError(_("Błędna wartość pola 'Sposób płatności' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.payment_method))
-        if not self.payment_status in PaymentStatus.values:
+        if self.payment_status and self.payment_status not in PaymentStatus.values:
             raise ValidationError(_("Błędna wartość pola 'Status płatności' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.payment_status))
-        if not self.payment_frequency in PaymentFrequency.values:
+        if self.payment_frequency and self.payment_frequency not in PaymentFrequency.values:
             raise ValidationError(_("Błędna wartość pola 'Częstotliwość płatności' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.payment_frequency))
 
     def save(self, *args, **kwargs):
+        self.full_clean()
         return super().save(*args, **kwargs)

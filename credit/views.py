@@ -2129,6 +2129,10 @@ class CreditSchedule():
         # Initially received credit amount
         if self.credit.tranches_in_credit == _("Nie"):
             initial_balance = self.credit.credit_amount
+        elif (self.credit.tranches_in_credit == _("Tak")
+              and not CreditTranche.objects.filter(credit=self.credit).exists()):
+            raise ValueError(_("Brak możliwości wyznaczenia wartości początkowej kredytu."
+                                   " Uzupełnij wpierw transze kredytu."))
         else:
             first_tranche = CreditTranche.objects.filter(credit=self.credit).order_by("tranche_date")[0]
             if first_tranche:

@@ -58,7 +58,9 @@ class BasicTests(TransactionTestCase):
 
     def test_payment_id_is_uuid(self):
         """Test if id is represented as uuid"""
-        self.assertTrue(isinstance(uuid.UUID(self.payment.id), uuid.UUID))
+        self.assertTrue(isinstance(self.payment.id, uuid.UUID))
+        self.assertEqual(self.payment.id, uuid.UUID(str(self.payment.id)))
+        # self.assertTrue(isinstance(uuid.UUID(self.payment.id), uuid.UUID))
 
     def test_unique_constraint_for_payment_name(self):
         """Test if user can only have payment with unique names."""
@@ -80,7 +82,7 @@ class BasicTests(TransactionTestCase):
         self.assertNotEqual(payment_test1.id, payment_test2.id, self.payment.id)
 
         # Incorrect
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             PaymentFactory(
                     user=self.user,
                     name="setup payment",
@@ -90,7 +92,7 @@ class BasicTests(TransactionTestCase):
         """Test if creating an instance without required fields raises Error."""
         self.assertEqual(Payment.objects.all().count(), 2)
         # Payment without user field
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             Payment.objects.create(name="testname",)
         self.assertEqual(Payment.objects.all().count(), 2)
         # Payment without name field    --> for some reason instance is created (ERROR)
@@ -124,15 +126,62 @@ class BasicTests(TransactionTestCase):
             elif all_values[number]:
                 self.assertEqual(value, str(all_values[number]))
 
-    def test_payment_months_to_list(self):
+    def test_payment_months_to_list_method(self):
         """Test if payment_months_to_list returns list of months represented by string numbers."""
         new_payment = Payment.objects.create(user=self.user, name="new pmt", payment_months="2,5,9")
         self.assertEqual(new_payment.payment_months, "2,5,9")
         self.assertEqual(new_payment.payment_months_to_list(), ["2", "5", "9"])
         self.assertNotEqual(new_payment.payment_months_to_list(), ["2, 5, 9"])
 
-    def test_payment_months_to_list_of_names(self):
+    def test_payment_months_to_list_of_names_method(self):
         """Test if payment_months_to_list_of_names returns list of names of months represented."""
         new_payment = Payment.objects.create(user=self.user, name="new pmt", payment_months="2,5,9")
         self.assertEqual(new_payment.payment_months, "2,5,9")
         self.assertEqual(new_payment.payment_months_to_list_of_names(), ["Luty", "Maj", "Wrzesień"])
+
+    def test_validate_choices(self):
+        """Test if clean method validates choices before saving instance in database."""
+        # test correct payment_frequency
+        self.payment.payment_frequency = "Kwartalnie"
+        self.payment.save()
+        self.assertEqual(self.payment.payment_frequency, "Kwartalnie")
+        # test correct payment_months
+        self.payment.payment_months = "1,3,5"
+        self.payment.save()
+        self.assertEqual(self.payment.payment_months, "1,3,5")
+        # test correct access_granted
+        self.payment.access_granted = "Brak dostępu"
+        self.payment.save()
+        self.assertEqual(self.payment.access_granted, "Brak dostępu")
+        # test correct payment_status
+        self.payment.payment_status = "Zapłacone"
+        self.payment.save()
+        self.assertEqual(self.payment.payment_status, "Zapłacone")
+        # test correct payment_type
+        self.payment.payment_type = "Komunikacja"
+        self.payment.save()
+        self.assertEqual(self.payment.payment_type, "Komunikacja")
+
+        # test incorrect payment_frequency
+        self.payment.payment_frequency = "Inny"
+        with self.assertRaises(ValidationError):
+            self.payment.save()
+        # test incorrect payment_months
+        self.payment.payment_months = ["Styczeń"]
+        with self.assertRaises(ValidationError):
+            self.payment.save()
+        self.payment.payment_months = "Styczeń,Maj"
+        with self.assertRaises(ValidationError):
+            self.payment.save()
+        # test incorrect access_granted
+        self.payment.access_granted = "Inny"
+        with self.assertRaises(ValidationError):
+            self.payment.save()
+        # test incorrect payment_status
+        self.payment.payment_status = "Inny"
+        with self.assertRaises(ValidationError):
+            self.payment.save()
+        # test incorrect payment_type
+        self.payment.payment_type = "Inny"
+        with self.assertRaises(ValidationError):
+            self.payment.save()

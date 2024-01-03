@@ -167,6 +167,7 @@
 						</tbody>
 				</table>
 			</div>
+			<br>
 		{% endfor %}
 		<div>
 			<small><a href="{% url 'trip:add-trip-basic' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel4('xlsx')">[Eksportuj tabelę]</button></small>
@@ -234,6 +235,7 @@
 						</tbody>
 				</table>
 			</div>
+			<br>
 		{% endfor %}
 		<div>
 			<small><a href="{% url 'trip:add-trip-advanced' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel5('xlsx')">[Eksportuj tabelę]</button></small>
@@ -271,6 +273,7 @@
 				</tbody>
 			</table>
 		</div>
+		<br>
 	<div>
 		<small><a href="{% url 'trip:add-trip-personal-checklist' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel6('xlsx')">[Eksportuj tabelę]</button></small>
 	</div>

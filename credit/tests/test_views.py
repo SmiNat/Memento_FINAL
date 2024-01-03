@@ -165,6 +165,11 @@ class BasicUrlsTests(TestCase):
              "args": [str(self.credit.slug)],
              "name": "access-to-credit-schedule",
              "template": "credit/credit_repayment_schedule.html"},
+
+            {"page": "credit:download-credit",
+             "args": [str(self.credit.id)],
+             "name": "download-credit",
+             "template": ""},
         ]
 
     @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
@@ -191,7 +196,7 @@ class BasicUrlsTests(TestCase):
             response_page = self.client.get(
                 reverse(page["page"], args=page["args"]))
             self.assertEqual(response_page.status_code, 200)
-            self.assertEqual(str(response_page.context["user"]), "johndoe123")
+            self.assertIn("_auth_user_id", self.client.session)
 
     @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def test_view_uses_correct_template(self):
@@ -200,6 +205,8 @@ class BasicUrlsTests(TestCase):
         # Test for authenticated user
         self.client.force_login(self.user)
         for page in self.pages:
+            if page["page"] == "credit:download-credit":
+                continue
             response = self.client.get(
                 reverse(page["page"], args=page["args"]))
             self.assertTemplateUsed(response, page["template"])
@@ -441,6 +448,115 @@ class AccessCreditScheduleUrlsTests(TestCase):
                       f"prawidłowego harmonogramu.",
                       str(messages[0]))
         self.assertIn("Saldo", response_page.content.decode())
+
+
+class DownloadCreditTests(TestCase):
+    """Test if user can download credit schedule."""
+
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
+    def setUp(self):
+        if not os.path.exists(settings.TEST_ROOT):
+            os.mkdir(settings.TEST_ROOT)
+
+        self.user = UserFactory(
+            username="johndoe123", email="jd@example.com", password="testpass456")
+        self.profile = Profile.objects.get(user=self.user)
+
+        self.credit = CreditFactory(user=self.user)
+        self.tranche = CreditTrancheFactory(user=self.user, credit=self.credit)
+
+        self.interest_rate = CreditInterestRateFactory(
+            user=self.user, credit=self.credit)
+        self.insurance = CreditInsuranceFactory(
+            user=self.user, credit=self.credit)
+        self.collateral = CreditCollateralFactory(
+            user=self.user, credit=self.credit)
+        self.cost = CreditAdditionalCostFactory(
+            user=self.user, credit=self.credit)
+        self.repayment = CreditEarlyRepaymentFactory(
+            user=self.user, credit=self.credit)
+
+        self.test_user = User.objects.create_user(
+            username="testuser123", email="test@example.com", password="testpass456")
+        self.test_credit = CreditFactory(
+            user=self.test_user, name="test credit",
+            credit_amount=120000, capital_installment=2000)
+        self.test_tranche = CreditTrancheFactory(
+            user=self.test_user, credit=self.test_credit)
+        self.test_insurance = CreditInsuranceFactory(
+            user=self.test_user, credit=self.test_credit)
+        self.test_cost = CreditAdditionalCostFactory(
+            user=self.test_user, credit=self.test_credit, cost_amount=12345)
+
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
+    def tearDown(self):
+        if os.path.exists(settings.TEST_ROOT):
+            shutil.rmtree(settings.TEST_ROOT)
+
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
+    def test_download_credit_302_redirect_if_unauthorized(self):
+        """Test if download_credit page is unavailable for
+        unauthenticated user (user is redirected to login page)."""
+        response_get = self.client.get(
+            reverse("credit:download-credit",
+                    args=[self.credit.id]))
+        self.assertNotIn("_auth_user_id", self.client.session)
+        self.assertNotIn("johndoe123", response_get.content.decode())
+        self.assertEqual(response_get.status_code, 302)
+        self.assertTrue(response_get.url.startswith("/login/"))
+
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
+    def test_download_credit_200_if_logged_in(self):
+        """Test if download_credit page return status code 200 for authenticated user."""
+        self.client.force_login(self.user)
+        response_get = self.client.get(
+            reverse("credit:download-credit",
+                    args=[self.credit.id]))
+        self.assertEqual(response_get.status_code, 200)
+
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
+    def test_download_credit_forced_logout_if_security_breach(self):
+        """Attempt to download credit of another user is forbidden and triggers logout."""
+
+        # Attempt to download credit owned by self.test_user by
+        # self.test_user (successful response)
+        self.client.force_login(self.test_user)
+        response_get = self.client.get(
+            reverse("credit:download-credit",
+                    args=[self.test_credit.id]),
+            follow=True)
+        self.assertEqual(response_get.status_code, 200)
+        path = os.path.join(settings.MEDIA_ROOT, str(str(self.test_user.id) +"_credit"), "credit.xlsx")
+        self.assertTrue(os.path.exists(path))
+        self.client.logout()
+
+        # Attempt to download credit of self.test_user by self.user (forbidden -> logout)
+        if os.path.exists(settings.TEST_ROOT):
+            shutil.rmtree(settings.TEST_ROOT)
+        self.client.force_login(self.user)
+        response_get = self.client.get(
+            reverse("credit:download-credit",
+                    args=[self.test_credit.id]),
+            follow=True)
+
+        self.assertRedirects(
+            response_get,
+            reverse("login"),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
+        path = os.path.join(settings.MEDIA_ROOT, str(str(self.test_user.id) +"_credit"), "credit.xlsx")
+        self.assertFalse(os.path.exists(path))
+        messages = list(response_get.context["messages"])
+        self.assertEqual(len(messages), 1)
+        self.assertIn("Nie masz uprawnień do tych danych.",
+                      str(messages[0]))
+
+        response_redirect = self.client.get(reverse("login"))
+        self.assertNotIn(str(self.user),
+                         response_redirect.content.decode())
+
 
 class CreditTests(TestCase):
     """Test Credit views."""

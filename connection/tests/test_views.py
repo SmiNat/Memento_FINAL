@@ -123,26 +123,6 @@ class BasicUrlsTests(TestCase):
             self.assertIn("_auth_user_id", self.client.session)
 
     @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
-    def test_view_url_accessible_by_name_for_unauthenticated_user(self):
-        """Test if view url is accessible by its name
-        and returns redirect (302) for unauthenticated user."""
-        for page in self.pages:
-            response_page = self.client.get(
-                reverse(page["page"], args=page["args"]))
-            self.assertEqual(response_page.status_code, 302)
-
-    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
-    def test_view_url_accessible_by_name_for_authenticated_user(self):
-        """Test if view url is accessible by its name
-         and returns desired page (200) for authenticated user."""
-        self.client.force_login(self.user)
-        for page in self.pages:
-            response_page = self.client.get(
-                reverse(page["page"], args=page["args"]))
-            self.assertEqual(response_page.status_code, 200)
-            self.assertIn("_auth_user_id", self.client.session)
-
-    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def test_view_uses_correct_template(self):
         """Test if response returns correct page template."""
 
@@ -1121,7 +1101,7 @@ class AttachmentTests(TestCase):
 
     @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def test_download_attachment_302_redirect_if_unauthorized(self):
-        """ Test if download_attachment page is unavailable for
+        """Test if download_attachment page is unavailable for
         unauthenticated user (user is redirected to login page)."""
         response_get = self.client.get(
             reverse("connection:download-attachment",
@@ -1153,6 +1133,7 @@ class AttachmentTests(TestCase):
             reverse("connection:download-attachment",
                     args=[self.test_user.profile.slug, self.test_attachment.id]),
             follow=True)
+        self.assertEqual(response_get.status_code, 200)
         self.client.logout()
 
         # Attempt to download attachment of self.test_user by self.user (forbidden -> logout)

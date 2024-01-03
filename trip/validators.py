@@ -9,7 +9,10 @@ logger = logging.getLogger("all")
 
 
 class ValidateChoices():
-    """Verifies if user choose from correct list of choices."""
+    """
+    Verifies if model's field values are selected from correct list of choices.
+    Usad mainly for validation of MultiSelectField (external library) used in model fields.
+    """
 
     def __init__(self, choices: list, fields: list):
         self.choices = choices

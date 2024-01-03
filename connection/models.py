@@ -142,7 +142,7 @@ class Counterparty(models.Model):
         return queryset
 
     def clean(self):
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))
@@ -288,7 +288,7 @@ class Attachment(models.Model):
             shutil.rmtree(path)
 
     def clean(self):
-        if not self.access_granted in Access.values:
+        if self.access_granted not in Access.values:
             raise ValidationError(_("Błędna wartość pola 'Dostęp do danych' (%s). Sprawdź czy "
                                     "polskie znaki nie zostały zastąpione innymi znakami."
                                     % self.access_granted))

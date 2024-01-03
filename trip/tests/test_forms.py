@@ -144,6 +144,19 @@ class TripFormTests(TestCase):
         self.assertEqual(self.form.fields["access_granted"].widget.__class__.__name__,
                          "Select")
 
+    def test_trip_clean_type_method(self):
+        """Test that value of type field is cleaned of all unwanted characters
+        and plain values separated with comma as returned in one string."""
+        payload = {
+            "name": "New trip",
+            "type": ["Wyjazd na rower", "Wyjazd służbowy", "Inny"],
+            "access_granted": "Brak dostępu"
+        }
+        expected_result = "Wyjazd na rower,Wyjazd służbowy,Inny"
+        form = TripForm(data=payload, trip_names=["Test name"])
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["type"], expected_result)
+
     def test_trip_clean_method_start_date_validation(self):
         """
         Test if clean method validates start_date data type correctly.
@@ -506,7 +519,34 @@ class TripBasicFormTests(TestCase):
             self.assertEqual(self.form.fields[
                        choicefield].widget.__class__.__name__, "CheckboxSelectMultiple")
 
-    def test_trip_clean_method_name_validation(self):
+    def test_trip_basic_clean_method_for_saving_list_as_a_string(self):
+        """Test that value of type field is cleaned of all unwanted characters
+        and plain values separated with comma as returned in one string."""
+        payload = {
+            "trip": self.trip.trip,
+            "name": "Basic trip",
+            "wallet": ["Winiety", "Waluta", "Ubezpieczenie"],
+            "keys": ["Rower", "Bagażnik"],
+            "cosmetics": None,
+            "electronics": ["Kable", "Laptop", "Mysz"],
+            "useful_stuff": ["Parasol"],
+            "basic_drugs": "wit. c, apap",
+            "additional_drugs": None,
+        }
+        expected_result_wallet = "Winiety,Waluta,Ubezpieczenie"
+        expected_result_keys = "Rower,Bagażnik"
+        expected_result_cosmetics = None
+        expected_result_electronics = "Kable,Laptop,Mysz"
+        expected_result_useful_stuff = "Parasol"
+        form = TripBasicChecklistForm(data=payload, trip_names=["Test name"])
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["wallet"], expected_result_wallet)
+        self.assertEqual(form.cleaned_data["keys"], expected_result_keys)
+        self.assertEqual(form.cleaned_data["cosmetics"], expected_result_cosmetics)
+        self.assertEqual(form.cleaned_data["electronics"], expected_result_electronics)
+        self.assertEqual(form.cleaned_data["useful_stuff"], expected_result_useful_stuff)
+
+    def test_trip_basic_clean_method_name_validation(self):
         """Test if clean method validates is name field is always unique for one user."""
         payload = {
             "name": "Test name",
@@ -676,6 +716,37 @@ class TripAdvancedFormTests(TestCase):
         form = TripAdvancedChecklistForm(data=payload, trip_names=["Test name"])
         self.assertFalse(form.is_valid())
         self.assertIn(error_msg, form.errors[field])
+
+    def test_trip_advanced_clean_method_for_saving_list_as_a_string(self):
+        """Test that value of type field is cleaned of all unwanted characters
+        and plain values separated with comma as returned in one string."""
+        payload = {
+            "trip": self.trip.trip,
+            "name": "Advanced trip",
+            "trekking": ["Mapy", "Siedzisko", "Kask"],
+            "hiking": ["Liny", "Magnezja"],
+            "cycling": None,
+            "camping": ["Namiot", "Śpiwór", "Karimata"],
+            "fishing": ["Przynęty"],
+            "sunbathing": ["Klapki"],
+            "business": None,
+        }
+        expected_result_trekking = "Mapy,Siedzisko,Kask"
+        expected_result_hiking = "Liny,Magnezja"
+        expected_result_cycling = None
+        expected_result_camping = "Namiot,Śpiwór,Karimata"
+        expected_result_fishing = "Przynęty"
+        expected_result_sunbathing = "Klapki"
+        expected_result_business = None
+        form = TripAdvancedChecklistForm(data=payload, trip_names=["Test name"])
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["trekking"], expected_result_trekking)
+        self.assertEqual(form.cleaned_data["hiking"], expected_result_hiking)
+        self.assertEqual(form.cleaned_data["cycling"], expected_result_cycling)
+        self.assertEqual(form.cleaned_data["camping"], expected_result_camping)
+        self.assertEqual(form.cleaned_data["fishing"], expected_result_fishing)
+        self.assertEqual(form.cleaned_data["sunbathing"], expected_result_sunbathing)
+        self.assertEqual(form.cleaned_data["business"], expected_result_business)
 
 
 class TripPersonalChecklistFormTests(TestCase):

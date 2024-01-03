@@ -8,6 +8,7 @@
             <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
             <p><a href="{% url 'renovation:add-renovation' %}">[Dodaj remont]</a></p>
         {% else %}
+            <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji i możliwości.</h5>
 
             <div class="order_by">
                 <form action="{% url 'renovation:renovations' %}">
@@ -29,7 +30,6 @@
                     <thead>
                         <tr>
                             <td>Nazwa</td>
-    <!--                        <td>Opis</td>-->
                             <td style="border-left: 1px dashed #136568; text-align:center;">Szacunkowy koszt remontu</td>
                             <td style="text-align:center;">Poniesione koszty remontu</td>
                             <td style="border-left: 1px dashed #136568; text-align:center;">Rozpoczęcie remontu</td>
@@ -44,7 +44,6 @@
                         {% for renovation in renovations %}
                         <tr>
                             <td>{{ renovation.name }}</td>
-    <!--                        <td>{{ renovation.description|default_if_none:"-&#45;&#45;" }}</td>-->
                             <td style="text-align:center; border-left: 1px dashed #F9F1CF">{{ renovation.estimated_cost|default_if_none:"---" }}</td>
                             <td style="text-align:center;">{{ renovation.get_all_costs|default_if_none:"---" }}</td>
                             <td style="border-left: 1px dashed #F9F1CF; text-align:center;">{{ renovation.start_date|default_if_none:"---" }}</td>
