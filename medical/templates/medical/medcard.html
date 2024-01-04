@@ -84,8 +84,8 @@
 
             <div class="small">
                 <small>
-                    <a href="{% url 'medical:edit-medcard' medcard.id %}">[Aktualizuj kartę]</a> |
                     <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
+                    <a href="{% url 'medical:edit-medcard' medcard.id %}">[Aktualizuj kartę]</a> |
                     <a href="{% url 'medical:delete-medcard' medcard.id %}">[Usuń kartę]</a></small>
             </div>
             <br>
@@ -101,7 +101,7 @@
                 </small>
             </div>
             <div>
-                <small>Data utworzenia informacji o leku: {{ medcard.created }}.</small>
+                <small>Data utworzenia karty medycznej: {{ medcard.created }}.</small>
             </div>
         {% endif %}
     </div>

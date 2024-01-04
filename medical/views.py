@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.core.validators import ValidationError
+from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
@@ -161,19 +162,46 @@ def medicines(request):
         return redirect("login")
     page = "medicines-page"
     profile = request.user.profile
+
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in Medicine.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
+
     try:
         medcard = MedCard.objects.get(user=request.user)
     except MedCard.DoesNotExist:
         medcard = None
     try:
-        medicines = Medicine.objects.filter(user=request.user).order_by(order)
+        all_medicines = Medicine.objects.filter(user=request.user).order_by(order)
     except Medicine.DoesNotExist:
-        medicines = None
+        all_medicines = None
+
+    # Searching engine - search through selected fields
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query:
+        medicines = Medicine.objects.filter(
+            user=request.user).filter(
+                Q(drug_name_and_dose__icontains=search_query) |
+                # Q(medication_frequency__icontains=search_query) |
+                Q(disease__icontains=search_query)
+                ).order_by(order)
+        if not medicines:
+            medicines = all_medicines
+            messages.info(request, _("Brak danych spełniających wyszukiwane kryteria."))
+    else:
+        medicines = all_medicines
+
     context = {
         "page": page,
+        "all_medicines": all_medicines,
         "medicines": medicines,
         "medcard": medcard,
         "profile": profile
@@ -345,20 +373,45 @@ def medical_visits(request):
         return redirect("login")
     page = "medical-visits-page"
     profile = request.user.profile
+
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in MedicalVisit.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
+
     try:
         medcard = MedCard.objects.get(user=request.user)
     except MedCard.DoesNotExist:
         medcard = None
     try:
-        visits = MedicalVisit.objects.filter(user=request.user).order_by(order)
+        all_visits = MedicalVisit.objects.filter(user=request.user).order_by(order)
     except MedicalVisit.DoesNotExist:
-        visits = None
+        all_visits = None
+
+    # Searching engine - search through selected fields
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query:
+        visits = MedicalVisit.objects.filter(
+            user=request.user).filter(
+                Q(specialization__icontains=search_query) | Q(doctor__icontains=search_query)
+                ).order_by(order)
+        if not visits:
+            visits = all_visits
+            messages.info(request, _("Brak danych spełniających wyszukiwane kryteria."))
+    else:
+        visits = all_visits
+
     context = {
         "page": page,
         "profile": profile,
+        "all_visits": all_visits,
         "visits": visits,
         "medcard": medcard
     }
@@ -543,20 +596,47 @@ def test_results(request):
         return redirect("login")
     page = "test-results"
     profile = request.user.profile
+
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in HealthTestResult.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
+
     try:
         medcard = MedCard.objects.get(user=request.user)
     except MedCard.DoesNotExist:
         medcard = None
     try:
-        test_results = HealthTestResult.objects.filter(
+        all_test_results = HealthTestResult.objects.filter(
             user=request.user).order_by(order)
     except HealthTestResult.DoesNotExist:
-        test_results = None
+        all_test_results = None
+
+    # Searching engine - search through selected fields
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query:
+        test_results = HealthTestResult.objects.filter(
+            user=request.user).filter(
+                Q(name__icontains=search_query) |
+                Q(test_result__icontains=search_query) |
+                Q(disease__icontains=search_query)
+                ).order_by(order)
+        if not test_results:
+            test_results = all_test_results
+            messages.info(request, _("Brak danych spełniających wyszukiwane kryteria."))
+    else:
+        test_results = all_test_results
+
     context = {
         "page": page,
+        "all_test_results": all_test_results,
         "test_results": test_results,
         "medcard": medcard,
         "profile": profile

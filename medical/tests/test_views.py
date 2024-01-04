@@ -971,13 +971,6 @@ class MedicineTests(TestCase):
               "end_date": datetime.date(2020, 1, 1)},
              "Data zakończenia przyjmowania leku nie może przypadać "
              "wcześniej niż data rozpoczęcia przyjmowania leku"),
-            ("Incorrect medication_hours field",
-             {"drug_name_and_dose": "new drug name", "daily_quantity": 1,
-              "medication_hours": "8,11"},
-             "Wystąpił błąd podczas zapisu formularza. Sprawdź poprawność danych."),
-            ("Incorrect daily_quantity field - negative value is not allowed",
-             {"drug_name_and_dose": "new drug name", "daily_quantity": -2},
-             "Wartość nie może być liczbą ujemną."),
         ]
     )
     def test_add_medicine_unsuccessful_with_incorrect_data(

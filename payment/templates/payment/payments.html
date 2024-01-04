@@ -1,6 +1,12 @@
 {% extends 'main.html' %}
 
 {% block content %}
+{% if payments %}
+    <div class="content">
+        <small>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli by uzyskać więcej informacji.</small>
+    </div>
+{% endif %}
+
     <div class="content">
         <div class="grid_display">
             <h2>Podsumowanie płatności</h2>
@@ -9,24 +15,28 @@
                 <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
                 <p><a href="{% url 'payment:add-payment' %}">[Dodaj płatność]</a></p>
             {% else %}
-                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji.</h5>
 
-                <div class="order_by">
-                    <form action="{% url 'payment:payments' %}">
-                        <div>Sortuj:</div>
-                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
-                            <option value="-updated">---</option>
-                            <option value="name">Nazwa (od A do Z)</option>
-                            <option value="-name">Nazwa (od Z do A)</option>
-                            <option value="payment_type">Grupa opłat (od A do Z)</option>
-                            <option value="-payment_type">Grupa opłat (od Z do A)</option>
-                            <option value="payment_frequency">Częstotliwość płatności (od A do Z)</option>
-                            <option value="-payment_frequency">Częstotliwość płatności (od Z do A)</option>
-                            <option value="payment_value">Wysokość płatności (rosnąco)</option>
-                            <option value="-payment_value">Wysokość płatności (malejąco)</option>
-                        </select>
-                    </form>
-                </div>
+                {% if all_payments|length > 5 %}
+                    <div class="order_search">
+                        <form action="{% url 'payment:payments' %}">
+                            <div>Sortuj tabelę:</div>
+                            <select id="sort_main_table" name="sort_data">
+                                <option value="-updated">---</option>
+                                <option value="name">Nazwa (od A do Z)</option>
+                                <option value="-name">Nazwa (od Z do A)</option>
+                                <option value="payment_type">Grupa opłat (od A do Z)</option>
+                                <option value="-payment_type">Grupa opłat (od Z do A)</option>
+                                <option value="payment_frequency">Częstotliwość płatności (od A do Z)</option>
+                                <option value="-payment_frequency">Częstotliwość płatności (od Z do A)</option>
+                                <option value="payment_value">Wysokość płatności (rosnąco)</option>
+                                <option value="-payment_value">Wysokość płatności (malejąco)</option>
+                            </select>
+                            <p style="margin-left: 10px;">i/lub szukaj według frazy*:</p>
+                            <input type="search" name="q" placeholder="Wpisz wyraz lub liczbę całkowitą" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz wyraz lub liczbę całkowitą'">
+                            <button type="submit">Zastosuj</button>
+                        </form>
+                    </div>
+                {% endif %}
 
                 <div class="basic_table">
                     <table id="tbl_exporttable_to_xls">
@@ -78,7 +88,10 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <div class="footnote">*ODM = Ostatni Dzień Miesiąca</div>
+                    <div class="footnote">
+                        *ODM = Ostatni Dzień Miesiąca
+                        {% if all_payments|length > 5 %}<br>* Przeszukiwane kolumny: nazwa, grupa opłat, częstotliwość płatności (szukana kwota większa lub równa wskazanej).{% endif %}
+                    </div>
                 </div>
                 <p><a href="{% url 'payment:add-payment' %}">[Dodaj płatność]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
             {% endif %}

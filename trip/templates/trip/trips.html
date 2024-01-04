@@ -1,6 +1,12 @@
 {% extends 'main.html' %}
 
 {% block content %}
+{% if trips %}
+    <div class="content">
+        <small>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli by uzyskać więcej informacji.</small>
+    </div>
+{% endif %}
+
 <div class="content">
 	<div class="grid_display">
 		<h2>Podsumowanie wyjazdów</h2>
@@ -8,24 +14,28 @@
             <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
             <p><a href="{% url 'trip:add-trip' %}">[Dodaj podróż]</a></p>
         {% else %}
-            <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji i możliwości.</h5>
 
-            <div class="order_by">
-                <form action="{% url 'trip:trips' %}">
-                    <div>Sortuj:</div>
-                    <select id="sort_main_table" name="sort_data" onchange="form.submit()">
-                        <option value="-updated">---</option>
-                        <option value="name">Nazwa (od A do Z)</option>
-                        <option value="-name">Nazwa (od Z do A)</option>
-                        <option value="destination">Miejsce podróży (od A do Z)</option>
-                        <option value="-destination">Miejsce podróży (od Z do A)</option>
-                        <option value="start_date">Rozpoczęcie podróży (od najstarszych)</option>
-                        <option value="-start_date">Rozpoczęcie podróży (od najnowszych)</option>
-                        <option value="estimated_cost">Szacunkowy koszt (rosnąco)</option>
-                        <option value="-estimated_cost">Szacunkowy koszt (malejąco)</option>
-                    </select>
-                </form>
-            </div>
+            {% if all_trips|length > 5 %}
+                <div class="order_search">
+                    <form action="{% url 'trip:trips' %}">
+                        <div>Sortuj tabelę:</div>
+                        <select id="sort_main_table" name="sort_data">
+                            <option value="-updated">---</option>
+                            <option value="name">Nazwa (od A do Z)</option>
+                            <option value="-name">Nazwa (od Z do A)</option>
+                            <option value="destination">Miejsce podróży (od A do Z)</option>
+                            <option value="-destination">Miejsce podróży (od Z do A)</option>
+                            <option value="start_date">Rozpoczęcie podróży (od najstarszych)</option>
+                            <option value="-start_date">Rozpoczęcie podróży (od najnowszych)</option>
+                            <option value="estimated_cost">Szacunkowy koszt (rosnąco)</option>
+                            <option value="-estimated_cost">Szacunkowy koszt (malejąco)</option>
+                        </select>
+                        <p style="margin-left: 10px;">i/lub szukaj według frazy*:</p>
+                        <input type="search" name="q" placeholder="Wpisz wyraz lub liczbę całkowitą" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz wyraz lub liczbę całkowitą'">
+                        <button type="submit">Zastosuj</button>
+                    </form>
+                </div>
+            {% endif %}
 
             <div class="basic_table">
                 <table id="tbl_exporttable_to_xls">
@@ -65,6 +75,7 @@
                     </tbody>
                 </table>
             </div>
+            {% if all_trips|length > 5 %}<div class="footnote">* Przeszukiwane kolumny: nazwa, rodzaj lub miejsce podróży oraz szacunkowy koszt podróży (szukana kwota większa lub równa wskazanej).</div>{% endif %}
             <p><a href="{% url 'trip:add-trip' %}">[Dodaj podróż]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
         {% endif %}
     </div>

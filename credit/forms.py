@@ -44,6 +44,9 @@ class CreditForm(forms.ModelForm):
             "access_granted",
             "access_granted_for_schedule",
         ]
+        widgets = {
+            "notes": forms.Textarea(attrs={"class": "textarea_field"}),
+        }
 
     def __init__(self, *args, **kwargs):
         self.credit_names = kwargs.pop("credit_names")

@@ -4,7 +4,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .enums import MedicationDays
-from .models import MedCard, Medicine, MedicalVisit, HealthTestResult, med_hours
+from .models import MedCard, Medicine, MedicalVisit, HealthTestResult
 
 
 class MedCardForm(forms.ModelForm):
@@ -61,12 +61,6 @@ class MedicineForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple(),
         help_text=_("Uzupełnij, jeśli leki przyjmowane są w konkretne dni tygodnia.")
         )
-    medication_hours = forms.MultipleChoiceField(
-        label=_("Godziny przyjmowania leków"),
-        required=False,
-        choices=med_hours(),
-        widget=forms.CheckboxSelectMultiple(),
-        )
 
     class Meta:
         model = Medicine
@@ -96,11 +90,6 @@ class MedicineForm(forms.ModelForm):
         if medication_days:
             return ",".join(medication_days)
         # return ",".join(self.cleaned_data["medication_days"])
-
-    def clean_medication_hours(self):
-        medication_hours = self.cleaned_data.get("medication_hours", None)
-        if medication_hours:
-            return ",".join(medication_hours)
 
     def clean_start_date(self):
         start_date = self.cleaned_data.get("start_date", None)

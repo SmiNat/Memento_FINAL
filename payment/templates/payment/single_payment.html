@@ -10,8 +10,8 @@
 		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 			<thead>
 				<tr>
-					<td style="color: #FAAC18;">Nazwa:</td>
-					<td style="color: #FAAC18;">{{ payment.name }}</td>
+					<td>Nazwa:</td>
+					<td>{{ payment.name }}</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,8 +64,14 @@
 	</div>
 
 	<div>
-		<small><a href="{% url 'payment:payments' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-		<a href="{% url 'payment:edit-payment' payment.id %}">[Aktualizuj dane]</a> | <a href="{% url 'payment:delete-payment' payment.id %}">[Usuń płatność]</a></small>
+		<small>
+			<a href="{% url 'payment:payments' %}">[Powrót]</a> |
+			<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+			<br>
+			<a href="{% url 'payment:edit-payment' payment.id %}">[Aktualizuj dane]</a> |
+			<a href="{% url 'payment:delete-payment' payment.id %}">[Usuń płatność]</a> |
+			<a href="{% url 'payment:add-payment' %}">[Dodaj nową płatność]</a>
+		</small>
 	</div>
 
 	<br>

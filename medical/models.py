@@ -148,10 +148,8 @@ class Medicine(models.Model):
         _("Nazwa leku i dawka"), max_length=255,
         help_text=_("Pole wymagane.")
     )
-    daily_quantity = models.DecimalField(
-        _("Ilość dawek dziennie"), max_digits=4, decimal_places=1,
-        validators=[MinValueValidator(
-            0, message=_("Wartość nie może być liczbą ujemną."))],
+    daily_quantity = models.CharField(
+        _("Ilość dawek dziennie"), max_length=255,
         help_text=_("Pole wymagane."),
     )
     medication_days = models.CharField(
@@ -169,8 +167,7 @@ class Medicine(models.Model):
     exact_frequency = models.CharField(
         _("Co ile dni przyjmowane są leki"), max_length=255,
         null=True, blank=True,
-        help_text=_("Uzupełnij, jeśli wskazano jako częstotliwość "
-                    "'Co kilka dni' lub 'Inne'.")
+        help_text=_("Uzupełnij, jeśli wskazano jako częstotliwość 'Inne'.")
     )
     medication_hours = models.CharField(
         _("Godziny przyjmowania leków"),
@@ -202,6 +199,11 @@ class Medicine(models.Model):
             )
         ]
 
+    @classmethod
+    def field_names(cls) -> list:
+        """Return list of model field names (except for many-to-many fields)."""
+        return list(f.name for f in cls._meta.fields)
+
     def __str__(self):
         return str(self.drug_name_and_dose)
 
@@ -210,17 +212,18 @@ class Medicine(models.Model):
         for field in self._meta.fields:
             yield (field.verbose_name, field.value_to_string(self))
 
-    def medication_days_to_list(self):
+    def medication_days_to_list(self) -> list:
         """Return field value as a list."""
         if not self.medication_days:
             return []
         return self.medication_days.split(",")
 
-    def medication_hours_to_list(self):
-        """Return field value as a list."""
-        if not self.medication_hours:
+    def medication_hours_to_list(self) -> list:
+        """Transfers string into list based on comma or semicolon separator.
+        In case of empty string or string equal to 'None', returns empty list."""
+        if self.medication_hours is None or self.medication_hours == "None":
             return []
-        return self.medication_hours.split(",")
+        return str(self.medication_hours).replace(";", ",").replace(", ", ",").split(",")
 
     # No need to use clean method for medication_days field due to clean_medication_days method in forms.py
     # def clean(self):
@@ -285,6 +288,11 @@ class MedicalVisit(models.Model):
     created = models.DateField(_("Data dodania"), auto_now_add=True)
     updated = models.DateField(_("Data aktualizacji"), auto_now=True)
 
+    @classmethod
+    def field_names(cls) -> list:
+        """Return list of model field names (except for many-to-many fields)."""
+        return list(f.name for f in cls._meta.fields)
+
     def __str__(self):
         return str(self.specialization) + " - " + str(self.visit_date)
 
@@ -332,6 +340,11 @@ class HealthTestResult(models.Model):
     notes = models.TextField(_("Uwagi"), max_length=500, null=True, blank=True,)
     created = models.DateField(_("Data dodania"), auto_now_add=True)
     updated = models.DateField(_("Data aktualizacji"), auto_now=True)
+
+    @classmethod
+    def field_names(cls) -> list:
+        """Return list of model field names (except for many-to-many fields)."""
+        return list(f.name for f in cls._meta.fields)
 
     def __str__(self):
         return str(self.name)

@@ -9,8 +9,8 @@
 		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 			<thead>
 				<tr>
-					<td style="color: #FAAC18;">Nazwa:</td>
-					<td style="color: #FAAC18;">{{ renovation.name }}</td>
+					<td>Nazwa:</td>
+					<td>{{ renovation.name }}</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -52,8 +52,14 @@
 	</div>
 	<div style="clear:both"></div>
 	<div>
-		<small><a href="{% url 'renovation:renovations' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-		<a href="{% url 'renovation:edit-renovation' renovation.id %}">[Aktualizuj dane]</a> | <a href="{% url 'renovation:delete-renovation' renovation.id %}">[Usuń remont]</a></small>
+		<small>
+			<a href="{% url 'renovation:renovations' %}">[Powrót]</a> |
+			<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+			<br>
+			<a href="{% url 'renovation:edit-renovation' renovation.id %}">[Aktualizuj dane]</a> |
+			<a href="{% url 'renovation:delete-renovation' renovation.id %}">[Usuń remont]</a> |
+			<a href="{% url 'renovation:add-renovation' %}">[Dodaj kolejny remont]</a>
+		</small>
 	</div>
 	<br>
 	<div>

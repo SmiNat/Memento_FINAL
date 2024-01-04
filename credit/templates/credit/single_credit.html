@@ -39,8 +39,8 @@
 		<table id="tbl_exporttable_to_xls">
 			<thead>
 				<tr>
-					<td style="color: #FAAC18; border-bottom: 2px solid #F9F1CF;">Nazwa kredytu:</td>
-					<td style="color: #FAAC18; border-bottom: 2px solid #F9F1CF;">{{ credit.name }}</td>
+					<td style="border-bottom: 2px solid #F9F1CF;">Nazwa kredytu:</td>
+					<td style="border-bottom: 2px solid #F9F1CF;">{{ credit.name }}</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -89,8 +89,14 @@
 	<small>*ODM = Ostatni Dzień Miesiąca.</small><br>
 	<small>**Łączna kwota kredytu = kwota kredytu - wkład własny + kredytowana prowizja + kredytowane ubezpieczenia).</small><br>
 	<div>
-		<small><a href="{{request.META.HTTP_REFERER|escape}}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-		<a href="{% url 'credit:edit-credit' credit.id %}">[Aktualizuj dane]</a> | <a href="{% url 'credit:delete-credit' credit.id %}">[Usuń kredyt]</a></small>
+		<small>
+			<a href="{{request.META.HTTP_REFERER|escape}}">[Powrót]</a> |
+			<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+			<br>
+			<a href="{% url 'credit:edit-credit' credit.id %}">[Aktualizuj dane]</a> |
+			<a href="{% url 'credit:delete-credit' credit.id %}">[Usuń kredyt]</a> |
+			<a href="{% url 'credit:add-credit' %}">[Dodaj nowy kredyt]</a>
+		</small>
 	</div>
 	<br>
 	<div>
@@ -172,7 +178,7 @@
 		<div><h3>Łączna wartość wypłaconych transz:</h3></div>
 		<div class="single_table">
 			<table style="max-width: 40%;">
-				<thead>
+				<tbody>
 					<tr>
 						<td>Kwota: {{ credit_tranches_total }}</td>
 						<td style="text-align: right;">{{ credit_tranches_ratio }}% wartości przyznanego kredytu</td>

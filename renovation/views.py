@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
@@ -20,16 +21,40 @@ def renovations(request):
         messages.info(request, "Dostęp tylko dla zalogowanych użytkowników.")
         return redirect("login")
 
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in Renovation.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
 
     try:
-        renovations = Renovation.objects.filter(
+        all_renovations = Renovation.objects.filter(
             user=request.user).order_by(order)
     except Renovation.DoesNotExist:
+        all_renovations = None
+
+    # Searching engine - search by name or value of estimated cost (gte)
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query and (search_query.isdigit() or search_query.isdecimal()):
+        search_query = float(search_query)
+    if isinstance(search_query, float):
+        renovations = Renovation.objects.filter(
+            user=request.user).filter(estimated_cost__gte=search_query).order_by(order)
+    elif search_query:
+        renovations = Renovation.objects.filter(
+            user=request.user).filter(name__icontains=search_query).order_by(order)
+    else:
         renovations = None
-    context = {"renovations": renovations}
+    if not renovations:
+        renovations = all_renovations
+
+    context = {"renovations": renovations, "all_renovations": all_renovations}
     return render(request, "renovation/renovations.html", context)
 
 

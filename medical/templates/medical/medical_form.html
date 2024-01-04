@@ -63,7 +63,7 @@
                         {% endfor %}
                     </fieldset>
                     <br><hr><br>
-                    <fieldset style="border-color: #13656; border-width: 5px;">
+                    <fieldset class="access_form">
                         <legend>Podgląd danych dla wskazanego użytkownika</legend>
                         <small>
                             Uwaga! Udzielenie dostępu oznacza podgląd danych medycznych (dane wrażliwe).<br>
@@ -144,7 +144,15 @@
                         <div class="one_field">
                             <div class="label_field">{{ field.label }}:</div>
                             {% if field.label == 'Godziny przyjmowania leków' %}
-                                {% for element in field %}
+                                <div class="value_field">{{ field }}</div>
+                                {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
+                                {% for error in field.errors %}
+                                    <small style="color: red">{{ error }}</small>
+                                {% endfor %}
+                                <small style="color: #136568; margin-bottom: 75px; font-size: 60%">
+                                    Godziny wpisz w formule HH:MM (np. 11:30) oddzielając je przecinkiem lub średnikiem.
+                                </small>
+                                <!-- {% for element in field %}
                                     {% if forloop.counter < 7 %}
                                     {% else %}
                                     {% if forloop.counter0|divisibleby:6 %}
@@ -152,7 +160,7 @@
                                         {% endif %}
                                     {% endif %}
                                     <div class="inline">{{ element }}</div>
-                                {% endfor %}
+                                {% endfor %} -->
                             {% else %}
 
                             <div class="value_field">{{ field }}</div>

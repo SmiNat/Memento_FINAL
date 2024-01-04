@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
@@ -24,15 +25,41 @@ def trips(request):
         messages.info(request, "Dostęp tylko dla zalogowanych użytkowników.")
         return redirect("login")
 
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in Trip.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
 
     try:
-        trips = Trip.objects.filter(user=request.user).order_by(order)
+        all_trips = Trip.objects.filter(user=request.user).order_by(order)
     except Trip.DoesNotExist:
+        all_trips = None
+
+    # Searching engine - search through selected fields
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query and (search_query.isdigit() or search_query.isdecimal()):
+        search_query = float(search_query)
+    if isinstance(search_query, float):
+        trips = Trip.objects.filter(
+            user=request.user).filter(estimated_cost__gte=search_query).order_by(order)
+    elif search_query:
+        trips = Trip.objects.filter(
+            user=request.user).filter(Q(name__icontains=search_query) |
+                                      Q(type__icontains=search_query) |
+                                      Q(destination__icontains=search_query)).order_by(order)
+    else:
         trips = None
-    context = {"trips": trips}
+    if not trips:
+        trips = all_trips
+
+    context = {"trips": trips, "all_trips": all_trips}
     return render(request, "trip/trips.html", context)
 
 
@@ -55,7 +82,8 @@ def single_trip(request, pk):
     except Attachment.DoesNotExist:
         attachments = None
     try:
-        trip_report = TripReport.objects.filter(trip=trip)
+        order_by = "start_date"
+        trip_report = TripReport.objects.filter(trip=trip).order_by("start_date")
     except TripReport.DoesNotExist:
         trip_report = None
     try:

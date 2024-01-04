@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect, render
@@ -20,16 +21,42 @@ def payments(request):
         messages.info(request, _("Dostęp tylko dla zalogowanych użytkowników."))
         return redirect("login")
 
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in Payment.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
 
     try:
-        payments = Payment.objects.filter(
+        all_payments = Payment.objects.filter(
             user=request.user).order_by(order)
     except Payment.DoesNotExist:
+        all_payments = None
+
+    # Searching engine - search through selected fields
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query and (search_query.isdigit() or search_query.isdecimal()):
+        search_query = float(search_query)
+    if isinstance(search_query, float):
+        payments = Payment.objects.filter(
+            user=request.user).filter(payment_value__gte=search_query).order_by(order)
+    elif search_query:
+        payments = Payment.objects.filter(
+            user=request.user).filter(Q(name__icontains=search_query) |
+                                      Q(payment_type__icontains=search_query) |
+                                      Q(payment_frequency__icontains=search_query)).order_by(order)
+    else:
         payments = None
-    context = {"payments": payments}
+    if not payments:
+        payments = all_payments
+
+    context = {"payments": payments, "all_payments": all_payments}
     return render(request, "payment/payments.html", context)
 
 

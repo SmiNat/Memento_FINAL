@@ -138,8 +138,10 @@ def user_profile(request):
     if access_granted_from_list:
         for access in access_granted_from_list:
             access_granted_emails.append(access.email)
-
     context = {"profile": profile, "access_granted_from": access_granted_emails}
+    users = User.objects.all()
+    for user in users:
+        print("*********", user)
     return render(request, "user/user_profile.html", context)
 
 

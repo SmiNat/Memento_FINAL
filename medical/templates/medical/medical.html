@@ -1,9 +1,16 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="content">
-    <div class="grid_display">
-        {% if page == 'medicines-page' %}
+
+{% if page == 'medicines-page' %}
+    {% if medicines %}
+        <div class="content">
+            <small>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli by uzyskać więcej informacji.</small>
+        </div>
+    {% endif %}
+
+    <div class="content">
+        <div class="grid_display">
             <h2>Przyjmowane leki</h2>
 
             {% if not medcard or medcard.active_permission_medicines == 'Brak dostępu' %}
@@ -17,26 +24,30 @@
             </div>
             {% endif %}
 
-            {% if not medicines %}
+            {% if not all_medicines %}
                 <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
                 <p><a href="{% url 'medical:add-medicine' %}">[Dodaj lek]</a></p>
             {% else %}
-                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji.</h5>
 
-                <div class="order_by">
-                    <form action="{% url 'medical:medicines' %}">
-                        <div>Sortuj:</div>
-                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
-                            <option value="-updated">---</option>
-                            <option value="drug_name_and_dose">Nazwa leku (od A do Z)</option>
-                            <option value="-drug_name_and_dose">Nazwa leku (od Z do A)</option>
-                            <option value="medication_frequency">Częstotliwość przyjmowania (od A do Z)</option>
-                            <option value="-medication_frequency">Częstotliwość przyjmowania (od Z do A)</option>
-                            <option value="disease">Leczona dolegliwość (od A do Z)</option>
-                            <option value="-disease">Leczona dolegliwość (od Z do A)</option>
-                        </select>
-                    </form>
-                </div>
+                {% if all_medicines|length > 5 %}
+                    <div class="order_search">
+                        <form action="{% url 'medical:medicines' %}">
+                            <div>Sortuj tabelę:</div>
+                            <select id="sort_main_table" name="sort_data">
+                                <option value="-updated">---</option>
+                                <option value="drug_name_and_dose">Nazwa leku (od A do Z)</option>
+                                <option value="-drug_name_and_dose">Nazwa leku (od Z do A)</option>
+                                <option value="medication_frequency">Częstotliwość przyjmowania (od A do Z)</option>
+                                <option value="-medication_frequency">Częstotliwość przyjmowania (od Z do A)</option>
+                                <option value="disease">Leczona dolegliwość (od A do Z)</option>
+                                <option value="-disease">Leczona dolegliwość (od Z do A)</option>>
+                            </select>
+                            <p style="margin-left: 10px;">i/lub szukaj według frazy*:</p>
+                            <input type="search" name="q" placeholder="Wpisz nazwę lub jej fragment" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz nazwę lub jej fragment'">
+                            <button type="submit">Zastosuj</button>
+                        </form>
+                    </div>
+                {% endif %}
 
                 <div class="basic_table">
                     <table id="tbl_exporttable_to_xls">
@@ -66,11 +77,21 @@
                         </tbody>
                     </table>
                 </div>
+                {% if all_medicines|length > 5 %}<div class="footnote">* Przeszukiwane kolumny: nazwa leku, leczona dolegliwość.</div>{% endif %}
                 <p><a href="{% url 'medical:add-medicine' %}">[Dodaj lek]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
             {% endif %}
+        </div>
+    </div>
 
+{% elif page == 'medical-visits-page' %}
+    {% if all_visits %}
+        <div class="content">
+            <small>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli by uzyskać więcej informacji.</small>
+        </div>
+    {% endif %}
 
-        {% elif page == 'medical-visits-page' %}
+    <div class="content">
+        <div class="grid_display">
             <h2>Wizyty lekarskie</h2>
 
             {% if not medcard or medcard.active_permission_visits == 'Brak dostępu' %}
@@ -84,26 +105,32 @@
             </div>
             {% endif %}
 
-            {% if not visits %}
+            {% if not all_visits %}
                 <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
                 <p><a href="{% url 'medical:add-visit' %}">[Dodaj wizytę]</a></p>
             {% else %}
-                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji.</h5>
 
-                <div class="order_by">
-                    <form action="{% url 'medical:medical-visits' %}">
-                        <div>Sortuj:</div>
-                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
-                            <option value="-updated">---</option>
-                            <option value="specialization">Specjalizacja (od A do Z)</option>
-                            <option value="-specialization">Specjalizacja (od Z do A)</option>
-                            <option value="doctor">Lekarz (od A do Z)</option>
-                            <option value="-doctor">Lekarz (od Z do A)</option>
-                            <option value="visit_date">Data wizyty (od najnowszych)</option>
-                            <option value="-visit_date">Data wizyty (od najstarszych)</option>
-                        </select>
-                    </form>
-                </div>
+                {% if all_visits|length > 5 %}
+                    <div class="order_search">
+                        <form action="{% url 'medical:medical-visits' %}">
+                            <div>Sortuj tabelę:</div>
+                            <select id="sort_main_table" name="sort_data">
+                                <option value="-updated">---</option>
+                                <option value="specialization">Specjalizacja (od A do Z)</option>
+                                <option value="-specialization">Specjalizacja (od Z do A)</option>
+                                <option value="doctor">Lekarz (od A do Z)</option>
+                                <option value="-doctor">Lekarz (od Z do A)</option>
+                                <option value="visit_location">Lokalizacja (od A do Z)</option>
+                                <option value="-visit_location">Lokalizacja (od Z do A)</option>
+                                <option value="visit_date">Data wizyty (od najnowszych)</option>
+                                <option value="-visit_date">Data wizyty (od najstarszych)</option>
+                            </select>
+                            <p style="margin-left: 10px;">i/lub szukaj według frazy*:</p>
+                            <input type="search" name="q" placeholder="Wpisz nazwę lub jej fragment" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz nazwę lub jej fragment'">
+                            <button type="submit">Zastosuj</button>
+                        </form>
+                    </div>
+                {% endif%}
 
                 <div class="basic_table">
                     <table id="tbl_exporttable_to_xls">
@@ -112,9 +139,9 @@
                                 <td>Specjalizacja</td>
                                 <td>Lekarz</td>
                                 <td>Lokalizacja wizyty</td>
-                                <td style="text-align:center;">Data wizyty</td>
+                                <td>Data wizyty</td>
                                 <td style="text-align:center;">Godzina wizyty</td>
-                                <td>Uwagi</td>
+                                <!-- <td>Uwagi</td> -->
                                 <td style="border-left: 1px dashed #136568;">Szczegóły</td>
                                 <td>Aktualizuj</td>
                                 <td>Usuń</td>
@@ -126,9 +153,9 @@
                                     <td>{{ visit.specialization }}</td>
                                     <td>{{ visit.doctor|default_if_none:"---"|title }}</td>
                                     <td>{{ visit.visit_location|default_if_none:"---" }}</td>
-                                    <td style="text-align:center;">{{ visit.visit_date|default_if_none:"---" }}</td>
+                                    <td>{{ visit.visit_date|default_if_none:"---" }}</td>
                                     <td style="text-align:center;">{{ visit.visit_time|default_if_none:"---" }}</td>
-                                    <td>{% if visit.notes %}{{ visit.notes }}{% else %}---{% endif %}</td>
+                                    <!-- <td>{% if visit.notes %}{{ visit.notes }}{% else %}---{% endif %}</td> -->
                                     <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-visit' visit.id %}">Szczegóły</a></td>
                                     <td><a href="{% url 'medical:edit-visit' visit.id %}">Aktualizuj</a></td>
                                     <td><a href="{% url 'medical:delete-visit' visit.id %}">Usuń</a></td>
@@ -137,10 +164,21 @@
                         </tbody>
                     </table>
                 </div>
+                {% if all_visits|length > 5 %}<div class="footnote">* Przeszukiwane kolumny: specjalizacja, lekarz.</div>{% endif %}
                 <p><a href="{% url 'medical:add-visit' %}">[Dodaj wizytę]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
             {% endif %}
+        </div>
+    </div>
 
-        {% elif page == 'test-results' %}
+{% elif page == 'test-results' %}
+    {% if all_test_results %}
+    <div class="content">
+        <small>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli by uzyskać więcej informacji.</small>
+    </div>
+    {% endif %}
+
+    <div class="content">
+        <div class="grid_display">
             <h2>Wyniki badań</h2>
 
             {% if not medcard or medcard.active_permission_test_results == 'Brak dostępu' %}
@@ -154,28 +192,32 @@
             </div>
             {% endif %}
 
-            {% if not test_results %}
+            {% if not all_test_results %}
                 <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
                 <p><a href="{% url 'medical:add-test-result' %}">[Dodaj wyniki]</a></p>
             {% else %}
-                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji.</h5>
 
-                <div class="order_by">
-                    <form action="{% url 'medical:test-results' %}">
-                        <div>Sortuj:</div>
-                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
-                            <option value="-updated">---</option>
-                            <option value="name">Nazwa (od A do Z)</option>
-                            <option value="-name">Nazwa (od Z do A)</option>
-                            <option value="test_result">Wynik (od A do Z)</option>
-                            <option value="-test_result">Wynik (od Z do A)</option>
-                            <option value="test_date">Data badania (od najnowszych)</option>
-                            <option value="-test_date">Data badania (od najstarszych)</option>
-                            <option value="disease">Leczona dolegliwość (od A do Z)</option>
-                            <option value="-disease">Leczona dolegliwość (od Z do A)</option>
-                        </select>
-                    </form>
-                </div>
+                {% if all_test_results|length > 5 %}
+                    <div class="order_search">
+                        <form action="{% url 'medical:test-results' %}">
+                            <div>Sortuj tabelę:</div>
+                            <select id="sort_main_table" name="sort_data">
+                                <option value="-updated">---</option>
+                                <option value="name">Nazwa (od A do Z)</option>
+                                <option value="-name">Nazwa (od Z do A)</option>
+                                <option value="test_result">Wynik (od A do Z)</option>
+                                <option value="-test_result">Wynik (od Z do A)</option>
+                                <option value="test_date">Data badania (od najnowszych)</option>
+                                <option value="-test_date">Data badania (od najstarszych)</option>
+                                <option value="disease">Leczona dolegliwość (od A do Z)</option>
+                                <option value="-disease">Leczona dolegliwość (od Z do A)</option>
+                            </select>
+                            <p style="margin-left: 10px;">i/lub szukaj według frazy*:</p>
+                            <input type="search" name="q" placeholder="Wpisz nazwę lub jej fragment" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz nazwę lub jej fragment'">
+                            <button type="submit">Zastosuj</button>
+                        </form>
+                    </div>
+                {% endif %}
 
                 <div class="basic_table">
                     <table id="tbl_exporttable_to_xls">
@@ -185,7 +227,7 @@
                                 <td>Wynik badania</td>
                                 <td>Data badania</td>
                                 <td style="text-align:center;">Leczona dolegliwość</td>
-                                <td>Uwagi</td>
+                                <!-- <td>Uwagi</td> -->
                                 <td style="border-left: 1px dashed #136568;">Szczegóły</td>
                                 <td>Aktualizuj</td>
                                 <td>Usuń</td>
@@ -198,7 +240,7 @@
                                     <td>{{ test_result.test_result }}</td>
                                     <td>{{ test_result.test_date }}</td>
                                     <td style="text-align:center;">{{ test_result.disease|default_if_none:"---" }}</td>
-                                    <td>{% if test_result.notes %}{{ test_result.notes }}{% else %}---{% endif %}</td>
+                                    <!-- <td>{% if test_result.notes %}{{ test_result.notes }}{% else %}---{% endif %}</td> -->
                                     <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-test-result' test_result.id %}">Szczegóły</a></td>
                                     <td><a href="{% url 'medical:edit-test-result' test_result.id %}">Aktualizuj</a></td>
                                     <td><a href="{% url 'medical:delete-test-result' test_result.id %}">Usuń</a></td>
@@ -207,10 +249,13 @@
                         </tbody>
                     </table>
                 </div>
+                {% if all_test_result|length > 5 %}<div class="footnote">* Przeszukiwane kolumny: nazwa, wyniki badań, leczona dolegliwość.</div>{% endif %}
                 <p><a href="{% url 'medical:add-test-result' %}">[Dodaj wynik]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
             {% endif %}
 
-        {% endif %}
+        </div>
     </div>
-</div>
+
+{% endif %}
+
 {% endblock content %}

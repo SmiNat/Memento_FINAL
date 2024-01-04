@@ -10,7 +10,7 @@
             <form method="post" action="{% url 'trip:delete-trip' trip.id %}">
                 {% csrf_token %}
                 <div class="form_field">
-                    <p>Czy chcesz usunąć podróż "{{ trip.name }}" wraz z wszystkimi dodatkowymi informacjami?</p>
+                    <p>Czy chcesz usunąć podróż "{{ trip.name }}" wraz z dodatkowymi informacjami?</p>
                     <p><input type="submit" value="Usuń podróż"/> </p>
                 </div>
             </form>

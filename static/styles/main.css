@@ -534,7 +534,8 @@ TABLES
     line-height: 25px;
     padding-bottom: 20px !important;
     font-weight: bold;
-    color: #F9F1CF;
+    color: #FFDA8B; /*#FAAC18;*/ /*#F9F1CF;*/
+    background-color: #121E28;
 }
 .single_table > table > tbody > tr,
 .single_table_2 > table > tbody > tr
@@ -673,26 +674,44 @@ TABLES
 /*-------------------
 PAGES
 -------------------*/
-.order_by
+.order_by,
+.order_search
 {
-    padding-bottom: 30px;
+    margin-bottom: 30px;
+    padding: 0px 0px;
+    font-size: 70%;
+    font-weight: bold;
+    /* background-color: #121E28; */
+    background-color: white;
+    border: thin solid #111220;
+    color: #232D39;
 }
 .order_by > form > select,
-.search_queryset > form > input
+.search_queryset > form > input,
+.order_search > form > select,
+.order_search > form > input
 {
-    height: 30px;
+    height: 28px;
     margin-left: 10px;
     min-width: 200px;
-    border: 2px solid #FFFFFF;
-    border-radius: 3px;
+    border:#8B8D93 thin solid;
+    border-radius: 1px;
+    font-size: 80%;
+    background-color: white;
+    /* background-color: rgba(35, 45, 57, 0.8); */
+    color: #232D39;
+    padding-left: 5px;
 }
-.order_by > form > select
+.order_by > form > select,
+.order_search > form > select,
+.order_search > form > input
 {
     cursor: pointer;
 }
 .order_by > form > input,
 .search_queryset > form > button,
-.search_query > form > button
+.search_query > form > button,
+.order_search > form > button
 {
     font-weight: bold;
     color: white;
@@ -702,10 +721,12 @@ PAGES
     margin-left: 10px;
     background: linear-gradient(to right, #BF953F, #AA771C, #BF953F);
     border-radius: 3px;
+    font-size: 80%;
 }
 .order_by > form > input:hover,
 .search_queryset > form > button:hover,
-.search_query > form > button:hover
+.search_query > form > button:hover,
+.order_search > form > button:hover
 {
     background-image: radial-gradient(circle, rgba(33, 161, 166, 1) 0%, rgba(19, 101, 104, 1) 100%);
     border: 2px solid #FFFFFF;
@@ -1143,6 +1164,13 @@ input[type=submit],
     line-height: 35px;
     padding-left: 5px;
 }
+form > .form_field > .one_field > .access_form,
+form > .form_field > .access_form
+{
+    border-color: #136568;
+    border-width: 5px;
+}
+
 .multiple_select_field
 {
     min-width: 50%;
@@ -1336,7 +1364,6 @@ LISTS: EXPENSES AND TO-DO
 .access_granted > table
 {
     min-width: 100%;
-}
 }
 .access_granted > table > tbody > tr > td
 {

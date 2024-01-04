@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import Http404, HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect, render, get_object_or_404
@@ -43,16 +44,43 @@ def credits(request):
         messages.info(request, _("Dostęp tylko dla zalogowanych użytkowników."))
         return redirect("login")
 
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in Credit.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
 
-    credits = Credit.objects.filter(user=request.user).order_by(order)
+    all_credits = Credit.objects.filter(user=request.user).order_by(order)
     counterparties = request.user.counterparty_set.all()
     attachments = request.user.attachment_set.all()
 
+    # Searching engine - search through selected fields
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query and (search_query.isdigit() or search_query.isdecimal()):
+        search_query = float(search_query)
+    if isinstance(search_query, float):
+        credits = Credit.objects.filter(
+            user=request.user).filter(credit_amount__gte=search_query).order_by(order)
+    elif search_query:
+        credits = Credit.objects.filter(
+            user=request.user).filter(Q(name__icontains=search_query) |
+                                      Q(type__icontains=search_query) |
+                                      Q(installment_type__icontains=search_query) |
+                                      Q(type_of_interest__icontains=search_query)).order_by(order)
+    else:
+        credits = None
+    if not credits:
+        credits = all_credits
+
     context = {
         "credits": credits,
+        "all_credits": all_credits,
         "counterparties": counterparties,
         "attachments": attachments,
     }

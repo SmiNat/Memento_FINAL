@@ -8,23 +8,7 @@ from django.db import models
 from django.db.utils import IntegrityError
 from django.utils.translation import gettext_lazy as _
 
-from .enums import (
-    TripChoices,
-    BasicChecklist,
-    KeysChecklist,
-    CosmeticsChecklist,
-    ElectronicsChecklist,
-    UsefulStaffChecklist,
-    TrekkingChecklist,
-    HikingChecklist,
-    CyclingChecklist,
-    CampingChecklist,
-    FishingChecklist,
-    SunbathingChecklist,
-    BusinessChecklist,
-    CostGroup,
-)
-from .validators import ValidateChoices
+from .enums import CostGroup
 from access.enums import Access
 
 
@@ -100,6 +84,11 @@ class Trip(models.Model):
                 fields=["user", "name"], name="unique_trip_name"
             )
         ]
+
+    @classmethod
+    def field_names(cls) -> list:
+        """Return list of model field names (except for many-to-many fields)."""
+        return list(f.name for f in cls._meta.fields)
 
     def __str__(self):
         return str(self.name)
@@ -315,14 +304,14 @@ class TripBasicChecklist(models.Model):
         In case of empty string or string equal to 'None', returns empty list."""
         if self.basic_drugs is None or self.basic_drugs == "None":
             return []
-        return str(self.basic_drugs).replace(";", ",").split(", ")
+        return str(self.basic_drugs).replace(";", ",").replace(", ", ",").split(",")
 
     def additional_drugs_to_list(self) -> list:
         """Transfers string into list based on comma or semicolon separator.
         In case of empty string or string equal to 'None', returns empty list."""
         if self.additional_drugs is None or self.additional_drugs == "None":
             return []
-        return str(self.additional_drugs).replace(";", ",").split(", ")
+        return str(self.additional_drugs).replace(";", ",").replace(", ", ",").split(",")
 
     def save(self, *args, **kwargs):
         self.full_clean()

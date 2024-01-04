@@ -11,8 +11,8 @@
 		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 			<thead>
 				<tr>
-					<td style="color: #FAAC18;">Nazwa:</td>
-					<td style="color: #FAAC18;">{{ cp.name }}</td>
+					<td>Nazwa:</td>
+					<td>{{ cp.name }}</td>
 				</tr>
 			</thead>
 			{% for field, value in cp %}
@@ -73,8 +73,14 @@
 	</div>
 
 	<div>
-		<small><a href="{% url 'connection:counterparties' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-		<a href="{% url 'connection:edit-counterparty' cp.id %}">[Aktualizuj dane]</a> | <a href="{% url 'connection:delete-counterparty' cp.id %}">[Usuń kontrahenta]</a></small>
+		<small>
+			<a href="{% url 'connection:counterparties' %}">[Powrót]</a> |
+			<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+			<br>
+			<a href="{% url 'connection:edit-counterparty' cp.id %}">[Aktualizuj dane]</a> |
+			<a href="{% url 'connection:delete-counterparty' cp.id %}">[Usuń kontrahenta]</a> |
+			<a href="{% url 'connection:add-counterparty' %}">[Dodaj nowego kontrahenta]</a>
+		</small>
 	</div>
 
 	<br>

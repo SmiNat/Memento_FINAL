@@ -31,7 +31,7 @@
                 {% if field.label == 'Wybierz płatność' or field.label == 'Wybierz kontrahenta' or field.label == 'Wybierz remont' or field.label == 'Wybierz kredyt' or field.label == 'Wybierz podróż' or field.label == 'Wybierz badania' or field.label == 'Wybierz wizytę' %}
                 {% elif field.label == 'Dostęp do danych' %}
                     <hr><br>
-                    <fieldset style="border-color: #13656; border-width: 5px;">
+                    <fieldset class="access_form">
                         <legend>Podgląd danych dla wskazanego użytkownika</legend>
                         <div class="label_field">{{ field.label }}:</div>
                         <div class="value_field">{{ field }}</div>

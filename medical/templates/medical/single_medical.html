@@ -10,8 +10,8 @@
 			<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 				<thead>
 					<tr>
-						<td style="color: #FAAC18;">Nazwa leku i dawka:</td>
-						<td style="color: #FAAC18;">{{ medicine.drug_name_and_dose }}</td>
+						<td>Nazwa leku i dawka:</td>
+						<td>{{ medicine.drug_name_and_dose }}</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,7 +36,8 @@
 									</td>
 								{% elif field == 'Godziny przyjmowania leków' %}
 									<td>{{ field }}:</td>
-									<td>
+									<td>{{ value }}</td>
+									<!-- <td>
 										{% if medicine.medication_hours %}
 											{% for element in medicine.medication_hours_to_list %}
 												{% if forloop.last %}
@@ -46,7 +47,7 @@
 												{% endif %}
 											{% endfor %}
 										{% else %}---{% endif %}
-									</td>
+									</td> -->
 								{% else %}
 									<td>{{ field }}:</td>
 									{% if value == 'None' or value == "" %}
@@ -66,8 +67,14 @@
 			</table>
 		</div>
 		<div>
-			<small><a href="{% url 'medical:medicines' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-			<a href="{% url 'medical:edit-medicine' medicine.id %}">[Aktualizuj dane]</a> | <a href="{% url 'medical:delete-medicine' medicine.id %}">[Usuń lek]</a></small>
+			<small>
+				<a href="{% url 'medical:medicines' %}">[Powrót]</a> |
+				<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+				<br>
+				<a href="{% url 'medical:edit-medicine' medicine.id %}">[Aktualizuj dane]</a> |
+				<a href="{% url 'medical:delete-medicine' medicine.id %}">[Usuń lek]</a> |
+				<a href="{% url 'medical:add-medicine' %}">[Dodaj kolejny lek]</a>
+			</small>
 		</div>
 		<br>
 		<div>
@@ -89,11 +96,11 @@
 		<h2>Informacje o wizycie lekarskiej</h2>
 		{% comment %}<div class="name">{{ visit }}</div>{% endcomment %}
 		<div class="single_table">
-			<table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+			<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 				<thead>
 					<tr>
-						<td style="color: #FAAC18;">Specjalizacja:</td>
-						<td style="color: #FAAC18;">{{ visit.specialization }}</td>
+						<td>Specjalizacja:</td>
+						<td>{{ visit.specialization }}</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -122,8 +129,14 @@
 			</table>
 		</div>
 		<div>
-			<small><a href="{% url 'medical:medical-visits' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-			<a href="{% url 'medical:edit-visit' visit.id %}">[Aktualizuj dane]</a> | <a href="{% url 'medical:delete-visit' visit.id %}">[Usuń wizytę]</a></small>
+			<small>
+				<a href="{% url 'medical:medical-visits' %}">[Powrót]</a> |
+				<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+				<br>
+				<a href="{% url 'medical:edit-visit' visit.id %}">[Aktualizuj dane]</a> |
+				<a href="{% url 'medical:delete-visit' visit.id %}">[Usuń wizytę]</a> |
+				<a href="{% url 'medical:add-visit' %}">[Dodaj kolejną wizytę]</a>
+			</small>
 		</div>
 		<br>
 		<div>
@@ -145,11 +158,11 @@
 		<h2>Wyniki badań</h2>
 		{% comment %}<div class="name">{{ test_result }}</div>{% endcomment %}
 		<div class="single_table">
-			<table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+			<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 				<thead>
 					<tr>
-						<td style="color: #FAAC18;">Nazwa badania:</td>
-						<td style="color: #FAAC18;">{{ test_result.name }}</td>
+						<td>Nazwa badania:</td>
+						<td>{{ test_result.name }}</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -178,8 +191,14 @@
 			</table>
 		</div>
 		<div>
-			<small><a href="{% url 'medical:test-results' %}">[Powrót]</a> | <button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button> |
-			<a href="{% url 'medical:edit-test-result' test_result.id %}">[Aktualizuj dane]</a> | <a href="{% url 'medical:delete-test-result' test_result.id %}">[Usuń wynik]</a></small>
+			<small>
+				<a href="{% url 'medical:test-results' %}">[Powrót]</a> |
+				<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+				<br>
+				<a href="{% url 'medical:edit-test-result' test_result.id %}">[Aktualizuj dane]</a> |
+				<a href="{% url 'medical:delete-test-result' test_result.id %}">[Usuń wynik]</a> |
+				<a href="{% url 'medical:add-test-result' %}">[Dodaj kolejny wynik]</a>
+			</small>
 		</div>
 		<br>
 		<div>

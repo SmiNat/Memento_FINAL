@@ -28,15 +28,36 @@ def counterparties(request):
     if not request.user.is_authenticated:
         messages.info(request, _("Dostęp tylko dla zalogowanych użytkowników."))
         return redirect("login")
+
+    # Sorting engine - sort queryset by selected field (HTML code)
     order = request.GET.get("sort_data")
     if not order:
         order = "-updated"
+    order_in_field_names = order[1:] if order.startswith("-") else order
+    if order_in_field_names not in Counterparty.field_names():
+        messages.error(request, _("Błędny zakres sortowania. Sprawdź czy wskazane nazwy "
+                                  "są zgodne z nazwami pól modelu."))
+        order = "-updated"
+
     try:
-        counterparties = Counterparty.objects.filter(
+        all_counterparties = Counterparty.objects.filter(
             user=request.user).order_by(order)
     except Counterparty.DoesNotExist:
+        all_counterparties = None
+
+    # Searching engine - search by name or value of estimated cost (gte)
+    # If search results in empty queryset, error message is displayed
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query:
+        counterparties = Counterparty.objects.filter(
+            user=request.user).filter(name__icontains=search_query).order_by(order)
+    else:
         counterparties = None
-    context = {"cps": counterparties}
+    if not counterparties:
+        counterparties = all_counterparties
+
+    context = {"cps": counterparties, "all_cps": all_counterparties}
     return render(request, "counterparty/counterparties.html", context)
 
 
@@ -82,6 +103,7 @@ def add_counterparty(request):
         if form.is_valid():
             counterparty = form.save(commit=False)
             counterparty.user = request.user
+            counterparty.name = form.cleaned_data["name"].capitalize()
             counterparty.save()
             form.save_m2m()
             messages.success(request, _("Dodano kontrahenta."))
@@ -126,7 +148,9 @@ def edit_counterparty(request, pk):
         form.fields["renovations"].queryset = Renovation.objects.filter(user=request.user)
         form.fields["trips"].queryset = Trip.objects.filter(user=request.user)
         if form.is_valid():
-            form.save()
+            counterparty = form.save(commit=False)
+            counterparty.name = form.cleaned_data["name"].capitalize()
+            counterparty.save()
             messages.success(request, _("Dane kontrahenta zostały zaktualizowane."))
             return redirect("connection:single-counterparty", pk=pk)
         else:

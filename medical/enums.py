@@ -15,6 +15,6 @@ class MedicationDays(models.TextChoices):
 class MedicationFrequency(models.TextChoices):
     EVERY_DAY = _("Codziennie"), _("Codziennie")
     INDICATED_DAYS = _("We wskazane dni tygodnia"), _("We wskazane dni tygodnia")
-    EVERY_FEW_DAYS = _("Co kilka dni"), _("Co kilka dni")
+    AS_NEEDED = _("Doraźnie"), _("Doraźnie")
     OCCASIONALLY = _("Sporadycznie"), _("Sporadycznie")
     OTHER = _("Inne"), _("Inne")

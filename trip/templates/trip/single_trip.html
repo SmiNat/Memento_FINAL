@@ -21,8 +21,8 @@
 		<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
 			<thead>
 				<tr>
-					<td style="color: #FAAC18;">Nazwa podróży:</td>
-					<td style="color: #FAAC18;">{{ trip.name }}</td>
+					<td>Nazwa podróży:</td>
+					<td>{{ trip.name }}</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,8 +86,14 @@
 		<small>* Łącznie z dniem wyjazdu / powrotu.</small>
 	</div>
 	<div>
-		<small><a href="{% url 'trip:trips' %}">[Powrót]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>|
-		<a href="{% url 'trip:edit-trip' trip.id %}">[Aktualizuj dane]</a> | <a href="{% url 'trip:delete-trip' trip.id %}">[Usuń podróż]</a></small>
+		<small>
+			<a href="{% url 'trip:trips' %}">[Powrót]</a> |
+			<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button>
+			<br>
+			<a href="{% url 'trip:edit-trip' trip.id %}">[Aktualizuj dane]</a> |
+			<a href="{% url 'trip:delete-trip' trip.id %}">[Usuń podróż]</a> |
+			<a href="{% url 'trip:add-trip' %}">[Dodaj nową podróż]</a>
+		</small>
 	</div>
 	<br>
 	<div>
@@ -122,8 +128,8 @@
 					{% elif field == 'Nazwa' %}
 						<thead>
 							<tr>
-								<td style="color: #FAAC18;">{{ field }}:</td>
-								<td style="color: #FAAC18;">{{ value }}</td>
+								<td>{{ field }}:</td>
+								<td>{{ value }}</td>
 							</tr>
 						</thead>
 					{% else %}
@@ -147,10 +153,10 @@
 									<td>{% for element in trip.useful_stuff_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
 								{% elif field == 'Podstawowe leki' %}
 									<td>{{ field }}: </td>
-									<td>{% for element in element.basic_drugs_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+									<td>{% for element in trip.basic_drugs_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
 								{% elif field == 'Dodatkowe leki' %}
 									<td>{{ field }}: </td>
-									<td>{% for element in element.additional_drugs_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+									<td>{% for element in trip.additional_drugs_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
 								{% else %}
 									<td>{{ field }}: </td>
 									<td>{{ value }}</td>
@@ -191,8 +197,8 @@
 					{% elif field == 'Nazwa' %}
 						<thead>
 							<tr>
-								<td style="color: #FAAC18;">{{ field }}:</td>
-								<td style="color: #FAAC18;">{{ value }}</td>
+								<td>{{ field }}:</td>
+								<td>{{ value }}</td>
 							</tr>
 						</thead>
 					{% else %}
@@ -274,9 +280,9 @@
 			</table>
 		</div>
 		<br>
-	<div>
-		<small><a href="{% url 'trip:add-trip-personal-checklist' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel6('xlsx')">[Eksportuj tabelę]</button></small>
-	</div>
+		<div>
+			<small><a href="{% url 'trip:add-trip-personal-checklist' trip.id %}">[Dodaj bagaż]</a> |<button class="export_button" onclick="ExportToExcel6('xlsx')">[Eksportuj tabelę]</button></small>
+		</div>
 	{% endif %}
 
 </div>
@@ -314,11 +320,7 @@
 						<td style="text-align: center;">{{ element.exchange_rate }}</td>
 						<td style="text-align: center;">{{ element.calculate_cost_at_exchange_rate }}</td>
 						<td style="border-left: 1px dashed #F9F1CF;">
-							{% if element.cost_note == None or element.cost_note == "" %}
-								---
-							{% else %}
-								{{ element.cost_note }}
-							{% endif %}
+							{% if element.notes == "" %}---{% else %}{{ element.notes|default_if_none:"---" }}{% endif %}
 						</td>
 						<td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'trip:edit-trip-cost' element.id %}">Aktualizuj</a></td>
 						<td style="text-align: center;"><a href="{% url 'trip:delete-trip-cost' element.id %}">Usuń</a></td>
@@ -327,9 +329,9 @@
 				</tbody>
 			</table>
 		</div>
-	<div>
-		<small><a href="{% url 'trip:add-trip-cost' trip.id %}">[Dodaj koszt]</a> |<button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
-	</div>
+		<div>
+			<small><a href="{% url 'trip:add-trip-cost' trip.id %}">[Dodaj koszt]</a> |<button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
+		</div>
 	{% endif %}
 
 	<br><br>
@@ -376,58 +378,52 @@
 			<p><a href="{% url 'trip:add-trip-report' trip.id %}">[Dodaj opis]</a></p>
 		</div>
 	{% else %}
-		<br>
-		{% for element in trip_report %}
-			<div class="single_table_2">
-				<table class="trip_report_table" style="min-width: 500px;">
-					<thead>
-						<tr>
-							<td>Opis za okres:</td>
-							<td>
-								{% if not element.start_date and not element.end_date %}
-								---
-								{% endif %}
-								{{ element.start_date|default_if_none:"" }}
-								{% if element.start_date == None or element.end_date == None %}{% else %} - {% endif %}
-								{{ element.end_date|default_if_none:"" }}
-							</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Linki do relacji:</td>
-							<td>
-								{% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i>{% endif %}
-								{% if element.youtube %}<a href="{{ element.youtube }}" target="_blank"><i class="fa-brands fa-youtube fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-youtube fa-2xl" style="padding-right: 7px;"></i>{% endif %}
-								{% if element.instagram %}<a href="{{ element.instagram }}" target="_blank"><i class="fa-brands fa-square-instagram fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-square-instagram fa-2xl" style="padding-right: 7px;"></i>{% endif %}
-								{% if element.pinterest %}<a href="{{ element.pinterest }}" target="_blank"><i class="fa-brands fa-pinterest fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-pinterest fa-2xl" style="padding-right: 7px;"></i>{% endif %}
-								{% if element.link %}<a href="{{ element.link }}" target="_blank"><i class="fa-solid fa-paperclip fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-solid fa-paperclip fa-2xl" style="padding-right: 7px;"></i>{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td>Opis:</td>
-							<td>{% if element.description %} {{ element.description|default_if_none:"---" }} {% else %} Brak opisu.{% endif %}</td>
-						</tr>
-						<tr>
-							<td>Uwagi:</td>
-							<td>{% if element.notes %} {{ element.notes|default_if_none:"---" }} {% else %} Brak uwag.{% endif %}</td>
-						</tr>
-						<tr>
-							<td style="border-top: 1px solid #F9F1CF;" colspan="2">
-								<a href="{% url 'trip:edit-trip-report' element.id %}">[Aktualizuj]</a> |
-								<a href="{% url 'trip:delete-trip-report' element.id %}">[Usuń]</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<br>
-		{% endfor %}
-		<div>
-			<small><a href="{% url 'trip:add-trip-report' trip.id %}">[Dodaj kolejny opis]</a></small>
+		<div class="single_table">
+			<table id="tbl_exporttable_to_xls" style="min-width: 500px;">
+				<thead>
+					<tr>
+						<td>Opis za okres</td>
+						<td>Linkis</td>
+						<td>Opis</td>
+						<td>Uwagi</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
+						<td style="text-align: center;">Usuń</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for element in trip_report %}
+					<tr>
+						<td>
+							{% if not element.start_date and not element.end_date %}
+							---
+							{% endif %}
+							{{ element.start_date|default_if_none:"" }}
+							{% if element.start_date == None or element.end_date == None %}{% else %} - {% endif %}
+							{{ element.end_date|default_if_none:"" }}
+						</td>
+						{% if element.label == "Rozpoczęcie relacji" or element.label == "Zakończenie relacji" %}{% endif %}
+						<td style="font-size: 70%;">
+							<!-- {% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i>{% endif %} -->
+							{% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
+							{% if element.youtube %}<a href="{{ element.youtube }}" target="_blank"><i class="fa-brands fa-youtube fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
+							{% if element.instagram %}<a href="{{ element.instagram }}" target="_blank"><i class="fa-brands fa-square-instagram fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
+							{% if element.pinterest %}<a href="{{ element.pinterest }}" target="_blank"><i class="fa-brands fa-pinterest fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
+							{% if element.link %}<a href="{{ element.link }}" target="_blank"><i class="fa-solid fa-paperclip fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
+						</td>
+						<td>{% if element.description %} {{ element.description|default_if_none:"---" }} {% else %} Brak opisu.{% endif %}</td>
+						<td>{% if element.notes %} {{ element.notes|default_if_none:"---" }} {% else %}---{% endif %}</td>
+						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'trip:edit-trip-report' element.id %}">Aktualizuj</a></td>
+						<td style="text-align: center;"><a href="{% url 'trip:delete-trip-report' element.id %}">Usuń</a></td>
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<br>
+		<div>
+			<small><a href="{% url 'trip:add-trip-report' trip.id %}">[Dodaj opis]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></small>
+		</div>
 	{% endif %}
+
 </div>
 
 <div class="content">
@@ -454,7 +450,7 @@
 					<tr>
 						<td>{{ element.name }}</td>
 						<td>{{ element.info|default_if_none:"---" }}</td>
-						<td>{%  if element.notes == 'None' or element.notes == '' %}---{% else %}{{ element.notes }}{% endif %}</td>
+						<td>{%  if element.notes == 'None' or element.notes == '' %}---{% else %}{{ element.notes|default_if_none:"---" }}{% endif %}</td>
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'trip:edit-trip-additional' element.id %}">Aktualizuj</a></td>
 						<td style="text-align: center;"><a href="{% url 'trip:delete-trip-additional' element.id %}">Usuń</a></td>
 					</tr>

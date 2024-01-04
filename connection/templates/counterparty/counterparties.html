@@ -1,60 +1,74 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <div class="content">
-        <div class="grid_display">
-            <h2>Informacje o kontrahentach</h2>
 
-            {% if not cps %}
-                <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
-                <p><a href="{% url 'connection:add-counterparty' %}">[Dodaj kontrahenta]</a></p>
-            {% else %}
-                <h5>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli po więcej informacji.</h5>
-                <div class="order_by">
+{% if cps %}
+    <div class="content">
+        <small>Kliknij w "<span style="color: #FFDA8B;">Szczegóły</span>" w tabeli by uzyskać więcej informacji.</small>
+    </div>
+{% endif %}
+
+<div class="content">
+    <div class="grid_display">
+        <h2>Informacje o kontrahentach</h2>
+
+        {% if not cps %}
+            <div class="half_col_white"><p>Brak zachowanych informacji.</p></div>
+            <p><a href="{% url 'connection:add-counterparty' %}">[Dodaj kontrahenta]</a></p>
+        {% else %}
+
+            {% if all_cps|length > 5 %}
+                <div class="order_search">
                     <form action="{% url 'connection:counterparties' %}">
-                        <div>Sortuj:</div>
-                        <select id="sort_main_table" name="sort_data" onchange="form.submit()">
+                        <div>Sortuj tabelę:</div>
+                        <select id="sort_main_table" name="sort_data">
                             <option value="-updated">---</option>
                             <option value="name">Nazwa (od A do Z)</option>
                             <option value="-name">Nazwa (od Z do A)</option>
                         </select>
+                        <p style="margin-left: 10px;">i/lub szukaj według frazy*:</p>
+                        <input type="search" name="q" placeholder="Wpisz wyraz lub szukaną frazę" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz wyraz lub szukaną frazę'">
+                        <button type="submit">Zastosuj</button>
                     </form>
                 </div>
-
-                <div class="basic_table">
-                    <table id="tbl_exporttable_to_xls">
-                        <thead>
-                            <tr>
-                                <td>Nazwa</td>
-                                <td>Infolinia</td>
-                                <td style="border-left: 1px dashed #136568;">Numer konta do przelewów</td>
-                                <td style="border-left: 1px dashed #136568;">Osoba do kontaktu</td>
-                                <td>Nr tel. osoby do kontaktu</td>
-                                <td>Email osoby do kontaktu</td>
-                                <td style="border-left: 1px dashed #136568;">Szczegóły</td>
-                                <td>Edytuj</td>
-                                <td>Usuń</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for cp in cps %}
-                                <tr>
-                                    <td>{{ cp.name }}</td>
-                                    <td>{{ cp.phone_number|default_if_none:"---" }}</td>
-                                    <td style="border-left: 1px dashed #F9F1CF; border-right: 1px dashed #F9F1CF;">{{ cp.bank_account|default_if_none:"---" }}</td>
-                                    <td>{{ cp.primary_contact_name|default_if_none:"---" }}</td>
-                                    <td>{{ cp.primary_contact_phone_number|default_if_none:"---" }}</td>
-                                    <td>{{ cp.primary_contact_email|default_if_none:"---" }}</td>
-                                    <td class="row_access" style="border-left: 1px dashed #F9F1CF;"><a href="{% url 'connection:single-counterparty' cp.id %}">Szczegóły</a></td>
-                                    <td><a href="{% url 'connection:edit-counterparty' cp.id %}">Edytuj</a></td>
-                                    <td><a href="{% url 'connection:delete-counterparty' cp.id %}">Usuń</a></td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <p><a href="{% url 'connection:add-counterparty' %}">[Dodaj kontrahenta]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
             {% endif %}
-        </div>
+
+            <div class="basic_table">
+                <table id="tbl_exporttable_to_xls">
+                    <thead>
+                        <tr>
+                            <td>Nazwa</td>
+                            <td>Infolinia</td>
+                            <td style="border-left: 1px dashed #136568;">Numer konta do przelewów</td>
+                            <td style="border-left: 1px dashed #136568;">Osoba do kontaktu</td>
+                            <td>Nr tel. osoby do kontaktu</td>
+                            <td>Email osoby do kontaktu</td>
+                            <td style="border-left: 1px dashed #136568;">Szczegóły</td>
+                            <td>Edytuj</td>
+                            <td>Usuń</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cp in cps %}
+                            <tr>
+                                <td>{{ cp.name }}</td>
+                                <td>{{ cp.phone_number|default_if_none:"---" }}</td>
+                                <td style="border-left: 1px dashed #F9F1CF; border-right: 1px dashed #F9F1CF;">{{ cp.bank_account|default_if_none:"---" }}</td>
+                                <td>{{ cp.primary_contact_name|default_if_none:"---" }}</td>
+                                <td>{{ cp.primary_contact_phone_number|default_if_none:"---" }}</td>
+                                <td>{{ cp.primary_contact_email|default_if_none:"---" }}</td>
+                                <td class="row_access" style="border-left: 1px dashed #F9F1CF;"><a href="{% url 'connection:single-counterparty' cp.id %}">Szczegóły</a></td>
+                                <td><a href="{% url 'connection:edit-counterparty' cp.id %}">Edytuj</a></td>
+                                <td><a href="{% url 'connection:delete-counterparty' cp.id %}">Usuń</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if all_cps|length > 5 %}<div class="footnote">* Przeszukiwane kolumny: nazwa.</div>{% endif %}
+            <p><a href="{% url 'connection:add-counterparty' %}">[Dodaj kontrahenta]</a> |<button class="export_button" onclick="ExportToExcel('xlsx')">[Eksportuj tabelę]</button></p>
+        {% endif %}
     </div>
+</div>
+
 {% endblock content%}

@@ -48,7 +48,6 @@
                         {% endfor %}
                     </fieldset>
                     <fieldset>
-                    <fieldset>
                         <legend>Odsetki</legend>
                         {% for field in form %}
                             {% if field.label == 'Rodzaj oprocentowania' or field.label == 'Wysokość oprocentowania stałego (w %)' or field.label == 'Wysokość oprocentowania zmiennego (w %)' or field.label == 'Marża banku w oprocentowaniu zmiennym (w %)' or field.label == 'Rodzaj benchmarku' %}
@@ -124,7 +123,7 @@
                         </div>
                     </fieldset>
                     <hr><br>
-                    <fieldset style="border-color: #13656; border-width: 5px;">
+                    <fieldset class="access_form">
                         <legend>Podgląd danych dla wskazanego użytkownika</legend>
                         {% for field in form %}
                             {% if field.label == 'Dostęp do danych' %}
@@ -263,39 +262,6 @@
                         {% endfor %}
                     </div>
                     {% endfor %}
-<!--                    <fieldset>-->
-<!--                        <legend>Ubezpieczenie na życie</legend>-->
-<!--                        {% for field in form %}-->
-<!--                            {% if field.label == 'Ubezpieczenie na życie - Wysokość składki' or field.label == 'Ubezpieczenie na życie - Częstotliwość płatności' or field.label == 'Ubezpieczenie na życie - Rozpoczęcie płatności' or field.label == 'Ubezpieczenie na życie - Zakończenie płatności' or field.label == 'Ubezpieczenie na życie - Liczba okresów płatności' %}-->
-<!--                                <div class="one_field">-->
-<!--                                    <div class="label_field">{{ field.label|cut:"Ubezpieczenie na życie - " }}:</div>-->
-<!--                                    <div class="value_field">{{ field }}</div>-->
-<!--                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}-->
-<!--                                    {% for error in field.errors %}-->
-<!--                                        <small style="color: red">{{ error }}</small>-->
-<!--                                        <br>-->
-<!--                                    {% endfor %}-->
-<!--                                </div>-->
-<!--                            {% endif %}-->
-<!--                        {% endfor %}-->
-<!--                    </fieldset>-->
-<!--                    <br>-->
-<!--                    <fieldset>-->
-<!--                        <legend>Ubezpieczenie rzeczy/nieruchomości</legend>-->
-<!--                        {% for field in form %}-->
-<!--                            {% if field.label == 'Ubezpieczenie rzeczy/nieruchomości - Wysokość składki' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Częstotliwość płatności' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Rozpoczęcie płatności' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Zakończenie płatności' or field.label == 'Ubezpieczenie rzeczy/nieruchomości - Liczba okresów płatności' %}-->
-<!--                                <div class="one_field">-->
-<!--                                    <div class="label_field">{{ field.label|cut:"Ubezpieczenie rzeczy/nieruchomości - " }}:</div>-->
-<!--                                    <div class="value_field">{{ field }}</div>-->
-<!--                                    {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}-->
-<!--                                    {% for error in field.errors %}-->
-<!--                                        <small style="color: red">{{ error }}</small>-->
-<!--                                        <br>-->
-<!--                                    {% endfor %}-->
-<!--                                </div>-->
-<!--                            {% endif %}-->
-<!--                        {% endfor %}-->
-<!--                    </fieldset>-->
                     <br>
                     <div class="one_field">
                         <input type="submit" value="Zapisz"/>

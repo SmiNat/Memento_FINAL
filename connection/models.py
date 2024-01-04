@@ -128,6 +128,11 @@ class Counterparty(models.Model):
             models.UniqueConstraint(fields=["user", "name"], name="unique_cp_name")
         ]
 
+    @classmethod
+    def field_names(cls) -> list:
+        """Return list of model field names (except for many-to-many fields)."""
+        return list(f.name for f in cls._meta.fields)
+
     def __str__(self):
         return str(self.name)
 
@@ -251,6 +256,11 @@ class Attachment(models.Model):
                 fields=["user", "attachment_name"], name="unique_attachment_name"
             )
         ]
+
+    @classmethod
+    def field_names(cls) -> list:
+        """Return list of model field names (except for many-to-many fields)."""
+        return list(f.name for f in cls._meta.fields)
 
     def __str__(self):
         return str(self.attachment_name)
