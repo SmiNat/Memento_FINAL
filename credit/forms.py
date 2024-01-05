@@ -335,14 +335,15 @@ class CreditTrancheForm(forms.ModelForm):
 
     def clean_tranche_amount(self):
         tranche_amount = self.cleaned_data.get("tranche_amount", None)
-        if (self.sum_of_tranches + tranche_amount) > self.credit.credit_amount:
+        if (self.sum_of_tranches + tranche_amount) > (self.credit.credit_amount + 1):  # + 1 as a margin error
             self.add_error(
                 "tranche_amount",
-                _("Łączna wartość transz nie może przekraczać wartości kredytu "
+                _("Łączna wartość transz nie może przekraczać wartości kredytu wraz "
+                  "z kredytowanym ubezpieczeniem czy prowizją"
                   "(%s). Suma dotychczasowych transz: %s. Sprawdź czy kwoty "
                   "transz obejmują wyłącznie wartość kredytu (bez kredytowanej "
                   "prowizji czy ubezpieczenia)."
-                  % (self.credit.credit_amount, self.sum_of_tranches))
+                  % (self.credit.credit_amount(), self.sum_of_tranches))
             )
         else:
             return tranche_amount
@@ -461,10 +462,12 @@ class CreditInsuranceForm(forms.ModelForm):
             "start_date",
             "end_date",
             "payment_period",
+            "notes"
         ]
         widgets = {
             "type": forms.Select(attrs={"class": "select_field"}),
             "frequency": forms.Select(attrs={"class": "select_field"}),
+            "notes": forms.Textarea(attrs={"class": "textarea_field"})
         }
 
     def __init__(self, *args, **kwargs):
@@ -571,6 +574,9 @@ class CreditAdditionalCostForm(forms.ModelForm):
             "cost_payment_date",
             "notes",
         ]
+        widgets = {
+            "notes": forms.Textarea(attrs={"class": "textarea_field"})
+        }
 
     def __init__(self, *args, **kwargs):
         self.credit = kwargs.pop("credit")

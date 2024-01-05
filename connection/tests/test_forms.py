@@ -36,9 +36,6 @@ class CounterpartyFormTests(TestCase):
             "primary_contact_name",
             "primary_contact_phone_number",
             "primary_contact_email",
-            "secondary_contact_name",
-            "secondary_contact_phone_number",
-            "secondary_contact_email",
             "notes",
             "access_granted",
         ]
@@ -71,9 +68,6 @@ class CounterpartyFormTests(TestCase):
             _("Imię i nazwisko"),
             _("Numer telefonu"),
             _("Adres email"),
-            _("Imię i nazwisko (2)"),
-            _("Numer telefonu (2)"),
-            _("Adres email (2)"),
             _("Uwagi"),
             _("Dostęp do danych"),
         ]
@@ -152,8 +146,7 @@ class CounterpartyFormTests(TestCase):
             elif field == "www":
                 self.assertEqual(form.fields["www"].widget.__class__.__name__,
                                  "URLInput")
-            elif field in ["email", "primary_contact_email",
-                           "secondary_contact_email"]:
+            elif field in ["email", "primary_contact_email"]:
                 self.assertEqual(form.fields[field].widget.__class__.__name__,
                                  "EmailInput")
             elif field == "notes":

@@ -104,8 +104,8 @@ class ExpenseItem(models.Model):
         _("Opis"), max_length=500,
         null=True, blank=True,
     )
-    estimated_cost = models.DecimalField(
-        _("Szacunkowy koszt"), max_digits=10, decimal_places=2,
+    estimated_cost = models.FloatField(
+        _("Szacunkowy koszt"), max_length=12,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -128,8 +128,8 @@ class ExpenseItem(models.Model):
         default=ValidityStatus.NOT_URGENT,
         null=True, blank=True
     )
-    cost_paid = models.DecimalField(
-        _("Poniesiony koszt"), max_digits=10, decimal_places=2,
+    cost_paid = models.FloatField(
+        _("Poniesiony koszt"), max_length=12,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],

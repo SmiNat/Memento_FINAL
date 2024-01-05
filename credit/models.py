@@ -47,22 +47,22 @@ class Credit(models.Model):
         _("Waluta"), max_length=20,
         choices=Currency.choices, default=Currency.PLN,
     )
-    credit_amount = models.DecimalField(
-        _("Wartość kredytu"), max_digits=11, decimal_places=2,
+    credit_amount = models.FloatField(
+        _("Wartość kredytu"),
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Pole wymagane.")
     )
-    own_contribution = models.DecimalField(
-        _("Wkład własny"), max_digits=11, decimal_places=2, default=0,
+    own_contribution = models.FloatField(
+        _("Wkład własny"), default=0,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Nie wlicza się do wartości kredytu."),
     )
-    market_value = models.DecimalField(
+    market_value = models.FloatField(
         _("Wartość rynkowa nabywanej rzeczy/nieruchomości"),
-        max_digits=11, decimal_places=2, default=0, null=True, blank=True,
+        default=0, null=True, blank=True,
         validators=[MinValueValidator(
             0, message="Wartość nie może być liczbą ujemną.")]
     )
@@ -85,17 +85,17 @@ class Credit(models.Model):
         _("Częstotliwość płatności raty"), max_length=30,
         choices=Frequency.choices, default=Frequency.MONTHLY,
     )
-    total_installment = models.DecimalField(
+    total_installment = models.FloatField(
         _("Wysokość raty całkowitej (dla rat równych)"),
-        max_digits=8, decimal_places=2,  default=0,
+        default=0,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Podaj wysokość raty (zero dla rat malejących). "
                     "Pole wymagane."),
     )
-    capital_installment = models.DecimalField(
+    capital_installment = models.FloatField(
         _("Wysokość raty kapitałowej (dla rat malejących)"),
-        max_digits=8, decimal_places=2, default=0,
+        default=0,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Podaj wysokość raty (zero dla rat równych). "
@@ -107,25 +107,25 @@ class Credit(models.Model):
         _("Rodzaj oprocentowania"), max_length=20,
         choices=TypeOfInterest.choices, default=TypeOfInterest.VARIABLE,
     )
-    fixed_interest_rate = models.DecimalField(
+    fixed_interest_rate = models.FloatField(
         _("Wysokość oprocentowania stałego (w %)"),
-        max_digits=4, decimal_places=2, default=0,
+        default=0,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Wysokość oprocentowania razem z marżą banku. Wpisz zero "
                     "jeśli nie dotyczy. Pole wymagane."),
     )
-    floating_interest_rate = models.DecimalField(
+    floating_interest_rate = models.FloatField(
         _("Wysokość oprocentowania zmiennego (w %)"),
-        max_digits=4, decimal_places=2, default=0,
+        default=0,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Wysokość w dniu zawarcia umowy (bez marży banku). "
                     "Wpisz zero jeśli nie dotyczy. Pole wymagane."),
     )
-    bank_margin = models.DecimalField(
+    bank_margin = models.FloatField(
         _("Marża banku w oprocentowaniu zmiennym (w %)"),
-        max_digits=4, decimal_places=2, default=0,
+        default=0,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Np. wartość 5.5 oznacza 5,5%. Wpisz zero jeśli nie "
@@ -158,9 +158,9 @@ class Credit(models.Model):
     )
 
     # Other information
-    provision = models.DecimalField(
+    provision = models.FloatField(
         _("Wysokość prowizji (w wybranej walucie)"),
-        max_digits=11, decimal_places=2, default=0, null=True, blank=True,
+        default=0, null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Płatna w dniu uruchomienia kredytu."),
@@ -173,17 +173,17 @@ class Credit(models.Model):
         _("Transzowanie wypłat"), max_length=5,
         choices=YesNo.choices, default=YesNo.NO,
     )
-    life_insurance_first_year = models.DecimalField(
+    life_insurance_first_year = models.FloatField(
         _("Kredytowane ubezpieczenie na życie"),
-        max_digits=8, decimal_places=2, null=True, blank=True,
+        null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Roczna składka za 1. rok. Kredytowane w dniu "
                     "uruchomienia kredytu."),
     )
-    property_insurance_first_year = models.DecimalField(
+    property_insurance_first_year = models.FloatField(
         _("Kredytowane ubezpieczenie rzeczy/nieruchomości"),
-        max_digits=8, decimal_places=2, null=True, blank=True,
+        null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Roczna składka za 1. rok. Kredytowane w dniu "
@@ -193,9 +193,9 @@ class Credit(models.Model):
         _("Wymagane zabezpieczenie kredytu"), max_length=5,
         choices=YesNo.choices, default=YesNo.NO,
     )
-    collateral_rate = models.DecimalField(
+    collateral_rate = models.FloatField(
         _("Oprocentowanie dodatkowe (pomostowe)"),
-        max_digits=4, decimal_places=2, default=0, null=True, blank=True,
+        default=0, null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Dodatkowe oprocentowanie do czasu ustanowienia "
@@ -265,7 +265,7 @@ class Credit(models.Model):
 
     def full_rate(self):
         """Floating interest rate with bank margin."""
-        return decimal.Decimal(self.floating_interest_rate) + decimal.Decimal(self.bank_margin)
+        return self.floating_interest_rate + self.bank_margin
 
     def clean(self):
         if self.installment_type not in InstallmentType.values:
@@ -310,27 +310,26 @@ class CreditTranche(models.Model):
         on_delete=models.CASCADE, verbose_name=_("Użytkownik"))
     credit = models.ForeignKey(
         Credit, on_delete=models.CASCADE, verbose_name=_("Kredyt"))
-    tranche_amount = models.DecimalField(
+    tranche_amount = models.FloatField(
         _("Kwota transzy"),
-        max_digits=11, decimal_places=2,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
-        help_text=_("Bez wartości kredytowanych ubezpieczeń. Pole wymagane.")
+        help_text=_("Wartość transzy bez wartości kredytowanych ubezpieczeń. Pole wymagane.")
     )
     tranche_date = models.DateField(
         _("Data wypłaty transzy"),
         help_text=_("Format: YYYY-MM-DD (np. 2020-07-21). Pole wymagane."),
     )
-    total_installment = models.DecimalField(
+    total_installment = models.FloatField(
         _("Wysokość raty całkowitej (dla rat stałych)"),
-        max_digits=8, decimal_places=2, null=True, blank=True,
+        null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Brak informacji oznacza brak zmiany wysokości raty."),
     )
-    capital_installment = models.DecimalField(
+    capital_installment = models.FloatField(
         _("Wysokość raty kapitałowej (dla rat malejących)"),
-        max_digits=8, decimal_places=2, null=True, blank=True,
+        null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Brak informacji oznacza brak zmiany wysokości raty."),
@@ -370,9 +369,8 @@ class CreditInterestRate(models.Model):
         verbose_name=_("Użytkownik"))
     credit = models.ForeignKey(
         Credit, on_delete=models.CASCADE, verbose_name=_("Kredyt"))
-    interest_rate = models.DecimalField(
+    interest_rate = models.FloatField(
         _("Wysokość oprocentowania"),
-        max_digits=4, decimal_places=2,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Pełna wysokość (z marżą banku i oprocentowaniem "
@@ -384,9 +382,8 @@ class CreditInterestRate(models.Model):
     )
     note = models.CharField(
         _("Informacja dodatkowa"), max_length=255, null=True, blank=True)
-    total_installment = models.DecimalField(
+    total_installment = models.FloatField(
         _("Wysokość raty całkowitej (dla rat stałych)"),
-        max_digits=8, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -394,9 +391,8 @@ class CreditInterestRate(models.Model):
                     "Uwaga: W kredycie o ratach malejących nie można zmieniać "
                     "rat całkowitych.")
     )
-    capital_installment = models.DecimalField(
+    capital_installment = models.FloatField(
         _("Wysokość raty kapitałowej (dla rat malejących)"),
-        max_digits=8, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -435,11 +431,8 @@ class CreditInsurance(models.Model):
     type = models.CharField(
         "Rodzaj ubezpieczenia", null=True, blank=True,
         choices=InsuranceType.choices, default=None, max_length=40)
-    amount = models.DecimalField(
+    amount = models.FloatField(
         _("Wysokość składki"),
-        max_digits=8, decimal_places=2,
-        validators=[MinValueValidator(
-            0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Pole wymagane.")
     )
     frequency = models.CharField(
@@ -464,6 +457,7 @@ class CreditInsurance(models.Model):
         help_text=_("Przez ile okresów będzie dokonywana płatność ubezpieczenia. "
                     "Wpisz, jeśli płatność inna niż jednorazowa."),
     )
+    notes = models.TextField(_("Uwagi"), max_length=500, null=True, blank=True)
 
     created = models.DateField(_("Data dodania"), auto_now_add=True)
     updated = models.DateField(_("Data aktualizacji"), auto_now=True)
@@ -501,9 +495,8 @@ class CreditCollateral(models.Model):
         Credit, on_delete=models.CASCADE, verbose_name=_("Kredyt"))
     description = models.CharField(
         _("Nazwa/opis zabezpieczenia"), max_length=255, null=True, blank=True,)
-    collateral_value = models.DecimalField(
+    collateral_value = models.FloatField(
         _("Wartość zabezpieczenia"),
-        max_digits=11, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -515,9 +508,8 @@ class CreditCollateral(models.Model):
                     "może przypadać wcześniej niż data rozpoczęcia umowy kredytu. "
                     "Format: YYYY-MM-DD (np. 2020-07-21).")
     )
-    total_installment = models.DecimalField(
+    total_installment = models.FloatField(
         _("Wysokość raty całkowitej (dla rat stałych)"),
-        max_digits=8, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -525,9 +517,8 @@ class CreditCollateral(models.Model):
                     "Uwaga: W kredycie o ratach malejących nie można zmieniać "
                     "rat całkowitych.")
     )
-    capital_installment = models.DecimalField(
+    capital_installment = models.FloatField(
         _("Wysokość raty kapitałowej (dla rat malejących)"),
-        max_digits=8, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -564,8 +555,8 @@ class CreditAdditionalCost(models.Model):
         Credit, on_delete=models.CASCADE, verbose_name=_("Kredyt"))
     name = models.CharField(
         _("Nazwa"), max_length=255, help_text=_("Pole wymagane."))
-    cost_amount = models.DecimalField(
-        _("Wysokość kosztu"), max_digits=9, decimal_places=2,
+    cost_amount = models.FloatField(
+        _("Wysokość kosztu"),
         help_text=_("Pole wymagane. Dopuszczalne wartości ujemne jako korekta "
                     "wcześniejszych kosztów (zwrot).")
     )
@@ -600,9 +591,8 @@ class CreditEarlyRepayment(models.Model):
         verbose_name=_("Użytkownik"))
     credit = models.ForeignKey(
         Credit, on_delete=models.CASCADE, verbose_name=_("Kredyt"))
-    repayment_amount = models.DecimalField(
+    repayment_amount = models.FloatField(
         _("Wartość wcześniejszej spłaty"),
-        max_digits=8, decimal_places=2,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
         help_text=_("Pole wymagane.")
@@ -618,9 +608,8 @@ class CreditEarlyRepayment(models.Model):
         default=RepaymentAction.SHORTER_PAYMENT,
         help_text=_("Pole wymagane."),
     )
-    total_installment = models.DecimalField(
+    total_installment = models.FloatField(
         _("Wysokość raty całkowitej (dla rat stałych)"),
-        max_digits=8, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],
@@ -628,9 +617,8 @@ class CreditEarlyRepayment(models.Model):
                     "Uwaga: W kredycie o ratach malejących nie można zmieniać "
                     "rat całkowitych.")
     )
-    capital_installment = models.DecimalField(
+    capital_installment = models.FloatField(
         _("Wysokość raty kapitałowej (dla rat malejących)"),
-        max_digits=8, decimal_places=2,
         null=True, blank=True,
         validators=[MinValueValidator(
             0, message=_("Wartość nie może być liczbą ujemną."))],

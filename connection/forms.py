@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -64,9 +66,6 @@ class CounterpartyForm(forms.ModelForm):
             "primary_contact_name",
             "primary_contact_phone_number",
             "primary_contact_email",
-            "secondary_contact_name",
-            "secondary_contact_phone_number",
-            "secondary_contact_email",
             "notes",
             "access_granted",
         ]
@@ -90,13 +89,17 @@ class CounterpartyForm(forms.ModelForm):
             )
         return cp_name
 
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data  # noqa: RET504
+
 ###############################################################################
 
 
 class AttachmentForm(forms.ModelForm):
     counterparties = forms.ModelMultipleChoiceField(
         Counterparty.objects.all(),
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz kontrahenta"),
         blank=True,
         required=False,
@@ -107,7 +110,7 @@ class AttachmentForm(forms.ModelForm):
         Payment.objects.all(),
         blank=True,
         # widget=forms.CheckboxSelectMultiple(attrs={"class":"multiple_select_field"}),
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz płatność"),
         required=False,
         help_text=_("Jeśli załącznik dotyczy płatności, której nie ma na liście, "
@@ -115,7 +118,7 @@ class AttachmentForm(forms.ModelForm):
     )
     renovations = forms.ModelMultipleChoiceField(
         Renovation.objects.all(),
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz remont"),
         blank=True,
         required=False,
@@ -124,7 +127,7 @@ class AttachmentForm(forms.ModelForm):
     )
     credits = forms.ModelMultipleChoiceField(
         Credit.objects.all(),
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz kredyt"),
         blank=True,
         required=False,
@@ -133,7 +136,7 @@ class AttachmentForm(forms.ModelForm):
     )
     trips = forms.ModelMultipleChoiceField(
         Trip.objects.all(),
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz podróż"),
         blank=True,
         required=False,
@@ -143,7 +146,7 @@ class AttachmentForm(forms.ModelForm):
     health_results = forms.ModelMultipleChoiceField(
         HealthTestResult.objects.all(),
         blank=True,
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz badania"),
         required=False,
         help_text=_("Jeśli załącznik dotyczy badania, którego nie ma na liście, "
@@ -152,7 +155,7 @@ class AttachmentForm(forms.ModelForm):
     medical_visits = forms.ModelMultipleChoiceField(
         MedicalVisit.objects.all(),
         blank=True,
-        widget=forms.SelectMultiple(attrs={"class": "select_field"}),
+        widget=forms.SelectMultiple(attrs={"class": "multiple_select_field"}),
         label=_("Wybierz wizytę"),
         required=False,
         help_text=_("Jeśli załącznik dotyczy wizyty, której nie ma na liście, "
@@ -202,3 +205,29 @@ class AttachmentForm(forms.ModelForm):
                 _("Istnieje już załącznik o podanej nazwie w bazie danych.")
             )
         return attachment_name
+
+    def clean_attachment_path(self):
+        attachment_path = self.cleaned_data["attachment_path"]
+        allowed_extensions = ["pdf", "png", "jpg"]
+        if not any(str(attachment_path).endswith(extension) for extension in allowed_extensions):
+            self.add_error(
+                "attachment_path",
+                _("Niedopuszczalny format pliku (plik: %s). Dozwolone pliki wyłącznie w formacie: %s."
+                  % (str(attachment_path), allowed_extensions))
+            )
+        return attachment_path
+
+    def clean_file_date(self):
+        file_date = self.cleaned_data.get("file_date", None)
+        if file_date and not isinstance(file_date, datetime.date):
+            self.add_error(
+                "file_date",
+                {"invalid":
+                     _("Poprawny format to rok-miesiąc-dzień (np. 2020-3-22).")
+                 }
+            )
+        return file_date
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data  # noqa: RET504

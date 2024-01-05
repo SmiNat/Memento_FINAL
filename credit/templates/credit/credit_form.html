@@ -181,6 +181,11 @@
         {% endif %}
             {% csrf_token %}
                 <div class="form_field">
+                    <div style="color: red; padding: 15px 0px;">
+                        Uwaga! Transze nie powinny zawierać wartości kredytowanej prowizji czy kredytowanych ubezpieczeń. Koszty te zostaną automatycznie dodane do pirwszej transzy w harmonogramie spłaty kredytu.
+                    </div>
+                    <small>Suma transz powinna odpowiadać kwocie kredytu bez prowizji i innych kosztów (tj. kwocie {{ credit.credit_amount }}).</small>
+                    <br><br><hr>
                     {% for field in form %}
                     <div class="one_field">
                         <div class="label_field">{{ field.label }}:</div>

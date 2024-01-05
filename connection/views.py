@@ -104,6 +104,11 @@ def add_counterparty(request):
             counterparty = form.save(commit=False)
             counterparty.user = request.user
             counterparty.name = form.cleaned_data["name"].capitalize()
+            if form.cleaned_data.get("email", None):
+                counterparty.email = form.cleaned_data["email"].strip()
+            if form.cleaned_data.get("primary_contact_email", None):
+                counterparty.primary_contact_email = form.cleaned_data[
+                        "primary_contact_email"].strip()
             counterparty.save()
             form.save_m2m()
             messages.success(request, _("Dodano kontrahenta."))
@@ -149,6 +154,11 @@ def edit_counterparty(request, pk):
         form.fields["trips"].queryset = Trip.objects.filter(user=request.user)
         if form.is_valid():
             counterparty = form.save(commit=False)
+            if form.cleaned_data.get("email", None):
+                counterparty.email = form.cleaned_data["email"].strip()
+            if form.cleaned_data.get("primary_contact_email", None):
+                counterparty.primary_contact_email = form.cleaned_data[
+                        "primary_contact_email"].strip()
             counterparty.name = form.cleaned_data["name"].capitalize()
             counterparty.save()
             messages.success(request, _("Dane kontrahenta zostały zaktualizowane."))
@@ -221,15 +231,15 @@ def download_attachment(request, slug, pk):
     attachment = Attachment.objects.get(id=pk)
     profile = get_object_or_404(Profile, slug=slug)
 
-    # try:    # ZABLOKOWAĆ DO TESTÓW / ODBLOKOWAĆ!
-    #     attachment.attachment_path.file
-    # except FileNotFoundError as e:
-    #     messages.error(request, _("Brak załącznika w bazie danych."))
-    #     logger.error(
-    #         "user: %s - enter page: download-attachment (id: %s) - "
-    #         "⚠️no attachment found in database!"
-    #         % (request.user.id, attachment.id))
-    #     return redirect("connection:attachments")
+    try:    # ZABLOKOWAĆ DO TESTÓW / ODBLOKOWAĆ!
+        attachment.attachment_path.file
+    except FileNotFoundError as e:
+        messages.error(request, _("Brak załącznika w bazie danych."))
+        logger.error(
+            "user: %s - enter page: download-attachment (id: %s) - "
+            "⚠️no attachment found in database!"
+            % (request.user.id, attachment.id))
+        return redirect("connection:attachments")
     if attachment:
         if attachment.user != request.user:
             logger.critical(
@@ -313,6 +323,15 @@ def delete_attachment(request, pk):
             messages.error(request, _("Nie masz uprawnień do usunięcia tych danych."))
             logout(request)
             return redirect("login")
+        if not attachment.attachment_path:
+            logger.error("user: %s - enter page: delete-attachment (id: %s) - "
+                "⚠️ unsuccessful POST - attachment (%s) not found in database; "
+                "record of attachment instance deleted from database; "
+                % (request.user.id, pk, attachment.attachment_name))
+            messages.info(request,
+                          _("Brak załącznika w bazie danych. Usunięto rekord z bazy danych."))
+            attachment.delete()
+            return redirect("connection:attachments")
     if request.method == "POST":
         try:
             attachment.delete_attachment()
@@ -324,7 +343,8 @@ def delete_attachment(request, pk):
                 "⚠️ unsuccessful POST - no attachment found in database, "
                 "record of attachment instance deleted from database; error: %s"
                 % (request.user.id, attachment.id, error))
-            messages.error(request, _("Brak załącznika w bazie danych."))
+            messages.info(request,
+                          _("Brak załącznika w bazie danych. Usunięto rekord z bazy danych."))
             attachment.delete()
             return redirect("connection:attachments")
         except PermissionError as error:

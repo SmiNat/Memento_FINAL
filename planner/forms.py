@@ -29,6 +29,10 @@ class ExpenseListForm(forms.ModelForm):
             )
         return name
 
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data  # noqa: RET504
+
 
 class ExpenseItemForm(forms.ModelForm):
     class Meta:
@@ -96,6 +100,9 @@ class ToDoListForm(forms.ModelForm):
             )
         return name
 
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data  # noqa: RET504
 
 class ToDoItemForm(forms.ModelForm):
     class Meta:

@@ -15,6 +15,12 @@ from .forms import AttachmentForm
 logger = logging.getLogger("all")
 
 
+class FileExtension(Exception):
+    """File extension is not allowed"""
+
+    pass
+
+
 def is_number_of_attachments_valid(request, stored_files_in_db):
     if len(stored_files_in_db) >= MAX_UPLOADED_FILES:   # stored_files_in_db instead of list(filter(None, existing_attachments))
         messages.error(
@@ -47,7 +53,7 @@ def handle_post_add_attachment(request, user, page, attachment_names):
     except MultiValueDictKeyError:
         messages.error(request, _("Zapomniałeś wskazać plik do załączenia."))
         return
-    except FileExtensionValidator:
+    except FileExtension:
         messages.error(request, _("Niedopuszczalny format pliku."))
         return
     except ValidationError as e:

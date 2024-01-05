@@ -1174,7 +1174,7 @@ form > .form_field > .access_form
 .multiple_select_field
 {
     min-width: 50%;
-    max-height: 42px;
+    max-height: 62px;
     scrollbar-color: #136568 #BEC0C4;
 }
 .select_field

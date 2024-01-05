@@ -50,7 +50,7 @@ class Counterparty(models.Model):
     )
     phone_number = models.CharField(
         _("Numer telefonu - infolinia"),
-        max_length=24,
+        max_length=100,
         null=True, blank=True,
     )
     email = models.EmailField(
@@ -87,26 +87,11 @@ class Counterparty(models.Model):
     )
     primary_contact_phone_number = models.CharField(
         _("Numer telefonu"),
-        max_length=24,
+        max_length=100,
         null=True, blank=True,
     )
     primary_contact_email = models.EmailField(
         _("Adres email"),
-        max_length=255,
-        blank=True, null=True,
-    )
-    secondary_contact_name = models.CharField(
-        _("Imię i nazwisko (2)"),
-        max_length=255,
-        blank=True, null=True,
-    )
-    secondary_contact_phone_number = models.CharField(
-        _("Numer telefonu (2)"),
-        max_length=24,
-        null=True, blank=True,
-    )
-    secondary_contact_email = models.EmailField(
-        _("Adres email (2)"),
         max_length=255,
         blank=True, null=True,
     )

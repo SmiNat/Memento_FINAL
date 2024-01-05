@@ -140,8 +140,6 @@ def user_profile(request):
             access_granted_emails.append(access.email)
     context = {"profile": profile, "access_granted_from": access_granted_emails}
     users = User.objects.all()
-    for user in users:
-        print("*********", user)
     return render(request, "user/user_profile.html", context)
 
 
@@ -162,7 +160,10 @@ def edit_account(request):
                            profile_emails=profile_emails)
         if form.is_valid():
             try:
-                form.save()
+                profile_form = form.save(commit=False)
+                if form.cleaned_data.get("email", None):
+                    profile_form.email = form.cleaned_data["email"].strip()
+                profile_form.save()
                 messages.success(request, _("Zaktualizowano dane."))
                 return redirect("user-profile")
             except ValidationError as e:

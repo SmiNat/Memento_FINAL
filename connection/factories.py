@@ -21,10 +21,7 @@ class CounterpartyFactory(DjangoModelFactory):
     client_number = "KH2345"
     primary_contact_name = None
     primary_contact_phone_number = None
-    primary_contact_email = "some_random@example.com"
-    secondary_contact_name = Faker("email")
-    secondary_contact_phone_number = None
-    secondary_contact_email = None
+    primary_contact_email = "some_random@example.com"   # Faker("email")
     notes = Faker("sentence", nb_words=4)
     access_granted = Access.NO_ACCESS_GRANTED
     created = datetime.datetime(2020, 1, 1, 4, 1, 1, 1)

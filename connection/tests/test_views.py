@@ -454,9 +454,7 @@ class CounterpartyTests(TestCase):
                                "www", "bank_account", "app", "client_number",
                                "primary_contact_name",
                                "primary_contact_phone_number",
-                               "primary_contact_email", "secondary_contact_name",
-                               "secondary_contact_phone_number",
-                               "secondary_contact_email", "notes",
+                               "primary_contact_email", "notes",
                                "access_granted"]
         self.client.login(username="johndoe123", password="testpass456")
         response_get = self.client.get(reverse("connection:add-counterparty"))

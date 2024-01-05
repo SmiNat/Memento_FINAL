@@ -1382,7 +1382,7 @@ class CreditSchedule():
     def credit_table(self):
         df = pd.DataFrame(columns=["Liczba dni", "Data", "Zaciągnięcie kredytu",
                                    "Wcześniejsza spłata", "Oprocentowanie pomostowe (%)",
-                                   "Oprocentowanie kredytu (%)",
+                                   "Łączne oprocentowanie kredytu (%)",
                                    "Rata odsetkowa", "Rata kapitałowa", "Rata całkowita",
                                    "Saldo", "LTV (%)", "Ubezpieczenie (niekredytowane)",
                                    "Prowizje i inne", "Razem płatność"])
@@ -1406,7 +1406,7 @@ class CreditSchedule():
                                                            0,
                                                            df["Oprocentowanie pomostowe (%)"])
                                                   )
-        df["Oprocentowanie kredytu (%)"] = df["Data"].map(self.interest_rates_schedule())
+        df["Łączne oprocentowanie kredytu (%)"] = df["Data"].map(self.interest_rates_schedule())
         df["Rata odsetkowa"] = df["Data"].map(self.interest_installment_schedule())
         df["Rata kapitałowa"] = df["Data"].map(self.capital_installments_schedule())
         if self.credit.installment_type == _("Raty równe"):
@@ -1432,7 +1432,7 @@ class CreditSchedule():
         df["Oprocentowanie pomostowe (%)"] = (df["Oprocentowanie pomostowe (%)"].astype("float")
                                               if not df["Oprocentowanie pomostowe (%)"].isnull().values.any()
                                               else df["Oprocentowanie pomostowe (%)"].fillna("n/a"))
-        df["Oprocentowanie kredytu (%)"] = df["Oprocentowanie kredytu (%)"].astype("float").fillna("---")
+        df["Łączne oprocentowanie kredytu (%)"] = df["Łączne oprocentowanie kredytu (%)"].astype("float").fillna("---")
         df["Rata odsetkowa"] = df["Rata odsetkowa"].astype("float").fillna(0)
         df["Rata kapitałowa"] = df["Rata kapitałowa"].astype("float").fillna(0)
         df["Rata całkowita"] = df["Rata całkowita"].astype("float").fillna(0)
@@ -1742,7 +1742,7 @@ class CreditSchedule():
         collateral_change_in_rate = False
         try:
             collateral = CreditCollateral.objects.get(credit=self.credit)
-        except CreditCollateral.DoesNotExists:
+        except CreditCollateral.DoesNotExist:
             collateral = None
         if collateral:
             if collateral.collateral_set_date < list(interest_rates.keys())[1]:
@@ -1755,7 +1755,7 @@ class CreditSchedule():
             if period in interest_rates:
                 rate = interest_rates[period]
                 collateral_change_in_rate = False
-            elif period >= collateral.collateral_set_date and collateral_change_in_rate:
+            elif collateral and period >= collateral.collateral_set_date and collateral_change_in_rate:
                 rate = initial_interest_rate - self.collateral_rate
             interest_rates_final[period] = rate
         return interest_rates_final
@@ -2310,7 +2310,7 @@ class CreditSchedule():
                                            + (interest_installment_changes if changes is True else 0))
                 else:
                     installment_period = int((element["date"] - cash_flows[i - 1]["date"]).days)
-                    interest_installment = round(previous_balance * decimal.Decimal(interest_rate * installment_period / days_in_year),
+                    interest_installment = round(previous_balance * (interest_rate * installment_period / days_in_year),
                                                  2) + (interest_installment_changes if changes is True else 0)
 
             return interest_installment
@@ -2348,7 +2348,7 @@ class CreditSchedule():
                     elif element["capital installment"] >= (previous_balance + element["payment from bank"]):
                         new_balance = 0
                         # days_in_year = 366 if calendar.isleap(element["date"].year) else 365
-                        interest_rate = decimal.Decimal(element["interest rate"] / 100)
+                        interest_rate = (element["interest rate"] / 100)
 
                         interest_installment = interest_installment_payments_considering_turn_of_the_leap_year()
                         # interest_installment = round(previous_balance * (interest_rate * installment_period / days_in_year), 2)
@@ -2412,7 +2412,7 @@ class CreditSchedule():
                         # If rate of interest changes after tranche payment or early repayment date, interest should be calculated at new interest rate
                         if i + 1 < periods_in_cash_flows:
                             if cash_flows[i]["interest rate"] != cash_flows[i+1]["interest rate"]:
-                                interest_rate = decimal.Decimal(cash_flows[i+1]["interest rate"]/100)
+                                interest_rate = (cash_flows[i+1]["interest rate"] / 100)
                         new_balance = previous_balance - element["capital installment"] + element["payment from bank"] - element["early repayment"]
                         days_in_year = 366 if calendar.isleap(element["date"].year) else 365
 
@@ -2436,7 +2436,7 @@ class CreditSchedule():
                     elif element["payment from bank"] > 0 or element["early repayment"] > 0 or element["date"] in basic_installment_dates:
                         new_balance = previous_balance - element["capital installment"] + element["payment from bank"] - element["early repayment"]
                         # days_in_year = 366 if calendar.isleap(element["date"].year) else 365
-                        interest_rate = decimal.Decimal(element["interest rate"] / 100)
+                        interest_rate = (element["interest rate"] / 100)
 
                         interest_installment = interest_installment_payments_considering_turn_of_the_leap_year()
 
@@ -2489,7 +2489,7 @@ class CreditSchedule():
                     elif (element["payment from bank"] == 0
                           and element["total installment"] > 0
                           and (previous_balance - element["early repayment"] - cash_flows[i - 1]["capital installment"] <= 0)):
-                        interest_installment = decimal.Decimal(interest_installment_payments_considering_turn_of_the_leap_year())
+                        interest_installment = (interest_installment_payments_considering_turn_of_the_leap_year())
                         element["credit balance"] = 0
                         # element["capital installment"] = previous_balance
                         element["capital installment"] = (element["total installment"] - interest_installment)
@@ -2555,7 +2555,7 @@ class CreditSchedule():
                         # If rate of interest changes after tranche payment or early repayment date, interest should be calculated at new interest rate
                         if i + 1 < periods_in_cash_flows:
                             if cash_flows[i]["interest rate"] != cash_flows[i + 1]["interest rate"]:
-                                interest_rate = decimal.Decimal(cash_flows[i + 1]["interest rate"] / 100)
+                                interest_rate = (cash_flows[i + 1]["interest rate"] / 100)
                         new_balance = previous_balance - element["capital installment"] + element["payment from bank"] - element["early repayment"]
                         days_in_year = 366 if calendar.isleap(element["date"].year) else 365
 
@@ -2579,7 +2579,7 @@ class CreditSchedule():
                     # Changes in credit at installment dates scenario
                     elif element["payment from bank"] > 0 or element["early repayment"] > 0 or element["date"] in basic_installment_dates:
                         # days_in_year = 366 if calendar.isleap(element["date"].year) else 365
-                        interest_rate = decimal.Decimal(element["interest rate"] / 100)
+                        interest_rate = (element["interest rate"] / 100)
 
                         interest_installment = interest_installment_payments_considering_turn_of_the_leap_year()
 

@@ -23,21 +23,10 @@
                         <tr>
                             <td>Nazwa pliku</td>
                             <td>Informacja o pliku</td>
-                            <td style="text-align: center;">Data dodania</td>
-                            <td style="text-align: center; border-right: 1px dashed #136568;">Data ostatniej modyfikacji</td>
-
+                            <td style="text-align: center; border-left: 1px dashed #136568;">Data dokumentu</td>
+                            <td style="text-align: center; border-right: 1px dashed #136568;">Data dodania</td>
                             <td>Pobierz</td>
                             <td style="border-right: 1px dashed #136568;">Usuń</td>
-
-                            {% comment %}
-                            <td style="border-left: 1px dashed #136568;">Płatność</td>
-                            <td>Kontrahent</td>
-                            <td>Remont</td>
-                            <td>Kredyt</td>
-                            <td>Podróż</td>
-                            <td>Badania</td>
-                            <td>Wizyty</td>
-                            {% endcomment %}
                         </tr>
                     </thead>
                     <tbody>
@@ -45,8 +34,8 @@
                             <tr>
                                 <td style="border-left: 1px dashed #F9F1CF;">{{ attachment.attachment_name }}</td>
                                 <td>{% if attachment.file_info == 'None' or attachment.file_info == "" %}---{% else %}{{ attachment.file_info }}{% endif %}</td>
-                                <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.created }}</td>
-                                <td style="text-align: center;">{{ attachment.updated }}</td>
+                                <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ attachment.file_date|default_if_none:"---" }}</td>
+                                <td style="text-align: center;">{{ attachment.created }}</td>
 
                                 <td style="border-left: 1px dashed #F9F1CF;">
                                     {% comment %}<a href="{% static attachment.attachment_file_path %}" Download>Pobierz</a>{% endcomment %}
@@ -64,58 +53,6 @@
                                         {{ profile.access_granted_to }}
                                     {% endif %}
                                 </td>
-
-                                {% comment %}
-                                <td style="border-left: 1px dashed #F9F1CF;">
-                                    {% if attachment.payments.all.count == 0 %}---{% else %}
-                                        {% for payment in attachment.payments.all %}
-                                            <a href="{% url 'payment:single-payment' payment.id %}">{{ payment|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if attachment.counterparties.all.count == 0 %}---{% else %}
-                                        {% for cp in attachment.counterparties.all %}
-                                            <a href="{% url 'connection:single-counterparty' cp.id %}">{{ cp|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if attachment.renovations.all.count == 0 %}---{% else %}
-                                        {% for renovation in attachment.renovations.all %}
-                                            <a href="{% url 'renovation:single-renovation' renovation.id %}">{{ renovation|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if attachment.credits.all.count == 0 %}---{% else %}
-                                        {% for credit in attachment.credits.all %}
-                                            <a href="{% url 'credit:single-credit' credit.id %}">{{ credit|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if attachment.trips.all.count == 0 %}---{% else %}
-                                        {% for trip in attachment.trips.all %}
-                                            <a href="{% url 'trip:single-trip' trip.id %}">{{ trip|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if attachment.health_results.all.count == 0 %}---{% else %}
-                                        {% for result in attachment.health_results.all %}
-                                            <a href="{% url 'medical:single-test-result' result.id %}">{{ result|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if attachment.medical_visits.all.count == 0 %}---{% else %}
-                                        {% for visit in attachment.medical_visits.all %}
-                                            <a href="{% url 'medical:single-visit' visit.id %}">{{ visit|title }}</a><br>
-                                        {% endfor %}
-                                    {% endif %}
-                                </td>
-                                {% endcomment %}
                             </tr>
                         {% endfor %}
                     </tbody>

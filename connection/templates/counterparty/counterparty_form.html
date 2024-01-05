@@ -33,7 +33,9 @@
             <fieldset>
                 <legend>Podstawowe dane dotyczące kontrahenta</legend>
                 {% for field in form %}
-                    {% if field.label == 'Nazwa' or field.label == 'Numer telefonu - infolinia' or field.label == 'Adres email - ogólny' or field.label == 'Adres korespondencyjny' or field.label == 'Strona internetowa' or field.label == 'Numer konta do przelewów' or field.label == 'Aplikacja do zarządzania płatnościami' or field.label == 'Numer płatnika (klienta)' or field.label == 'Uwagi' %}
+                    {% if field.label == 'Imię i nazwisko' or field.label == 'Numer telefonu' or field.label == 'Adres email' or field.label == 'Dostęp do danych' %}
+                    {% elif field.label == 'Wybierz płatności' or field.label == 'Wybierz kredyty' or field.label == 'Wybierz remonty' or field.label == 'Wybierz podróże' %}
+                    {% else %}
                     <div class="one_field">
                         <div class="label_field">{{ field.label }}:</div>
                         <div class="value_field">{{ field }}</div>
@@ -46,9 +48,9 @@
                 {% endfor %}
             </fieldset>
             <fieldset>
-                <legend>Osoby do kontaktu</legend>
+                <legend>Osoba do kontaktu</legend>
                 {% for field in form %}
-                    {% if field.label == 'Imię i nazwisko' or field.label == 'Numer telefonu' or field.label == 'Adres email' or field.label == 'Imię i nazwisko (2)' or field.label == 'Numer telefonu (2)' or field.label == 'Adres email (2)' %}
+                    {% if field.label == 'Imię i nazwisko' or field.label == 'Numer telefonu' or field.label == 'Adres email' %}
                     <div class="one_field">
                         <div class="label_field">{{ field.label }}:</div>
                         <div class="value_field">{{ field }}</div>
