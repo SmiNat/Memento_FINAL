@@ -28,7 +28,7 @@ class CreditFactory(DjangoModelFactory):
     installment_type = "Raty malejące"
     installment_frequency = "Miesięczne"
     total_installment = 0
-    capital_installment = 1000
+    capital_installment = 1111.11
     type_of_interest = "Stałe"
     fixed_interest_rate = 6
     floating_interest_rate = 0
@@ -59,7 +59,7 @@ class CreditTrancheFactory(DjangoModelFactory):
     id = Faker("uuid4")
     user = SubFactory(UserFactory)
     credit = SubFactory(CreditFactory)
-    tranche_amount = 10000
+    tranche_amount = 1234.56
     tranche_date = datetime.date(2020, 5, 1)
     total_installment = None
     capital_installment = None
@@ -91,11 +91,12 @@ class CreditInsuranceFactory(DjangoModelFactory):
     user = SubFactory(UserFactory)
     credit = SubFactory(CreditFactory)
     type = InsuranceType.PROPERTY_INSURANCE
-    amount = 777
+    amount = 777.77
     frequency = Frequency.ANNUALLY
     start_date = datetime.date(2021, 1, 1)
     end_date = datetime.date(2025, 1, 1)
     payment_period = 1
+    notes = "additional property insurance"
     created = datetime.datetime(2020, 1, 1, 4, 1, 1, 1)
     updated = datetime.datetime(2020, 1, 1, 4, 1, 1, 1)
 

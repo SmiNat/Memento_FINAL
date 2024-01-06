@@ -945,7 +945,11 @@ class CounterpartyTests(TestCase):
 class AttachmentTests(TestCase):
     """Test Attachment views."""
 
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def setUp(self):
+        if not os.path.exists(settings.TEST_ROOT):
+            os.mkdir(settings.TEST_ROOT)
+
         self.user = User.objects.create_user(
             username="johndoe123", email="jd@example.com",
             password="testpass456")
@@ -1007,22 +1011,27 @@ class AttachmentTests(TestCase):
             "access_granted",
         ]
 
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def tearDown(self):
-        users = [str(self.user.id), str(self.test_user.id)]
-        for user in users:
-            path = os.path.join(settings.TEST_ROOT, user)
-            if os.path.exists(path):
-                if os.path.isfile(path) or os.path.islink(path):
-                    os.unlink(path)
-                else:
-                    shutil.rmtree(path)
-        path_temp = os.path.join(settings.TEST_ROOT, "temporary")
-        if os.path.exists(path_temp):
-            if os.path.isfile(path_temp) or os.path.islink(path_temp):
-                os.unlink(path_temp)
-            # else:
-            #     shutil.rmtree(path_temp)  # PermissionError: [WinError 32] The process cannot access the file because it is being used by another process
-        # os.rmdir(settings.TEST_ROOT)
+        if os.path.exists(settings.TEST_ROOT):
+            shutil.rmtree(settings.TEST_ROOT)
+
+    # def tearDown(self):
+    #     users = [str(self.user.id), str(self.test_user.id)]
+    #     for user in users:
+    #         path = os.path.join(settings.TEST_ROOT, user)
+    #         if os.path.exists(path):
+    #             if os.path.isfile(path) or os.path.islink(path):
+    #                 os.unlink(path)
+    #             else:
+    #                 shutil.rmtree(path)
+    #     path_temp = os.path.join(settings.TEST_ROOT, "temporary")
+    #     if os.path.exists(path_temp):
+    #         if os.path.isfile(path_temp) or os.path.islink(path_temp):
+    #             os.unlink(path_temp)
+    #         # else:
+    #         #     shutil.rmtree(path_temp)  # PermissionError: [WinError 32] The process cannot access the file because it is being used by another process
+    #     # os.rmdir(settings.TEST_ROOT)
 
     def test_all_setup_instances_created(self):
         """Test if all instances has been created in setUp."""

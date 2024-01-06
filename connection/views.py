@@ -46,7 +46,6 @@ def counterparties(request):
         all_counterparties = None
 
     # Searching engine - search by name or value of estimated cost (gte)
-    # If search results in empty queryset, error message is displayed
     # If search engine is empty, queryset data is displayed in full
     search_query = request.GET.get("q")
     if search_query:

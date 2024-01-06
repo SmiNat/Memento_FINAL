@@ -258,6 +258,11 @@ class ToDoItem(models.Model):
         null=True, blank=True,
     )
     due_date = models.DateField(_("Termin wykonania"), null=True, blank=True)
+    link = models.URLField(_("Link do zadania"), null=True, blank=True)
+    notes = models.TextField(
+        _("Uwagi"), max_length=500,
+        null=True, blank=True,
+    )
     created = models.DateField(_("Data dodania"), auto_now_add=True)
     updated = models.DateField(_("Data aktualizacji"), auto_now=True)
 

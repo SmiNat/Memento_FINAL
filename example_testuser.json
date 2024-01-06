@@ -1,0 +1,5002 @@
+[
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 4,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 4,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 4,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 4,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 5,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 5,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 5,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 5,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add attachment",
+        "content_type": 6,
+        "codename": "add_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change attachment",
+        "content_type": 6,
+        "codename": "change_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete attachment",
+        "content_type": 6,
+        "codename": "delete_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view attachment",
+        "content_type": 6,
+        "codename": "view_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add counterparty",
+        "content_type": 7,
+        "codename": "add_counterparty"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change counterparty",
+        "content_type": 7,
+        "codename": "change_counterparty"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete counterparty",
+        "content_type": 7,
+        "codename": "delete_counterparty"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view counterparty",
+        "content_type": 7,
+        "codename": "view_counterparty"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add credit",
+        "content_type": 8,
+        "codename": "add_credit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change credit",
+        "content_type": 8,
+        "codename": "change_credit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete credit",
+        "content_type": 8,
+        "codename": "delete_credit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view credit",
+        "content_type": 8,
+        "codename": "view_credit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add credit additional cost",
+        "content_type": 9,
+        "codename": "add_creditadditionalcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change credit additional cost",
+        "content_type": 9,
+        "codename": "change_creditadditionalcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete credit additional cost",
+        "content_type": 9,
+        "codename": "delete_creditadditionalcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view credit additional cost",
+        "content_type": 9,
+        "codename": "view_creditadditionalcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add credit collateral",
+        "content_type": 10,
+        "codename": "add_creditcollateral"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change credit collateral",
+        "content_type": 10,
+        "codename": "change_creditcollateral"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete credit collateral",
+        "content_type": 10,
+        "codename": "delete_creditcollateral"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view credit collateral",
+        "content_type": 10,
+        "codename": "view_creditcollateral"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add credit early repayment",
+        "content_type": 11,
+        "codename": "add_creditearlyrepayment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change credit early repayment",
+        "content_type": 11,
+        "codename": "change_creditearlyrepayment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete credit early repayment",
+        "content_type": 11,
+        "codename": "delete_creditearlyrepayment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view credit early repayment",
+        "content_type": 11,
+        "codename": "view_creditearlyrepayment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add credit insurance",
+        "content_type": 12,
+        "codename": "add_creditinsurance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change credit insurance",
+        "content_type": 12,
+        "codename": "change_creditinsurance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete credit insurance",
+        "content_type": 12,
+        "codename": "delete_creditinsurance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view credit insurance",
+        "content_type": 12,
+        "codename": "view_creditinsurance"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add credit interest rate",
+        "content_type": 13,
+        "codename": "add_creditinterestrate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change credit interest rate",
+        "content_type": 13,
+        "codename": "change_creditinterestrate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete credit interest rate",
+        "content_type": 13,
+        "codename": "delete_creditinterestrate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view credit interest rate",
+        "content_type": 13,
+        "codename": "view_creditinterestrate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add credit tranche",
+        "content_type": 14,
+        "codename": "add_credittranche"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change credit tranche",
+        "content_type": 14,
+        "codename": "change_credittranche"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete credit tranche",
+        "content_type": 14,
+        "codename": "delete_credittranche"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view credit tranche",
+        "content_type": 14,
+        "codename": "view_credittranche"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add health test result",
+        "content_type": 15,
+        "codename": "add_healthtestresult"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change health test result",
+        "content_type": 15,
+        "codename": "change_healthtestresult"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete health test result",
+        "content_type": 15,
+        "codename": "delete_healthtestresult"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view health test result",
+        "content_type": 15,
+        "codename": "view_healthtestresult"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add med card",
+        "content_type": 16,
+        "codename": "add_medcard"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change med card",
+        "content_type": 16,
+        "codename": "change_medcard"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete med card",
+        "content_type": 16,
+        "codename": "delete_medcard"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view med card",
+        "content_type": 16,
+        "codename": "view_medcard"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add medical visit",
+        "content_type": 17,
+        "codename": "add_medicalvisit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change medical visit",
+        "content_type": 17,
+        "codename": "change_medicalvisit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete medical visit",
+        "content_type": 17,
+        "codename": "delete_medicalvisit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view medical visit",
+        "content_type": 17,
+        "codename": "view_medicalvisit"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add medicine",
+        "content_type": 18,
+        "codename": "add_medicine"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change medicine",
+        "content_type": 18,
+        "codename": "change_medicine"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete medicine",
+        "content_type": 18,
+        "codename": "delete_medicine"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view medicine",
+        "content_type": 18,
+        "codename": "view_medicine"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add payment",
+        "content_type": 19,
+        "codename": "add_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change payment",
+        "content_type": 19,
+        "codename": "change_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete payment",
+        "content_type": 19,
+        "codename": "delete_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view payment",
+        "content_type": 19,
+        "codename": "view_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add expense item",
+        "content_type": 20,
+        "codename": "add_expenseitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change expense item",
+        "content_type": 20,
+        "codename": "change_expenseitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete expense item",
+        "content_type": 20,
+        "codename": "delete_expenseitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view expense item",
+        "content_type": 20,
+        "codename": "view_expenseitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add expense list",
+        "content_type": 21,
+        "codename": "add_expenselist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change expense list",
+        "content_type": 21,
+        "codename": "change_expenselist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete expense list",
+        "content_type": 21,
+        "codename": "delete_expenselist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view expense list",
+        "content_type": 21,
+        "codename": "view_expenselist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 85,
+    "fields": {
+        "name": "Can add to do item",
+        "content_type": 22,
+        "codename": "add_todoitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 86,
+    "fields": {
+        "name": "Can change to do item",
+        "content_type": 22,
+        "codename": "change_todoitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 87,
+    "fields": {
+        "name": "Can delete to do item",
+        "content_type": 22,
+        "codename": "delete_todoitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 88,
+    "fields": {
+        "name": "Can view to do item",
+        "content_type": 22,
+        "codename": "view_todoitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 89,
+    "fields": {
+        "name": "Can add to do list",
+        "content_type": 23,
+        "codename": "add_todolist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 90,
+    "fields": {
+        "name": "Can change to do list",
+        "content_type": 23,
+        "codename": "change_todolist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 91,
+    "fields": {
+        "name": "Can delete to do list",
+        "content_type": 23,
+        "codename": "delete_todolist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 92,
+    "fields": {
+        "name": "Can view to do list",
+        "content_type": 23,
+        "codename": "view_todolist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 93,
+    "fields": {
+        "name": "Can add renovation",
+        "content_type": 24,
+        "codename": "add_renovation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 94,
+    "fields": {
+        "name": "Can change renovation",
+        "content_type": 24,
+        "codename": "change_renovation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 95,
+    "fields": {
+        "name": "Can delete renovation",
+        "content_type": 24,
+        "codename": "delete_renovation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 96,
+    "fields": {
+        "name": "Can view renovation",
+        "content_type": 24,
+        "codename": "view_renovation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 97,
+    "fields": {
+        "name": "Can add renovation cost",
+        "content_type": 25,
+        "codename": "add_renovationcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 98,
+    "fields": {
+        "name": "Can change renovation cost",
+        "content_type": 25,
+        "codename": "change_renovationcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 99,
+    "fields": {
+        "name": "Can delete renovation cost",
+        "content_type": 25,
+        "codename": "delete_renovationcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 100,
+    "fields": {
+        "name": "Can view renovation cost",
+        "content_type": 25,
+        "codename": "view_renovationcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add trip",
+        "content_type": 26,
+        "codename": "add_trip"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change trip",
+        "content_type": 26,
+        "codename": "change_trip"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete trip",
+        "content_type": 26,
+        "codename": "delete_trip"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view trip",
+        "content_type": 26,
+        "codename": "view_trip"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 105,
+    "fields": {
+        "name": "Can add trip additional info",
+        "content_type": 27,
+        "codename": "add_tripadditionalinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 106,
+    "fields": {
+        "name": "Can change trip additional info",
+        "content_type": 27,
+        "codename": "change_tripadditionalinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 107,
+    "fields": {
+        "name": "Can delete trip additional info",
+        "content_type": 27,
+        "codename": "delete_tripadditionalinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 108,
+    "fields": {
+        "name": "Can view trip additional info",
+        "content_type": 27,
+        "codename": "view_tripadditionalinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 109,
+    "fields": {
+        "name": "Can add trip advanced checklist",
+        "content_type": 28,
+        "codename": "add_tripadvancedchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 110,
+    "fields": {
+        "name": "Can change trip advanced checklist",
+        "content_type": 28,
+        "codename": "change_tripadvancedchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 111,
+    "fields": {
+        "name": "Can delete trip advanced checklist",
+        "content_type": 28,
+        "codename": "delete_tripadvancedchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 112,
+    "fields": {
+        "name": "Can view trip advanced checklist",
+        "content_type": 28,
+        "codename": "view_tripadvancedchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 113,
+    "fields": {
+        "name": "Can add trip basic checklist",
+        "content_type": 29,
+        "codename": "add_tripbasicchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 114,
+    "fields": {
+        "name": "Can change trip basic checklist",
+        "content_type": 29,
+        "codename": "change_tripbasicchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 115,
+    "fields": {
+        "name": "Can delete trip basic checklist",
+        "content_type": 29,
+        "codename": "delete_tripbasicchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 116,
+    "fields": {
+        "name": "Can view trip basic checklist",
+        "content_type": 29,
+        "codename": "view_tripbasicchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 117,
+    "fields": {
+        "name": "Can add trip cost",
+        "content_type": 30,
+        "codename": "add_tripcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 118,
+    "fields": {
+        "name": "Can change trip cost",
+        "content_type": 30,
+        "codename": "change_tripcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 119,
+    "fields": {
+        "name": "Can delete trip cost",
+        "content_type": 30,
+        "codename": "delete_tripcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 120,
+    "fields": {
+        "name": "Can view trip cost",
+        "content_type": 30,
+        "codename": "view_tripcost"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 121,
+    "fields": {
+        "name": "Can add trip personal checklist",
+        "content_type": 31,
+        "codename": "add_trippersonalchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 122,
+    "fields": {
+        "name": "Can change trip personal checklist",
+        "content_type": 31,
+        "codename": "change_trippersonalchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 123,
+    "fields": {
+        "name": "Can delete trip personal checklist",
+        "content_type": 31,
+        "codename": "delete_trippersonalchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 124,
+    "fields": {
+        "name": "Can view trip personal checklist",
+        "content_type": 31,
+        "codename": "view_trippersonalchecklist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 125,
+    "fields": {
+        "name": "Can add trip report",
+        "content_type": 32,
+        "codename": "add_tripreport"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 126,
+    "fields": {
+        "name": "Can change trip report",
+        "content_type": 32,
+        "codename": "change_tripreport"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 127,
+    "fields": {
+        "name": "Can delete trip report",
+        "content_type": 32,
+        "codename": "delete_tripreport"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 128,
+    "fields": {
+        "name": "Can view trip report",
+        "content_type": 32,
+        "codename": "view_tripreport"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 129,
+    "fields": {
+        "name": "Can add U┐ytkownik",
+        "content_type": 33,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 130,
+    "fields": {
+        "name": "Can change U┐ytkownik",
+        "content_type": 33,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 131,
+    "fields": {
+        "name": "Can delete U┐ytkownik",
+        "content_type": 33,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 132,
+    "fields": {
+        "name": "Can view U┐ytkownik",
+        "content_type": 33,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 133,
+    "fields": {
+        "name": "Can add Profil",
+        "content_type": 34,
+        "codename": "add_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 134,
+    "fields": {
+        "name": "Can change Profil",
+        "content_type": 34,
+        "codename": "change_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 135,
+    "fields": {
+        "name": "Can delete Profil",
+        "content_type": 34,
+        "codename": "delete_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 136,
+    "fields": {
+        "name": "Can view Profil",
+        "content_type": 34,
+        "codename": "view_profile"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "connection",
+        "model": "attachment"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "connection",
+        "model": "counterparty"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "credit",
+        "model": "credit"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "credit",
+        "model": "creditadditionalcost"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "credit",
+        "model": "creditcollateral"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "credit",
+        "model": "creditearlyrepayment"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "credit",
+        "model": "creditinsurance"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "credit",
+        "model": "creditinterestrate"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "credit",
+        "model": "credittranche"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "medical",
+        "model": "healthtestresult"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "medical",
+        "model": "medcard"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "medical",
+        "model": "medicalvisit"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "medical",
+        "model": "medicine"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 19,
+    "fields": {
+        "app_label": "payment",
+        "model": "payment"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 20,
+    "fields": {
+        "app_label": "planner",
+        "model": "expenseitem"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 21,
+    "fields": {
+        "app_label": "planner",
+        "model": "expenselist"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 22,
+    "fields": {
+        "app_label": "planner",
+        "model": "todoitem"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 23,
+    "fields": {
+        "app_label": "planner",
+        "model": "todolist"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 24,
+    "fields": {
+        "app_label": "renovation",
+        "model": "renovation"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 25,
+    "fields": {
+        "app_label": "renovation",
+        "model": "renovationcost"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 26,
+    "fields": {
+        "app_label": "trip",
+        "model": "trip"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 27,
+    "fields": {
+        "app_label": "trip",
+        "model": "tripadditionalinfo"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 28,
+    "fields": {
+        "app_label": "trip",
+        "model": "tripadvancedchecklist"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 29,
+    "fields": {
+        "app_label": "trip",
+        "model": "tripbasicchecklist"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 30,
+    "fields": {
+        "app_label": "trip",
+        "model": "tripcost"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 31,
+    "fields": {
+        "app_label": "trip",
+        "model": "trippersonalchecklist"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 32,
+    "fields": {
+        "app_label": "trip",
+        "model": "tripreport"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 33,
+    "fields": {
+        "app_label": "user",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 34,
+    "fields": {
+        "app_label": "user",
+        "model": "profile"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "0ttdb493qaw234tzdyvcdxsc90hx12o9",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rJsOb:CUn0VLtONzigb8bUCtr-klrv0nxcI4fKGn8qyyskURw",
+        "expire_date": "2024-01-14T09:46:13.825Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "1gr53vm9rbbjt4zpuyo0qc7ff0jm1191",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rA4jp:hAyw9JPS1Z8SLenITvw1El5dJStXGizNp936Cd9k7u4",
+        "expire_date": "2023-12-18T08:55:37.743Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "252whlvg0w836nya7dxmx6y6uvft94nl",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rIXnl:-3egeM0ikKno0C5_4lIOyc7FzLSRaXCtMdM4HGwecus",
+        "expire_date": "2024-01-10T17:34:41.493Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "2shwc1eocxtwg4bw2bma4tanuscfehcp",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKy9D:H8z8pqC0w41BxTpfcEPT3hvWjBEP1qpg6Rz-kdBlyQA",
+        "expire_date": "2024-01-17T10:06:51.298Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "38rtfcu6mujeboxk7t5yhu34ae4mgyjq",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rFyrZ:-nqTuIgy_qX21RueDK_3yiYA-hKydoO8V529w9WUI0g",
+        "expire_date": "2024-01-03T15:52:01.255Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "3qo3cqblf266umv1bu016b4n92n05us1",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKgCS:Q7paEWa8Jp9gMqhxVWShYEyBqp25Pvcqsy6xL1JG5gw",
+        "expire_date": "2024-01-16T14:57:00.368Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "3se76f7x454jyom7mxvgiecavqdpp8bt",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rBGeh:_eCHYpklkwwytONoHCLfU3rzt7tQbkGNVKFqR2PaDQw",
+        "expire_date": "2023-12-21T15:51:15.957Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "3z4c971nkaomrsac7b9tepsef1hk6stx",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKhbn:gCUR9WxiGXxRTuQtXFDTqV2mDvZvM7KIgPqBub8eyK0",
+        "expire_date": "2024-01-16T16:27:15.669Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "4fhtepnb9wcwsyig49i2qfxb3f982x20",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rBVLw:VdaZ8uyd0eYyZKFkDJfLJx5mm8Nn4_qklasw9kO9yXU",
+        "expire_date": "2023-12-22T07:32:52.242Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "4pzk46fbw2eokrozbvay6ns2sxal41gq",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r65lN:BV3UxieTVL54aPARB-ekGsmSKwReeqwyJlMMEHU1Ngc",
+        "expire_date": "2023-12-07T09:12:45.264Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "4wdd32u7od8ulv6orngzdblkv70znf57",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKejV:va2aRNldd-OVxNMbEM5v4ZfJxtmNGLYBNEZ61R55B6E",
+        "expire_date": "2024-01-16T13:23:01.293Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "57tzqq91mrhblvnx8bce6ywd7i0mgeyx",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r6YT3:P_9KRMT3EPIJ1In44lzZkmKHG6hf76ih0hnHMKNbpIQ",
+        "expire_date": "2023-12-08T15:51:45.749Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "5evoc3o0kbzyk9kpnrp6ilcq3skl8n5d",
+    "fields": {
+        "session_data": ".eJxVjDsOwyAQBe9CHRCGZc2mTJ8zWCwscT6yJX-qKHePLblImmnezHurLq1L362zTN29qLNCxmh9gxpqFA2SUEeOrXbEYktG8ejV6TfjlJ8y7G15pOE2mjwOy3RnsyvmWGdzHYu8Lof7d9Cnud9q8lVCyAiWoq8cHGYIFrF6pMZKAELYECJQcrixuNhygGotV0dJfb6gij9t:1rLfCI:tmLoD5SSf7UXURFGgtqUy5J9AXRdQPBO5kl0bMGX0pw",
+        "expire_date": "2024-01-19T08:04:54.795Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "5z2sqtamu3zoh88gta59el5r6ngd7adw",
+    "fields": {
+        "session_data": ".eJxVjDsOwyAQBe9CHRCGZc2mTJ8zWCwscT6yJX-qKHePLblImmnezHurLq1L362zTN29qLNCxmh9gxpqFA2SUEeOrXbEYktG8ejV6TfjlJ8y7G15pOE2mjwOy3RnsyvmWGdzHYu8Lof7d9Cnud9q8lVCyAiWoq8cHGYIFrF6pMZKAELYECJQcrixuNhygGotV0dJfb6gij9t:1rKbXF:c-3Vll2eHDOiltA5FlR1TfuFKCkuE-RbXsgAgTLpW-U",
+        "expire_date": "2024-01-16T09:58:09.706Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "697tuher0uaznxpkfh56wflqcdsi2h50",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rDlc9:x-IXpznhq6JeCjBTd4NwPC-HCskWsNHc6YXuFezikbo",
+        "expire_date": "2023-12-28T13:18:57.761Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "6k4mp73j0h2n853wece8jr24q8w3bitq",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r7uWO:QXPA2-IrPtK90XnrQtS_4AdpLKR-xBspVufzlKjzRg4",
+        "expire_date": "2023-12-12T09:36:48.662Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "7u47l2si5rhm9kkw8xail0p2ox74i3on",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKgvh:-QE29GQF1U13mjiCx4YAXX9jpLKTwTBl72uPTpvAmvU",
+        "expire_date": "2024-01-16T15:43:45.558Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "8slkev0s327f9t7jc9pmkmh227ykep83",
+    "fields": {
+        "session_data": ".eJxVj0FOxDAMRa-CsiaV3TrjhCV7zlDFiU0LTCu1nRWau08rigRLf__3pP_t-nzbhv626tKP1b04RC4cDHykqJ4yiZfamrcOWk4IWNTc819McvnU6WDrR57e56bM07aM0hyV5vyuzdtc9ev17P4TDHkddjpjFU1sUQtzZ2TKdEGJF81EqIGlVQY2TlFgT5BJCEoRMg4QDmlZtI7b4arXcXo6z9_8Z-DukFR03wZintCKF4bkW6sIIVPskNz9AYxjV1w:1r5nmn:A5q6wbI06R1Y1nXN9vadyXDYZrmNLqGCdT6da54olro",
+        "expire_date": "2023-12-06T14:01:01.739Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "8vcxnb83r6ayab669uov0i5nvgd3mmu1",
+    "fields": {
+        "session_data": ".eJxVT0tuhDAMvUrFukExmHHosvueAcWOXdJPkICZzah3b1Cp1Ere-H317s0Ur_s8XTddp5yapwaAhAbzLmBQhxHZcerMWe87GsGDqDWPf20c5V3L4U1vsbwurSxlXzO3h6Q92a19WZJ-PJ_afwFz3ObqjpBYR7KgQtQbmhJegMNFIyLoQNwpeTIaA_uKACGjF2E0GvxwhK661WbZ81Kmelve9QiuwE0rLaumvB9I-szl4Xx_8Z_9tYJH0TrdszkEE8fkR9dZAj9EDD1g8_UNf-9izA:1r8RYB:dDskqrN_N1YFAXh4namN1RojgokX1XUiIWkJsNUeXRM",
+        "expire_date": "2023-12-13T20:52:51.008Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "abmx9ivu4mdswk2sfzix7a26u8rq734t",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKbVK:XZmegmO0NM4H3S1ZbuqAMquUT3lSEnfOpcEnMp4FbsM",
+        "expire_date": "2024-01-16T09:56:10.639Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "agmf64o68qhxnxqaxhv2f2qp1ku5bv5w",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKgMZ:CXUx6lRc3lRcmuNiCij2h11t3SGzQFyE6Usj84YaULs",
+        "expire_date": "2024-01-16T15:07:27.984Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "b9216q7da7is74bnilz8070o79aytfa0",
+    "fields": {
+        "session_data": ".eJxVjTsOwyAQBe9CHSPACywp0-cM1rILcT6yJX-qKHePLblI6jcz7606Wpe-W-cydXdRZ2WzD9z60vhooQGP0GQD2HC1jNE5xAjq9Ktl4mcZdlceNNxGzeOwTPesd0Qf66yvo5TX5WD_Aj3N_WZDdNWZEGi7cAm5Epc2ZLRSiEOFGrFykkAecjYxWWFJnIygj6V6oz5fa49A5A:1rKNKm:etcLUwgmCyVnRUE2f9pZznfFpkjzYEd47v28sYXnVtc",
+        "expire_date": "2024-01-15T18:48:20.516Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "c25wd3dnehtxzkv0xd8x1n20dutmj9zw",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKgk8:lFYLvtdGH2_NMq1SHXMZHZE7Gm9f-Ijkwi3sAs9KYiU",
+        "expire_date": "2024-01-16T15:31:48.859Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "c90y4buh87ux0hr4mjydu1tt7fj6h4k1",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rFFpP:FI4thLx29U6qczv9tSfa5VbEoa5xKyGycRlTZ9icNJI",
+        "expire_date": "2024-01-01T15:46:47.388Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "dg33efwcvhv9se0fc2bo03e8c3b7daz6",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rLI3N:_TL0Gm9yUs4tqvXjhcSwMBnwIdwcr5IY9dO2JL0GwXQ",
+        "expire_date": "2024-01-18T07:22:09.946Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "dnklo19hy80ksyjm7pu6jbbp0woio1da",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r3b8P:5cCJBf47v4Dtau90Yxl1YyGVuljE5Myx_1me3A6bfP0",
+        "expire_date": "2023-11-30T12:06:13.733Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "dpq5dmrnfuz6g521skd473kvmqcvdpky",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rMAzl:oPphx6WlZ_CPkhjinqjkVVwLN3zPNKwoH2c63nzyQqg",
+        "expire_date": "2024-01-20T18:02:05.246Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "fb4moylucn8z2wymqgbflr9z1upwzcfh",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r6SMK:RqszMpbzFknFM9kkyfPIcq35oAQ_03-zb_tXUKDLNO8",
+        "expire_date": "2023-12-08T09:20:24.650Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "fo5wcbf36x9gjggo7m1w6qzy42prnlob",
+    "fields": {
+        "session_data": ".eJxVjTsOwjAQBe_iGlt2bOM1JT1niNbrXRJAiZRPhbg7iZQC6jcz761aXJeuXWee2r6qi3IuUYpiNQRgHTAUXWojWrxtUnbWEYs6_WoF6cnD7tYHDvfR0DgsU1_Mjphjnc1trPy6HuxfoMO52-x0xgQOMm6nnEACeS7gIUSkKCzOEniJ5ANgjkTBcxDw6BubIdeqPl_rIkEv:1rITRZ:0MR6q-GPqCh4_EiHIEi-jS50mCO_64k1wZCQuqS1VQ4",
+        "expire_date": "2024-01-10T12:55:29.206Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "fvhx5cveoxz3v1b2n4r89zwazk30hglq",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rFaIV:2kP8BI0p1B-y5Sllf2VxX3MNws8Phqrs0H5Ge-JmqfA",
+        "expire_date": "2024-01-02T13:38:11.555Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "gosl6lhlszbgm3dx1y0ihntsue7hqopf",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rCfo8:fHBblMrYuQMfoe87Im35neoLBCTnF95Sssgp-mplMXw",
+        "expire_date": "2023-12-25T12:54:48.917Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "hkdsr6xw4domqxnou6fojprgt4ujjra0",
+    "fields": {
+        "session_data": ".eJxVjEsOwiAQQO_C2hIYcACX7j1DMwODrZo26WdlvLtt0oWu3-etWlqXrl1nmdq-qItCxmicxcbXKI0XwiZyDA0kFlMyikOnTr8ZU37KsLflQcN91HkclqlnvSv6oLO-jUVe18P9G3Q0d1ttKkUO1lhIxVlJ3kOx6MGmsyQIJWRXkELwDnjjLppUCYTJQwVGUp8vsfVAVg:1rBajz:74qlrIKe9T92Xg5prLe5b_jfpWxmNCzU7thKWQt__QU",
+        "expire_date": "2023-12-22T13:18:03.187Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "hs6gas59ka2f92lmj4j6z66v5n2d1mgn",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKPjn:V1FW1Qwk5ci6kXsQj2ijDWifHlipV-yBbgaej7AeW_c",
+        "expire_date": "2024-01-15T21:22:19.602Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "i9t1jknm68tgl4jfler8pkuqni7x9rd4",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKPL7:ZMeb70h8GBg1dg5RgzhMRJwwq_laSciQxKHo_U2aDnA",
+        "expire_date": "2024-01-15T20:56:49.917Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "jhsukultmidq36wd8fdkse3o4gwmr20h",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r5R19:NcU75pUueB7PSZVMnGxd2iCb8hwB89E9J8zB4wlxNvk",
+        "expire_date": "2023-12-05T13:42:19.674Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "jylubl6gn644ueds6scmak2sqy2gzv74",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rLHXp:owN5Bsyt5SQI9zJNU_6V3cAJW0roGM6iTPl6ODQq4ow",
+        "expire_date": "2024-01-18T06:49:33.344Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "kzqvb9t4yg7jr2uc1637wnpqrxem3ftb",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r3Hyi:F81ll0uXWoYcKaUxMXDYu_L0BHGnIYZRlstUgTzByHA",
+        "expire_date": "2023-11-29T15:38:56.061Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "lsapff5ip3jjo91g5s7utgw1mhnze45n",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rB9Aw:w13gpbW5NRpzJ0dPrMvsowZpC_99FJNEd4NAtnRf8L0",
+        "expire_date": "2023-12-21T07:52:02.315Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "mdhnt90q2di81d5k74mdxv32y2k053dx",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rD2yk:KN42TVcrbnAeYGgg1o1c7D4VYH3ns5wHeux2B-UDhM8",
+        "expire_date": "2023-12-26T13:39:18.186Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ncq0hkxbz9oyvcfclf9b3poi7zd35vu9",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r3vay:LCx0fshC_2QPDvGO9-67CoAUI8jWKpBu8cZeGvI9eLc",
+        "expire_date": "2023-12-01T09:57:04.042Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "nzpkzngdhx8vh88n2pd2rulcozl82l4q",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rGfRn:mHCvoaL9wgoKYiYvdkrtXbjP8mV5Y9qMHM5A-kXDOe4",
+        "expire_date": "2024-01-05T13:20:15.043Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ox5puz5y9z6qpdjdyhjye4i3tqcijle9",
+    "fields": {
+        "session_data": ".eJxVjEsOwiAQQO_C2hIYcACX7j1DMwODrZo26WdlvLtt0oWu3-etWlqXrl1nmdq-qItCxmicxcbXKI0XwiZyDA0kFlMyikOnTr8ZU37KsLflQcN91HkclqlnvSv6oLO-jUVe18P9G3Q0d1ttKkUO1lhIxVlJ3kOx6MGmsyQIJWRXkELwDnjjLppUCYTJQwVGUp8vsfVAVg:1r2vU4:gT86B_ji-Jjyvff0MLi9YlsXARoI99xbNir0mjsR8q8",
+        "expire_date": "2023-11-28T15:37:48.051Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pe4bedz107as305v39jenkf8a6w4fnha",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rH9my:4YNQaBfHbmPs9Cny3evsBb7bLQWb2pDwjYjjnIXj_BM",
+        "expire_date": "2024-01-06T21:44:08.843Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pj2qzhaf73kxm2tdnijip7fvsj27tr6h",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rJXLU:xx3xzZOxZQbgAYnNMFcN5ZJoKdLGnhj6-logBzh6v8M",
+        "expire_date": "2024-01-13T11:17:36.461Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pttoeub7ilnmtskokyb8x25a1a4y4kj0",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKaOr:gNVCh1NKh46Xu_P18GTgR0DyOWqS05_ODhR3Ph6qU0Y",
+        "expire_date": "2024-01-16T08:45:25.952Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "rfp9fy1x4v8avxi6h647jf8kwrsx66lp",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r585Z:SV4yDwMX7ksePnxZ-ENlcXlLUALhhlJrDJ5emnR_POw",
+        "expire_date": "2023-12-04T17:29:37.686Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "s9phbd5ax0hwypubdksj6j7ytrzlid5s",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rJwSe:5HxsvFLlT8b0yDqMZxEAn-HRJN3ZbUupDw2_C-AWdrg",
+        "expire_date": "2024-01-14T14:06:40.167Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ttskl12oamtcty75fyvec3mcpoc36zrq",
+    "fields": {
+        "session_data": ".eJxVj0FOxDAMRa-CsiaV3TrjhCV7zlDFiU0LTCu1nRWau08rigRLf__3pP_t-nzbhv626tKP1b04RC4cDHykqJ4yiZfamrcOWk4IWNTc819McvnU6WDrR57e56bM07aM0hyV5vyuzdtc9ev17P4TDHkddjpjFU1sUQtzZ2TKdEGJF81EqIGlVQY2TlFgT5BJCEoRMg4QDmlZtI7b4arXcXo6z9_8Z-DukFR03wZintCKF4bkW6sIIVPskNz9AYxjV1w:1rAW1A:Q7-O7KDSYha7UrHGXP7N7Yt3bA-8wa1H0LvsBrLKtFM",
+        "expire_date": "2023-12-19T14:03:20.405Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "u39h4cupsewz58xx1hs1uf26eod5wj6q",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r8g7b:OVGkHDr4wLUbxGEuSffEmrLAYug-RZjh8vGPNQt_zGk",
+        "expire_date": "2023-12-14T12:26:23.219Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "u52docfz6e0ei6zszxfzpag72ynebrjk",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rGGm3:kMaHE5SLkmd267m8xfM5ukcdFJ5EyoFLngBnL-JmNn4",
+        "expire_date": "2024-01-04T10:59:31.212Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "wsbkzt3u6q3xio38si48fypzr6hwsew7",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rDLZf:c2sKWBiNw29iuQAqsHrj_SB6gXb-x8qKtEr8Q_arfak",
+        "expire_date": "2023-12-27T09:30:39.904Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "wzo5ztwqsqajdmipdsk99ilg2yon1ghb",
+    "fields": {
+        "session_data": ".eJxVjDsOwyAQBe9CHRCGZc2mTJ8zWCwscT6yJX-qKHePLblImmnezHurLq1L362zTN29qLNCxmh9gxpqFA2SUEeOrXbEYktG8ejV6TfjlJ8y7G15pOE2mjwOy3RnsyvmWGdzHYu8Lof7d9Cnud9q8lVCyAiWoq8cHGYIFrF6pMZKAELYECJQcrixuNhygGotV0dJfb6gij9t:1rLLXx:Rq-UgqhcJYaNKmwUDSChqUErULD714eBHgw2EOconTY",
+        "expire_date": "2024-01-18T11:05:57.721Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "x1lkds5167e0kk6uryt93z941upica9r",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1r8yz2:4ka52liIZ4fvHZ6-H7HiMxFGB3x-BKan4g50S3KWnY8",
+        "expire_date": "2023-12-15T08:34:48.975Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "xi6op5mp9m9imf9cutame9fq030a188j",
+    "fields": {
+        "session_data": ".eJxVjEsOgzAMBe-SdRPF4ODQZfc9A4oTu_QjkPisqt69ILFot29m3tt0aV36bp1l6u7FnA0AZQrqbcQoFhOy5VKp1dpX1IKHLGpOvxmn_JRhb8sjDbfR5XFYpju7XXEHnd11LPK6HO7fQZ_mfqsTFJaWNEomqhVVCBvg2EhCBAnElZAnpTay3xYgZPQ5MyoFH4r5fAH9WkEf:1rHB7P:hRxukSyvfiWGtaYVZtTYFCMDoYLMPvT57wXlAuUPzXE",
+        "expire_date": "2024-01-06T23:09:19.502Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "xj6ti3ogmyv0kijd055a7v81ahjm1gqn",
+    "fields": {
+        "session_data": ".eJxVkMFOwzAMhl9l6plUcevGKUfuPEMVOzYrbC1aOwkJ8e6ko6BxjP1_X2x_VkO6rsfhuuhlGHP1WAGQUGfeRYzqMCE7zo05a31DPXgQterhHuMkbzptbH5N08tcyzytl5HrLVLv3aV-nrOenvbsP8ExLcdCJ8isPVlUIWoNTQkDcAyaEEE74kbJk1Ef2ZcKEDJ6EUajzneb9DQu67CO60k3Xz6P00E_3nVa9LC1DlAy65zn4Ra87esJIbRt44i1cxi2fUnEBQsRjK0PSQq1a-7A1hgQfOc6kXIoIHKRLTpSSKwcem6bAspF87j-jbM_f-s_qrIW96LF4tmKyqTM4HvXWC4fJIwtYPX1DXCHhAs:1r7ZiI:jew38oCMBt3xmWprPJdW2pQ4vfhV8p3rNv3mnyunn6g",
+        "expire_date": "2023-12-11T11:23:42.855Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "z64z4bmt660voozpj03pdgz4vp06xgef",
+    "fields": {
+        "session_data": ".eJxVjDsOwyAQBe9CHRCGZc2mTJ8zWCwscT6yJX-qKHePLblImmnezHurLq1L362zTN29qLNCxmh9gxpqFA2SUEeOrXbEYktG8ejV6TfjlJ8y7G15pOE2mjwOy3RnsyvmWGdzHYu8Lof7d9Cnud9q8lVCyAiWoq8cHGYIFrF6pMZKAELYECJQcrixuNhygGotV0dJfb6gij9t:1rLi82:UznnTiGbuUt-SzLjJTxfNWcuwZD6FH0Jq33G57muWGY",
+        "expire_date": "2024-01-19T11:12:42.217Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "zbsdcwuaftdo499lr3bpz4jokhoueype",
+    "fields": {
+        "session_data": ".eJxVzDkOwjAQheG7uMbWjLexKek5QzTeCIsSKUuFuDuJlALq9_3vLTpel75b5zp19yLOApEyuQYy2FClZZtkKrrJZkBTRMBcmzj9Zonzsw57Wx483EaVx2GZ7kntRB3rrK5jqa_LYf8Oep77rQanyXPwwWNMxjmsUAFDSoUxBnYaMJpCwZmWmayHStwybZzAoo_i8wW5Mz_G:1rKOPa:aRKxe0gRsl1eSZEix8pywxsi69EqHdA6hWSaMC7-X8w",
+        "expire_date": "2024-01-15T19:57:22.210Z"
+    }
+},
+{
+    "model": "connection.counterparty",
+    "pk": "11c36da1-6a47-4e08-9c9b-cfbcd085d430",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Kontrahent od wszystkiego",
+        "phone_number": "444555666",
+        "email": "cp@example.com",
+        "address": null,
+        "www": null,
+        "bank_account": null,
+        "payment_app": "https://logowanie.tauron-pe.pl/login",
+        "client_number": null,
+        "primary_contact_name": null,
+        "primary_contact_phone_number": null,
+        "primary_contact_email": null,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04",
+        "payments": [
+            "8347fec0-cb66-47f2-ba32-d0fb82251397",
+            "9fe89b05-1b0b-4005-aba2-7d9e9b54d273",
+            "40b6b914-c028-4c02-9b6b-da04ce7dee44",
+            "6e33dc4c-eb43-4e17-8eea-66767939ddd2",
+            "2cb82772-f021-4820-9ec2-15a2cde0317d",
+            "e138fea9-fa16-4e7d-804d-1488ba186974"
+        ],
+        "credits": [
+            "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+            "4ba9a050-942c-4601-8f69-efff34e916bc"
+        ],
+        "renovations": [
+            "5b836feb-a362-47f7-82fd-2cbf011e480a",
+            "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+            "fc4ba0f1-d4f3-4e77-a9e1-79a15094d1c2",
+            "a5fd4b61-9061-4a00-912b-5473cd5fceb1"
+        ],
+        "trips": [
+            "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+            "ab7fa76b-fed0-4391-b503-dca50e1142c6"
+        ]
+    }
+},
+{
+    "model": "connection.counterparty",
+    "pk": "15706355-1200-4925-af99-4a9e3aa06364",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Amazon prime",
+        "phone_number": null,
+        "email": null,
+        "address": null,
+        "www": null,
+        "bank_account": null,
+        "payment_app": null,
+        "client_number": null,
+        "primary_contact_name": null,
+        "primary_contact_phone_number": null,
+        "primary_contact_email": null,
+        "notes": "",
+        "access_granted": "Brak dostępu",
+        "created": "2024-01-04",
+        "updated": "2024-01-04",
+        "payments": [],
+        "credits": [],
+        "renovations": [],
+        "trips": []
+    }
+},
+{
+    "model": "connection.counterparty",
+    "pk": "34385f5c-342f-4783-9227-60995199e7c8",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Meblarz",
+        "phone_number": null,
+        "email": null,
+        "address": null,
+        "www": null,
+        "bank_account": null,
+        "payment_app": null,
+        "client_number": null,
+        "primary_contact_name": "Jan Kowalski",
+        "primary_contact_phone_number": "111-222-333",
+        "primary_contact_email": null,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-04",
+        "updated": "2024-01-05",
+        "payments": [
+            "2cb82772-f021-4820-9ec2-15a2cde0317d"
+        ],
+        "credits": [],
+        "renovations": [],
+        "trips": []
+    }
+},
+{
+    "model": "connection.counterparty",
+    "pk": "9ddffc89-643d-4fd2-b613-5d97ce74f084",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Ubezpieczyciel, drzewo",
+        "phone_number": "987-654-321",
+        "email": null,
+        "address": null,
+        "www": null,
+        "bank_account": null,
+        "payment_app": null,
+        "client_number": null,
+        "primary_contact_name": "Krzysztof Nowak",
+        "primary_contact_phone_number": null,
+        "primary_contact_email": "kn@example.com",
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05",
+        "payments": [],
+        "credits": [],
+        "renovations": [],
+        "trips": []
+    }
+},
+{
+    "model": "connection.counterparty",
+    "pk": "da8026d6-7081-4e77-92fd-607b2252933b",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Navigator",
+        "phone_number": "71 780 61 04, całodobowo: 797 339 113",
+        "email": "sekretariat.wroclaw@nawigator.nieruchomosci.pl",
+        "address": "ul. Powstańców Śląskich 125/202",
+        "www": "https://www.nawigator-nieruchomosci.pl/",
+        "bank_account": null,
+        "payment_app": "https://iok.nawigator-nieruchomosci.pl/content/InetObsKontr/login",
+        "client_number": null,
+        "primary_contact_name": "Anna Nowak",
+        "primary_contact_phone_number": "123-456-789",
+        "primary_contact_email": null,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05",
+        "payments": [
+            "9fe89b05-1b0b-4005-aba2-7d9e9b54d273"
+        ],
+        "credits": [],
+        "renovations": [],
+        "trips": []
+    }
+},
+{
+    "model": "connection.counterparty",
+    "pk": "dc613f93-2a57-40b5-9a39-008449ffe83e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "T-Mobile",
+        "phone_number": "111222333",
+        "email": "cp2@example.com",
+        "address": null,
+        "www": null,
+        "bank_account": null,
+        "payment_app": null,
+        "client_number": null,
+        "primary_contact_name": "Krzysztof Kowalski",
+        "primary_contact_phone_number": null,
+        "primary_contact_email": null,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04",
+        "payments": [
+            "e138fea9-fa16-4e7d-804d-1488ba186974"
+        ],
+        "credits": [],
+        "renovations": [],
+        "trips": []
+    }
+},
+{
+    "model": "connection.attachment",
+    "pk": "56b1207e-0693-4f29-ae66-d152be71ca75",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "7iR02t0r-xYspQ0n4z-0SY410502Vek5rcSE",
+        "attachment_name": "Załącznik nr 4",
+        "attachment_path": "6b680316-4f8e-4ea6-8b87-29be0dc6e363/7iR02t0r-xYspQ0n4z-0SY410502Vek5rcSE.png",
+        "file_date": null,
+        "file_info": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05",
+        "payments": [
+            "9fe89b05-1b0b-4005-aba2-7d9e9b54d273",
+            "40b6b914-c028-4c02-9b6b-da04ce7dee44",
+            "6e33dc4c-eb43-4e17-8eea-66767939ddd2",
+            "8347fec0-cb66-47f2-ba32-d0fb82251397",
+            "2cb82772-f021-4820-9ec2-15a2cde0317d",
+            "e138fea9-fa16-4e7d-804d-1488ba186974"
+        ],
+        "counterparties": [
+            "dc613f93-2a57-40b5-9a39-008449ffe83e",
+            "9ddffc89-643d-4fd2-b613-5d97ce74f084",
+            "da8026d6-7081-4e77-92fd-607b2252933b",
+            "34385f5c-342f-4783-9227-60995199e7c8",
+            "15706355-1200-4925-af99-4a9e3aa06364",
+            "11c36da1-6a47-4e08-9c9b-cfbcd085d430"
+        ],
+        "credits": [
+            "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+            "4ba9a050-942c-4601-8f69-efff34e916bc"
+        ],
+        "renovations": [
+            "40e75da0-8560-40ec-97c5-0674027eb156",
+            "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+            "b9a3e2ff-4510-476e-85d4-7df66ab65d73",
+            "5b836feb-a362-47f7-82fd-2cbf011e480a",
+            "fc4ba0f1-d4f3-4e77-a9e1-79a15094d1c2",
+            "a5fd4b61-9061-4a00-912b-5473cd5fceb1"
+        ],
+        "trips": [
+            "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+            "ab7fa76b-fed0-4391-b503-dca50e1142c6"
+        ],
+        "health_results": [
+            "181d67c0-7fac-4849-822c-50ac8245774e"
+        ],
+        "medical_visits": [
+            "a507d7b8-b990-4a68-babc-601d8056beb3",
+            "526b936e-ee2f-4b09-9257-e59feac9e4e2",
+            "5a4acce7-960b-4ad5-8343-9d039a18e382",
+            "6ee16716-b801-4b6f-b2a1-23233c65d110",
+            "1365e211-1b89-490e-8728-c5c3bc9d5330",
+            "54ba1113-76ec-4c5d-bbbd-42ef38a11c34",
+            "dd01d3d1-1f8a-49fc-9292-c1e61b202dc3"
+        ]
+    }
+},
+{
+    "model": "connection.attachment",
+    "pk": "a153b049-6468-4769-ba9a-844cf9d70d91",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "05eMrf004X-uT4pIWFJ210Y2BJVlr4tsg-aw",
+        "attachment_name": "Załącznik nowy",
+        "attachment_path": "6b680316-4f8e-4ea6-8b87-29be0dc6e363/05eMrf004X-uT4pIWFJ210Y2BJVlr4tsg-aw.pdf",
+        "file_date": "2020-10-10",
+        "file_info": "Nowy testowy",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05",
+        "payments": [
+            "9fe89b05-1b0b-4005-aba2-7d9e9b54d273",
+            "40b6b914-c028-4c02-9b6b-da04ce7dee44",
+            "6e33dc4c-eb43-4e17-8eea-66767939ddd2",
+            "8347fec0-cb66-47f2-ba32-d0fb82251397",
+            "2cb82772-f021-4820-9ec2-15a2cde0317d",
+            "e138fea9-fa16-4e7d-804d-1488ba186974"
+        ],
+        "counterparties": [
+            "dc613f93-2a57-40b5-9a39-008449ffe83e",
+            "9ddffc89-643d-4fd2-b613-5d97ce74f084",
+            "da8026d6-7081-4e77-92fd-607b2252933b",
+            "34385f5c-342f-4783-9227-60995199e7c8",
+            "15706355-1200-4925-af99-4a9e3aa06364",
+            "11c36da1-6a47-4e08-9c9b-cfbcd085d430"
+        ],
+        "credits": [
+            "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+            "4ba9a050-942c-4601-8f69-efff34e916bc"
+        ],
+        "renovations": [
+            "40e75da0-8560-40ec-97c5-0674027eb156",
+            "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+            "b9a3e2ff-4510-476e-85d4-7df66ab65d73",
+            "5b836feb-a362-47f7-82fd-2cbf011e480a",
+            "fc4ba0f1-d4f3-4e77-a9e1-79a15094d1c2",
+            "a5fd4b61-9061-4a00-912b-5473cd5fceb1"
+        ],
+        "trips": [
+            "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+            "ab7fa76b-fed0-4391-b503-dca50e1142c6"
+        ],
+        "health_results": [
+            "181d67c0-7fac-4849-822c-50ac8245774e"
+        ],
+        "medical_visits": [
+            "a507d7b8-b990-4a68-babc-601d8056beb3",
+            "526b936e-ee2f-4b09-9257-e59feac9e4e2",
+            "5a4acce7-960b-4ad5-8343-9d039a18e382",
+            "54ba1113-76ec-4c5d-bbbd-42ef38a11c34",
+            "1aa902f1-90e4-4ce3-87c5-ff48d4e5a31a",
+            "dd01d3d1-1f8a-49fc-9292-c1e61b202dc3"
+        ]
+    }
+},
+{
+    "model": "connection.attachment",
+    "pk": "c909232b-f802-4714-aff0-c51a5f363236",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "nrU4250NsfTRqjtirS7110a-Q2z05m0-SeeE",
+        "attachment_name": "Załącznik test",
+        "attachment_path": "6b680316-4f8e-4ea6-8b87-29be0dc6e363/nrU4250NsfTRqjtirS7110a-Q2z05m0-SeeE.pdf",
+        "file_date": null,
+        "file_info": "",
+        "access_granted": "Brak dostępu",
+        "created": "2024-01-05",
+        "updated": "2024-01-05",
+        "payments": [],
+        "counterparties": [],
+        "credits": [],
+        "renovations": [],
+        "trips": [],
+        "health_results": [],
+        "medical_visits": []
+    }
+},
+{
+    "model": "credit.credit",
+    "pk": "4ba9a050-942c-4601-8f69-efff34e916bc",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "49I42-02m0Y3ksj10eaTZrmr0Ya621HPv2-t",
+        "name": "testuser 1000",
+        "credit_number": null,
+        "type": "Konsolidacyjny",
+        "currency": "PLN",
+        "credit_amount": 1000.0,
+        "own_contribution": 0.0,
+        "market_value": 0.0,
+        "credit_period": 10,
+        "grace_period": 0,
+        "installment_type": "Raty malejące",
+        "installment_frequency": "Miesięczne",
+        "total_installment": 0.0,
+        "capital_installment": 100.0,
+        "type_of_interest": "Stałe",
+        "fixed_interest_rate": 10.0,
+        "floating_interest_rate": 0.0,
+        "bank_margin": 0.0,
+        "interest_rate_benchmark": "Brak",
+        "date_of_agreement": "2020-01-01",
+        "start_of_credit": "2020-01-01",
+        "start_of_payment": "2020-02-01",
+        "payment_day": 1,
+        "provision": 0.0,
+        "credited_provision": "Nie",
+        "tranches_in_credit": "Nie",
+        "life_insurance_first_year": null,
+        "property_insurance_first_year": null,
+        "collateral_required": "Nie",
+        "collateral_rate": 0.0,
+        "notes": "",
+        "access_granted": "Brak dostępu",
+        "access_granted_for_schedule": "Brak dostępu",
+        "created": "2024-01-02",
+        "updated": "2024-01-02"
+    }
+},
+{
+    "model": "credit.credit",
+    "pk": "9fa421f0-2765-4326-bbd5-810061a44876",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "RB0l0Z1AO-5HZeNtrV22ssjz5e-tAP42vB0l",
+        "name": "kredyt stałe raty całkowite (raty stałe)",
+        "credit_number": null,
+        "type": "Konsumpcyjny",
+        "currency": "PLN",
+        "credit_amount": 2400.0,
+        "own_contribution": 0.0,
+        "market_value": 0.0,
+        "credit_period": 12,
+        "grace_period": 0,
+        "installment_type": "Raty równe",
+        "installment_frequency": "Miesięczne",
+        "total_installment": 213.2,
+        "capital_installment": 0.0,
+        "type_of_interest": "Stałe",
+        "fixed_interest_rate": 12.0,
+        "floating_interest_rate": 0.0,
+        "bank_margin": 0.0,
+        "interest_rate_benchmark": "Brak",
+        "date_of_agreement": "2020-01-01",
+        "start_of_credit": "2020-01-01",
+        "start_of_payment": "2020-02-01",
+        "payment_day": 1,
+        "provision": 0.0,
+        "credited_provision": "Nie",
+        "tranches_in_credit": "Nie",
+        "life_insurance_first_year": null,
+        "property_insurance_first_year": null,
+        "collateral_required": "Nie",
+        "collateral_rate": 0.0,
+        "notes": "",
+        "access_granted": "Brak dostępu",
+        "access_granted_for_schedule": "Brak dostępu",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credit",
+    "pk": "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "Brkv0e2K41031ss-r2V1tjL20Ra-CWLpoJ3l",
+        "name": "kredyt 360",
+        "credit_number": "ABC123",
+        "type": "Mieszkaniowy",
+        "currency": "PLN",
+        "credit_amount": 360000.0,
+        "own_contribution": 240000.0,
+        "market_value": 600000.0,
+        "credit_period": 246,
+        "grace_period": 6,
+        "installment_type": "Raty malejące",
+        "installment_frequency": "Miesięczne",
+        "total_installment": 0.0,
+        "capital_installment": 1550.0,
+        "type_of_interest": "Zmienne",
+        "fixed_interest_rate": 0.0,
+        "floating_interest_rate": 5.0,
+        "bank_margin": 1.5,
+        "interest_rate_benchmark": "WIBOR 3M",
+        "date_of_agreement": "2020-01-01",
+        "start_of_credit": "2020-03-07",
+        "start_of_payment": "2020-04-15",
+        "payment_day": 15,
+        "provision": 12000.0,
+        "credited_provision": "Tak",
+        "tranches_in_credit": "Tak",
+        "life_insurance_first_year": null,
+        "property_insurance_first_year": null,
+        "collateral_required": "Tak",
+        "collateral_rate": 1.0,
+        "notes": "",
+        "access_granted": "Brak dostępu",
+        "access_granted_for_schedule": "Brak dostępu",
+        "created": "2023-11-30",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "credit.credit",
+    "pk": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "BtFSsvFeI-qi-r41vCLOwei0Dyv40520UrB2",
+        "name": "kredyt full data",
+        "credit_number": "KH1244",
+        "type": "Mieszkaniowy",
+        "currency": "PLN",
+        "credit_amount": 304750.83,
+        "own_contribution": 141122.52,
+        "market_value": 446790.35,
+        "credit_period": 360,
+        "grace_period": 11,
+        "installment_type": "Raty malejące",
+        "installment_frequency": "Miesięczne",
+        "total_installment": 0.0,
+        "capital_installment": 899.23,
+        "type_of_interest": "Zmienne",
+        "fixed_interest_rate": 0.0,
+        "floating_interest_rate": 2.71,
+        "bank_margin": 1.53,
+        "interest_rate_benchmark": "WIBOR 6M",
+        "date_of_agreement": "2014-06-04",
+        "start_of_credit": "2014-06-13",
+        "start_of_payment": "2014-07-15",
+        "payment_day": 15,
+        "provision": 6095.02,
+        "credited_provision": "Nie",
+        "tranches_in_credit": "Tak",
+        "life_insurance_first_year": 917.0,
+        "property_insurance_first_year": null,
+        "collateral_required": "Tak",
+        "collateral_rate": 0.85,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "access_granted_for_schedule": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credit",
+    "pk": "e1b8153e-b710-46e7-878f-9dcfc7f88a95",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "oZ0DQVfa1vJ-3ccr4ls09WtbL2hz0-A8e52s",
+        "name": "kredyt jednorazowy",
+        "credit_number": null,
+        "type": "Inny",
+        "currency": "PLN",
+        "credit_amount": 10000.0,
+        "own_contribution": 0.0,
+        "market_value": 0.0,
+        "credit_period": 10,
+        "grace_period": 0,
+        "installment_type": "Raty malejące",
+        "installment_frequency": "Jednorazowo",
+        "total_installment": 0.0,
+        "capital_installment": 10000.0,
+        "type_of_interest": "Stałe",
+        "fixed_interest_rate": 15.0,
+        "floating_interest_rate": 0.0,
+        "bank_margin": 0.0,
+        "interest_rate_benchmark": "Brak",
+        "date_of_agreement": "2022-01-01",
+        "start_of_credit": "2022-01-01",
+        "start_of_payment": "2022-11-01",
+        "payment_day": 1,
+        "provision": 0.0,
+        "credited_provision": "Nie",
+        "tranches_in_credit": "Nie",
+        "life_insurance_first_year": null,
+        "property_insurance_first_year": null,
+        "collateral_required": "Nie",
+        "collateral_rate": 0.0,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "access_granted_for_schedule": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credit",
+    "pk": "f0338b6e-5258-4f99-a342-d8ec1ec7a9d4",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "slug": "sr7Rt20f-NeVyFai1D21YZ0dB5K0VP-P4Lm0",
+        "name": "kredyt stałe raty kapitałowe (raty majelące)",
+        "credit_number": null,
+        "type": "Konsumpcyjny",
+        "currency": "PLN",
+        "credit_amount": 2400.0,
+        "own_contribution": 0.0,
+        "market_value": 0.0,
+        "credit_period": 12,
+        "grace_period": 0,
+        "installment_type": "Raty malejące",
+        "installment_frequency": "Miesięczne",
+        "total_installment": 0.0,
+        "capital_installment": 200.0,
+        "type_of_interest": "Stałe",
+        "fixed_interest_rate": 12.0,
+        "floating_interest_rate": 0.0,
+        "bank_margin": 0.0,
+        "interest_rate_benchmark": "Brak",
+        "date_of_agreement": "2020-01-01",
+        "start_of_credit": "2020-01-01",
+        "start_of_payment": "2020-02-01",
+        "payment_day": 15,
+        "provision": 0.0,
+        "credited_provision": "Nie",
+        "tranches_in_credit": "Nie",
+        "life_insurance_first_year": null,
+        "property_insurance_first_year": null,
+        "collateral_required": "Nie",
+        "collateral_rate": 0.0,
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "access_granted_for_schedule": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credittranche",
+    "pk": "060f867c-92fc-4616-8adc-97d91e8f2689",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "tranche_amount": 200592.76,
+        "tranche_date": "2014-06-13",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credittranche",
+    "pk": "24ec984f-b56d-47d7-97a1-65d25a924fb1",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "tranche_amount": 54158.07,
+        "tranche_date": "2014-11-27",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credittranche",
+    "pk": "543d7da5-fad0-4c12-b47e-28dd3c237e5c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+        "tranche_amount": 200000.0,
+        "tranche_date": "2021-05-07",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2023-12-08",
+        "updated": "2023-12-08"
+    }
+},
+{
+    "model": "credit.credittranche",
+    "pk": "c8602b6a-d691-47bb-bc99-ac0259d18a32",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "tranche_amount": 50000.0,
+        "tranche_date": "2015-02-10",
+        "total_installment": null,
+        "capital_installment": 875.84,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.credittranche",
+    "pk": "fbef65f7-0a26-429e-aaea-920354332523",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+        "tranche_amount": 10000.0,
+        "tranche_date": "2020-03-07",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2023-12-08",
+        "updated": "2023-12-08"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "0177fcb5-5f10-4767-b2f0-516585ffa5d9",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 4.03,
+        "interest_rate_start_date": "2015-05-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "108ce767-acd7-49a0-8674-7c2f84c5d40e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 1.79,
+        "interest_rate_start_date": "2020-08-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "18b2d244-f070-45e7-a547-0f8c8ec99d8a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 1.75,
+        "interest_rate_start_date": "2020-11-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": 816.71,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "2b2920b1-c57b-4574-bb0e-c2739b77e83e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.24,
+        "interest_rate_start_date": "2020-02-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": 841.77,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "56cff3e9-afd1-4327-a5c3-72ecf6162d20",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 1.74,
+        "interest_rate_start_date": "2021-02-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "57aba99b-e476-4465-bd9d-cf9b1984e043",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 4.7,
+        "interest_rate_start_date": "2014-11-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "67801de4-eff7-4869-92b3-3475c7cf334a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 4.44,
+        "interest_rate_start_date": "2015-02-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "6cfe9df5-683b-4840-9e18-c92334fb8cbf",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.2,
+        "interest_rate_start_date": "2016-05-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "704bbf97-aedd-4c3a-8131-1af6bf3d3901",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.25,
+        "interest_rate_start_date": "2015-08-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "871a3f82-9339-4d67-aeee-92e434d08297",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 2.7,
+        "interest_rate_start_date": "2020-05-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "9be50422-c11b-4418-95bf-b9dda694942c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.24,
+        "interest_rate_start_date": "2016-08-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "9c7c80e9-569a-4d8d-b036-c972067d145a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.25,
+        "interest_rate_start_date": "2018-11-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "ad66a4a3-046d-43ac-ba07-ec9aa1af6a15",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.25,
+        "interest_rate_start_date": "2018-02-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "af48485c-9efa-47a0-8201-5f7b8b0027c7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.26,
+        "interest_rate_start_date": "2017-01-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "bd46793c-98ac-439b-aae8-9bb5e85ab1fb",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 5.06,
+        "interest_rate_start_date": "2014-08-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinterestrate",
+    "pk": "d7e961f6-6e69-4d09-b4c1-52c765b52d58",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "interest_rate": 3.23,
+        "interest_rate_start_date": "2018-05-15",
+        "note": null,
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "26c8a0aa-6556-4f56-8b27-65b8096204a9",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 57.15,
+        "frequency": "Jednorazowo",
+        "start_date": "2019-03-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "5f14549e-0e67-431f-8f8d-323cff3938c2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 398.0,
+        "frequency": "Roczne",
+        "start_date": "2019-04-15",
+        "end_date": null,
+        "payment_period": 2,
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "64ebe802-6ec1-4f5d-9a10-e6a3492a68ca",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 668.0,
+        "frequency": "Jednorazowo",
+        "start_date": "2017-10-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "66300fbd-cf79-4855-81aa-f41ff607859e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 1460.0,
+        "frequency": "Jednorazowo",
+        "start_date": "2016-06-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "7127a076-ddee-456b-a459-1357a5b9b3a7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 596.0,
+        "frequency": "Jednorazowo",
+        "start_date": "2018-03-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "8457c1d5-2869-465e-9633-a2329a4edfb5",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 917.0,
+        "frequency": "Jednorazowo",
+        "start_date": "2015-07-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "8d1e37c8-3fc4-477c-932d-83c1faf64f65",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie rzeczy/nieruchomości",
+        "amount": 273.0,
+        "frequency": "Roczne",
+        "start_date": "2018-07-15",
+        "end_date": null,
+        "payment_period": 3,
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "d5442b8b-3819-4c4f-9c33-aadd8960886b",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": 1464.88,
+        "frequency": "Jednorazowo",
+        "start_date": "2017-06-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditinsurance",
+    "pk": "ee6ce529-5e1c-4755-9fa1-936a5c987ade",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "type": "Ubezpieczenie na życie",
+        "amount": -512.74,
+        "frequency": "Jednorazowo",
+        "start_date": "2018-02-15",
+        "end_date": null,
+        "payment_period": null,
+        "notes": "zwrot niesłusznie pobranej składki",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditcollateral",
+    "pk": "0d3ce0a0-4b45-4c87-b5ac-ec3ec01851e4",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "b9688f8b-5a46-40b2-98f3-f03539a7ec66",
+        "description": "wymagane",
+        "collateral_value": 480000.0,
+        "collateral_set_date": "2024-06-15",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2023-11-30",
+        "updated": "2023-11-30"
+    }
+},
+{
+    "model": "credit.creditcollateral",
+    "pk": "73a3e682-a91a-4f90-8341-d637176be6eb",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "description": "Hipoteka na mieszkaniu",
+        "collateral_value": null,
+        "collateral_set_date": "2015-07-15",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditadditionalcost",
+    "pk": "0509ea1c-ecde-4036-85ea-43302dac1cc5",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "name": "Monit z banku",
+        "cost_amount": 25.0,
+        "cost_payment_date": "2018-01-15",
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditadditionalcost",
+    "pk": "41c121cb-9602-4ecf-a273-87551552e507",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "name": "PCC od hipoteki",
+        "cost_amount": 219.0,
+        "cost_payment_date": "2014-12-15",
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditadditionalcost",
+    "pk": "9fa01a71-08a7-4846-8ab9-e064de58d4f8",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "name": "Inspekcja mieszkania przez bank do wypłaty ostatniej transzy",
+        "cost_amount": 400.0,
+        "cost_payment_date": "2015-02-15",
+        "notes": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "0909b37d-62a9-42a4-b345-e35e1aa67137",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 20000.0,
+        "repayment_date": "2020-07-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 833.36,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "4f6c9a38-50c5-4c4d-87e7-e7aa1c7840dd",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 15000.0,
+        "repayment_date": "2019-12-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "58ee8f85-94be-422f-90e3-34986db1c606",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 10000.0,
+        "repayment_date": "2019-11-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 846.17,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "683d0af6-ea8a-46a1-bbf2-1e6b933fee83",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 15000.0,
+        "repayment_date": "2018-02-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 838.17,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "6e7e6584-9a40-4cda-8860-3639d9726125",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 15000.0,
+        "repayment_date": "2016-09-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 845.89,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "8776cddf-de7e-48f6-a19e-39c0b81ae69f",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 15000.0,
+        "repayment_date": "2018-06-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 834.36,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "9880812e-e9e2-4e74-bdf2-b0526057689d",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 10000.0,
+        "repayment_date": "2018-09-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 829.87,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "9bb76a53-99a2-4870-9e34-50b790301f7c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 35935.15,
+        "repayment_date": "2021-04-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "aa7f21a0-3aab-4709-9539-c2c8f9c8b0e7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 25000.0,
+        "repayment_date": "2015-06-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 847.85,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "b419c220-81c9-4b28-a22d-6e2d73794751",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 20000.0,
+        "repayment_date": "2017-11-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 841.37,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "bf027d2f-270c-4646-b785-b78f932aa6f8",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 20000.0,
+        "repayment_date": "2017-04-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 843.85,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "c26a582f-ab2e-48cd-abab-758cf0a609e8",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 20000.0,
+        "repayment_date": "2020-06-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": null,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "ca231330-ebf7-4403-a45f-f530cc21a2a7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 10000.0,
+        "repayment_date": "2019-07-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 846.16,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "credit.creditearlyrepayment",
+    "pk": "e3644116-fb47-451f-9066-6f21a0fb8c30",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "credit": "e1579944-56a1-4b92-a6c0-7ac8a2b3b1a4",
+        "repayment_amount": 15000.0,
+        "repayment_date": "2019-02-15",
+        "repayment_action": "Skrócenie kredytowania",
+        "total_installment": null,
+        "capital_installment": 850.75,
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "medical.medcard",
+    "pk": "ffeb1b2b-8b00-4a19-a5d4-298e3fd38c83",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": null,
+        "slug": "sju3C3XQ7iPNeT7rAdy2g12ta10t4R1Y-U-n",
+        "age": 37,
+        "weight": 72,
+        "height": 160,
+        "blood_type": "0-",
+        "allergies": "kurz, pyłki, trawy, MIT, glikol propylenowy",
+        "diseases": "astma, alergie, pokrzywka, świąd",
+        "permanent_medications": "Telfexo, Clatra, Zyrtec",
+        "additional_medications": "Symbicort 160",
+        "main_doctor": "Dr Who",
+        "other_doctors": "Dr House",
+        "emergency_contact": "",
+        "notes": "dawca organów",
+        "access_granted": "Udostępnij dane",
+        "access_granted_medicines": "Udostępnij dane",
+        "access_granted_visits": "Brak dostępu",
+        "access_granted_test_results": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicine",
+    "pk": "0640cea0-4616-4732-851e-213e1aa57f68",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "drug_name_and_dose": "Telfexo",
+        "daily_quantity": "1-4",
+        "medication_days": null,
+        "medication_frequency": "Sporadycznie",
+        "exact_frequency": null,
+        "medication_hours": null,
+        "start_date": "2023-04-01",
+        "end_date": null,
+        "disease": "alergie, świąd skóry głowy",
+        "notes": "razem lub zamiast clatry",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicine",
+    "pk": "3c405ffe-76f6-4b2c-a576-8a8732914f18",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "drug_name_and_dose": "Wit. D 1000",
+        "daily_quantity": "2.0",
+        "medication_days": null,
+        "medication_frequency": "Codziennie",
+        "exact_frequency": null,
+        "medication_hours": "8:30, 20:30",
+        "start_date": "2010-04-01",
+        "end_date": null,
+        "disease": "niedobór wit. D",
+        "notes": "w lecie 1 dawka zamiast 2",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicine",
+    "pk": "53244f8c-ab48-438b-bed4-e003415e7ad2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "drug_name_and_dose": "Clatra 20",
+        "daily_quantity": "1-4",
+        "medication_days": null,
+        "medication_frequency": "Sporadycznie",
+        "exact_frequency": null,
+        "medication_hours": null,
+        "start_date": "2021-05-01",
+        "end_date": null,
+        "disease": "alergie, świąd, pokrzywka",
+        "notes": "od świądu skóry głowy",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicine",
+    "pk": "bf6f6744-d261-4348-8538-e7294f9f4d40",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "drug_name_and_dose": "Xyzal",
+        "daily_quantity": "1 (max 2)",
+        "medication_days": null,
+        "medication_frequency": "Doraźnie",
+        "exact_frequency": null,
+        "medication_hours": "wieczorem",
+        "start_date": "2023-12-01",
+        "end_date": null,
+        "disease": "alergie, świąd skóry głowy, pokrzywka",
+        "notes": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "1365e211-1b89-490e-8728-c5c3bc9d5330",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Stomatolog",
+        "doctor": "Dr Ząbek",
+        "visit_date": "2023-07-23",
+        "visit_time": "12:00:00",
+        "visit_location": "Małachowskiego",
+        "notes": "przegląd",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "1aa902f1-90e4-4ce3-87c5-ff48d4e5a31a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Laryngolog",
+        "doctor": "Dr Bębenek",
+        "visit_date": "2023-09-18",
+        "visit_time": "08:40:00",
+        "visit_location": "Świdnicka 40",
+        "notes": "skierowanie na oddział dermatologii (PILNE)",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "526b936e-ee2f-4b09-9257-e59feac9e4e2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Dermatolog",
+        "doctor": "Dr Skinner",
+        "visit_date": "2023-10-10",
+        "visit_time": "11:20:00",
+        "visit_location": "Swobodna 1",
+        "notes": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "54ba1113-76ec-4c5d-bbbd-42ef38a11c34",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Dermatolog",
+        "doctor": "Dr Skinner",
+        "visit_date": "2020-01-01",
+        "visit_time": "15:00:00",
+        "visit_location": "Szewska 3A",
+        "notes": null,
+        "created": "2023-11-14",
+        "updated": "2023-11-14"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "5a4acce7-960b-4ad5-8343-9d039a18e382",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Dermatolog",
+        "doctor": "Dr Guzik",
+        "visit_date": "2023-04-11",
+        "visit_time": "13:30:00",
+        "visit_location": "Szewska 3A",
+        "notes": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "6ee16716-b801-4b6f-b2a1-23233c65d110",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Internista",
+        "doctor": null,
+        "visit_date": "2023-11-02",
+        "visit_time": "11:05:00",
+        "visit_location": null,
+        "notes": "szczepienie przeciwko grypie",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "a507d7b8-b990-4a68-babc-601d8056beb3",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Alergolog",
+        "doctor": "Dr Katarzyna Nosal",
+        "visit_date": "2023-12-12",
+        "visit_time": "09:30:00",
+        "visit_location": "Swobodna 1",
+        "notes": "skierowanie na oddział alergologii",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.medicalvisit",
+    "pk": "dd01d3d1-1f8a-49fc-9292-c1e61b202dc3",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "specialization": "Dermatolog",
+        "doctor": "Dr Piegus",
+        "visit_date": "2023-11-11",
+        "visit_time": "08:30:00",
+        "visit_location": "Szewska 3A",
+        "notes": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "medical.healthtestresult",
+    "pk": "181d67c0-7fac-4849-822c-50ac8245774e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "testy alergologiczne skórne - pokarmy",
+        "test_result": "ujemne",
+        "test_date": "2023-05-15",
+        "disease": "alergie",
+        "notes": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "payment.payment",
+    "pk": "2cb82772-f021-4820-9ec2-15a2cde0317d",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Amazon Prime",
+        "payment_type": "Rozrywka",
+        "payment_method": null,
+        "payment_status": "Brak informacji",
+        "payment_frequency": "Rocznie",
+        "payment_months": "11",
+        "payment_day": 1,
+        "payment_value": 49.0,
+        "notes": "",
+        "start_of_agreement": "2021-11-01",
+        "end_of_agreement": null,
+        "access_granted": "Brak dostępu",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "payment.payment",
+    "pk": "40b6b914-c028-4c02-9b6b-da04ce7dee44",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Medicover",
+        "payment_type": "Zdrowie",
+        "payment_method": "Przelew - zwykły przelew",
+        "payment_status": "Brak informacji",
+        "payment_frequency": "Rocznie",
+        "payment_months": "9",
+        "payment_day": 6,
+        "payment_value": 2400.0,
+        "notes": "",
+        "start_of_agreement": null,
+        "end_of_agreement": null,
+        "access_granted": "Brak dostępu",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "payment.payment",
+    "pk": "6e33dc4c-eb43-4e17-8eea-66767939ddd2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "prąd Tauron",
+        "payment_type": "Media",
+        "payment_method": "Przelew - zwykły przelew",
+        "payment_status": "Brak informacji",
+        "payment_frequency": "Półrocznie",
+        "payment_months": "1,8",
+        "payment_day": 15,
+        "payment_value": 1500.0,
+        "notes": "250 miesięcznie; umowa z końca grudnia",
+        "start_of_agreement": null,
+        "end_of_agreement": null,
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "payment.payment",
+    "pk": "8347fec0-cb66-47f2-ba32-d0fb82251397",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "mieszkanie - nieruchomość",
+        "payment_type": "Podatki",
+        "payment_method": "Przelew - zwykły przelew",
+        "payment_status": null,
+        "payment_frequency": "Rocznie",
+        "payment_months": "3",
+        "payment_day": 11,
+        "payment_value": 357.0,
+        "notes": "razem z miejscem postojowym",
+        "start_of_agreement": null,
+        "end_of_agreement": null,
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "payment.payment",
+    "pk": "9fe89b05-1b0b-4005-aba2-7d9e9b54d273",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Navigator",
+        "payment_type": "Czynsz",
+        "payment_method": "Przelew - zwykły przelew",
+        "payment_status": null,
+        "payment_frequency": "Miesięcznie",
+        "payment_months": "1,2,3,4,5,6,7,8,9,10,11,12",
+        "payment_day": 10,
+        "payment_value": 590.0,
+        "notes": "",
+        "start_of_agreement": null,
+        "end_of_agreement": null,
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "payment.payment",
+    "pk": "e138fea9-fa16-4e7d-804d-1488ba186974",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "telefon",
+        "payment_type": "Telekomunikacja",
+        "payment_method": "Przelew - zwykły przelew",
+        "payment_status": null,
+        "payment_frequency": "Miesięcznie",
+        "payment_months": null,
+        "payment_day": 5,
+        "payment_value": 25.0,
+        "notes": "T-Mobile",
+        "start_of_agreement": null,
+        "end_of_agreement": null,
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "planner.expenselist",
+    "pk": "23cbbdaf-5748-4e7d-a39a-f6f53046755e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "studia",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenselist",
+    "pk": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "prezenty świąteczne 2023",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenselist",
+    "pk": "fda00cad-094b-474e-a3e4-829532eb709c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "organizacja pogrzebu",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "0d72c4af-35e3-4e9e-ad6c-662c948392bb",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "kościelny",
+        "description": "",
+        "estimated_cost": 200.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 200.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "1adc12d2-8be6-450c-bc51-d3ca57cb3c85",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "kwiaty na trumnę",
+        "description": "coś innego niż wieńce / palmy",
+        "estimated_cost": 170.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 170.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "1e123e3d-09f8-4fcf-b299-2fc82b2b5fe2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "grabarz",
+        "description": "zasypanie grobu, ogarnięcie miejsca pochówku (za wykopanie płaci gmina)",
+        "estimated_cost": 200.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 200.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "2543c534-f180-47f9-a61e-52afd1232178",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "urząd gminy",
+        "description": "chłodnia, wykop grobu, opłata cmentarna dla istniejącego już miejsca",
+        "estimated_cost": 1500.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 1480.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "30473b9c-9b0e-44bc-b81f-e6af67e0c257",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "trumna",
+        "description": "1200-4000 w zależności od wyboru",
+        "estimated_cost": 2800.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 2800.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "32293267-a953-47c9-b680-b4ef3a626639",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "różaniec w kaplicy",
+        "description": "modlitwa za zmarłą osobę (najczęściej przez członka jakiejś kościelnej organizacji)\r\n0-200",
+        "estimated_cost": 0.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "331e31da-b772-4361-b61e-88301dc57d2f",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "23cbbdaf-5748-4e7d-a39a-f6f53046755e",
+        "name": "kamera internetowa",
+        "description": "",
+        "estimated_cost": null,
+        "execution_status": "Planowane",
+        "requirement_status": "Opcjonalne",
+        "validity_status": "Na kiedyś",
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "442c4796-8ece-4abc-9534-4babb10e5bba",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "usługi pogrzebowe",
+        "description": "przewiezienie zmarłego do chłodni, transport do kaplicy > kościoła > na cmentarz - złożenie do grobu;\r\ndodatkowo 500 zł ubranie zmarłego",
+        "estimated_cost": 2300.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 2300.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "5ac3632c-2471-456a-981a-09986ceef1b4",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "msza za zmarłą osobę",
+        "description": "",
+        "estimated_cost": 50.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 50.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "6d3da30e-52d3-4e04-b33d-febdadf24a28",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+        "name": "karta podarunkowa dla Mamy",
+        "description": "na urodziny",
+        "estimated_cost": 1000.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "cost_paid": 1000.0,
+        "purchase_date": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "702e0d3f-6fe9-48b6-9f72-6c4fcbaea46a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "miejsce na cmentarzu",
+        "description": "jeśli nie było wykupione wcześniej (pochówek w miejscu istniejącego grobu);\r\n500-600 zł",
+        "estimated_cost": 500.0,
+        "execution_status": null,
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "7058e4e0-a927-44ec-b0c0-94d122c59ebb",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "23cbbdaf-5748-4e7d-a39a-f6f53046755e",
+        "name": "udemy - szkolenie python",
+        "description": "4 sztuki różnych tutoriali",
+        "estimated_cost": 200.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Opcjonalne",
+        "validity_status": "Na kiedyś",
+        "cost_paid": 200.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "74fbac11-0bab-49f5-b201-0e8b7837915a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "23cbbdaf-5748-4e7d-a39a-f6f53046755e",
+        "name": "roczne czesne",
+        "description": "10 x 550",
+        "estimated_cost": 5500.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": null,
+        "cost_paid": 5500.0,
+        "purchase_date": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "82a75962-ab8a-4afc-9d0b-d5996d5974d8",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "23cbbdaf-5748-4e7d-a39a-f6f53046755e",
+        "name": "odbiór dyplomu",
+        "description": "wizyta na uczelni",
+        "estimated_cost": 0.0,
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "8bcddec3-7b9a-40a3-a2e6-64b97eceb616",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "ksiądz",
+        "description": "przeprowadzenie mszy; \r\n500-1000 zł",
+        "estimated_cost": 500.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 500.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "8ca5ba6d-78c7-4f94-9107-9d94d0a389be",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "pomnik istniejący",
+        "description": "rozebranie, dodatkowy napis na płycie, złożenie;",
+        "estimated_cost": 1000.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 1000.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "92e65c23-ee27-480a-9949-3e871138d092",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "trębacz",
+        "description": "",
+        "estimated_cost": 200.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 200.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "955ec6d0-948e-4a72-9e3c-235755116964",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+        "name": "Nowy mi-band",
+        "description": "wg życzenia",
+        "estimated_cost": 180.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 176.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "97debf42-c530-4fac-9fe4-a972540e957f",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+        "name": "prezent dla Teściowej",
+        "description": "nie książki, może zestaw kawowy, może voucher na warsztaty kreatywne",
+        "estimated_cost": 200.0,
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Na kiedyś",
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "9c7d7084-ab42-460b-8c87-0b611f84f63c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "stypa",
+        "description": "60-80 zł/osobę min.;\r\nstypa na 30 osób: 2400",
+        "estimated_cost": 2400.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 2400.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "a381df89-11a2-44c7-962c-fc5efe7eec9d",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+        "name": "Wyjazd dla rodziców",
+        "description": "tygodniowy",
+        "estimated_cost": 2500.0,
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "bf8b833e-2d05-4d63-baff-66c839cb6dcc",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+        "name": "chrześniak - prezent",
+        "description": "wg uzyskanej średniej ocen",
+        "estimated_cost": 281.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": "Pilne",
+        "cost_paid": 281.0,
+        "purchase_date": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "c662f831-fdbf-4334-978d-cd3074603647",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "kwiaty na grób",
+        "description": "wieniec - 250; palma - 150",
+        "estimated_cost": 250.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 250.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "d536b522-3f37-48aa-af22-c95fe92c519f",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "e28e1ada-337d-45cb-9ca2-6d606d0295cb",
+        "name": "prezent dla Szwagra",
+        "description": "",
+        "estimated_cost": 200.0,
+        "execution_status": "Planowane",
+        "requirement_status": "Opcjonalne",
+        "validity_status": "Na kiedyś",
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "d5c8d73d-32b0-4ee5-9648-f4a8c213e110",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "organistka",
+        "description": "",
+        "estimated_cost": 200.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 200.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "e3178cd4-5c0e-42b4-a5db-ec1e03941074",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "ministrant",
+        "description": "30 na osobę",
+        "estimated_cost": 30.0,
+        "execution_status": "Zrealizowane",
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": 60.0,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.expenseitem",
+    "pk": "ea5f9fdb-f254-470a-8c3c-b83c6e83de23",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "expense_list": "fda00cad-094b-474e-a3e4-829532eb709c",
+        "name": "pomnik nowy",
+        "description": "15-50k",
+        "estimated_cost": 20000.0,
+        "execution_status": null,
+        "requirement_status": null,
+        "validity_status": null,
+        "cost_paid": null,
+        "purchase_date": null,
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todolist",
+    "pk": "4b245fe0-51da-425b-9dce-900526c46677",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "projekt Memento - faza końcowa",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todolist",
+    "pk": "7197e9c1-d1b4-474b-ba13-a94370948165",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "test todo list 1",
+        "access_granted": "Udostŕpnij dane",
+        "created": "2023-11-14",
+        "updated": "2023-11-14"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "1051c475-8af0-4ab2-9ad5-a152213971b7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "Sprawdzić error messages dla unique fields",
+        "description": "Czy w komunikacie nie ma angielskich nazw modeli - wówczas 1) dodać w modelu class Meta i verbose_name - np.. \"Istnieje już Użytkownik z tą wartością pola Adres email.\" - Użytkownik jako nazwa modelu w class Meta, albo 2) dodać metodę clean w forms.py sprawdzającą warunek i tam napisać pożądany komunikat w add_error",
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Opcjonalne",
+        "validity_status": "Na kiedyś",
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "11b2aef8-9f9e-485d-8706-f4b22e0cd7ea",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "Logout przy próbie zmiany nie swoich danych - SECURITY",
+        "description": "Dodać kod weryfikujący czy wpisanie adresu do danych użytkownika przez niezalogowanego użytkownika lub innego użytkownika jest wychwytywane i blokowane",
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Na kiedyś",
+        "due_date": null,
+        "link": null,
+        "notes": "skorzystać z url-i zawierających id/slug albo z linka do pobrania pliku",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "17f03d88-9dd7-410c-a0c4-245169a725c4",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "Settings.DEBUG -->> ZMIENIĆ NA PRODUKCJI!!!",
+        "description": "Wyłączyć debugowanie na gotowym projekcie",
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "197d6feb-d3d5-4116-877a-2aa6fdaff7a9",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "napisać README",
+        "description": "zgodnie z zaleceniami i formatowaniem",
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "due_date": null,
+        "link": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "21b80d9b-7a80-4a80-a94e-4db20c712857",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "zamienić BD z sqlite na postresql",
+        "description": "po zmianie systemu operacyjnego, baza danych sqlite nie wystarcza do obsługi Memento",
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "due_date": null,
+        "link": null,
+        "notes": "konieczność startu serwera do postgre przez terminal przed uruchomieniem Memento (sudo service postgresql start)",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "43b0346d-a364-4b87-a56b-2027358fe696",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "7197e9c1-d1b4-474b-ba13-a94370948165",
+        "name": "test todo list 1 item 1",
+        "description": "sko˝czyŠ projekt",
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbŕdne",
+        "validity_status": "Pilne",
+        "due_date": null,
+        "link": null,
+        "notes": null,
+        "created": "2023-11-14",
+        "updated": "2023-11-14"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "4f0ad4b6-7cc6-4e9a-93a8-2157085fb48c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "Static files w urls.py",
+        "description": "Przydatne: https://stackoverflow.com/questions/8687927/static-root-vs-static-url-in-django",
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "due_date": null,
+        "link": "https://docs.djangoproject.com/en/5.0/howto/static-files/",
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "5db2c85c-2992-4071-b8a9-901829482ece",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "Usunąć zakomentowane fragmenty kodu",
+        "description": "",
+        "execution_status": "Planowane",
+        "requirement_status": "Opcjonalne",
+        "validity_status": "Na kiedyś",
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "895d6638-4549-4f0b-9d58-e70a61cbbad2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "przerzucić kod z windows na ubuntu",
+        "description": "",
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Pilne",
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "9b8e154f-461d-49fd-9d8e-91c84c5f7e6c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "Sprawdzić czy gdzieś nie ma active_permission zamiast access_granted",
+        "description": "",
+        "execution_status": "Zrealizowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": "Na kiedyś",
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "af53eef7-ebd0-46af-bdb1-a3a2a152729c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "odpalić TESTy",
+        "description": "",
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbędne",
+        "validity_status": null,
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "b3f7ea43-8dae-4cea-9600-22176f6d520e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "7197e9c1-d1b4-474b-ba13-a94370948165",
+        "name": "test todo list 1 item 2",
+        "description": "zaktualizowaŠ CV",
+        "execution_status": "Planowane",
+        "requirement_status": "Niezbŕdne",
+        "validity_status": "Na kiedyť",
+        "due_date": null,
+        "link": null,
+        "notes": null,
+        "created": "2023-11-14",
+        "updated": "2023-11-14"
+    }
+},
+{
+    "model": "planner.todoitem",
+    "pk": "b7f89300-a44b-440f-bdd1-745c36d3c41b",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "todo_list": "4b245fe0-51da-425b-9dce-900526c46677",
+        "name": "user - poprawić testy dla zmiany access_granted_to",
+        "description": "",
+        "execution_status": "Planowane",
+        "requirement_status": "Opcjonalne",
+        "validity_status": "Na kiedyś",
+        "due_date": null,
+        "link": null,
+        "notes": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "renovation.renovation",
+    "pk": "40e75da0-8560-40ec-97c5-0674027eb156",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "remont salonu",
+        "description": "wymiana mebli",
+        "estimated_cost": 3500.0,
+        "start_date": "2023-01-01",
+        "end_date": "2023-01-15",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-20",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovation",
+    "pk": "5b836feb-a362-47f7-82fd-2cbf011e480a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "salon - malowanie",
+        "description": "",
+        "estimated_cost": 600.0,
+        "start_date": null,
+        "end_date": null,
+        "access_granted": "Brak dostępu",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovation",
+    "pk": "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "modernizacja kuchni",
+        "description": "kapitalka",
+        "estimated_cost": 15000.0,
+        "start_date": "2023-09-16",
+        "end_date": "2023-09-21",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-20",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovation",
+    "pk": "a5fd4b61-9061-4a00-912b-5473cd5fceb1",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "nowe schody",
+        "description": "",
+        "estimated_cost": 8000.0,
+        "start_date": null,
+        "end_date": null,
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovation",
+    "pk": "b9a3e2ff-4510-476e-85d4-7df66ab65d73",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "panele fotowoltaiczne",
+        "description": "6-9",
+        "estimated_cost": 22000.0,
+        "start_date": null,
+        "end_date": null,
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovation",
+    "pk": "fc4ba0f1-d4f3-4e77-a9e1-79a15094d1c2",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "garaż + brama",
+        "description": "wymiana bramy, wylewka + regały",
+        "estimated_cost": 6300.0,
+        "start_date": "2022-09-15",
+        "end_date": "2022-09-22",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "06468ecd-3ff5-41b0-afcf-1a806fbb70e7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "40e75da0-8560-40ec-97c5-0674027eb156",
+        "name": "test renovation cost 1",
+        "unit_price": 1600.0,
+        "units": 1.0,
+        "description": "nowa kanapa",
+        "order": "meble.pl",
+        "created": "2023-11-20",
+        "updated": "2023-11-20"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "1037b091-fc7f-43e1-87e3-bc34458f997c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "40e75da0-8560-40ec-97c5-0674027eb156",
+        "name": "test renovation cost 2",
+        "unit_price": 2500.0,
+        "units": 1.0,
+        "description": "malowanie",
+        "order": null,
+        "created": "2023-11-20",
+        "updated": "2023-11-20"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "15cb277d-16a1-4284-b4b5-aa9b1912ffda",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "fc4ba0f1-d4f3-4e77-a9e1-79a15094d1c2",
+        "name": "drzwi garażowe",
+        "unit_price": 4500.0,
+        "units": 1.0,
+        "description": "",
+        "order": "",
+        "created": "2024-01-06",
+        "updated": "2024-01-06"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "2204c408-a028-4a41-8ed9-e74a59301981",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+        "name": "meble na wymiar",
+        "unit_price": 26000.0,
+        "units": 1.0,
+        "description": "",
+        "order": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "286b3698-238b-43ac-836a-7fb052aad097",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+        "name": "robocizna",
+        "unit_price": 550.0,
+        "units": 2.0,
+        "description": "2 pracowników",
+        "order": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "392ca9b9-dd83-4414-b13d-83f3353f0b80",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "a5fd4b61-9061-4a00-912b-5473cd5fceb1",
+        "name": "schody",
+        "unit_price": 8100.0,
+        "units": 1.0,
+        "description": "100 napiwek",
+        "order": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "6f7ae69b-1de2-4209-a066-b0b9f0e93303",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "9c477928-b2dc-4bc9-bbe8-6e6e316c1ab8",
+        "name": "czajnik :)",
+        "unit_price": 110.0,
+        "units": 1.0,
+        "description": "",
+        "order": "ASAP, bez kawy ni rusz",
+        "created": "2023-11-20",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "7b9d8abf-16d6-4471-ba02-0be522eff67c",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "a5fd4b61-9061-4a00-912b-5473cd5fceb1",
+        "name": "wycieraczka",
+        "unit_price": 220.0,
+        "units": 1.0,
+        "description": "",
+        "order": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "8166f380-696b-4ded-b2b4-50d03830702d",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "40e75da0-8560-40ec-97c5-0674027eb156",
+        "name": "test renovation cost 3",
+        "unit_price": 2800.0,
+        "units": 1.0,
+        "description": "nowe meble",
+        "order": null,
+        "created": "2023-11-20",
+        "updated": "2023-11-20"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "c9bada63-2342-4855-95e6-488d20b7f373",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "40e75da0-8560-40ec-97c5-0674027eb156",
+        "name": "test renovation cost 4",
+        "unit_price": 300.0,
+        "units": 4.0,
+        "description": "nowe krzes│a",
+        "order": null,
+        "created": "2023-11-20",
+        "updated": "2023-11-20"
+    }
+},
+{
+    "model": "renovation.renovationcost",
+    "pk": "f43b9ae5-2980-4fdc-88b5-e736029def76",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "renovation": "40e75da0-8560-40ec-97c5-0674027eb156",
+        "name": "test renovation cost 5 (40e75da0-8560-40ec-97c5-0674027eb156)",
+        "unit_price": 55.0,
+        "units": 1.0,
+        "description": "",
+        "order": "",
+        "created": "2023-11-20",
+        "updated": "2023-11-20"
+    }
+},
+{
+    "model": "trip.trip",
+    "pk": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "wizyta u znajomych",
+        "type": "Wyjazd na rower",
+        "destination": "Niemcy, Giessen",
+        "start_date": "2023-06-15",
+        "end_date": "2023-06-22",
+        "transport": "auto",
+        "estimated_cost": 2500,
+        "participants_number": 2,
+        "participants": null,
+        "reservations": "hotel w centrum Giessen, hotel w centrum Frankfurtu",
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.trip",
+    "pk": "ab7fa76b-fed0-4391-b503-dca50e1142c6",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Dolomity",
+        "type": "Wyjazd pod namiot,Wyjazd w góry - trekking",
+        "destination": "Włochy",
+        "start_date": "2022-06-10",
+        "end_date": "2022-06-24",
+        "transport": "Samolot + najmowany samochód",
+        "estimated_cost": 5500,
+        "participants_number": 2,
+        "participants": null,
+        "reservations": "brak - z dnia na dzień",
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.trip",
+    "pk": "db805e9d-bfbe-471e-853d-7dd074a35581",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "name": "Madera",
+        "type": "Wyjazd w góry - trekking,Wyjazd nad morze",
+        "destination": "Madera",
+        "start_date": "2021-10-10",
+        "end_date": "2021-10-21",
+        "transport": "samolot, wynajmowany samochód",
+        "estimated_cost": 0,
+        "participants_number": 2,
+        "participants": null,
+        "reservations": "",
+        "notes": "",
+        "access_granted": "Udostępnij dane",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "trip.tripreport",
+    "pk": "83097822-fff7-44a2-8251-8ab6100a758b",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "start_date": "2020-01-02",
+        "end_date": "2020-01-10",
+        "description": "gorąco, żar leje się z nieba, na trasach rowerowych w lesie ok, miasta parne i gorące, ale i piękne",
+        "notes": "",
+        "facebook": null,
+        "youtube": "https://www.youtube.com/",
+        "instagram": null,
+        "pinterest": "https://pl.pinterest.com/",
+        "link": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripreport",
+    "pk": "84328f76-4c0e-45cf-be35-30e65826fe86",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "start_date": null,
+        "end_date": null,
+        "description": "było cudownie, trzeba to powtórzyć!",
+        "notes": "",
+        "facebook": null,
+        "youtube": null,
+        "instagram": null,
+        "pinterest": null,
+        "link": "https://www.komoot.de/guide/1372/radtouren-rund-um-giessen",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripreport",
+    "pk": "8972e322-9fc2-4a62-b4eb-5f70494ca21e",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "start_date": "2020-01-01",
+        "end_date": "2020-01-02",
+        "description": "dojazd do miejsca noclegu, 6h za kółkiem - jest moc!",
+        "notes": "fajowy hotel",
+        "facebook": null,
+        "youtube": "https://www.youtube.com/",
+        "instagram": null,
+        "pinterest": null,
+        "link": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripreport",
+    "pk": "d946afb3-5eb5-4a08-81ac-ece7ca8e98d5",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "start_date": "2020-01-10",
+        "end_date": "2020-01-11",
+        "description": "powrót",
+        "notes": "opaleni i przegrzani, ale mega zadowoleni",
+        "facebook": null,
+        "youtube": null,
+        "instagram": null,
+        "pinterest": null,
+        "link": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripbasicchecklist",
+    "pk": "6a91b6f5-230a-46b5-895a-f005f88f647a",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "db805e9d-bfbe-471e-853d-7dd074a35581",
+        "name": "priv",
+        "wallet": "Dowód osobisty,Karty kredytowe,Waluta,Ubezpieczenie",
+        "keys": "Mieszkanie/dom",
+        "cosmetics": "Szczotka do zębów,Szczotka elektryczna,Ładowarka do szczoteczki,Pasta do zębów,Szampon,Mydło/żel,Gąbka,Maszynka do golenia,Krem do twarzy,Balsam do ciała,Krem do opalania,Chusteczki higieniczne,Patyczki kosmetyczne,Ręcznik,Klapki",
+        "electronics": "Telefon,Kable,Ładowarka,Słuchawki",
+        "useful_stuff": "Piżama",
+        "basic_drugs": "",
+        "additional_drugs": "",
+        "created": "2024-01-05",
+        "updated": "2024-01-05"
+    }
+},
+{
+    "model": "trip.tripbasicchecklist",
+    "pk": "8d17642a-418e-4fc8-ab80-300778571adc",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "mój bagaż",
+        "wallet": "Dowód osobisty,Prawo jazdy,Karty kredytowe,Waluta,Ubezpieczenie",
+        "keys": "Mieszkanie/dom",
+        "cosmetics": "Szczotka do zębów,Szczotka elektryczna,Ładowarka do szczoteczki,Pasta do zębów,Szampon,Mydło/żel,Gąbka,Maszynka do golenia,Krem do twarzy,Krem do opalania,Chusteczki higieniczne,Patyczki kosmetyczne,Ręcznik,Klapki",
+        "electronics": "Telefon,Kable,Ładowarka,Powerbank,Słuchawki,Laptop,Mysz,Podkładka pod mysz,Podkładka pod laptop",
+        "useful_stuff": "Piżama,Raid,Apteczka",
+        "basic_drugs": "apap, wit. C, coldrex, tran, wit. D, leki przeciwhistaminowe",
+        "additional_drugs": "coś na migrenę, inhalator",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripbasicchecklist",
+    "pk": "fce9d590-1f12-47bd-b37c-0a31fb65dd4d",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "bagaż mężą",
+        "wallet": "Dowód osobisty,Prawo jazdy,Karty kredytowe,Waluta,Winiety",
+        "keys": "Mieszkanie/dom,Samochód,Bagażnik,Rower",
+        "cosmetics": null,
+        "electronics": null,
+        "useful_stuff": null,
+        "basic_drugs": "",
+        "additional_drugs": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripadvancedchecklist",
+    "pk": "0ee4ba82-b4ba-4027-ad19-c60d8db52acd",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "mój bagaż",
+        "trekking": null,
+        "hiking": null,
+        "cycling": "Buty rowerowe,Rękawiczki rowerowe,Kurtka/bezrękawnik,Okulary/google,Kask,Czapka,Opaska,Spodenki rowerowe,Rower,Bidon,Oświetlenie,Licznik,Bagażnik/sakwy,Pompka,Osłona siedzenia,Narzędzia,Zapasowa dętka",
+        "camping": "Wkładka,Środek przeciw komarom,Spork,Kubek,Czołówka",
+        "fishing": null,
+        "sunbathing": null,
+        "business": null,
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.trippersonalchecklist",
+    "pk": "1f5ae351-6633-4a9d-9528-726f8f2b8e20",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "moje dodatki",
+        "checklist": "okulary przeciwsłoneczne, pomadka z filtrem UV, kapelusz na głowę",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.trippersonalchecklist",
+    "pk": "7b0d0360-74ad-4272-9987-4717373349f7",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "moje ubrania",
+        "checklist": "kurka niebieska, polar, cienka czapka, 2 pary spodni, 3 pary spodenek, kilka koszulek, bielizna",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.trippersonalchecklist",
+    "pk": "a4f7676c-9984-4e9b-b2ec-8a3deaefdce1",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "moje buty",
+        "checklist": "trampki, niskie buty rowerowe, niskie trampki",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripadditionalinfo",
+    "pk": "98dc6dfa-e1d6-4402-8d6b-8fd0353c4f41",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "adres",
+        "info": "poprosić znajomych o adres",
+        "notes": "",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripadditionalinfo",
+    "pk": "9c3b610e-c9d4-4197-aad3-b7d9609bfda3",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "statystyki",
+        "info": "sprawdzić mniejszości narodowe w Niemczech, ilu Polaków",
+        "notes": "",
+        "created": "2024-01-04",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripcost",
+    "pk": "b5497d7a-bdf3-4aae-bb62-d68b180e7e69",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "gastronomia",
+        "cost_group": "Wyżywienie",
+        "cost_paid": 270.0,
+        "currency": "EUR",
+        "exchange_rate": 4.5,
+        "notes": "",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripcost",
+    "pk": "cb871ceb-9553-42ee-8231-09194dd0d8d6",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "toalety",
+        "cost_group": "Inne",
+        "cost_paid": 35.0,
+        "currency": "EUR",
+        "exchange_rate": 4.52,
+        "notes": "nie orlen",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "trip.tripcost",
+    "pk": "cd443e9b-929a-4db8-9c37-11e064354432",
+    "fields": {
+        "user": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+        "trip": "62160e65-3901-44f1-a262-e3ae9ee6b9d9",
+        "name": "parkingi",
+        "cost_group": "Bilety",
+        "cost_paid": 42.0,
+        "currency": "EUR",
+        "exchange_rate": 4.47,
+        "notes": "",
+        "created": "2023-11-14",
+        "updated": "2024-01-04"
+    }
+},
+{
+    "model": "user.user",
+    "pk": "6b680316-4f8e-4ea6-8b87-29be0dc6e363",
+    "fields": {
+        "password": "pbkdf2_sha256$720000$vXC5RhwUANLUvBNrsgHHlz$j+NQq4abe2xd3FNZ7mIjMRIXJ3m0usCaMRr4Px4X2qI=",
+        "last_login": "2024-01-06T09:15:29.977Z",
+        "is_superuser": false,
+        "email": "test@example.com",
+        "username": "testuser",
+        "first_name": "Testowy",
+        "last_name": "Użytkownik",
+        "is_active": true,
+        "is_staff": false,
+        "date_joined": "2023-11-14T15:02:10.879Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

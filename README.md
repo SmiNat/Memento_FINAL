@@ -28,18 +28,15 @@ Project is created with:
 Python libraries required to launch and run the project are listed in requirements.txt file.
 
 ## Usabilities
-Memento ofers three major usabilities:
-1) Information input by user
-Each user can create data of his/her own needs within the boundry of application models.
+Memento ofers three major usabilities for users:
+1. Information input
+ - [x] Each user can create data of his/her own needs within the boundry of application models.
 
-Example of how to add attachment:
-![Alt text](image-1.png)
+2. Information access
+ - [x] User can easily access his/her own data either by viewing or downloading them.
 
-2) Information access
-User can easily access his/her own data either by viewing or downloading them.
+3. Information sharing
+ - [x] User can share selected data with other user.
 
-3) Information sharing
-User can share selected data with other user.
-
-
+For viewing all usabilities use _example_testuser.json_ as a sample database.
 Hope you will enjoy using Memento service!

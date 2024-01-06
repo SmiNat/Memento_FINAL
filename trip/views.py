@@ -41,7 +41,6 @@ def trips(request):
         all_trips = None
 
     # Searching engine - search through selected fields
-    # If search results in empty queryset, error message is displayed
     # If search engine is empty, queryset data is displayed in full
     search_query = request.GET.get("q")
     if search_query and (search_query.isdigit() or search_query.isdecimal()):

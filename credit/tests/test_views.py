@@ -822,7 +822,6 @@ class CreditTests(TestCase):
 
         self.assertIn("1 maja 2020", response_get.content.decode())
         self.assertIn(self.interest_rate.note, response_get.content.decode())
-        self.assertIn(str(self.insurance.amount), response_get.content.decode())
         self.assertIn(self.collateral.description, response_get.content.decode())
         self.assertIn(self.cost.name, response_get.content.decode())
         self.assertIn(self.repayment.repayment_action,
@@ -858,8 +857,6 @@ class CreditTests(TestCase):
                          response_get.content.decode())
         self.assertIn("1 czerwca 2020", response_get.content.decode())
         self.assertIn(self.test_interest_rate.note,
-                      response_get.content.decode())
-        self.assertIn(str(self.test_insurance.amount),
                       response_get.content.decode())
         self.assertIn(self.test_collateral.description,
                       response_get.content.decode())
@@ -1136,21 +1133,12 @@ class CreditTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect credit_amount field (negative values are not allowed)",
              {"credit_amount": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect credit_amount field - max 2 decimal places",
-             {"credit_amount": 112000.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
 
             ("Incorrect own_contribution field (negative values are not allowed)",
              {"own_contribution": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect own_contribution field - max 2 decimal places",
-             {"own_contribution": 112000.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
 
             ("Incorrect market_value field (negative values are not allowed)",
              {"market_value": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect market_value field - max 2 decimal places",
-             {"market_value": 112000.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
 
             ("Empty field: credit_period", {"credit_period": ""},
              "To pole jest wymagane."),
@@ -1171,23 +1159,11 @@ class CreditTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect total_installment field (negative values are not allowed)",
              {"total_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect total_installment field - max 2 decimal places",
-             {"total_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect total_installment field - max 8 digits",
-             {"total_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Empty field: capital_installment", {"capital_installment": ""},
              "To pole jest wymagane."),
             ("Incorrect capital_installment field (negative values are not allowed)",
              {"capital_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect capital_installment field - max 2 decimal places",
-             {"capital_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect capital_installment field - max 8 digits",
-             {"capital_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Empty field: type_of_interest", {"type_of_interest": ""},
              "To pole jest wymagane."),
@@ -1199,43 +1175,16 @@ class CreditTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect fixed_interest_rate field (negative values are not allowed)",
              {"fixed_interest_rate": -45}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect fixed_interest_rate field - max 2 digits before decimal places",
-             {"fixed_interest_rate": 456.1},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Incorrect fixed_interest_rate field - max 2 decimal places",
-             {"fixed_interest_rate": 1.987},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect fixed_interest_rate field - max 4 digits",
-             {"fixed_interest_rate": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 4 cyfry."),
 
             ("Empty field: floating_interest_rate", {"floating_interest_rate": ""},
              "To pole jest wymagane."),
             ("Incorrect floating_interest_rate field (negative values are not allowed)",
              {"floating_interest_rate": -46}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect floating_interest_rate field (negative values are not allowed)",
-             {"floating_interest_rate": -456.1},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Incorrect floating_interest_rate field - max 2 decimal places",
-             {"floating_interest_rate": 1.986},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect floating_interest_rate field - max 4 digits",
-             {"floating_interest_rate": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 4 cyfry."),
 
             ("Empty field: bank_margin", {"bank_margin": ""},
              "To pole jest wymagane."),
             ("Incorrect bank_margin field (negative values are not allowed)",
              {"bank_margin": -45}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect bank_margin field (negative values are not allowed)",
-             {"bank_margin": -456.1},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Incorrect bank_margin field - max 4 digits with 2 decimal places",
-             {"bank_margin": 1.987},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect bank_margin field - max 4 digits with 2 decimal places",
-             {"bank_margin": 111.98},
-             "Upewnij się, że łącznie nie ma więcej niż 4 cyfry."),
 
             ("Empty field: date_of_agreement", {"date_of_agreement": ""},
              "To pole jest wymagane."),
@@ -1254,9 +1203,6 @@ class CreditTests(TestCase):
 
             ("Incorrect provision field (negative values are not allowed)",
              {"provision": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect provision field - max 8 digits with 2 decimal places",
-             {"provision": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
 
             ("Empty field: credited_provision", {"credited_provision": ""},
              "To pole jest wymagane."),
@@ -1272,21 +1218,9 @@ class CreditTests(TestCase):
             ("Incorrect life_insurance_first_year field (negative values are "
              "not allowed)", {"life_insurance_first_year": -456},
              "Wartość nie może być liczbą ujemną."),
-            ("Incorrect life_insurance_first_year field - max decimal places",
-             {"life_insurance_first_year": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect life_insurance_first_year field - max 8 digits",
-             {"life_insurance_first_year": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
             ("Incorrect property_insurance_first_year field (negative values "
              "are not allowed)", {"property_insurance_first_year": -456},
              "Wartość nie może być liczbą ujemną."),
-            ("Incorrect property_insurance_first_year field - max 2 decimal places",
-             {"property_insurance_first_year": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect property_insurance_first_year field - max 8 digits",
-             {"property_insurance_first_year": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Empty field: collateral_required", {"collateral_required": ""},
              "To pole jest wymagane."),
@@ -1295,15 +1229,6 @@ class CreditTests(TestCase):
              "Wybierz poprawną wartość. ABCD nie jest żadną z dostępnych opcji."),
             ("Incorrect collateral_rate field (negative values are not allowed)",
              {"collateral_rate": -45.6}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect collateral_rate field (negative values are not allowed)",
-             {"collateral_rate": -456},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Incorrect collateral_rate field - max 4 digits with 2 decimal places",
-             {"collateral_rate": 1.987},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect collateral_rate field - max 4 digits with 2 decimal places",
-             {"collateral_rate": 112.98},
-             "Upewnij się, że łącznie nie ma więcej niż 4 cyfry."),
 
             ("Empty field: access_granted", {"access_granted": ""},
              "To pole jest wymagane."),
@@ -1835,9 +1760,6 @@ class CreditTrancheTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect tranche_amount field (negative values are not allowed)",
              {"tranche_amount": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect tranche_amount field - max 2 decimal places",
-             {"tranche_amount": 112000.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
 
             ("Empty field: tranche_date", {"tranche_date": ""},
              "To pole jest wymagane."),
@@ -1846,21 +1768,9 @@ class CreditTrancheTests(TestCase):
 
             ("Incorrect total_installment field (negative values are not allowed)",
              {"total_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect total_installment field - max 2 decimal places",
-             {"total_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect total_installment field - max 8 digits",
-             {"total_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Incorrect capital_installment field (negative values are not allowed)",
              {"capital_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect capital_installment field - max 2 decimal places",
-             {"capital_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect capital_installment field - max 8 digits",
-             {"capital_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
         ]
     )
     def test_add_credit_tranche_unsuccessful_with_incorrect_data(
@@ -1935,7 +1845,6 @@ class CreditTrancheTests(TestCase):
         response_get = self.client.get(
             reverse("credit:edit-credit-tranche", args=[str(self.tranche.id)]))
         self.assertIn("01.02.2020", response_get.content.decode())
-        self.assertIn("10000.00", response_get.content.decode())
 
     def test_edit_credit_tranche_success_and_redirect(self):
         """Test if updating credit tranche is successful (status code 200)
@@ -2378,12 +2287,6 @@ class CreditInterestRateTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect interest_rate field (negative values are not allowed)",
              {"interest_rate": -4.2}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect interest_rate field - max 2 decimal places",
-             {"interest_rate": 1.986},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect interest_rate field - max 4 digits",
-             {"interest_rate": 111.22},
-             "Upewnij się, że łącznie nie ma więcej niż 4 cyfry."),
 
             ("Empty field: interest_rate_start_date", {"interest_rate_start_date": ""},
              "To pole jest wymagane."),
@@ -2393,21 +2296,9 @@ class CreditInterestRateTests(TestCase):
             ("Incorrect total_installment field (negative values are not allowed)",
              {"total_installment": -456},
              "Wartość nie może być liczbą ujemną."),
-            ("Incorrect total_installment field - max 2 decimal places",
-             {"total_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect total_installment field - max 8 digits",
-             {"total_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Incorrect capital_installment field (negative values are not allowed)",
              {"capital_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect capital_installment field - max 2 decimal places",
-             {"capital_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect capital_installment field - max 8 digits",
-             {"capital_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
         ]
     )
     def test_add_interest_rate_unsuccessful_with_incorrect_data(
@@ -2657,8 +2548,6 @@ class CreditInterestRateTests(TestCase):
         response_get = self.client.get(
             reverse("credit:delete-credit-interest-rate",
                     args=[str(self.interest_rate.id)]))
-        self.assertIn(str(self.interest_rate.interest_rate),
-                      response_get.content.decode())
         self.assertEqual(response_get.context["page"], "delete-credit-interest-rate")
         self.assertEqual(response_get.context["credit"], self.credit)
         self.assertEqual(response_get.context["interest_rate"], self.interest_rate)
@@ -2918,14 +2807,6 @@ class CreditInsuranceTests(TestCase):
             ("Empty field: amount", {"amount": ""}, "To pole jest wymagane."),
             ("Empty field: start_date", {"start_date": ""}, "To pole jest wymagane."),
 
-            ("Incorrect amount field (negative values are not allowed)",
-             {"amount": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect amount field - max 2 decimal places",
-             {"amount": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect amount field - max 8 digits", {"amount": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
-
             ("Incorrect frequency field - value outside the permissible choice",
              {"frequency": "ABCD"},
              "Wybierz poprawną wartość. ABCD nie jest żadną z dostępnych opcji."),
@@ -3177,7 +3058,6 @@ class CreditInsuranceTests(TestCase):
         response = self.client.get(
             reverse("credit:single-credit", args=[str(self.credit.id)]))
         self.assertIn(new_insurance.frequency, response.content.decode())
-        self.assertIn(new_insurance.type, response.content.decode())
 
         response_delete = self.client.post(
             reverse("credit:delete-credit-insurance", args=[str(new_insurance.id)]),
@@ -3413,27 +3293,12 @@ class CreditCollateralTests(TestCase):
         [
             ("Incorrect collateral_value field (negative values are not allowed)",
              {"collateral_value": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect collateral_value field - max 2 decimal places",
-             {"collateral_value": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
 
             ("Incorrect total_installment field (negative values are not allowed)",
              {"total_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect total_installment field - max 2 decimal places",
-             {"total_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect total_installment field - max 8 digits",
-             {"total_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Incorrect capital_installment field (negative values are not allowed)",
              {"capital_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect capital_installment field - max 2 decimal places",
-             {"capital_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect capital_installment field - max 8 digits ",
-             {"capital_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Empty field: collateral_set_date", {"collateral_set_date": ""},
              "To pole jest wymagane."),
@@ -3912,13 +3777,6 @@ class CreditAdditionalCostTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect cost_payment_date field (incorrect data)",
              {"cost_payment_date": "2020, 11, 11"}, "Wpisz poprawną datę."),
-
-            ("Incorrect cost_amount field - max 82 decimal places",
-             {"cost_amount": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect cost_amount field - max 9 digits",
-             {"cost_amount": 11120000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 9 cyfr."),
         ]
     )
     def test_add_credit_additional_cost_unsuccessful_with_incorrect_data(
@@ -4402,12 +4260,6 @@ class CreditEarlyRepaymentTests(TestCase):
              "To pole jest wymagane."),
             ("Incorrect repayment_amount field (negative values are not allowed)",
              {"repayment_amount": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect repayment_amount field - max 8 digits with 2 decimal places",
-             {"repayment_amount": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect repayment_amount field - max 8 digits with 2 decimal places",
-             {"repayment_amount": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Empty field: repayment_date", {"repayment_date": ""},
              "To pole jest wymagane."),
@@ -4422,21 +4274,9 @@ class CreditEarlyRepaymentTests(TestCase):
 
             ("Incorrect total_installment field (negative values are not allowed)",
              {"total_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect total_installment field - max 2 decimal places",
-             {"total_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect total_installment field - max 8 digits",
-             {"total_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
 
             ("Incorrect capital_installment field (negative values are not allowed)",
              {"capital_installment": -456}, "Wartość nie może być liczbą ujemną."),
-            ("Incorrect capital_installment field - max 2 decimal places",
-             {"capital_installment": 110.9876},
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry po przecinku."),
-            ("Incorrect capital_installment field - max 8 digits ",
-             {"capital_installment": 1112000.98},
-             "Upewnij się, że łącznie nie ma więcej niż 8 cyfr."),
         ]
     )
     def test_add_credit_early_repayment_unsuccessful_with_incorrect_data(

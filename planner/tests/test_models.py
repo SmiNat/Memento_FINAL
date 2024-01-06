@@ -336,6 +336,8 @@ class ToDoItemModelTests(TestCase):
             "requirement_status": "Status wymagania",
             "validity_status": "Status ważności",
             "due_date": "Termin wykonania",
+            "link": "Link do zadania",
+            "notes": "Uwagi",
             "created": "Data dodania",
             "updated": "Data aktualizacji",
         }

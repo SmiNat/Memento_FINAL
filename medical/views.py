@@ -183,7 +183,6 @@ def medicines(request):
         all_medicines = None
 
     # Searching engine - search through selected fields
-    # If search results in empty queryset, error message is displayed
     # If search engine is empty, queryset data is displayed in full
     search_query = request.GET.get("q")
     if search_query:
@@ -394,7 +393,6 @@ def medical_visits(request):
         all_visits = None
 
     # Searching engine - search through selected fields
-    # If search results in empty queryset, error message is displayed
     # If search engine is empty, queryset data is displayed in full
     search_query = request.GET.get("q")
     if search_query:
@@ -618,7 +616,6 @@ def test_results(request):
         all_test_results = None
 
     # Searching engine - search through selected fields
-    # If search results in empty queryset, error message is displayed
     # If search engine is empty, queryset data is displayed in full
     search_query = request.GET.get("q")
     if search_query:

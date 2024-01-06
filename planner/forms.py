@@ -114,9 +114,12 @@ class ToDoItemForm(forms.ModelForm):
             "execution_status",
             "requirement_status",
             "validity_status",
+            "link",
+            "notes"
         ]
         widgets = {
             "description": forms.Textarea(attrs={"class": "textarea_field"}),
+            "notes": forms.Textarea(attrs={"class": "textarea_field"}),
             "due_date": forms.SelectDateWidget(
                 years=range(date.today().year-2, date.today().year+3)),
         }

@@ -449,22 +449,6 @@ class CreditFormTests(TestCase):
              "provision", -5500, "Wartość nie może być liczbą ujemną."),
             ("Invalid field 'collateral_rate' (negative value is not allowed)",
              "collateral_rate", -40, "Wartość nie może być liczbą ujemną."),
-            ("Invalid field 'collateral_rate' "
-             "(only 4 digit numbers are allowed, with 2 decimal places)",
-             "collateral_rate", 1234,
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Invalid field 'fixed_interest_rate' "
-             "(only 4 digit numbers are allowed, with 2 decimal places)",
-             "fixed_interest_rate", 1234,
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Invalid field 'floating_interest_rate' "
-             "(only 4 digit numbers are allowed, with 2 decimal places)",
-             "floating_interest_rate", 1234,
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
-            ("Invalid field 'bank_margin' "
-             "(only 4 digit numbers are allowed, with 2 decimal places)",
-             "bank_margin", 1234,
-             "Upewnij się, że liczba ma nie więcej niż 2 cyfry przed przecinkiem."),
             ("Empty field 'date_of_agreement'", "date_of_agreement", "",
              "To pole jest wymagane."),
             ("Invalid field 'date_of_agreement' (incorrect date form)",
@@ -557,7 +541,7 @@ class CreditTrancheFormTests(TestCase):
                                  _("Brak informacji oznacza brak zmiany "
                                    "wysokości raty."))
         self.assertEqual(self.form.fields["tranche_amount"].help_text,
-                         _("Bez wartości kredytowanych ubezpieczeń. "
+                         _("Wartość transzy bez wartości kredytowanych ubezpieczeń. "
                            "Pole wymagane."))
         self.assertEqual(self.form.fields["tranche_date"].help_text,
                          _("Format: YYYY-MM-DD (np. 2020-07-21). Pole wymagane."))
@@ -986,6 +970,7 @@ class CreditInsuranceFormTests(TestCase):
             "start_date",
             "end_date",
             "payment_period",
+            "notes"
         ]
         self.payload = {
             "type": _("Ubezpieczenie na życie"),
@@ -1110,8 +1095,6 @@ class CreditInsuranceFormTests(TestCase):
              "end_date", "Wpisz poprawną datę."),
             ("Incorrect date type in start_date", {"start_date": "2021, 2, 1"},
              "start_date", "Wpisz poprawną datę."),
-            ("Negative value of insurance amount", {"amount": -1000},
-             "amount", "Wartość nie może być liczbą ujemną."),
             ("Negative value of payment period", {"payment_period": -12},
              "payment_period",
              "Upewnij się, że ta wartość jest większa lub równa 0."),

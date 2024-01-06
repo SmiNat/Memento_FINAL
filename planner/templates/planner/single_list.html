@@ -37,13 +37,13 @@
                                     <i class="fa-regular fa-square" style="color: #AA7C1A;"></i>
                                     {% endif %}
 
-                                    {{ element }}
+                                    <span><a href="#{{ element.name }}">{{ element }}</a></span>
                                     {% if element.execution_status == 'Planowane' and element.validity_status == 'Pilne' %}
                                     [<span style="color: #C00000;">PILNE!</span>]
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="#{{element}}" title="zobacz"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    <a href="#{{ element }}" title="zobacz"><i class="fa-solid fa-magnifying-glass"></i></a>
                                     | <a href="{% url 'planner:edit-expense-item' element.id %}" title="edytuj"><i class="fa-solid fa-pen-to-square"></i></a>
                                     | <a href="{% url 'planner:delete-expense-item' element.id %}" title="usuń"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
@@ -75,8 +75,20 @@
         </div>
 
         {% if expense_items %}
+
             <br><hr><br>
             <h3>Szczegóły listy wydatków:</h3>
+
+            {% if expense_items|length > 5 %}
+                <div class="order_search" style="max-width: 500px; margin-left:auto; margin-right: auto; padding: 0px 10px;">
+                    <form action="#">
+                        <p style="margin-left: 10px;">Szukaj*:</p>
+                        <input type="search" name="q" placeholder="Wpisz szukany wyraz lub pełną nazwę/opis" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz szukany wyraz lub pełną nazwę/opis'">
+                        <button type="submit">Zastosuj</button>
+                    </form>
+                </div>
+            {% endif %}
+
             <div class="single_table">
                 <table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
                     <thead>
@@ -89,29 +101,29 @@
                             <td style="text-align: center">Status ważności</td>
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Poniesiony koszt</td>
                             <td style="text-align: center;">Data poniesienia wydatku</td>
-                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Data dodania</td>
                             {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Data dodania</td>
+                            {% endcomment %}
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Aktualizuj</td>
                             <td style="text-align: center;">Usuń</td>
-                            {% endcomment %}
                         </tr>
                     </thead>
                     <tbody>
-                    {% for element in expense_items %}
+                    {% for element in expense_items_search %}
                         <tr>
                             <td><div id="{{ element.name }}">{{ element.name }}</div></td>
-                            <td>{% if element.description == 'None' or element.description == "" %}---{% else %}{{ element.description }}{% endif %}</td>
+                            <td>{% if element.description == 'None' or element.description == "" %}---{% else %}{{ element.description|default_if_none:"---" }}{% endif %}</td>
                             <td style="min-width: 100px; text-align: center;">{{ element.estimated_cost|default_if_none:"---" }}</td>
-                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status }}</td>
-                            <td style="text-align: center">{{ element.requirement_status }}</td>
-                            <td style="text-align: center">{{ element.validity_status }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status|default_if_none:"---" }}</td>
+                            <td style="text-align: center">{{ element.requirement_status|default_if_none:"---" }}</td>
+                            <td style="text-align: center">{{ element.validity_status|default_if_none:"---" }}</td>
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.cost_paid|default_if_none:"---" }}</td>
                             <td style="text-align: center; min-width: 100px;">{{ element.purchase_date|default_if_none:"---" }}</td>
-                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
                             {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
+                            {% endcomment %}
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'planner:edit-expense-item' element.id %}">Aktualizuj</a></td>
                             <td style="text-align: center;"><a href="{% url 'planner:delete-expense-item' element.id %}">Usuń</a></td>
-                            {% endcomment %}
                         </tr>
                     {% endfor %}
                         <tr style="border-top: 1px solid rgba(251, 245, 183, 1)">
@@ -123,15 +135,16 @@
                             <td style="text-align: center">---</td>
                             <td style="border-left: 1px dashed #F9F1CF; font-weight: bold; text-align: center;">{{ paid_costs }}</td>
                             <td style="text-align: center; min-width: 100px;">---</td>
-                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">---</td>
                             {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">---</td>
+                            {% endcomment %}
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center;">---</td>
                             <td style="text-align: center;">---</td>
-                            {% endcomment %}
                         </tr>
                     </tbody>
                 </table>
             </div>
+            {% if expense_items|length > 5 %}<div style="margin-left: auto; margin-right: auto; font-size: 60%; margin-top: 5px;">* Przeszukiwane kolumny: nazwa, opis.</div>{% endif %}
             <div>
                 <small><a href="{% url 'planner:add-expense-item' list_title.id %}">[Dodaj wydatek do listy]</a> | <button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
             </div>
@@ -173,7 +186,7 @@
                                         <i class="fa-regular fa-square" style="color: #AA7C1A;"></i>
                                         {% endif %}
 
-                                        {{ element }}
+                                        <span><a href="#{{ element.name }}">{{ element }}</a></span>
                                         {% if element.execution_status == 'Planowane' and element.validity_status == 'Pilne' %}
                                         [<span style="color: #C00000;">PILNE!</span>]
                                         {% endif %}
@@ -211,47 +224,63 @@
 
         {% if todo_items %}
 
-        <br><hr><br>
-        <h3>Szczegóły listy zadań:</h3>
-        <div class="single_table">
-            <table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
-                <thead>
-                    <tr>
-                        <td>Nazwa zadania</td>
-                        <td>Opis zadania</td>
-                        <td style="text-align: center">Termin wykonania</td>
-                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Status wykonania</td>
-                        <td style="text-align: center">Status wymagania</td>
-                        <td style="text-align: center">Status ważności</td>
-                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Data dodania</td>
-                        {% comment %}
-                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Aktualizuj</td>
-                        <td style="text-align: center;">Usuń</td>
-                        {% endcomment %}
-                    </tr>
-                </thead>
-                <tbody>
-                {% for element in todo_items %}
-                    <tr>
-                        <td><div id="{{ element.name }}">{{ element.name }}</div></td>
-                        <td>{% if element.description == 'None' or element.description == "" %}---{% else %}{{ element.description }}{% endif %}</td>
-                        <td style="min-width: 100px; text-align: center;">{{ element.due_date|default_if_none:"---" }}</td>
-                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status }}</td>
-                        <td style="text-align: center">{{ element.requirement_status }}</td>
-                        <td style="text-align: center">{{ element.validity_status }}</td>
-                        <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
-                        {% comment %}
-                        <td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'planner:edit-todo-item' element.id %}">Aktualizuj</a></td>
-                        <td style="text-align: center;"><a href="{% url 'planner:delete-todo-item' element.id %}">Usuń</a></td>
-                        {% endcomment %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <small><a href="{% url 'planner:add-todo-item' list_title.id %}">[Dodaj zadanie do listy]</a> | <button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
-        </div>
+            <br><hr><br>
+            <h3>Szczegóły listy zadań:</h3>
+
+            {% if todo_items|length > 5 %}
+                <div class="order_search" style="max-width: 500px; margin-left:auto; margin-right: auto; padding: 0px 10px;">
+                    <form action="#">
+                        <p style="margin-left: 10px;">Szukaj*:</p>
+                        <input type="search" name="q" placeholder="Wpisz szukany wyraz lub pełną nazwę/opis" onfocus="this.placeholder=''" onblur="this.placeholder='Wpisz szukany wyraz lub pełną nazwę/opis'">
+                        <button type="submit">Zastosuj</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <div class="single_table">
+                <table id="tbl_exporttable_to_xls_2" style="min-width: 500px;">
+                    <thead>
+                        <tr>
+                            <td>Nazwa zadania</td>
+                            <td>Opis zadania</td>
+                            <td>Link</td>
+                            <td style="text-align: center">Termin wykonania</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Status wykonania</td>
+                            <td style="text-align: center">Status wymagania</td>
+                            <td style="text-align: center">Status ważności</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Uwagi</td>
+                            {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Data dodania</td>
+                            {% endcomment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">Aktualizuj</td>
+                            <td style="text-align: center;">Usuń</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for element in todo_items_search %}
+                        <tr>
+                            <td><div id="{{ element.name }}">{{ element.name }}</div></td>
+                            <td>{% if element.description == 'None' or element.description == "" %}---{% else %}{{ element.description }}{% endif %}</td>
+                            <td>{% if element.link %}<a href="{{ element.link }}" title="Kliknij w link" target="_blank">Link</a>{% else %}n/a{% endif %}</td>
+                            <td style="min-width: 100px; text-align: center;">{{ element.due_date|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status|default_if_none:"---" }}</td>
+                            <td style="text-align: center">{{ element.requirement_status|default_if_none:"---" }}</td>
+                            <td style="text-align: center">{{ element.validity_status|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.notes|default_if_none:"---" }}</td>
+                            {% comment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
+                            {% endcomment %}
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center;"><a href="{% url 'planner:edit-todo-item' element.id %}">Aktualizuj</a></td>
+                            <td style="text-align: center;"><a href="{% url 'planner:delete-todo-item' element.id %}">Usuń</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if todo_items|length > 5 %}<div style="margin-left: auto; margin-right: auto; font-size: 60%; margin-top: 5px;">* Przeszukiwane kolumny: nazwa, opis, uwagi.</div>{% endif %}
+            <div>
+                <small><a href="{% url 'planner:add-todo-item' list_title.id %}">[Dodaj zadanie do listy]</a> | <button class="export_button" onclick="ExportToExcel2('xlsx')">[Eksportuj tabelę]</button></small>
+            </div>
 
         {% endif %}
     {% endif %}

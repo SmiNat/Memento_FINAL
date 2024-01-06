@@ -61,6 +61,8 @@ class ToDoItemFactory(DjangoModelFactory):
     execution_status = ExecutionStatus.PLANNED
     requirement_status = RequirementStatus.OPTIONAL
     validity_status = ValidityStatus.URGENT
+    link = Faker("url")
+    notes = Faker("sentence", nb_words=6)
     due_date = datetime.date(2021, 1, 1)
     created = datetime.datetime(2020, 11, 1, 4, 1, 1, 1)
     updated = datetime.datetime(2020, 11, 1, 4, 1, 1, 1)

@@ -1,15 +1,20 @@
+import logging
 import os
 import shutil
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from django.utils.translation import gettext_lazy as _
 from parameterized import parameterized
+from reportlab.pdfgen.canvas import Canvas
 
 from connection.factories import CounterpartyFactory, AttachmentFactory
 from connection.forms import CounterpartyForm, AttachmentForm
+from connection.models import Attachment
 
+logger = logging.getLogger("test")
 User = get_user_model()
 
 
@@ -212,11 +217,8 @@ class CounterpartyFormTests(TestCase):
 class AttachmentFormTests(TestCase):
     """Tests AttachmentForm class."""
 
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="testuser", email="test123@example.com",
-            password="testpass456"
-        )
         self.fields = [
             "payments",
             "counterparties",
@@ -231,6 +233,11 @@ class AttachmentFormTests(TestCase):
             "file_info",
             "access_granted",
         ]
+
+        self.user = User.objects.create_user(
+            username="johndoe123", email="jd@example.com", password="testpass456")
+        self.attachment = Attachment.objects.create(
+            user=self.user, attachment_name="setup attachment")
 
     def test_attachment_form_has_correct_empty_fields(self):
         """Test if form renders empty fields."""
@@ -392,14 +399,19 @@ class AttachmentFormTests(TestCase):
                 shutil.rmtree(path)
         # os.rmdir(settings.TEST_ROOT)
 
+    @override_settings(MEDIA_ROOT=settings.TEST_ROOT)
     def test_attachment_form_is_valid(self):
         """Test if form is valid with valid data."""
         attachment_names = []
+        file_data = {"img": SimpleUploadedFile("test.png", b"file data")}
         payload = {
             "attachment_name": "Some new file",
-            "access_granted": "Brak dostępu"
+            "access_granted": "Brak dostępu",
+            "attachment_path": file_data,
         }
         form = AttachmentForm(data=payload, attachment_names=attachment_names)
+        if form.errors:
+            logger.error("🛑 Fail in test: test_attachment_form_is_valid (connection.tests.test_forms). Error message:" % form.errors)
         self.assertTrue(form.is_valid())
 
     @parameterized.expand(

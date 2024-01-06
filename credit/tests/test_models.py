@@ -587,6 +587,7 @@ class CreditInsuranceModelTests(TestCase):
             "start_date": "Rozpoczęcie płatności",
             "end_date": "Zakończenie płatności",
             "payment_period": "Liczba okresów płatności",
+            "notes": "Uwagi",
             "created": "Data dodania",
             "updated": "Data aktualizacji",
         }

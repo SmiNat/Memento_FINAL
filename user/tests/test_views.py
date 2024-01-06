@@ -1211,8 +1211,6 @@ class DeleteUserTests(TestCase):
         canvas.save()
         attachment_file = os.path.basename(os.path.join(path, "setup1.pdf"))
 
-        time.sleep(15)
-
         self.attachment = AttachmentFactory(
             user=self.user, attachment_name="setup attachment",
             attachment_path=attachment_file)

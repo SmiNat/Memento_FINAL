@@ -17,7 +17,7 @@
                     {% if field.label == 'Wybierz płatność' or field.label == 'Wybierz kontrahenta' or field.label == 'Wybierz remont' or field.label == 'Wybierz kredyt' or field.label == 'Wybierz podróż' or field.label == 'Wybierz badania' or field.label == 'Wybierz wizytę' %}
                     <div class="one_field">
                         <div class="label_field">{{ field.label }}:</div>
-                        <div class="value_field">{{ field }}</div>
+                        <div class="attachment_select">{{ field }}</div>
                         <!-- {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %} -->
                         {% for error in field.errors %}
                             <small style="color: red">{{ error }}</small>

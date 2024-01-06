@@ -5,6 +5,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
+from django.db.models import Q
+from django.db.models.functions import Lower
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
@@ -98,20 +100,35 @@ def single_expense_list(request, pk):
             return redirect("login")
     try:
         expense_items = ExpenseItem.objects.filter(
-            expense_list=list_title).order_by("name")
+            expense_list=list_title).order_by(Lower("name"))
         estimated_costs = list_title.get_all_estimated_costs()
         paid_costs = list_title.get_all_paid_costs()
     except ExpenseItem.DoesNotExist:
         expense_items = None
         estimated_costs = 0
         paid_costs = 0
+
+    # Searching engine - search through selected fields
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query:
+        expense_items_search = ExpenseItem.objects.filter(
+            user=request.user).filter(Q(name__icontains=search_query) |
+                                      Q(description__icontains=search_query)).order_by(
+                                          Lower("name"))
+    else:
+        expense_items_search = None
+    if not expense_items_search:
+        expense_items_search = expense_items
+
     context = {
         "profile": profile,
         "page": page,
         "list_title": list_title,
         "expense_items": expense_items,
         "estimated_costs": estimated_costs,
-        "paid_costs": paid_costs
+        "paid_costs": paid_costs,
+        "expense_items_search": expense_items_search
     }
     return render(request, "planner/single_list.html", context)
 
@@ -442,15 +459,31 @@ def single_todo_list(request, pk):
                            _("Nie masz uprawnień do przeglądania tych danych."))
             logout(request)
             return redirect("login")
+
     try:
-        todo_items = ToDoItem.objects.filter(todo_list=list_title).order_by("name")
+        todo_items = ToDoItem.objects.filter(todo_list=list_title).order_by(Lower("name"))
     except ToDoItem.DoesNotExist:
         todo_items = None
+
+    # Searching engine - search through selected fields
+    # If search engine is empty, queryset data is displayed in full
+    search_query = request.GET.get("q")
+    if search_query:
+        todo_items_search = ToDoItem.objects.filter(
+            user=request.user).filter(Q(name__icontains=search_query) |
+                                      Q(description__icontains=search_query) |
+                                      Q(notes__icontains=search_query)).order_by(Lower("name"))
+    else:
+        todo_items_search = None
+    if not todo_items_search:
+        todo_items_search = todo_items
+
     context = {
         "profile": profile,
         "page": page,
         "list_title": list_title,
         "todo_items": todo_items,
+        "todo_items_search": todo_items_search
     }
     return render(request, "planner/single_list.html", context)
 

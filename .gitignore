@@ -26,6 +26,8 @@ venv.bak
 *.sqlite*
 */*.sqlite3
 *.rdb
+data.json
+backup.json
 db_fixtures.json
 private_info.txt
 **/static/uploads

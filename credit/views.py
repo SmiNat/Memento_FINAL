@@ -29,7 +29,7 @@ from .forms import (CreditForm, CreditInsuranceForm,
 from .models import (Credit, CreditInsurance, CreditCollateral,
                      CreditTranche, CreditInterestRate,
                      CreditAdditionalCost, CreditEarlyRepayment)
-from connection.models import Attachment, Counterparty
+from connection.models import Attachment
 
 desired_width = 320
 pd.set_option('display.width', desired_width)
@@ -59,7 +59,6 @@ def credits(request):
     attachments = request.user.attachment_set.all()
 
     # Searching engine - search through selected fields
-    # If search results in empty queryset, error message is displayed
     # If search engine is empty, queryset data is displayed in full
     search_query = request.GET.get("q")
     if search_query and (search_query.isdigit() or search_query.isdecimal()):
@@ -1539,7 +1538,7 @@ class CreditSchedule():
                                                                - total_column_value["Otrzymana kwota kredytu"],
                                                                2))
 
-        total_column_value["XIRR (%)"] = round(self.xirr() * 100, 2) if self.xirr() else "n/a"
+        total_column_value["Szacunkowy XIRR (%)"] = round(self.xirr() * 100, 2) if self.xirr() else "n/a"
 
         return total_column_value
 
@@ -1795,7 +1794,7 @@ class CreditSchedule():
     def capital_installments_for_interest_rates_schedule(self):
         """Returns dictionary of dates and amounts of capital installments set
         after change of interest rate."""
-        # NOTE! Only installments set at interest rate changes starts at the same date
+        # ! Only installments set at interest rate changes starts at the same date
         # as date of new interest rate (all other credit changes like tranches,
         # repayments changes installments form period after changes in credit payments)
 
