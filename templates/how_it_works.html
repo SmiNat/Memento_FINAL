@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content" style="max-width: 1500px;">
+        <div class="grid_display"></div>
+        <h2>Jak działa Memento?</h2>
+        <div class="how_it_works">
+            <p>
+                Zawartość serwisu Memento tworzą jego Użytkownicy. Nie oferujemy nic, poza udostępnieniem funkcjonalności pozwalających na gromadzenie własnych informacji.<br>
+                To Użytkownik decyduje, jakie informacje przechowuje w Memento i z kim je współdzieli.
+            </p>
+            <p>
+                Część funkcjonalności serwisu jest udostępniania dopiero po wypełnieniu podstawowych danych
+                (np. w zakresie kredytów, remontów czy podróży) po kliknięciu w tabeli podsumowującej daną kategorię
+                w zakładkę <strong style="color: #FFDA8B;">'Szczegóły'</strong>.
+                Wówczas można dodać szczegółowe informacje związane z danym wpisem (np. koszty remontu, transze w kredycie czy listę rzeczy do zrobienia).
+            </p>
+        </div>
+
+        <br><br>
+
+        <h2>Jak korzystać z Memento?</h3>
+        <div class="how_it_works">
+            <p>
+                To proste - wybierasz zakres informacji, który Cię interesuje. Następnie dodaj dane poprzez wypełnienie formularza.<br>
+                Na przykładzie remontów - klikasz w nagłówek <strong><a href="{% url 'nav-planner' %}">'Planer'</a></strong> a następnie <strong><a href="{% url 'renovation:renovations' %}">'Remont mieszkania'</a></strong>.
+                Dodajesz swój pierwszy remont klikając w link <a href="{% url 'renovation:add-renovation' %}">[Dodaj remont]</a>. <br>
+            </p>
+            <div><img src="{% static 'images/screenshots/add_renovation_1.png' %}" alt="Dodaj remont (1)"/></div><br>
+            <p>
+                Następnie uzupełniasz formularz danych dotyczący podstawowych informacji o remoncie, klikając na koniec przycisk 'Zapisz'.<br>
+            </p>
+            <div><img src="{% static 'images/screenshots/add_renovation_2.png' %}" alt="Dodaj remont (2)"/></div><br>
+            <p>
+                W zakładce 'Remont mieszkania' pojawi się tabela z Twoim pierwszym remontem.
+                Gdy klikniesz <a href="{% url 'renovation:add-renovation' %}">[Dodaj remont]</a>, dodasz do tabeli kolejny remont.
+            </p>
+            <div><img style="max-width: 1000px;" src="{% static 'images/screenshots/add_renovation_3.png' %}" alt="Dodaj remont (3)"/></div><br>
+            <p>
+                Gdy klikniesz <strong style="color: #FFDA8B;">'Szczegóły'</strong>, zobaczysz wszystkie informacje na temat remontu oraz uzyskasz możliwość uzupełnienia dodatkowych informacji
+                (jak kosztów remontu czy dokumentów związanych z remontem).<br>
+            </p>
+            <div><img src="{% static 'images/screenshots/add_renovation_4.png' %}" alt="Dodaj remont (4)"/></div><br>
+            <p>
+                I tak działają niemal wszystkie zakładki Memento - Ty je uzupełniasz i gromadzisz w nich swoje dane.
+                Możesz też podzielić się wybranymi danymi z zaufaną osobą poprzez wskazanie maila tej osoby, uzupełniając dane w swoim profilu.
+            </p>
+            <br>
+        </div>
+    </div>
+{% endblock %}

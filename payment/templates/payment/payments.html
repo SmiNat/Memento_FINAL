@@ -64,7 +64,7 @@
                                     {% elif pmt.payment_months_to_list|length_is:0 %}
                                         <td>---</td>
                                     {% else %}
-                                        <!-- <td>{{ pmt.payment_months }}</td> -->
+                                        {% comment %}<!-- <td>{{ pmt.payment_months }}</td> -->{% endcomment %}
                                         <td>
                                             {% for month in pmt.payment_months_to_list %}
                                                 {% if forloop.last %}

@@ -20,7 +20,7 @@
         <h2>Harmonogram spłaty kredytu</h2>
         <div class="name">{{ credit_schedule.credit }}</div>
         <h3>Podsumowanie:</h3>
-        <div class="single_table_2">
+        <div class="single_table_2" style="font-size: 100%;">
             <table style="background-color: #121E28; min-width: 450px;">
                 <tr style="border-top: none;"><td>Wartość bazowa kredytu: </td><td>{{ credit_schedule.credit.credit_amount }}</td></tr>
                 <tr style="border-top: none;"><td style="min-width: 60%;">Waluta: </td><td>{{ credit_schedule.credit.currency }}</td></tr>
@@ -67,7 +67,7 @@
     {% if page != 'access_granted' %}
         <small>
             <a href="{% url 'credit:edit-credit' credit_schedule.credit.id %}">[Aktualizuj kredyt]</a> |
-            <!-- <a href="{% static credit_schedule.to_excel %}" Download>[Eksportuj tabelę]</a> -->
+            {% comment %}<!-- <a href="{% static credit_schedule.to_excel %}" Download>[Eksportuj tabelę]</a> -->{% endcomment %}
             <a href="{% url 'credit:download-credit' credit.id %}" >[Pobierz]</a>
         </small>
         <div></div><br>

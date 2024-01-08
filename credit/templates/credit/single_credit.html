@@ -142,8 +142,6 @@
 							<td>Data wypłaty transzy</td>
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
 							<td style="text-align: center;">Wysokość raty kapitałowej*</td>
-							<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
-							<td style="text-align: center;">Data aktualizacji</td> -->
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
 							<td style="text-align: center;">Usuń</td>
 						</tr>
@@ -155,8 +153,6 @@
 							<td>{{ element.tranche_date }}</td>
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
 							<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
-							<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
-							<td style="text-align: center;">{{ element.updated }}</td> -->
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-tranche' element.id %}">Aktualizuj</a></td>
 							<td style="text-align: center;"><a href="{% url 'credit:delete-credit-tranche' element.id %}">Usuń</a></td>
 						</tr>
@@ -208,8 +204,6 @@
 						<td>Informacja dodatkowa</td>
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
 						<td style="text-align: center;">Wysokość raty kapitałowej*</td>
-						<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
-						<td style="text-align: center;">Data aktualizacji</td> -->
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
 						<td style="text-align: center;">Usuń</td>
 					</tr>
@@ -222,8 +216,6 @@
 						<td>{{ element.note|default_if_none:'---' }}</td>
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
 						<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
-						<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
-						<td style="text-align: center;">{{ element.updated }}</td> -->
 						<td style="text-align: center;border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-interest-rate' element.id %}">Aktualizuj</a></td>
 						<td style="text-align: center;"><a href="{% url 'credit:delete-credit-interest-rate' element.id %}">Usuń</a></td>
 					</tr>
@@ -263,8 +255,6 @@
 							<td>Data rejestracji zabezpieczenia w banku</td>
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
 							<td style="text-align: center;">Wysokość raty kapitałowej*</td>
-							<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
-							<td style="text-align: center;">Data aktualizacji</td> -->
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
 							<td style="text-align: center;">Usuń</td>
 						</tr>
@@ -277,8 +267,6 @@
 							<td>{{ element.collateral_set_date }}</td>
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
 							<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
-							<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
-							<td style="text-align: center;">{{ element.updated }}</td> -->
 							<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-collateral' element.id %}">Aktualizuj</a></td>
 							<td style="text-align: center;"><a href="{% url 'credit:delete-credit-collateral' element.id %}">Usuń</a></td>
 						</tr>
@@ -310,8 +298,6 @@
 						<td>Efekt nadpłaty</td>
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Wysokość raty całkowitej*</td>
 						<td style="text-align: center;">Wysokość raty kapitałowej*</td>
-						<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">Data dodania</td>
-						<td style="text-align: center;">Data aktualizacji</td> -->
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
 						<td style="text-align: center;">Usuń</td>
 					</tr>
@@ -324,8 +310,6 @@
 						<td>{{ element.repayment_action }}</td>
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.total_installment|default_if_none:'---' }}</td>
 						<td style="text-align: center;">{{ element.capital_installment|default_if_none:'---' }}</td>
-						<!-- <td style="text-align: center; border-left: 1px dashed #F9F1CF;">{{ element.created }}</td>
-						<td style="text-align: center;">{{ element.updated }}</td> -->
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;"><a href="{% url 'credit:edit-credit-early-repayment' element.id %}">Aktualizuj</a></td>
 						<td style="text-align: center;"><a href="{% url 'credit:delete-credit-early-repayment' element.id %}">Usuń</a></td>
 					</tr>

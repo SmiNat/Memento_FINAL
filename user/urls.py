@@ -8,6 +8,7 @@ from .forms import MySetPasswordForm
 urlpatterns = [
     path("", views.index_page, name="index"),
     path("contact/", views.contact_page, name="contact"),
+    path("how-it-works/", views.how_it_works_page, name="how-it-works"),
     path("terms-conditions/", views.terms_page, name="terms-conditions"),
     path("credentials/", views.credentials_page, name="credentials"),
     path("nav-payments/", views.nav_payments_page, name="nav-payments"),

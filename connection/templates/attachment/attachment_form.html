@@ -18,7 +18,7 @@
                     <div class="one_field">
                         <div class="label_field">{{ field.label }}:</div>
                         <div class="attachment_select">{{ field }}</div>
-                        <!-- {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %} -->
+                        {% if field.help_text %}<div class="help_text_field">{{ field.help_text }}</div>{% endif %}
                         {% for error in field.errors %}
                             <small style="color: red">{{ error }}</small>
                         {% endfor %}

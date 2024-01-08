@@ -141,7 +141,7 @@
                                 <td>Lokalizacja wizyty</td>
                                 <td>Data wizyty</td>
                                 <td style="text-align:center;">Godzina wizyty</td>
-                                <!-- <td>Uwagi</td> -->
+                                {% comment %}<!-- <td>Uwagi</td> -->{% endcomment %}
                                 <td style="border-left: 1px dashed #136568;">Szczegóły</td>
                                 <td>Aktualizuj</td>
                                 <td>Usuń</td>
@@ -155,7 +155,7 @@
                                     <td>{{ visit.visit_location|default_if_none:"---" }}</td>
                                     <td>{{ visit.visit_date|default_if_none:"---" }}</td>
                                     <td style="text-align:center;">{{ visit.visit_time|default_if_none:"---" }}</td>
-                                    <!-- <td>{% if visit.notes %}{{ visit.notes }}{% else %}---{% endif %}</td> -->
+                                    {% comment %}<!-- <td>{% if visit.notes %}{{ visit.notes }}{% else %}---{% endif %}</td> -->{% endcomment %}
                                     <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-visit' visit.id %}">Szczegóły</a></td>
                                     <td><a href="{% url 'medical:edit-visit' visit.id %}">Aktualizuj</a></td>
                                     <td><a href="{% url 'medical:delete-visit' visit.id %}">Usuń</a></td>
@@ -227,7 +227,7 @@
                                 <td>Wynik badania</td>
                                 <td>Data badania</td>
                                 <td style="text-align:center;">Leczona dolegliwość</td>
-                                <!-- <td>Uwagi</td> -->
+                                {% comment %}<!-- <td>Uwagi</td> -->{% endcomment %}
                                 <td style="border-left: 1px dashed #136568;">Szczegóły</td>
                                 <td>Aktualizuj</td>
                                 <td>Usuń</td>
@@ -240,7 +240,7 @@
                                     <td>{{ test_result.test_result }}</td>
                                     <td>{{ test_result.test_date }}</td>
                                     <td style="text-align:center;">{{ test_result.disease|default_if_none:"---" }}</td>
-                                    <!-- <td>{% if test_result.notes %}{{ test_result.notes }}{% else %}---{% endif %}</td> -->
+                                    {% comment %}<!-- <td>{% if test_result.notes %}{{ test_result.notes }}{% else %}---{% endif %}</td> -->{% endcomment %}
                                     <td class="row_access" style="border-left: 1px dashed #F9F1CF"><a href="{% url 'medical:single-test-result' test_result.id %}">Szczegóły</a></td>
                                     <td><a href="{% url 'medical:edit-test-result' test_result.id %}">Aktualizuj</a></td>
                                     <td><a href="{% url 'medical:delete-test-result' test_result.id %}">Usuń</a></td>

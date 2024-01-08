@@ -33,6 +33,7 @@ class BasicUrlsTest(TestCase):
         [
             ("index", ""),
             ("contact", "/contact/"),
+            ("how-it-works", "/how-it-works/"),
             ("terms-conditions", "/terms-conditions/"),
             ("credentials", "/credentials/"),
             ("nav-payments", "/nav-payments/"),
@@ -55,6 +56,7 @@ class BasicUrlsTest(TestCase):
         [
             ("index", ""),
             ("contact", "/contact/"),
+            ("how-it-works", "/how-it-works/"),
             ("terms-conditions", "/terms-conditions/"),
             ("credentials", "/credentials/"),
             ("nav-payments", "/nav-payments/"),
@@ -108,6 +110,7 @@ class BasicUrlsTest(TestCase):
         [
             ("index", "index"),
             ("contact", "contact"),
+            ("how-it-works", "how-it-works"),
             ("terms-conditions", "terms-conditions"),
             ("credentials", "credentials"),
             ("nav-payments", "nav-payments"),
@@ -131,6 +134,7 @@ class BasicUrlsTest(TestCase):
         [
             ("index", "index"),
             ("contact", "contact"),
+            ("how-it-works", "how-it-works"),
             ("terms-conditions", "terms-conditions"),
             ("credentials", "credentials"),
             ("nav-payments", "nav-payments"),
@@ -191,6 +195,7 @@ class BasicUrlsTest(TestCase):
         [
             (False, "index", "index.html"),
             (False, "contact", "contact.html"),
+            (False, "how-it-works", "how_it_works.html"),
             (False, "terms-conditions", "terms_conditions.html"),
             (False, "credentials", "credentials.html"),
             (False, "nav-payments", "nav_boxes.html"),

@@ -22,6 +22,8 @@ logger = logging.getLogger("all")
 def index_page(request):
     return render(request, "index.html")
 
+def how_it_works_page(request):
+    return render(request, "how_it_works.html")
 
 def terms_page(request):
     return render(request, "terms_conditions.html")

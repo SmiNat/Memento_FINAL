@@ -540,9 +540,13 @@ TABLES
 {
     padding: 5px 20px;
 }
-.single_table_2 > table > tbody > tr > td
+/* .single_table_2 > table > tbody > tr > td
 {
     min-width: 120px;
+} */
+.single_table_2
+{
+    font-size: 80%;
 }
 
 .to_html_table
@@ -663,6 +667,32 @@ TABLES
 PAGES
 -------------------*/
 
+.how_it_works
+{
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 28px;
+    margin: auto;
+}
+.how_it_works > p
+{
+    text-align: justify;
+}
+.how_it_works img
+{
+    max-width: 500px;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    border: 3px solid #F9F1CF;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(251, 245, 183, 1);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(251, 245, 183, 1);
+    box-shadow: 0px 0px 10px 1px rgba(251, 245, 183, 1);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center !important;
+}
 .order_by,
 .order_search
 {
@@ -784,14 +814,14 @@ PAGES
     -webkit-box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
     -moz-box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
     box-shadow: 0px 1px 10px -4px rgba(255, 255, 255, 1);
-    border: 1px solid #3FDDE6;
+    border: 1px solid white; /*#3FDDE6;*/
     border-radius: 5px;
 }
 .square_box_2:hover
 {
-    -webkit-box-shadow: 0px 1px 18px -4px rgba(63, 221, 230, 1);
-    -moz-box-shadow: 0px 1px 18px -4px rgba(63, 221, 230, 1);
-    box-shadow: 0px 1px 18px -4px rgba(63, 221, 230, 1);
+    -webkit-box-shadow: 0px 1px 18px -4px rgba(255, 255, 255, 1); /*rgba(63, 221, 230, 1);*/
+    -moz-box-shadow: 0px 1px 18px -4px rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 18px -4px rgba(255, 255, 255, 1);
     border: 1px solid #AA7C1A;
     border-radius: 5px;
     color: white;
@@ -804,7 +834,7 @@ PAGES
 {
     display: inline-block;
     font-size: 40px;
-    color: #3FDDE6;
+    color: white; /*#3FDDE6;*/
     padding-top: 20px;
     padding-bottom: 10px;
 }

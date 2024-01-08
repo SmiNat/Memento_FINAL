@@ -121,7 +121,7 @@
 		</div>
 	{% else %}
 		{% for trip in trip_basic %}
-			<div class="single_table_2">
+			<div class="single_table">
 				<table id="tbl_exporttable_to_xls_4" style="min-width: 500px;">
 					{% for field, value in trip %}
 					{% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' %}
@@ -190,7 +190,7 @@
 		</div>
 	{% else %}
 		{% for trip in trip_advanced %}
-			<div class="single_table_2">
+			<div class="single_table">
 				<table id="tbl_exporttable_to_xls_5" style="min-width: 500px;">
 					{% for field, value in trip %}
 					{% if field == 'id' or field == 'Użytkownik' or field == 'Wyjazd' or field == 'Data dodania' or field == 'Data aktualizacji' %}
@@ -383,7 +383,7 @@
 				<thead>
 					<tr>
 						<td>Opis za okres</td>
-						<td>Linkis</td>
+						<td>Linki</td>
 						<td>Opis</td>
 						<td>Uwagi</td>
 						<td style="text-align: center; border-left: 1px dashed #F9F1CF;">Aktualizuj</td>
@@ -403,7 +403,7 @@
 						</td>
 						{% if element.label == "Rozpoczęcie relacji" or element.label == "Zakończenie relacji" %}{% endif %}
 						<td style="font-size: 70%;">
-							<!-- {% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i>{% endif %} -->
+							{% comment %}<!-- {% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% else %}<i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i>{% endif %} -->{% endcomment %}
 							{% if element.facebook %}<a href="{{ element.facebook }}" target="_blank"><i class="fa-brands fa-facebook fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
 							{% if element.youtube %}<a href="{{ element.youtube }}" target="_blank"><i class="fa-brands fa-youtube fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}
 							{% if element.instagram %}<a href="{{ element.instagram }}" target="_blank"><i class="fa-brands fa-square-instagram fa-2xl" style="padding-right: 7px;"></i></a>{% endif %}

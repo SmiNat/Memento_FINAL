@@ -161,6 +161,7 @@
                 {% endif %}
             {% endif %}
         {% endif %}
+{% comment %}
 <!--        <div class="pagination">-->
 <!--            <span class="step-links">-->
 <!--                {% if page_obj.has_previous %}-->
@@ -178,6 +179,7 @@
 <!--                {% endif %}-->
 <!--            </span>-->
 <!--        </div>-->
+{% endcomment %}
 
         <p><a href="{% url 'planner:add-expense-list' %}">[Dodaj listę wydatków]</a></p>
     </div>

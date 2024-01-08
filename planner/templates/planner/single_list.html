@@ -266,7 +266,7 @@
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center;">{{ element.execution_status|default_if_none:"---" }}</td>
                             <td style="text-align: center">{{ element.requirement_status|default_if_none:"---" }}</td>
                             <td style="text-align: center">{{ element.validity_status|default_if_none:"---" }}</td>
-                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.notes|default_if_none:"---" }}</td>
+                            <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{% if element.notes == None or element.notes == '' %}---{% else %}{{ element.notes|default_if_none:"---" }}{% endif %}</td>
                             {% comment %}
                             <td style="border-left: 1px dashed #F9F1CF; text-align: center; min-width: 100px;">{{ element.created }}</td>
                             {% endcomment %}

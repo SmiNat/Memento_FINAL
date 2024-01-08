@@ -38,5 +38,5 @@ Memento ofers three major usabilities for users:
 3. Information sharing
  - [x] User can share selected data with other user.
 
-For viewing all usabilities use _example_testuser.json_ as a sample database.
+For viewing all usabilities use _example_testuser.json_ as a sample database (user's password: testpass456).
 Hope you will enjoy using Memento service!

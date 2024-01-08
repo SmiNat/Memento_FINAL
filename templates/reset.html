@@ -22,8 +22,10 @@
                         <div class="label_field">{{ field.label }}:</div>
                         <div class="form__field">{{ field }}</div>
                         {% if field.errors %}
+                        {% comment %}
                         <!-- ręczna zmiana języka wyświetlania błędów (przed zmianą języka w settings)-->
                         <!--https://github.com/django/django/blob/main/django/contrib/auth/password_validation.py-->
+                        {% endcomment %}
                             {% comment %} {% if 'This password is too short. It must contain at least 8 characters.' in field.errors|striptags %}
                                 <div class="error_field">Zbyt krótkie hasło. Hasło musi zawierać co najmniej 8 znaków.</div>
                             {% endif %}

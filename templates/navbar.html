@@ -52,13 +52,15 @@
                     <li><a href="{% url 'medical:test-results' %}">Wyniki badań</a></li>
                 </ul>
             </li>
-            <li><a href="#">Inne</a>
+            <li><a href="{% url 'access:access' %}">Inne</a>
                 <ul>
                     <li><a href="{% url 'access:access' %}">Udostępnione dane</a></li>
                 </ul>
             </li>
             <li><a href="#">Memento</a>
                 <ul>
+                    <li><a href="{% url 'index' %}">O Memento</a></li>
+                    <li><a href="{% url 'how-it-works' %}">Jak działa Memento</a></li>
                     <li><a href="{% url 'contact' %}">Kontakt</a></li>
                     <li><a href="{% url 'terms-conditions' %}">Regulamin i RODO</a></li>
                 </ul>

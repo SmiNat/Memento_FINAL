@@ -37,7 +37,7 @@
 								{% elif field == 'Godziny przyjmowania leków' %}
 									<td>{{ field }}:</td>
 									<td>{{ value }}</td>
-									<!-- <td>
+									{% comment %}<!-- <td>
 										{% if medicine.medication_hours %}
 											{% for element in medicine.medication_hours_to_list %}
 												{% if forloop.last %}
@@ -47,7 +47,7 @@
 												{% endif %}
 											{% endfor %}
 										{% else %}---{% endif %}
-									</td> -->
+									</td> -->{% endcomment %}
 								{% else %}
 									<td>{{ field }}:</td>
 									{% if value == 'None' or value == "" %}
