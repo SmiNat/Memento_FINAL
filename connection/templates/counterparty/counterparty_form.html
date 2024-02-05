@@ -37,7 +37,7 @@
                     {% elif field.label == 'Wybierz płatności' or field.label == 'Wybierz kredyty' or field.label == 'Wybierz remonty' or field.label == 'Wybierz podróże' %}
                     {% else %}
                     <div class="one_field">
-                        {% if field.label == 'Nazwa' %}<div class="label_field">Numer kontrahenta (lub ubezpieczyciela):</div>
+                        {% if field.label == 'Nazwa' %}<div class="label_field">Nazwa kontrahenta (lub ubezpieczyciela):</div>
                         {% elif field.label == 'Aplikacja do zarządzania płatnościami' %}<div class="label_field">Aplikacja do zarządzania płatnościami (lub ubezpieczeniem/polisą):</div>
                         {% elif field.label == 'Numer płatnika (klienta)' %}<div class="label_field">Numer klienta (lub polisy):</div>{% else %}<div class="label_field">{{ field.label }}:</div>{% endif %}
                         <div class="value_field">{{ field }}</div>

@@ -226,6 +226,9 @@
 							{% elif field == 'Wyjazd służbowy' %}
 								<td>{{ field }}: </td>
 								<td>{% for element in trip.business_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
+							{% elif field == 'Szpital' %}
+								<td>{{ field }}: </td>
+								<td>{% for element in trip.hospital_to_list %}<span style="white-space:nowrap;"><input type="checkbox" class="single_checkbox">&nbsp;{{ element }}</span> {% endfor %}</td>
 							{% else %}
 								<td>{{ field }}: </td><td>{{ value }}</td>
 							{% endif %}

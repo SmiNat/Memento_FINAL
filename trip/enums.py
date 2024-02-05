@@ -10,6 +10,7 @@ class TripChoices(models.TextChoices):
     FISHING = _("Wyjazd na ryby"), _("Wyjazd na ryby")
     SUNBATHING = _("Wyjazd nad morze"), _("Wyjazd nad morze")
     BUSINESS_TRIP = _("Wyjazd służbowy"), _("Wyjazd służbowy")
+    HOSPITAL = _("Pobyt w szpitalu"), _("Pobyt w szpitalu")
     OTHER = _("Inny"), _("Inny")
 
 
@@ -68,7 +69,8 @@ class ElectronicsChecklist(models.TextChoices):
     CELLPHONE = _("Telefon"), _("Telefon")
     CAMERA = _("Aparat fotograficzny"), _("Aparat fotograficzny")
     ELECTRONIC_CABLES = _("Kable"), _("Kable")
-    CHARGER = _("Ładowarka"), _("Ładowarka")
+    CHARGER = _("Ładowarka do telefonu"), _("Ładowarka do telefonu")
+    ADDITIONAL_CHARGER = _("Ładowarka - inna"), _("Ładowarka - inna")
     ADAPTER = _("Przejściówka"), _("Przejściówka")
     POWER_BANK = _("Powerbank"), _("Powerbank")
     EARPHONES = _("Słuchawki"), _("Słuchawki")
@@ -76,7 +78,9 @@ class ElectronicsChecklist(models.TextChoices):
     MOUSE = _("Mysz"), _("Mysz")
     MOUSEPAD = _("Podkładka pod mysz"), _("Podkładka pod mysz")
     LAPTOP_PAD = _("Podkładka pod laptop"), _("Podkładka pod laptop")
+    MP3_PLAYER = _("Odtwarzacz MP3"), _("Odtwarzacz MP3")
     BATTERIES = _("Baterie"), _("Baterie")
+    EBOOK = _("Ebook"), _("Ebook")
 
 
 class UsefulStaffChecklist(models.TextChoices):
@@ -136,9 +140,8 @@ class HikingChecklist(models.TextChoices):
 class CyclingChecklist(models.TextChoices):
     SHOES = _("Buty rowerowe"), _("Buty rowerowe")
     GLOVES = _("Rękawiczki rowerowe"), _("Rękawiczki rowerowe")
-    JACKET = _("Kurtka/bezrękawnik"), _("Kurtka/bezrękawnik")
-    GLASSES = _("Okulary/google"), _("Okulary/google")
     HELMET = _("Kask"), _("Kask")
+    GLASSES = _("Okulary/google"), _("Okulary/google")
     CAP = _("Czapka"), _("Czapka")
     HEADBAND = _("Opaska"), _("Opaska")
     CYCLING_SHORTS = _("Spodenki rowerowe"), _("Spodenki rowerowe")
@@ -153,6 +156,7 @@ class CyclingChecklist(models.TextChoices):
     TUBE = _("Zapasowa dętka"), _("Zapasowa dętka")
     LOCK = _("Zapięcie rowerowe"), _("Zapięcie rowerowe")
     FENDER = _("Błotnik"), _("Błotnik")
+    JACKET = _("Kurtka/bezrękawnik"), _("Kurtka/bezrękawnik")
 
 
 class CampingChecklist(models.TextChoices):
@@ -164,7 +168,6 @@ class CampingChecklist(models.TextChoices):
     SLEEPING_BAG_INSERT = _("Wkładka"), _("Wkładka")
     MATTRESS = _("Materac"), _("Materac")
     MATTRESS_PUMP = _("Pompka do materaca"), _("Pompka do materaca")
-    MOSQUITO_REPELLENT = _("Środek przeciw komarom"), _("Środek przeciw komarom")
     SPORK = _("Spork"), _("Spork")
     TOURIST_STOVE = _("Kuchenka"), _("Kuchenka")
     GAS = _("Gaz"), _("Gaz")
@@ -175,6 +178,7 @@ class CampingChecklist(models.TextChoices):
     TOURIST_TABLE = _("Stół"), _("Stół")
     FLASHLIGHT = _("Latarka"), _("Latarka")
     HEADLAMP = _("Czołówka"), _("Czołówka")
+    MOSQUITO_REPELLENT = _("Środek przeciw komarom"), _("Środek przeciw komarom")
 
 
 class FishingChecklist(models.TextChoices):
@@ -191,19 +195,43 @@ class FishingChecklist(models.TextChoices):
 
 
 class SunbathingChecklist(models.TextChoices):
-    SUNGLASSES = _("Okulary przeciwsłoneczne"), _("Okulary przeciwsłoneczne")
     SUNSCREEN_CREAM = _("Krem do opalania"), _("Krem do opalania")
     BEACH_TOWEL = _("Ręcznik plażowy"), _("Ręcznik plażowy")
+    SWIMSUIT = _("Strój kąpielowy"), _("Strój kąpielowy")
     FLIP_FLOPS = _("Klapki"), _("Klapki")
     HEADGEAR = _("Nakrycie głowy"), _("Nakrycie głowy")
     BEACH_SUPPLIES = _("Przybory plażowe"), _("Przybory plażowe")
-    SWIMSUIT = _("Strój kąpielowy"), _("Strój kąpielowy")
+    SUNGLASSES = _("Okulary przeciwsłoneczne"), _("Okulary przeciwsłoneczne")
 
 
 class BusinessChecklist(models.TextChoices):
+    SUIT = _("Ubiór służbowy / wieczorowy"), _("Ubiór służbowy / wieczorowy")
     PAPERS = _("Dokumenty"), _("Dokumenty")
     BADGE = _("Karty dostępu"), _("Karty dostępu")
-    SUIT = _("Ubiór służbowy / wieczorowy"), _("Ubiór służbowy / wieczorowy")
+
+
+class HospitalChecklist(models.TextChoices):
+    SNEAKERS = _("Trampki"), _("Trampki")
+    SLIPPERS = _("Klapki"), _("Klapki")
+    BATHROBE = _("Szlafrok"), _("Szlafrok")
+    TOWEL= _("Ręcznik"), _("Ręcznik")
+    ADDITIONAL_TOWEL = _("Zapasowy ręcznik"), _("Zapasowy ręcznik")
+    PAJAMAS = _("Piżama"), _("Piżama")
+    ADDITIONAL_PAJAMAS = _("Zapasowa piżama"), _("Zapasowa piżama")
+    TRACKSUIT = _("Dres"), _("Dres")
+    SHORTS = _("Szorty"), _("Szorty")
+    UNDERWEAR = _("Bielizna"), _("Bielizna")
+    PILLOW = _("Poduszka"), _("Poduszka")
+    BLANKET = _("Koc"), _("Koc")
+    MED_HISTORY = _("Historia choroby"), _("Historia choroby")
+    MEDICINES = _("Leki"), _("Leki")
+    MUG = _("Kubek"), _("Kubek")
+    SPOON = _("Łyżeczka"), _("Łyżeczka")
+    WATER = _("Woda"), _("Woda")
+    PROVISIONS = _("Prowiant"), _("Prowiant")
+    DIRT_BAG = _("Worek na brudy"), _("Worek na brudy")
+    TRASH_BAG = _("Worek na śmieci"), _("Worek na śmieci")
+    EARPLUGS = _("Stopery do uszu"), _("Stopery do uszu")
 
 
 class CostGroup(models.TextChoices):

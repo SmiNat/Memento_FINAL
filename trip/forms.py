@@ -17,6 +17,7 @@ from .enums import (
     FishingChecklist,
     SunbathingChecklist,
     BusinessChecklist,
+    HospitalChecklist,
     CostGroup,
 )
 from .models import (Trip, TripReport, TripCost, TripPersonalChecklist,
@@ -314,6 +315,12 @@ class TripAdvancedChecklistForm(forms.ModelForm):
         choices=BusinessChecklist.choices,
         widget=forms.CheckboxSelectMultiple()
         )
+    hospital = forms.MultipleChoiceField(
+        label=_("Szpital"),
+        required=False,
+        choices=HospitalChecklist.choices,
+        widget=forms.CheckboxSelectMultiple()
+        )
 
     class Meta:
         model = TripAdvancedChecklist
@@ -327,6 +334,7 @@ class TripAdvancedChecklistForm(forms.ModelForm):
             "fishing",
             "sunbathing",
             "business",
+            "hospital",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -380,6 +388,11 @@ class TripAdvancedChecklistForm(forms.ModelForm):
         sunbathing = self.cleaned_data.get("sunbathing", None)
         if sunbathing:
             return ",".join(sunbathing)
+
+    def clean_hospital(self):
+        hospital = self.cleaned_data.get("hospital", None)
+        if hospital:
+            return ",".join(hospital)
 
 ###############################################################################
 

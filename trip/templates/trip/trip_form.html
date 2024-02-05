@@ -130,12 +130,12 @@
                             <fieldset>
                                 <legend><div class="label_field">{{ field.label }}:</div></legend>
                                 {% for element in field %}
-                                    {% if forloop.counter < 4 %}
+                                    {% comment %}<!-- {% if forloop.counter < 4 %}
                                     {% else %}
                                     {% if forloop.counter0|divisibleby:3 %}
                                         <br>
                                         {% endif %}
-                                    {% endif %}
+                                    {% endif %} -->{% endcomment %}
                                     <div class="inline">{{ element }}</div>
                                 {% endfor %}
                                 {% if field.help_text %}<br><div class="help_text_field">{{ field.help_text }}</div>{% endif %}
@@ -162,12 +162,6 @@
                                 {% if field.label == 'Podstawowe leki' or field.label == 'Dodatkowe leki' %}
                                     <div class="label_field">{{ field.label }}:</div>
                                     {% for element in field %}
-                                        {% if forloop.counter < 4 %}
-                                        {% else %}
-                                        {% if forloop.counter0|divisibleby:3 %}
-                                            <br>
-                                            {% endif %}
-                                        {% endif %}
                                         <div class="value_field">{{ element }}</div>
                                     {% endfor %}
                                     {% if field.help_text %}<br><div class="help_text_field">{{ field.help_text }}</div>{% endif %}
@@ -205,16 +199,16 @@
                 <div class="form_field">
                     {% for field in form_advanced %}
                     <div class="one_field">
-                        {% if field.label == 'Trekking' or field.label == 'Wspinaczka' or field.label == 'Rower' or field.label == 'Camping' or field.label == 'Wędkarstwo' or field.label == 'Plażowanie' or field.label == 'Wyjazd służbowy' %}
+                        {% if field.label == 'Trekking' or field.label == 'Wspinaczka' or field.label == 'Rower' or field.label == 'Camping' or field.label == 'Wędkarstwo' or field.label == 'Plażowanie' or field.label == 'Wyjazd służbowy' or field.label == 'Szpital' %}
                             <fieldset>
                                 <legend><div class="label_field">{{ field.label }}:</div></legend>
                                 {% for element in field %}
-                                    {% if forloop.counter < 4 %}
+                                    {% comment %}<!-- {% if forloop.counter < 4 %}
                                     {% else %}
                                     {% if forloop.counter0|divisibleby:3 %}
                                         <br>
                                         {% endif %}
-                                    {% endif %}
+                                    {% endif %} -->{% endcomment %}
                                     <div class="inline">{{ element }}</div>
                                 {% endfor %}
                                 {% if field.help_text %}<br><div class="help_text_field">{{ field.help_text }}</div>{% endif %}

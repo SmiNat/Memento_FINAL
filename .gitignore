@@ -26,13 +26,20 @@ venv.bak
 *.sqlite*
 */*.sqlite3
 *.rdb
+*.json
+!example_testuser.json/.gitkeep
+# info.txt
+# memento.txt
+# test.txt
 data.json
 backup.json
 db_fixtures.json
 private_info.txt
-**/static/uploads
-**/static/test
-**static/logs
+# **/static/uploads
+# **/static/test
+# **static/logs
+static/uploads/*
+static/test/*
 
 
 # Python

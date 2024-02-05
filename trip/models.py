@@ -2,13 +2,30 @@ from __future__ import annotations
 import uuid
 
 from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.utils import IntegrityError
 from django.utils.translation import gettext_lazy as _
 
-from .enums import CostGroup
+from .enums import (
+    # TripChoices,
+    # BasicChecklist,
+    # KeysChecklist,
+    # CosmeticsChecklist,
+    # ElectronicsChecklist,
+    # UsefulStaffChecklist,
+    # TrekkingChecklist,
+    # HikingChecklist,
+    # CyclingChecklist,
+    # CampingChecklist,
+    # FishingChecklist,
+    # SunbathingChecklist,
+    # BusinessChecklist,
+    # HospitalChecklist,
+    CostGroup,
+)
 from access.enums import Access
 
 
@@ -372,6 +389,7 @@ class TripAdvancedChecklist(models.Model):
         # choices=BusinessChecklist.choices,
         max_length=500, null=True, blank=True,
     )
+    hospital = models.CharField(_("Szpital"), max_length=500, null=True, blank=True,)
     created = models.DateField(_("Data dodania"), auto_now_add=True)
     updated = models.DateField(_("Data aktualizacji"), auto_now=True)
 
@@ -435,6 +453,12 @@ class TripAdvancedChecklist(models.Model):
         if not self.business:
             return []
         return self.business.split(",")
+
+    def hospital_to_list(self):
+        """Return field values as a list."""
+        if not self.hospital:
+            return []
+        return self.hospital.split(",")
 
     def save(self, *args, **kwargs):
         self.full_clean()
